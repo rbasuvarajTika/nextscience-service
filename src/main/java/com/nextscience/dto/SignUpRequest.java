@@ -1,0 +1,40 @@
+package com.nextscience.dto;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SignUpRequest {
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String confirmPassword;
+    private String otherPassword;
+    private Date passwordUpdatedDate;
+    private String phone;
+    private String address;
+    private String role;
+    private String type;
+    private String city;
+    private String state;
+    private String zip;
+    private String image;
+    private String salesForce;
+  
+    private String createdUser;
+    private Date createdDate;
+    private String updatedUser;
+    private Date updateDate;
+    
+    
+    
+}
