@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	        return new UserDetailsService() {
 	            @Override
 	            public UserDetails loadUserByUsername(String username) {
-	                return userRepository.findByUserMail(username)
+	                return userRepository.findByUserName(username)
 	                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	            }
 	        };

@@ -29,6 +29,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails{
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @Column(name = "USER_ID") 
 	 private int userID;
 	 
 	 @Column(name = "USER_NAME")    

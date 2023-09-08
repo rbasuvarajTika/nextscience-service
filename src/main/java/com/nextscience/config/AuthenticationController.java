@@ -2,6 +2,7 @@ package com.nextscience.config;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.adminSignup(request));
     }
 
-    @PostMapping("/signin/admin")
+    @GetMapping("/signin/admin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignin(request));
     }

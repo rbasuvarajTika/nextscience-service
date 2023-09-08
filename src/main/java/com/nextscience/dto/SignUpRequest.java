@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpRequest {
+	private String userName;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -29,7 +30,6 @@ public class SignUpRequest {
     private String zip;
     private String image;
     private String salesForce;
-  
     private String createdUser;
     private Date createdDate;
     private String updatedUser;

@@ -38,8 +38,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public JwtAuthenticationResponse adminSignin(SigninRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        var user = userRepository.findByUserMail(request.getEmail())
+                new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+        var user = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
@@ -48,6 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public String adminSignup(SignUpRequest request) {
 		 var user = User.builder()
+				 .userName(request.getUserName())
 				 .firstName(request.getFirstName())
 				 .middleName(request.getMiddleName())
 				 .lastName(request.getLastName())
