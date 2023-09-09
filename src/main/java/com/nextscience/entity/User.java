@@ -63,7 +63,7 @@ public class User implements UserDetails{
 	 private String userMobile;
 	 
 	 @Column(name = "USER_EMP_ID")
-	 private String empID;
+	 private String UserEmpID;
 	 
 	 @Column(name = "ADDRESS1")
 	 private String address1;

@@ -1,11 +1,10 @@
 package com.nextscience.service;
 
-import com.nextscience.dto.JwtAuthenticationResponse;
-import com.nextscience.dto.SignUpRequest;
-import com.nextscience.dto.SigninRequest;
+import com.nextscience.dto.response.JwtAuthenticationResponse;
+import com.nextscience.dto.request.SignUpRequest;
+import com.nextscience.dto.request.SigninRequest;
 
 public interface AuthenticationService {
-    String UserSignup(SignUpRequest request);
 
     JwtAuthenticationResponse adminSignin(SigninRequest request);
 

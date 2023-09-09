@@ -1,4 +1,4 @@
-package com.nextscience.config;
+package com.nextscience.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextscience.dto.JwtAuthenticationResponse;
-import com.nextscience.dto.SignUpRequest;
-import com.nextscience.dto.SigninRequest;
+import com.nextscience.dto.response.JwtAuthenticationResponse;
+import com.nextscience.dto.request.SignUpRequest;
+import com.nextscience.dto.request.SigninRequest;
 import com.nextscience.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,17 +21,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
-    @PostMapping("/signup/user")
-    public ResponseEntity<String> userSignup(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.UserSignup(request));
-    }
     
-    @PostMapping("/signup/admin")
+    
+    @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignUpRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignup(request));
     }
 
-    @GetMapping("/signin/admin")
+    @GetMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignin(request));
     }

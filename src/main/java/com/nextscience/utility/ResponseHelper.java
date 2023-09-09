@@ -1,6 +1,6 @@
 package com.nextscience.utility;
 
-import com.nextscience.dto.NSServiceResponse;
+import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 

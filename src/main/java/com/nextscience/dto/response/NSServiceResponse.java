@@ -1,4 +1,4 @@
-package com.nextscience.dto;
+package com.nextscience.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.nextscience.dto.FaxRxResponse;
-import com.nextscience.dto.PageResponseDTO;
+import com.nextscience.dto.response.FaxRxResponse;
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.FaxRxService;
 

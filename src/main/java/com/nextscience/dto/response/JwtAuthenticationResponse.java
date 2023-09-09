@@ -1,4 +1,4 @@
-package com.nextscience.dto;
+package com.nextscience.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SigninRequest {
-    private String userName;
-    private String password;
+public class JwtAuthenticationResponse {
+    private String token;
 }

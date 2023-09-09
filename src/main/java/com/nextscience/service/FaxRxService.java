@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 
-import com.nextscience.dto.FaxRxResponse;
-import com.nextscience.dto.PageResponseDTO;
+import com.nextscience.dto.response.FaxRxResponse;
+import com.nextscience.dto.response.PageResponseDTO;
 
 public interface FaxRxService {
 

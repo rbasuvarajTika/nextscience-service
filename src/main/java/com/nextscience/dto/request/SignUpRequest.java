@@ -1,4 +1,4 @@
-package com.nextscience.dto;
+package com.nextscience.dto.request;
 
 import java.util.Date;
 
@@ -34,7 +34,4 @@ public class SignUpRequest {
     private Date createdDate;
     private String updatedUser;
     private Date updateDate;
-    
-    
-    
 }

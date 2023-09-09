@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-import com.nextscience.dto.FaxRxResponse;
 
 @Data
 @Entity

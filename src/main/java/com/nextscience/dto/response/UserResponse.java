@@ -1,8 +1,8 @@
-package com.nextscience.dto;
+package com.nextscience.dto.response;
 
 
 
-public class UserDto{
+public class UserResponse{
 	
 	private int user_Id;
      private String first_name;
@@ -12,7 +12,7 @@ public class UserDto{
     private String type;
     private String status;
 
-    public UserDto(int user_ID, String first_name, String last_name,String phone, String role, String type,String status) {
+    public UserResponse(int user_ID, String first_name, String last_name,String phone, String role, String type,String status) {
         this.user_Id = user_ID;
         this.first_name = first_name;
         this.last_name = last_name;

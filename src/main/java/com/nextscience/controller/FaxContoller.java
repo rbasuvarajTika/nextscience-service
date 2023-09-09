@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextscience.dto.FaxRxResponse;
-import com.nextscience.dto.NSServiceResponse;
-import com.nextscience.dto.PageResponseDTO;
+import com.nextscience.dto.response.FaxRxResponse;
+import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -26,7 +26,7 @@ public class FaxContoller {
 	private FaxRxService faxRxService;
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/custom-query")
+	@GetMapping("/faxList")
     public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
