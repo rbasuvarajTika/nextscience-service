@@ -22,13 +22,12 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     
-    
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignUpRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignup(request));
     }
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignin(request));
     }

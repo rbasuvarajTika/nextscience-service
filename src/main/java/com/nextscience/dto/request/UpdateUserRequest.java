@@ -47,6 +47,7 @@ public class UpdateUserRequest {
 	 private String outlookSecretCode;
 	 private String outlookEmailId;
 	 private String salesForce;
+	 private String otherPassword;
 	 private Date passwordUpdatedDate;
 	 private String userStatusFlag;
 	 private String userType;

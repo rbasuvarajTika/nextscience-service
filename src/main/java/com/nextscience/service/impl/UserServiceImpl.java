@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
+import com.nextscience.dto.response.FaxRxResponse;
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
 import com.nextscience.enums.ErrorCodes;
@@ -111,13 +116,13 @@ public class UserServiceImpl implements UserService {
 					 .passwordUpdatedDate(request.getPasswordUpdatedDate())
 					 .userStatusFlag(request.getUserStatusFlag())
 					 .userType(request.getUserType())
-					// .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
+					 .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
 					 .userImageUrl(request.getUserImageUrl())
 					 .createdUser(request.getCreatedUser())
 					 .createdDate(request.getCreatedDate())
 					 .updatedUser(request.getUpdatedUser())
 					 .updatedDate(request.getUpdatedDate()).build();
-	    	user.setUserID(id);
+	    	user.setUserId(id);
 			 userRepository.save(user);
 	    }
 		return "User updated successfully";
@@ -128,7 +133,7 @@ public List<UserResponse> getUserDetail() {
 		try {
 			List<User> users = userRepository.findAll(); // Fetch all users from the table
 			return users.stream()
-					.map(user -> new UserResponse(user.getUserID(), user.getFirstName(), user.getLastName(),
+					.map(user -> new UserResponse(user.getUserId(), user.getFirstName(), user.getLastName(),
 							user.getPhone(), user.getRole(), user.getUserType(), user.getUserStatusFlag()))
 					.collect(Collectors.toList());
 		} catch (Exception ex) {
@@ -160,7 +165,7 @@ public List<UserResponse> getUserDetail() {
 	    if(existingUser !=null) {
 	    	User user= User.builder()
 		    .password(passwordEncoder.encode(request.getNewPassword())).build();
-	    	user.setUserID(id);
+	    	user.setUserId(id);
 			 userRepository.save(user);
 	    }
 		return "Password changed successfully";
@@ -173,7 +178,7 @@ public List<UserResponse> getUserDetail() {
 	    if(existingUser !=null) {
 	    	User user= User.builder()
 		    .userType("Deactivated").build();
-	    	user.setUserID(id);
+	    	user.setUserId(id);
 			userRepository.save(user);
 	    }
 		return "User deactivated successfully";	}
@@ -198,5 +203,24 @@ public List<UserResponse> getUserDetail() {
       javaMailSender.send(message);
 	}
 
-	
+	@Override
+	public PageResponseDTO fetchUserList(PageRequest page) {
+		Page<User> listDetails = userRepository.findAll(page);
+		List<User> listGetDetails = listDetails.getContent();
+		Page<User> pageOfFaxResponses = new PageImpl<User>(listGetDetails, page, listDetails.getTotalElements());
+
+		PageResponseDTO pageResponse = new PageResponseDTO();
+		pageResponse.setData(pageOfFaxResponses.getContent());
+		pageResponse.setFirst(pageOfFaxResponses.isFirst());
+		pageResponse.setLast(pageOfFaxResponses.isLast());
+		pageResponse.setPageNumber(pageOfFaxResponses.getNumber());
+		pageResponse.setRecordCount(pageOfFaxResponses.getNumberOfElements());
+		pageResponse.setRecordOffset(pageOfFaxResponses.getPageable().getOffset());
+		pageResponse.setRequestedCount(pageOfFaxResponses.getSize());
+		pageResponse.setTotalPages(pageOfFaxResponses.getTotalPages());
+		pageResponse.setTotalRecords(pageOfFaxResponses.getTotalElements());
+		return pageResponse;
+	}
+
+	 
 }

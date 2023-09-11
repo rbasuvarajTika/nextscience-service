@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/h2-console/**","/api/v1/auth/signup/admin","/api/v1/auth/signin/admin")
+                .authorizeHttpRequests(request -> request.requestMatchers("/h2-console/**","/api/v1/auth/signup","/api/v1/auth/signin")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
