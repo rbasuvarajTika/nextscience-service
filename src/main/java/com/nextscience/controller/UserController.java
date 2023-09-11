@@ -3,6 +3,8 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
+import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
@@ -75,7 +79,24 @@ public class UserController {
         return ResponseEntity.ok("Your UserName is: "+ userName);
     }
 	
-	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/userList")
+    public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
+    		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
+    		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+    		@RequestParam(value = "sortBy", defaultValue = "createdDate", required = false) String sortBy,            
+    		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType ){ 
+		 PageRequest page = null;       
+		 if ("desc".equals(orderType)) {    
+			 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());    
+			 } else {               
+				 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending()); 
+				 }
+		 PageResponseDTO response =userService.fetchUserList(page);
+		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
+				response, "Successfully ", "Error");
+    }
 	
 
 }

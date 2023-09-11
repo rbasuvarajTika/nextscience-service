@@ -205,10 +205,7 @@ public List<UserResponse> getUserDetail() {
 
 	@Override
 	public PageResponseDTO fetchUserList(PageRequest page) {
-		Page<User> listDetails = userRepository.findAll(page);
-		List<User> listGetDetails = listDetails.getContent();
-		Page<User> pageOfFaxResponses = new PageImpl<User>(listGetDetails, page, listDetails.getTotalElements());
-
+		Page<User> pageOfFaxResponses = userRepository.findAll(page);
 		PageResponseDTO pageResponse = new PageResponseDTO();
 		pageResponse.setData(pageOfFaxResponses.getContent());
 		pageResponse.setFirst(pageOfFaxResponses.isFirst());

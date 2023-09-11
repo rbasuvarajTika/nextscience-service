@@ -31,6 +31,5 @@ public interface UserService {
 	String getUserName(String email);
 	
 	public PageResponseDTO fetchUserList(PageRequest page);
-	
-	
+
 }
