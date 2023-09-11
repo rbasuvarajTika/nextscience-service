@@ -47,12 +47,9 @@ public class UpdateUserRequest {
 	 private String outlookSecretCode;
 	 private String outlookEmailId;
 	 private String salesForce;
-	 private String password;
-	 private String confirmPassword;
 	 private Date passwordUpdatedDate;
 	 private String userStatusFlag;
 	 private String userType;
-	 private String otherPassword;
 	 private String userImageUrl;
 	 private String createdUser;
 	 private Date createdDate;

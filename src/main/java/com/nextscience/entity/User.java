@@ -27,7 +27,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "DIM_USER", schema = "dbo")
 public class User implements UserDetails{
-	 @Id
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name = "USER_ID") 
 	 private int userID;

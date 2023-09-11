@@ -11,5 +11,10 @@ import com.nextscience.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByUserName(String email);
+    
+    Optional<User> findByUserId(int id);
+
+	User findByUserMail(String email);
+
 
 }

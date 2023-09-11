@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nextscience.dto.request.SignUpRequest;
+import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
@@ -28,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
     private PasswordEncoder passwordEncoder;
     
 
@@ -61,10 +68,10 @@ public class UserServiceImpl implements UserService {
 	    }
 
 	@Override
-	public String updateUser(UpdateUserRequest request) {
+	public String updateUser(UpdateUserRequest request,int id) {
 	    Optional<User> existingUser = userRepository.findByUserName(request.getUserName());
 	    if(existingUser !=null) {
-	    	var user = User.builder()
+	    	User user= User.builder()
 					 .userName(request.getUserName())
 					 .firstName(request.getFirstName())
 					 .middleName(request.getMiddleName())
@@ -99,17 +106,18 @@ public class UserServiceImpl implements UserService {
 					 .outlookSecretCode(request.getOutlookSecretCode())
 					 .outlookEmailId(request.getOutlookEmailId())
 					 .salesForce(request.getSalesForce())
-					 .password(passwordEncoder.encode(request.getPassword()))
-					 .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
+					// .password(passwordEncoder.encode(request.getPassword()))
+					// .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
 					 .passwordUpdatedDate(request.getPasswordUpdatedDate())
 					 .userStatusFlag(request.getUserStatusFlag())
 					 .userType(request.getUserType())
-					 .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
+					// .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
 					 .userImageUrl(request.getUserImageUrl())
 					 .createdUser(request.getCreatedUser())
 					 .createdDate(request.getCreatedDate())
 					 .updatedUser(request.getUpdatedUser())
 					 .updatedDate(request.getUpdatedDate()).build();
+	    	user.setUserID(id);
 			 userRepository.save(user);
 	    }
 		return "User updated successfully";
@@ -145,6 +153,50 @@ public List<UserResponse> getUserDetail() {
             }
         };
     }
+
+	@Override
+	public String updatePassword(UpdatePasswordRequest request, int id) {
+	    Optional<User> existingUser = userRepository.findByUserId(id);
+	    if(existingUser !=null) {
+	    	User user= User.builder()
+		    .password(passwordEncoder.encode(request.getNewPassword())).build();
+	    	user.setUserID(id);
+			 userRepository.save(user);
+	    }
+		return "Password changed successfully";
+	    
+	}
+
+	@Override
+	public String deleteUser(int id) {
+	    Optional<User> existingUser = userRepository.findByUserId(id);
+	    if(existingUser !=null) {
+	    	User user= User.builder()
+		    .userType("Deactivated").build();
+	    	user.setUserID(id);
+			userRepository.save(user);
+	    }
+		return "User deactivated successfully";	}
+
+	@Override
+	public String getUserName(String email) {
+	    User existingUser = userRepository.findByUserMail(email);
+	    if(existingUser == null) {
+	    	return null;
+	    }
+	    
+	    String userName = existingUser.getUsername();
+	    sendUsernameByEmail(email, userName);
+		return userName;
+	}
+
+	private void sendUsernameByEmail(String toEmail, String userName) {
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(toEmail);
+      message.setSubject("");
+      message.setText("Your UserName is: "+ userName);
+      javaMailSender.send(message);
+	}
 
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.nextscience.dto.request.SignUpRequest;
+import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
@@ -19,7 +20,13 @@ public interface UserService {
 
 	UserDetailsService userDetailsService();
 
-	String updateUser(UpdateUserRequest request);
+	String updateUser(UpdateUserRequest request, int id);
+
+	String updatePassword(UpdatePasswordRequest request, int id);
+
+	String deleteUser(int id);
+
+	String getUserName(String email);
 	
 	
 }
