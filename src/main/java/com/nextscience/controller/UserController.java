@@ -98,5 +98,29 @@ public class UserController {
 				response, "Successfully ", "Error");
     }
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/activateUsers")
+    public NSServiceResponse<List<UserResponse>> getActivateusers() {
+		List<UserResponse> ActivateusersList = userService.getActivateusers();
+		/*
+		 * if(ActivateusersList ==null && ActivateusersList.isEmpty()) { return
+		 * NSServiceResponse.notFound().build(); }
+		 */
+		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
+				ActivateusersList, "Successfully ", "Error");   
+		}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/DeactivateUsers")
+    public NSServiceResponse<List<UserResponse>> getDeactivateUsers() {
+		List<UserResponse> deactivateUsersList = userService.getDeactivateUsers();
+		/*
+		 * if(deactivateUsersList ==null && !deactivateUsersList.isEmpty()) { return
+		 * ResponseEntity.notFound().build(); }
+		 */
+		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
+				deactivateUsersList, "Successfully ", "Error");   
+}
+	
 
 }

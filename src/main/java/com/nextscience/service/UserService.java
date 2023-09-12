@@ -32,4 +32,8 @@ public interface UserService {
 	
 	public PageResponseDTO fetchUserList(PageRequest page);
 
+	List<UserResponse> getActivateusers();
+
+	List<UserResponse> getDeactivateUsers();
+
 }

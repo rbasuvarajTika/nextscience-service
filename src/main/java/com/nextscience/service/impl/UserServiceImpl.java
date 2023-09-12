@@ -70,49 +70,57 @@ public class UserServiceImpl implements UserService {
 			
 			  User existingUser = existingUserOptional.get(); 
 				
-				/*
-				 * existingUser.setUserName(request.getUserName()) existingUser
-				 * .SetFirstName(request.getFirstName()) existingUser
-				 * .SetMiddleName(request.getMiddleName()) existingUser
-				 * .SetLastName(request.getLastName()) existingUser
-				 * .SetUserMail(request.getUserMail()) existingUser
-				 * .SetFullName(request.getFullName()) existingUser .SetTitle(request.getTitle())
-				 * existingUser .Role(request.getRole()) existingUser
-				 * .SetUserMail(request.getUserMail()) existingUser .SetPhone(request.getPhone())
-				 * existingUser .SetUserMobile(request.getUserMobile()) existingUser
-				 * .SetUserEmpID(request.getUserEmpID()) existingUser
-				 * .SetAddress1(request.getAddress1()) existingUser
-				 * .address2(request.getAddress2()) existingUser .city(request.getCity())
-				 * existingUser .state(request.getState()) existingUser .zip(request.getZip())
-				 * existingUser .preferredName(request.getPreferredName()) existingUser
-				 * .activeInd(request.getActiveInd()) existingUser
-				 * .userTerr(request.getUserTerr()) existingUser .empId(request.getEmpId())
-				 * existingUser .hireDate(request.getHireDate()) existingUser
-				 * .endDate(request.getEndDate()) existingUser
-				 * .startDate(request.getStartDate()) existingUser
-				 * .admToolsFlag(request.getAdmToolsFlag()) existingUser
-				 * .attendeeFlag(request.getAttendeeFlag()) existingUser
-				 * .bookingUrl(request.getBookingUrl()) existingUser
-				 * .managerEmail(request.getManagerEmail()) existingUser
-				 * .userTimeZone(request.getUserTimeZone()) existingUser
-				 * .userNtId(request.getUserNtId()) existingUser
-				 * .outlookClientId(request.getOutlookClientId()) existingUser
-				 * .outlookSecretCode(request.getOutlookSecretCode()) existingUser
-				 * .outlookEmailId(request.getOutlookEmailId()) existingUser
-				 * .salesForce(request.getSalesForce()) //
-				 * .password(passwordEncoder.encode(request.getPassword())) //
-				 * .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
-				 * existingUser .passwordUpdatedDate(request.getPasswordUpdatedDate())
-				 * existingUser .userStatusFlag(request.getUserStatusFlag()) existingUser
-				 * .userType(request.getUserType()) existingUser
-				 * .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
-				 * existingUser .userImageUrl(request.getUserImageUrl()) existingUser
-				 * .createdUser(request.getCreatedUser()) existingUser
-				 * .createdDate(request.getCreatedDate()) existingUser
-				 * .updatedUser(request.getUpdatedUser()) existingUser
-				 * .updatedDate(request.getUpdatedDate()).build();
-				 */
+				
+				  existingUser.setUserName(request.getUserName());
+				  existingUser.setFirstName(request.getFirstName());
+				   existingUser.setMiddleName(request.getMiddleName());
+				   existingUser .setLastName(request.getLastName());
+				  existingUser .setUserMail(request.getUserMail());
+				  existingUser.setFullName(request.getFullName());
+				   existingUser .setTitle(request.getTitle());
+				  existingUser .setRole(request.getRole()); 
+				  existingUser .setUserMail(request.getUserMail());
+				  existingUser .setPhone(request.getPhone());
+				  existingUser .setPhone(request.getUserMobile()); 
+				  existingUser.setUserEmpID(request.getUserEmpID()) ;
+				  existingUser  .setAddress1(request.getAddress1()); 
+				  existingUser .setAddress2(request.getAddress2()) ;
+				  existingUser .setCity(request.getCity());
+				  existingUser .setState(request.getState()); 
+				  existingUser .setZip(request.getZip());
+				  existingUser .setPreferredName(request.getPreferredName()) ;
+				  existingUser .setActiveInd(request.getActiveInd()) ;
+				  existingUser  .setUserTerr(request.getUserTerr()) ;
+				  existingUser .setEmpId(request.getEmpId());
+				  existingUser .setHireDate(request.getHireDate()); 
+				  existingUser  .setEndDate(request.getEndDate()); 
+				  existingUser .setStartDate(request.getStartDate()); 
+				  existingUser .setAdmToolsFlag(request.getAdmToolsFlag());
+				  existingUser  .setAttendeeFlag(request.getAttendeeFlag()); 
+				  existingUser .setBookingUrl(request.getBookingUrl()); 
+				  existingUser .setManagerEmail(request.getManagerEmail()); 
+				  existingUser .setUserTimeZone(request.getUserTimeZone()) ;
+				  existingUser .setUserNtId(request.getUserNtId()); 
+				  existingUser .setOutlookClientId(request.getOutlookClientId()); 
+				  existingUser.setOutlookSecretCode(request.getOutlookSecretCode());
+				  existingUser .setOutlookEmailId(request.getOutlookEmailId()) ;
+				  existingUser .setSalesForce(request.getSalesForce());
+				  // .(passwordEncoder.encode(request.getPassword()))
+				  //.confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
+				  
+				  existingUser .setUpdatedDate(request.getPasswordUpdatedDate());
+				  existingUser .setUserStatusFlag(request.getUserStatusFlag());
+				  existingUser  .setUserType(request.getUserType()) ;
 				 
+				  existingUser.setOtherPassword(passwordEncoder.encode(request.getOtherPassword()));
+				  
+				  existingUser .setUserImageUrl(request.getUserImageUrl()) ;
+				  existingUser .setCreatedUser(request.getCreatedUser());
+				  existingUser.setCreatedDate(request.getCreatedDate()) ;
+				  existingUser.setUpdatedUser(request.getUpdatedUser()) ;
+				  
+				  existingUser.setUpdatedDate(request.getUpdatedDate());
+				  				 
 			 userRepository.save(existingUser);
 	    }
 		return "User updated successfully";
@@ -123,7 +131,7 @@ public class UserServiceImpl implements UserService {
 			List<User> users = userRepository.findAll(); // Fetch all users from the table
 			return users.stream()
 					.map(user -> new UserResponse(user.getUserId(), user.getFirstName(), user.getLastName(),
-							user.getPhone(), user.getRole(), user.getUserType(), user.getUserStatusFlag()))
+							user.getPhone(), user.getRole(), user.getUserType(), user.getUserStatusFlag(),user.getUsername()))
 					.collect(Collectors.toList());
 		} catch (Exception ex) {
 			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, ex);
@@ -203,6 +211,52 @@ public class UserServiceImpl implements UserService {
 		pageResponse.setTotalPages(pageOfFaxResponses.getTotalPages());
 		pageResponse.setTotalRecords(pageOfFaxResponses.getTotalElements());
 		return pageResponse;
+	}
+
+	@Override
+	public List<UserResponse> getActivateusers() {
+		List<User> userList = userRepository.findAll();
+		
+		
+		List<UserResponse> activeUserList = userList.stream()
+	            .filter(user -> "Active".equals(user.getUserType())) // Filter users with userType "active"
+	            .map(user -> {
+	                UserResponse userResponse = new UserResponse();
+	                userResponse.setUser_Id(user.getUserId());
+	                userResponse.setUserName(user.getUsername());
+	                userResponse.setFirst_name(user.getFirstName());
+	                userResponse.setLast_name(user.getLastName());
+	                userResponse.setPhone(user.getPhone());
+	                userResponse.setRole(user.getRole());
+	                userResponse.setType(user.getUserType());
+	                //userResponse.setStatus(user.getUserStatusFlag());
+	                return userResponse;
+	            })
+	            .collect(Collectors.toList()); 
+	    return activeUserList;
+	}
+
+	@Override
+	public List<UserResponse> getDeactivateUsers() {
+       List<User> userList = userRepository.findAll();
+		
+		
+		List<UserResponse> deactiveUserList = userList.stream()
+	            .filter(user -> "Deactivated".equals(user.getUserType())) // Filter users with userType "active"
+	            .map(user -> {
+	                UserResponse userResponse = new UserResponse();
+	                userResponse.setUser_Id(user.getUserId());
+	                userResponse.setUserName(user.getUsername());
+	                userResponse.setFirst_name(user.getFirstName());
+	                userResponse.setLast_name(user.getLastName());
+	                userResponse.setPhone(user.getPhone());
+	                userResponse.setRole(user.getRole());
+	                userResponse.setType(user.getUserType());
+	                //userResponse.setStatus(user.getUserStatusFlag());
+	                return userResponse;
+	            })
+	            .collect(Collectors.toList()); 
+	    return deactiveUserList;
 	}
 
 }
