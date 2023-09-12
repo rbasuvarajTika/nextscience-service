@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.nextscience.config.CustomPasswordEncoder;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
@@ -39,97 +40,85 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private JavaMailSender javaMailSender;
-	
-    private PasswordEncoder passwordEncoder;
-    
+
+	// private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private CustomPasswordEncoder passwordEncoder;
 
 	@Override
 	public String createUser(SignUpRequest request) {
-		var user = User.builder()
-				 .userName(request.getUserName())
-				 .firstName(request.getFirstName())
-				 .middleName(request.getMiddleName())
-				 .lastName(request.getLastName())
-				 .userMail(request.getEmail())
-				 .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
-				 .password(passwordEncoder.encode(request.getPassword()))
-				 .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
-				 .passwordUpdatedDate(request.getPasswordUpdatedDate())
-				 .phone(request.getPhone())
-				 .address1(request.getAddress())
-				 .role(request.getRole())
-				 .userType(request.getType())
-				 .city(request.getCity())
-				 .state(request.getState())
-				 .zip(request.getZip())
-				 .userImageUrl(request.getImage())
-				 .salesForce(request.getSalesForce())
-				 .createdUser(request.getCreatedUser())
-				 .createdDate(request.getCreatedDate())
-				 .updatedUser(request.getUpdatedUser())
-				 .updatedDate(request.getUpdateDate()).build();
-		 userRepository.save(user);
-	        return "User created successfully";
-	    }
+		var user = User.builder().userName(request.getUserName()).firstName(request.getFirstName())
+				.middleName(request.getMiddleName()).lastName(request.getLastName()).userMail(request.getEmail())
+				.confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
+				.password(passwordEncoder.encode(request.getPassword()))
+				.otherPassword(passwordEncoder.encode(request.getOtherPassword()))
+				.passwordUpdatedDate(request.getPasswordUpdatedDate()).phone(request.getPhone())
+				.address1(request.getAddress()).role(request.getRole()).userType(request.getType())
+				.city(request.getCity()).state(request.getState()).zip(request.getZip())
+				.userImageUrl(request.getImage()).salesForce(request.getSalesForce())
+				.createdUser(request.getCreatedUser()).createdDate(request.getCreatedDate())
+				.updatedUser(request.getUpdatedUser()).updatedDate(request.getUpdateDate()).build();
+		userRepository.save(user);
+		return "User created successfully";
+	}
 
 	@Override
 	public String updateUser(UpdateUserRequest request,int id) {
-	    Optional<User> existingUser = userRepository.findByUserName(request.getUserName());
-	    if(existingUser !=null) {
-	    	User user= User.builder()
-					 .userName(request.getUserName())
-					 .firstName(request.getFirstName())
-					 .middleName(request.getMiddleName())
-					 .lastName(request.getLastName())
-					 .userMail(request.getUserMail())
-					 .fullName(request.getFullName())
-					 .title(request.getTitle())
-					 .role(request.getRole())
-					 .userMail(request.getUserMail())
-					 .phone(request.getPhone())
-					 .userMobile(request.getUserMobile())
-					 .UserEmpID(request.getUserEmpID())
-					 .address1(request.getAddress1())
-					 .address2(request.getAddress2())
-					 .city(request.getCity())
-					 .state(request.getState())
-					 .zip(request.getZip())
-					 .preferredName(request.getPreferredName())
-					 .activeInd(request.getActiveInd())
-					 .userTerr(request.getUserTerr())
-					 .empId(request.getEmpId())
-					 .hireDate(request.getHireDate())
-					 .endDate(request.getEndDate())
-					 .startDate(request.getStartDate())
-					 .admToolsFlag(request.getAdmToolsFlag())
-					 .attendeeFlag(request.getAttendeeFlag())
-					 .bookingUrl(request.getBookingUrl())
-					 .managerEmail(request.getManagerEmail())
-					 .userTimeZone(request.getUserTimeZone())
-					 .userNtId(request.getUserNtId())
-					 .outlookClientId(request.getOutlookClientId())
-					 .outlookSecretCode(request.getOutlookSecretCode())
-					 .outlookEmailId(request.getOutlookEmailId())
-					 .salesForce(request.getSalesForce())
-					// .password(passwordEncoder.encode(request.getPassword()))
-					// .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
-					 .passwordUpdatedDate(request.getPasswordUpdatedDate())
-					 .userStatusFlag(request.getUserStatusFlag())
-					 .userType(request.getUserType())
-					 .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
-					 .userImageUrl(request.getUserImageUrl())
-					 .createdUser(request.getCreatedUser())
-					 .createdDate(request.getCreatedDate())
-					 .updatedUser(request.getUpdatedUser())
-					 .updatedDate(request.getUpdatedDate()).build();
-	    	user.setUserId(id);
-			 userRepository.save(user);
+	    Optional<User> existingUserOptional = userRepository.findByUserName(request.getUserName());
+	    if(existingUserOptional !=null) {
+			
+			  User existingUser = existingUserOptional.get(); 
+				
+				/*
+				 * existingUser.setUserName(request.getUserName()) existingUser
+				 * .SetFirstName(request.getFirstName()) existingUser
+				 * .SetMiddleName(request.getMiddleName()) existingUser
+				 * .SetLastName(request.getLastName()) existingUser
+				 * .SetUserMail(request.getUserMail()) existingUser
+				 * .SetFullName(request.getFullName()) existingUser .SetTitle(request.getTitle())
+				 * existingUser .Role(request.getRole()) existingUser
+				 * .SetUserMail(request.getUserMail()) existingUser .SetPhone(request.getPhone())
+				 * existingUser .SetUserMobile(request.getUserMobile()) existingUser
+				 * .SetUserEmpID(request.getUserEmpID()) existingUser
+				 * .SetAddress1(request.getAddress1()) existingUser
+				 * .address2(request.getAddress2()) existingUser .city(request.getCity())
+				 * existingUser .state(request.getState()) existingUser .zip(request.getZip())
+				 * existingUser .preferredName(request.getPreferredName()) existingUser
+				 * .activeInd(request.getActiveInd()) existingUser
+				 * .userTerr(request.getUserTerr()) existingUser .empId(request.getEmpId())
+				 * existingUser .hireDate(request.getHireDate()) existingUser
+				 * .endDate(request.getEndDate()) existingUser
+				 * .startDate(request.getStartDate()) existingUser
+				 * .admToolsFlag(request.getAdmToolsFlag()) existingUser
+				 * .attendeeFlag(request.getAttendeeFlag()) existingUser
+				 * .bookingUrl(request.getBookingUrl()) existingUser
+				 * .managerEmail(request.getManagerEmail()) existingUser
+				 * .userTimeZone(request.getUserTimeZone()) existingUser
+				 * .userNtId(request.getUserNtId()) existingUser
+				 * .outlookClientId(request.getOutlookClientId()) existingUser
+				 * .outlookSecretCode(request.getOutlookSecretCode()) existingUser
+				 * .outlookEmailId(request.getOutlookEmailId()) existingUser
+				 * .salesForce(request.getSalesForce()) //
+				 * .password(passwordEncoder.encode(request.getPassword())) //
+				 * .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
+				 * existingUser .passwordUpdatedDate(request.getPasswordUpdatedDate())
+				 * existingUser .userStatusFlag(request.getUserStatusFlag()) existingUser
+				 * .userType(request.getUserType()) existingUser
+				 * .otherPassword(passwordEncoder.encode(request.getOtherPassword()))
+				 * existingUser .userImageUrl(request.getUserImageUrl()) existingUser
+				 * .createdUser(request.getCreatedUser()) existingUser
+				 * .createdDate(request.getCreatedDate()) existingUser
+				 * .updatedUser(request.getUpdatedUser()) existingUser
+				 * .updatedDate(request.getUpdatedDate()).build();
+				 */
+				 
+			 userRepository.save(existingUser);
 	    }
 		return "User updated successfully";
 	}
-	
-	
-public List<UserResponse> getUserDetail() {
+
+	public List<UserResponse> getUserDetail() {
 		try {
 			List<User> users = userRepository.findAll(); // Fetch all users from the table
 			return users.stream()
@@ -140,67 +129,64 @@ public List<UserResponse> getUserDetail() {
 			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, ex);
 		}
 	}
-	
-	
+
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 
-	
 	@Override
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) {
-                return userRepository.findByUserName(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            }
-        };
-    }
+	public UserDetailsService userDetailsService() {
+		return new UserDetailsService() {
+			@Override
+			public UserDetails loadUserByUsername(String username) {
+				return userRepository.findByUserName(username)
+						.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+			}
+		};
+	}
 
 	@Override
 	public String updatePassword(UpdatePasswordRequest request, int id) {
-	    Optional<User> existingUser = userRepository.findByUserId(id);
-	    if(existingUser !=null) {
-	    	User user= User.builder()
-		    .password(passwordEncoder.encode(request.getNewPassword())).build();
-	    	user.setUserId(id);
-			 userRepository.save(user);
-	    }
+		Optional<User> existingUserOptional = userRepository.findByUserId(id);
+		if (existingUserOptional != null) {
+			User existingUser = existingUserOptional.get();
+			existingUser.setPassword(passwordEncoder.encode(request.getNewPassword()));
+			userRepository.save(existingUser);
+		}
 		return "Password changed successfully";
-	    
+
 	}
 
 	@Override
 	public String deleteUser(int id) {
-	    Optional<User> existingUser = userRepository.findByUserId(id);
-	    if(existingUser !=null) {
-	    	User user= User.builder()
-		    .userType("Deactivated").build();
-	    	user.setUserId(id);
-			userRepository.save(user);
-	    }
-		return "User deactivated successfully";	}
+		Optional<User> existingUserOptional = userRepository.findByUserId(id);
+		if (existingUserOptional != null) {
+			User existingUser = existingUserOptional.get();
+			existingUser.setUserType("Deactivated");
+			userRepository.save(existingUser);
+		}
+		return "User deactivated successfully";
+	}
 
 	@Override
 	public String getUserName(String email) {
-	    User existingUser = userRepository.findByUserMail(email);
-	    if(existingUser == null) {
-	    	return null;
-	    }
-	    
-	    String userName = existingUser.getUsername();
-	    sendUsernameByEmail(email, userName);
+		User existingUser = userRepository.findByUserMail(email);
+		if (existingUser == null) {
+			return null;
+		}
+
+		String userName = existingUser.getUsername();
+		// sendUsernameByEmail(email, userName);
 		return userName;
 	}
 
 	private void sendUsernameByEmail(String toEmail, String userName) {
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setTo(toEmail);
-      message.setSubject("");
-      message.setText("Your UserName is: "+ userName);
-      javaMailSender.send(message);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(toEmail);
+		message.setSubject("");
+		message.setText("Your UserName is: " + userName);
+		javaMailSender.send(message);
 	}
 
 	@Override
@@ -219,5 +205,4 @@ public List<UserResponse> getUserDetail() {
 		return pageResponse;
 	}
 
-	 
 }

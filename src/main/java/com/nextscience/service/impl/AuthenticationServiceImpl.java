@@ -2,19 +2,20 @@ package com.nextscience.service.impl;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.nextscience.entity.User;
 
-import com.nextscience.dto.response.JwtAuthenticationResponse;
+import com.nextscience.config.CustomPasswordEncoder;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.SigninRequest;
+import com.nextscience.dto.response.JwtAuthenticationResponse;
+import com.nextscience.entity.User;
 import com.nextscience.repo.UserRepository;
 import com.nextscience.service.AuthenticationService;
 import com.nextscience.service.JwtService;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,9 +23,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+   // private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private final CustomPasswordEncoder passwordEncoder;
+
    
 
     @Override
