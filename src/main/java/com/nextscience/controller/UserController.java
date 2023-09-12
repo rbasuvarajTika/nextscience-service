@@ -70,8 +70,8 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 	
-	@GetMapping("/forgot/user/{id}")
-    public ResponseEntity<String> getUserName(@RequestParam String email) {
+	@GetMapping("/forgot/user/{email}")
+    public ResponseEntity<String> getUserName(@PathVariable String email) {
 		String userName = userService.getUserName(email);
 		if(userName ==null) {
 			return ResponseEntity.notFound().build();
