@@ -16,6 +16,6 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, "
 			+ "a.FAX_DATE as faxDate, a.FAX_NUMBER as faxNumber, " + "a.OCR_STATUS as ocrStatus, a.OCR_DATE as ocrDate "
 			+ "FROM TRN_FAX_RX a " + "JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID)")
-	Page<Object[]> customQuery(PageRequest page);
+	Page<Object[]> fetchFaxList(PageRequest page);
 
 }

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.service.FaxRxPayerService;
 import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -43,4 +45,9 @@ public class FaxContoller {
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
 				response, "Successfully ", "Error");
     }
+	
+	
+	
+	
 }
+

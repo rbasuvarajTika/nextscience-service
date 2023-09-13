@@ -23,7 +23,7 @@ public class FaxRxImpl implements FaxRxService {
 
 	@Override
 	public PageResponseDTO fetchList( PageRequest page) {
-		Page<Object[]> listDetails = faxRxRepository.customQuery(page);
+		Page<Object[]> listDetails = faxRxRepository.fetchFaxList(page);
 		
 		 List<FaxRxResponse> faxRxResponses = listDetails
 			        .getContent()

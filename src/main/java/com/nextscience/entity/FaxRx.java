@@ -130,6 +130,6 @@ public class FaxRx {
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 
-    // Constructors, getters, and setters
+    
 }
 
