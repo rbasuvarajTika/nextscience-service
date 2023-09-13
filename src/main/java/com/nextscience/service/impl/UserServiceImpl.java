@@ -50,9 +50,9 @@ public class UserServiceImpl implements UserService {
 	public String createUser(SignUpRequest request) {
 		var user = User.builder().userName(request.getUserName()).firstName(request.getFirstName())
 				.middleName(request.getMiddleName()).lastName(request.getLastName()).userMail(request.getEmail())
-				.confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
+				//.confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
 				.password(passwordEncoder.encode(request.getPassword()))
-				.otherPassword(passwordEncoder.encode(request.getOtherPassword()))
+				//.otherPassword(passwordEncoder.encode(request.getOtherPassword()))
 				.passwordUpdatedDate(request.getPasswordUpdatedDate()).phone(request.getPhone())
 				.address1(request.getAddress()).role(request.getRole()).userType(request.getType())
 				.city(request.getCity()).state(request.getState()).zip(request.getZip())
@@ -65,13 +65,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateUser(UpdateUserRequest request,int id) {
-	    Optional<User> existingUserOptional = userRepository.findByUserName(request.getUserName());
+	    Optional<User> existingUserOptional = userRepository.findByUserName(request.getUsername());
 	    if(existingUserOptional !=null) {
 			
 			  User existingUser = existingUserOptional.get(); 
 				
-				
-				  existingUser.setUserName(request.getUserName());
+				  existingUser.setUserName(request.getUsername());
 				  existingUser.setFirstName(request.getFirstName());
 				   existingUser.setMiddleName(request.getMiddleName());
 				   existingUser .setLastName(request.getLastName());
@@ -112,7 +111,7 @@ public class UserServiceImpl implements UserService {
 				  existingUser .setUserStatusFlag(request.getUserStatusFlag());
 				  existingUser  .setUserType(request.getUserType()) ;
 				 
-				  existingUser.setOtherPassword(passwordEncoder.encode(request.getOtherPassword()));
+				  existingUser.setOtherPassword(passwordEncoder.encode(request.getPassword()));
 				  
 				  existingUser .setUserImageUrl(request.getUserImageUrl()) ;
 				  existingUser .setCreatedUser(request.getCreatedUser());

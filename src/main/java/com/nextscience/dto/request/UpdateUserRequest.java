@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserRequest {
 	
-	 private int userID;
-	 private String userName;
+	 private int userId;
+	 private String username;
 	 private String firstName;
 	 private String middleName;
 	 private String lastName;
@@ -48,6 +48,7 @@ public class UpdateUserRequest {
 	 private String outlookEmailId;
 	 private String salesForce;
 	 private String otherPassword;
+	 private String password;
 	 private Date passwordUpdatedDate;
 	 private String userStatusFlag;
 	 private String userType;

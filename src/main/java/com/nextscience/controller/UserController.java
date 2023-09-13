@@ -83,7 +83,7 @@ public class UserController {
 	@GetMapping("/userList")
     public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
-    		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+    		@RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
     		@RequestParam(value = "sortBy", defaultValue = "createdDate", required = false) String sortBy,            
     		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType ){ 
 		 PageRequest page = null;       
