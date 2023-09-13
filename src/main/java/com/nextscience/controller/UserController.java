@@ -52,18 +52,13 @@ public class UserController {
     }
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/getUser")
+	@GetMapping("/getUsersList")
 	public NSServiceResponse<List<UserResponse>> getUserDetail() {
 		List<UserResponse> userDto = userService.getUserDetail();
-		//return ResponseEntity.ok(userDto);
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
 				userDto, "Successfully ", "Error");
 	}
 	
-	@GetMapping("/all")
-	public List<User> getAllUsers() {
-		return userService.findAll();
-	}
 	
 	@PutMapping("/delete/user/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
