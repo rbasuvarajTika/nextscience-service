@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -21,7 +22,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/fax")
+@RequestMapping("/api/v1/fax")
 public class FaxContoller {
 
 	@Autowired
@@ -46,7 +47,15 @@ public class FaxContoller {
 				response, "Successfully ", "Error");
     }
 	
-	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/faxDupe")
+	public NSServiceResponse<List<DupeRxResponse>> executeCustomQuery(){
+    
+		List<DupeRxResponse> response =faxRxService.getDuplicateResponse();
+		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
+				response, "Successfully ", "Error");
+    }
 	
 	
 }

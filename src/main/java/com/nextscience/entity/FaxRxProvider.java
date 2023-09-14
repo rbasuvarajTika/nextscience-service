@@ -4,9 +4,12 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -22,11 +25,13 @@ public class FaxRxProvider {
 	@Column(name = "TRN_FAX_PROVIDER_ID")
 	private Integer trnFaxProviderId;
 	
-	@Column(name = "TRN_FAX_ID")
-	private Integer trnFaxId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TRN_FAX_ID")
+	private FaxRx faxRx;
 	
-	@Column(name = "PROF_ID")
-	private Integer profId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "HCP_ID")
+	private HcpDetails hcpDetails;
 	
 	@Column(name = "PROVIDER_TYPE", length = 25)
 	private Integer providerType;
