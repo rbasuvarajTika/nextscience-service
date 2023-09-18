@@ -17,6 +17,8 @@ public class FaxRx {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    
     @Column(name = "TRN_FAX_ID")
     private Integer trnFaxId;
 
@@ -44,11 +46,13 @@ public class FaxRx {
     @Column(name = "RX_STATUS", length = 25)
     private String rxStatus;
 
-    @Column(name = "PATIENT_ID")
-    private Integer patientId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PATIENT_ID")
+    private PatientDetails patientDetails;
 
-    @Column(name = "ACCOUNT_ID")
-    private Integer accountId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AccountDetails accountDetails;
 
     @Column(name = "PROF_ID")
     private Integer profId;
@@ -114,7 +118,7 @@ public class FaxRx {
     private String ocrStatus;
 
     @Column(name = "OCR_DATE")
-    @Temporal(TemporalType.TIMESTAMP) // Use TemporalType.TIMESTAMP for datetime
+    
     private Date ocrDate;
 
     @Column(name = "CASE_ID")
@@ -122,6 +126,12 @@ public class FaxRx {
     
     @Column(name = "FAX_URL")
     private String faxUrl;
+
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CASE_ID")
+    private FaxRxCase faxRxCase;
+
 
     @Column(name = "CREATED_USER", length = 255)
     private String createdUser;

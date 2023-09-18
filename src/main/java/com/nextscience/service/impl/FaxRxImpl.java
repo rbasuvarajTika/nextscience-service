@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxRx;
@@ -66,5 +67,35 @@ public class FaxRxImpl implements FaxRxService {
 		FaxRx faxRxResponse= faxRxRepository.findByFaxId(faxId);
 		return faxRxResponse;
 	}
+
+
+	@Override
+	public List<DupeRxResponse> getDuplicateResponse() {
+		
+		List<Object[]> faxRxResponse= faxRxRepository.getDupeResponse();
+		List<DupeRxResponse> dupeRxResponse = faxRxResponse.stream().map(this::mapToObjectsArray)
+		        .collect(Collectors.toList());
+		      	
+		return dupeRxResponse;
+	}
+	private DupeRxResponse mapToObjectsArray(Object[] row) {
+		DupeRxResponse response = new DupeRxResponse();
+	    response.setTrnFaxId((Integer) row[0]);
+	    response.setFaxId((String) row[1]);
+	    response.setCaseId((Integer) row[2]);
+	    response.setFaxStatus((String) row[3]);
+	    response.setDupeFaxId((String) row[4]);
+	    response.setFaxDate((Date) row[5]);
+	    response.setFaxNumber((String) row[6]);
+	    response.setOcrStatus((String) row[7]);
+	    response.setOcrDate((Date) row[8]);
+	    response.setFaxUrl((String) row[9]);
+	    response.setVerifiedFlag((String) row[10]);
+	    response.setHcpName((String)row[11] );
+	    response.setAccountName((String) row[12]);
+	    response.setPatientName((String) row[13]);
+	    return response;
+	}
+	
 
 }

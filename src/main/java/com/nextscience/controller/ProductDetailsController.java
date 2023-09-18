@@ -2,7 +2,6 @@ package com.nextscience.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,28 +10,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.PatientDetailsResponse;
-import com.nextscience.dto.response.PayerDetailsResponse;
-import com.nextscience.service.PayerDetailsService;
+import com.nextscience.dto.response.PharmacyDetailsResponse;
+import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.service.ProductDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")
-public class PayerDetailsController {
+public class ProductDetailsController {
+	
 	
 	@Autowired
-	PayerDetailsService payerDetailsService;
-
+	ProductDetailsService productDetailsService;
+	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/payer")
-	public NSServiceResponse<List<PayerDetailsResponse>> executeCustomQuery()
+	@GetMapping("/product")
+	public NSServiceResponse<List<ProductDetailsResponse>> executeCustomQuery()
 	{
     		
-			 PageResponseDTO response =payerDetailsService.fetchList();
+			 PageResponseDTO response =productDetailsService.fetchList();
 			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
 					response, "Successfully ", "Error");
 }
+	
 
 }

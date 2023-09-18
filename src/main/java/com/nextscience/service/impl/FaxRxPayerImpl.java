@@ -11,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.dto.response.FaxRxPayerResponse;
+import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxRxPayer;
+import com.nextscience.entity.User;
 import com.nextscience.repo.FaxRxPayerRepository;
 import com.nextscience.service.FaxRxPayerService;
 
@@ -22,22 +24,28 @@ public class FaxRxPayerImpl implements FaxRxPayerService {
 	@Autowired
 	FaxRxPayerRepository faxRxPayerRepository;
 	
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public PageResponseDTO fetchList() {
-		Page<FaxRxPayer> pageOfFaxPayerResponses = (Page<FaxRxPayer>) faxRxPayerRepository.findAll();
+	public PageResponseDTO fetchList( PageRequest page) {
+		Page<FaxRxPayer> listDetails = faxRxPayerRepository.findAll(page);
 		
-		PageResponseDTO pageResponse = new PageResponseDTO();
-		pageResponse.setData(pageOfFaxPayerResponses.getContent());
-		pageResponse.setFirst(pageOfFaxPayerResponses.isFirst());
-		pageResponse.setLast(pageOfFaxPayerResponses.isLast());
-		pageResponse.setPageNumber(pageOfFaxPayerResponses.getNumber());
-		pageResponse.setRecordCount(pageOfFaxPayerResponses.getNumberOfElements());
-		pageResponse.setRecordOffset(pageOfFaxPayerResponses.getPageable().getOffset());
-		pageResponse.setRequestedCount(pageOfFaxPayerResponses.getSize());
-		pageResponse.setTotalPages(pageOfFaxPayerResponses.getTotalPages());
-		pageResponse.setTotalRecords(pageOfFaxPayerResponses.getTotalElements());
-		return pageResponse;
+		
+	  
+	  PageResponseDTO pageResponse = new PageResponseDTO();
+	  pageResponse.setData(listDetails.getContent());
+	  pageResponse.setFirst(listDetails.isFirst());
+	  pageResponse.setLast(listDetails.isLast());
+	  pageResponse.setPageNumber(listDetails.getNumber());
+	  pageResponse.setRecordCount(listDetails.getNumberOfElements());
+	  pageResponse.setRecordOffset(listDetails.getPageable().getOffset(
+	  )); pageResponse.setRequestedCount(listDetails.getSize());
+	  pageResponse.setTotalPages(listDetails.getTotalPages());
+	  pageResponse.setTotalRecords(listDetails.getTotalElements());
+	  return pageResponse; }
+	 
+	/*
+	@Override
+	public List<FaxRxPayer> findAll() {
+		return faxRxPayerRepository.findAll();*/
 	}
 
-}

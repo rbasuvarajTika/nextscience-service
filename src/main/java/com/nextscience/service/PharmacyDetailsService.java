@@ -1,5 +1,7 @@
 package com.nextscience.service;
 
-public interface PharmacyDetailsService {
+import com.nextscience.dto.response.PageResponseDTO;
 
+public interface PharmacyDetailsService {
+	public PageResponseDTO fetchList();
 }

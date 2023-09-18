@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -30,7 +31,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/fax")
+@RequestMapping("/api/v1/fax")
 public class FaxContoller {
 
 	@Autowired
@@ -55,6 +56,7 @@ public class FaxContoller {
 				response, "Successfully ", "Error");
     }
 	
+
 	@GetMapping(value="/faxPdf",produces= MediaType.APPLICATION_PDF_VALUE)
 	public  @ResponseBody byte[]  faxPdfDownload() {
 
@@ -72,6 +74,15 @@ public class FaxContoller {
 	    return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/faxDupe")
+	public NSServiceResponse<List<DupeRxResponse>> executeCustomQuery(){
+    
+		List<DupeRxResponse> response =faxRxService.getDuplicateResponse();
+		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
+				response, "Successfully ", "Error");
+    }
 	
 	@GetMapping(value="/getFaxPdf/{faxId}",produces= MediaType.APPLICATION_PDF_VALUE)
 	public  @ResponseBody byte[]  faxPdfDownload(@PathVariable String faxId) {
