@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Data
 @Entity
@@ -117,16 +119,21 @@ public class FaxRx {
 
     @Column(name = "CASE_ID")
     private Integer caseId;
+    
+    @Column(name = "FAX_URL")
+    private String faxUrl;
 
     @Column(name = "CREATED_USER", length = 255)
     private String createdUser;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "CREATED_DATE")
     private Date createdDate;
 
     @Column(name = "UPDATED_USER", length = 255)
     private String updatedUser;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 

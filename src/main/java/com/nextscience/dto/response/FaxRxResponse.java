@@ -2,6 +2,8 @@ package com.nextscience.dto.response;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +16,11 @@ public class FaxRxResponse {
 	private Integer caseId;
 	private String faxStatus;
 	private String dupeFaxId;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date faxDate;
 	private String faxNumber;
 	private String ocrStatus;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date  ocrDate;
 
 	public FaxRxResponse(Integer trnFaxId, String faxId, Integer caseId, String faxStatus, String dupeFaxId,

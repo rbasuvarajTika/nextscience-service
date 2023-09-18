@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "DIM_USER", schema = "dbo")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements UserDetails{
 	 /**
 	 * 
@@ -161,12 +165,14 @@ public class User implements UserDetails{
 	 @Column(name = "CREATED_USER")
 	 private String createdUser;
 	 
+	 @JsonFormat(pattern="yyyy-MM-dd")
 	 @Column(name = "CREATED_DATE")
 	 private Date createdDate;
 	 
 	 @Column(name = "UPDATED_USER")
 	 private String updatedUser;
 	 
+	 @JsonFormat(pattern="yyyy-MM-dd")
 	 @Column(name = "UPDATED_DATE")
 	 private Date updatedDate;
 

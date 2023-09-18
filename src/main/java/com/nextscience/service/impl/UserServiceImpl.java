@@ -1,10 +1,12 @@
 package com.nextscience.service.impl;
 
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.nextscience.component.EmailBuilder;
 import com.nextscience.config.CustomPasswordEncoder;
+import com.nextscience.dto.request.EmailDto;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
@@ -30,9 +34,15 @@ import com.nextscience.entity.User;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 import com.nextscience.repo.UserRepository;
+import com.nextscience.service.EmailService;
 import com.nextscience.service.UserService;
 
+import io.jsonwebtoken.lang.Collections;
+import jakarta.mail.MessagingException;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -45,6 +55,37 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private CustomPasswordEncoder passwordEncoder;
+	
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Value("${mail.from.email.id}")
+	private String fromEmail;	
+	
+	@Value("${mail.subject.resetpassword.template}")
+	private String resetTemplate;
+	
+	@Value("${mail.subject.email}")
+	private String subject;
+	
+	@Value("${mail.subject.resetpassword.link}")
+	private String resetParams;
+	
+	@Value("${mail.subject.email.resetpassword}")
+	private String resetPassword;
+	
+	@Value("${mail.subject.createUser.template}")
+	private String createUserTemplate;
+	
+	@Value("${mail.subject.createUser.firstName}")
+	private String firstName;
+	
+	@Value("${mail.subject.createUser.userName}")
+	private String userName;
+	
+	@Value("${mail.subject.createUser.userCreated}")
+	private String userCreated;
 
 	@Override
 	public String createUser(SignUpRequest request) {
@@ -60,6 +101,24 @@ public class UserServiceImpl implements UserService {
 				.createdUser(request.getCreatedUser()).createdDate(request.getCreatedDate())
 				.updatedUser(request.getUpdatedUser()).updatedDate(request.getUpdateDate()).build();
 		userRepository.save(user);
+		log.info("Saved user");
+		EmailDto mail = new EmailBuilder()
+				.From(fromEmail)
+				.To("rbasuvaraj@tikamobile.com")
+				.Template(createUserTemplate)
+				.AddContext(subject, "New User Created")
+				.AddContext(firstName, request.getFirstName())
+				.AddContext(userName, request.getUserName())
+				.AddContext(resetParams,"http://localhost:3000/resetpassword"+"/"+user.getUserId())
+				.Subject(resetPassword).createMail();
+		try {
+			log.info("Email Sending");
+			emailService.sendMail(mail, true);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info("Email Successfully Send");
 		return "User created successfully";
 	}
 
@@ -187,6 +246,18 @@ public class UserServiceImpl implements UserService {
 		// sendUsernameByEmail(email, userName);
 		return userName;
 	}
+	
+	@Override
+	public int getUserId(String userName) {
+		User existingUser = userRepository.findByUserName(userName).get();
+		if (existingUser == null) {
+			return 0;
+		}
+
+		int userId = existingUser.getUserId();
+		// sendUsernameByEmail(email, userName);
+		return userId;
+	}
 
 	private void sendUsernameByEmail(String toEmail, String userName) {
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -198,9 +269,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public PageResponseDTO fetchUserList(PageRequest page) {
-		Page<User> pageOfFaxResponses = userRepository.findAll(page);
+		Page<User> pageOfFaxResponses = userRepository.findAllCustom(page);
 		PageResponseDTO pageResponse = new PageResponseDTO();
-		pageResponse.setData(pageOfFaxResponses.getContent());
+		pageResponse.setData(pageOfFaxResponses.getContent().stream().filter(e->e.getUsername()!=null).collect(Collectors.toList()));
 		pageResponse.setFirst(pageOfFaxResponses.isFirst());
 		pageResponse.setLast(pageOfFaxResponses.isLast());
 		pageResponse.setPageNumber(pageOfFaxResponses.getNumber());

@@ -30,6 +30,8 @@ public interface UserService {
 
 	String getUserName(String email);
 	
+	int getUserId(String userName);
+	
 	public PageResponseDTO fetchUserList(PageRequest page);
 
 	List<UserResponse> getActivateusers();

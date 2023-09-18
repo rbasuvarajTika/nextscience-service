@@ -6,10 +6,14 @@ import org.springframework.data.domain.PageRequest;
 
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.FaxRx;
 
 public interface FaxRxService {
 
 
 	public PageResponseDTO fetchList(PageRequest page);
+	
+	public FaxRx fetchListById(String faxId);
+	
 
 }

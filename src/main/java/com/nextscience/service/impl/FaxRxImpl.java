@@ -2,6 +2,7 @@ package com.nextscience.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.FaxRx;
 import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.FaxRxService;
 
@@ -60,6 +62,9 @@ public class FaxRxImpl implements FaxRxService {
 	    return response;
 	}
 	
-	
+	public FaxRx fetchListById(String faxId) {
+		FaxRx faxRxResponse= faxRxRepository.findByFaxId(faxId);
+		return faxRxResponse;
+	}
 
 }

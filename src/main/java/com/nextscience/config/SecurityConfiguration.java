@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/h2-console/**","/api/v1/auth/signup","/api/v1/auth/signin")
+                .authorizeHttpRequests(request -> request.requestMatchers("/fax/faxPdf","/getFaxPdf/**","/h2-console/**","api/v1/users/update/user/password/**","/api/v1/auth/signup","/api/v1/notification/emails/forgotpassword","/api/v1/auth/signin")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

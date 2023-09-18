@@ -17,6 +17,7 @@ import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 import com.nextscience.service.EmailService;
+import com.nextscience.service.UserService;
 import com.nextscience.utility.ResponseHelper;
 
 import jakarta.mail.MessagingException;
@@ -72,17 +73,21 @@ public class EmailController {
 	 *
 	 */
 	
+	@Autowired
+	private  UserService userService;
+	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/forgotpassword")
 	public NSServiceResponse<EmailResponseDto> resetpassword( @RequestBody EmailRequestDto request){
 		try {
 			EmailResponseDto response = new EmailResponseDto();
+			int userid = userService.getUserId(request.getEmail());
 			EmailDto mail = new EmailBuilder()
 					.From(fromEmail)
 					.To(request.getEmail())
 					.Template(resetTemplate)
 					.AddContext(subject, resetPassword)
-					.AddContext(resetParams,request.getResetLink())
+					.AddContext(resetParams,request.getResetLink()+"/"+userid)
 					.Subject(resetPassword).createMail();
 			emailService.sendMail(mail, true);
 			response.setMessage("Email Sent Successfully");
