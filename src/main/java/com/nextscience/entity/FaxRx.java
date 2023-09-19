@@ -16,9 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class FaxRx {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "TRN_FAX_ID")
     private Integer trnFaxId;
 
@@ -118,11 +116,8 @@ public class FaxRx {
     private String ocrStatus;
 
     @Column(name = "OCR_DATE")
-    
     private Date ocrDate;
 
-    @Column(name = "CASE_ID")
-    private Integer caseId;
     
     @Column(name = "FAX_URL")
     private String faxUrl;
