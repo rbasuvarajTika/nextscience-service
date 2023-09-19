@@ -19,31 +19,15 @@ public class AccountDetailsImpl implements AccountDetailsService{
 	
 	@Autowired
 	AccountDetailsRepository accountDetailsRepository;
-	
-	
-	@Override
-	public PageResponseDTO fetchList( PageRequest page) {
-		Page<AccountDetails> listDetails = accountDetailsRepository.findAll(page);
-		PageResponseDTO pageResponse = new PageResponseDTO();
-		pageResponse.setData(listDetails.getContent());
-		pageResponse.setFirst(listDetails.isFirst());
-		pageResponse.setLast(listDetails.isLast());
-		pageResponse.setPageNumber(listDetails.getNumber());
-		pageResponse.setRecordCount(listDetails.getNumberOfElements());
-		pageResponse.setRecordOffset(listDetails.getPageable().getOffset());
-		pageResponse.setRequestedCount(listDetails.getSize());
-		pageResponse.setTotalPages(listDetails.getTotalPages());
-		pageResponse.setTotalRecords(listDetails.getTotalElements());
-		return pageResponse;
-	}
-
 
 	@Override
-	public List<AccountDetailsResponse> getResponse() {
+	public List<AccountDetails> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return accountDetailsRepository.findAll();
 	}
-
+	
+	
+	
 	
 
 }

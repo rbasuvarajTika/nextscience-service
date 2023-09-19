@@ -86,6 +86,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Value("${mail.subject.createUser.userCreated}")
 	private String userCreated;
+	
+	private String userStatusFlag;
 
 	@Override
 	public String createUser(SignUpRequest request) {

@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.FaxRxPayerResponse;
+import com.nextscience.dto.response.FaxRxWoundProductInfoResponse;
 import com.nextscience.dto.response.HcpDetailsResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.FaxRxWoundProductInfo;
+import com.nextscience.entity.HcpDetails;
 import com.nextscience.service.HcpDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -25,13 +28,13 @@ public class HcpDetailsController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/hcp")
-	public NSServiceResponse<List<HcpDetailsResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =hcpDetailsService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
+	public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail()
+	  
+	{ 
+		List<HcpDetails> hcpInfo = hcpDetailsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<HcpDetailsResponse>(), hcpInfo, "Successfully ", "Error");
+	  }
+	
 
 }

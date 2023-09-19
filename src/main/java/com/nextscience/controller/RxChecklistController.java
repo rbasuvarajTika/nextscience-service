@@ -12,6 +12,8 @@ import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductDetailsResponse;
 import com.nextscience.dto.response.RxChecklistResponse;
+import com.nextscience.entity.ProductDetails;
+import com.nextscience.entity.RxChecklist;
 import com.nextscience.service.RxChecklistService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -26,13 +28,13 @@ public class RxChecklistController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/rxChecklist")
-	public NSServiceResponse<List<RxChecklistResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =rxChecklistService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
+	public NSServiceResponse<List<RxChecklistResponse>>getchecklistDetail()
+	  
+	{ 
+		List<RxChecklist> checkList = rxChecklistService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<RxChecklistResponse>(), checkList, "Successfully ", "Error");
+	  }
 }
 	
-}
+

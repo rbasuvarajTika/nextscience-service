@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.AccountDetailsResponse;
+import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxProviderResponse;
 import com.nextscience.dto.response.FaxRxWoundInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.AccountDetails;
+import com.nextscience.entity.FaxRxWoundInfo;
 import com.nextscience.service.FaxRxProviderService;
 import com.nextscience.service.FaxRxWoundInfoService;
 import com.nextscience.utility.ResponseHelper;
@@ -26,14 +30,13 @@ public class FaxRxWoundInfoController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/woundList")
-	public NSServiceResponse<List<FaxRxWoundInfoResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =faxRxWoundInfoService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
+	public NSServiceResponse<List<FaxRxWoundInfoResponse>>getWoundDetail()
+	  
+	{ 
+		List<FaxRxWoundInfo> woundInfo = faxRxWoundInfoService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<FaxRxWoundInfoResponse>(), woundInfo, "Successfully ", "Error");
+	  }
 	
 
 }

@@ -16,6 +16,7 @@ import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.AccountDetails;
 import com.nextscience.service.AccountDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -29,17 +30,13 @@ public class AccountDetailsController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/account")
     
-	public NSServiceResponse<List<AccountDetailsResponse>> account()
-			{
-	
-			
-		    
-				List<AccountDetailsResponse> response =accountDetailsService.getResponse();
-				//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-				return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-						response, "Successfully ", "Error");
-		    }
-
+	public NSServiceResponse<List<AccountDetailsResponse>>getAccountDetail()
+	  
+	{ 
+		List<AccountDetails> account = accountDetailsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<AccountDetailsResponse>(), account, "Successfully ", "Error");
+	  }
 	}	
 	
 

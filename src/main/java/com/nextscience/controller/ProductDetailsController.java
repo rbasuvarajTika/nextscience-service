@@ -12,6 +12,8 @@ import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.PharmacyDetailsResponse;
 import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.entity.PharmacyDetails;
+import com.nextscience.entity.ProductDetails;
 import com.nextscience.service.ProductDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -26,14 +28,13 @@ public class ProductDetailsController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/product")
-	public NSServiceResponse<List<ProductDetailsResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =productDetailsService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
+	public NSServiceResponse<List<ProductDetailsResponse>>getProductDetail()
+	  
+	{ 
+		List<ProductDetails> product = productDetailsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<ProductDetailsResponse>(), product, "Successfully ", "Error");
+	  }
 	
 
 }

@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.FaxPrescriptionsResponse;
+import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxChecklistResponse;
+import com.nextscience.entity.FaxPrescriptions;
+import com.nextscience.entity.FaxRxProvider;
 import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -25,14 +29,13 @@ public class FaxPrescriptionsController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/faxPrescriptions")
-	public NSServiceResponse<List<RxChecklistResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =faxPrescriptionsService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
+	public NSServiceResponse<List<FaxPrescriptionsResponse>>getPrescriptionDetail()
+	  
+	{ 
+		List<FaxPrescriptions> prescription = faxPrescriptionsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<FaxPrescriptionsResponse>(), prescription, "Successfully ", "Error");
+	  }
 	
 	
 
