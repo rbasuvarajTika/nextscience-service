@@ -13,6 +13,8 @@ import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.PatientDetailsResponse;
 import com.nextscience.dto.response.PayerDetailsResponse;
+import com.nextscience.entity.PatientDetails;
+import com.nextscience.entity.PayerDetails;
 import com.nextscience.service.PayerDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -26,13 +28,13 @@ public class PayerDetailsController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/payer")
-	public NSServiceResponse<List<PayerDetailsResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =payerDetailsService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
+
+	public NSServiceResponse<List<PayerDetailsResponse>>getPayerDetail()
+	  
+	{ 
+		List<PayerDetails> payerDetails = payerDetailsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<PayerDetailsResponse>(), payerDetails, "Successfully ", "Error");
+	  }
 
 }

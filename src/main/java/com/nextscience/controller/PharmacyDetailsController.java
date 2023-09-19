@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.PayerDetailsResponse;
 import com.nextscience.dto.response.PharmacyDetailsResponse;
+import com.nextscience.entity.AccountDetails;
+import com.nextscience.entity.PharmacyDetails;
 import com.nextscience.service.PharmacyDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -27,15 +30,11 @@ public class PharmacyDetailsController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/pharmacy")
-	public NSServiceResponse<List<PharmacyDetailsResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =pharmacyDetailsService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
-}
-	
-	
-
+	public NSServiceResponse<List<PharmacyDetailsResponse>>getPharmacyDetail()
+	  
+	{ 
+		List<PharmacyDetails> pharmacy = pharmacyDetailsService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<PharmacyDetailsResponse>(), pharmacy, "Successfully ", "Error");
+	  }
 }

@@ -12,6 +12,8 @@ import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxProviderResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.AccountDetails;
+import com.nextscience.entity.FaxRxProvider;
 import com.nextscience.service.FaxRxProviderService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -25,13 +27,13 @@ public class FaxRxProviderController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/ProviderList")
-	public NSServiceResponse<List<FaxRxProviderResponse>> executeCustomQuery()
-	{
-    		
-			 PageResponseDTO response =faxRxProviderService.fetchList();
-			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
+	public NSServiceResponse<List<FaxRxPayerResponse>>getProviderDetail()
+	  
+	{ 
+		List<FaxRxProvider> account = faxRxProviderService.findAll();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<FaxRxPayerResponse>(), account, "Successfully ", "Error");
+	  }
 }
 	
 

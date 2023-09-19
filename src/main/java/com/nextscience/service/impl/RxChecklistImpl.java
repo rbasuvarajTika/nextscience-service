@@ -1,5 +1,7 @@
 package com.nextscience.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,21 +21,9 @@ public class RxChecklistImpl implements RxChecklistService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public PageResponseDTO fetchList() {
-		Page<RxChecklist> pageOfRxChecklistResponses = (Page<RxChecklist>) rxChecklistRepository.findAll();
-		
-		PageResponseDTO pageResponse = new PageResponseDTO();
-		pageResponse.setData(pageOfRxChecklistResponses.getContent());
-		pageResponse.setFirst(pageOfRxChecklistResponses.isFirst());
-		pageResponse.setLast(pageOfRxChecklistResponses.isLast());
-		pageResponse.setPageNumber(pageOfRxChecklistResponses.getNumber());
-		pageResponse.setRecordCount(pageOfRxChecklistResponses.getNumberOfElements());
-		pageResponse.setRecordOffset(pageOfRxChecklistResponses.getPageable().getOffset());
-		pageResponse.setRequestedCount(pageOfRxChecklistResponses.getSize());
-		pageResponse.setTotalPages(pageOfRxChecklistResponses.getTotalPages());
-		pageResponse.setTotalRecords(pageOfRxChecklistResponses.getTotalElements());
-		return pageResponse;
+	public List<RxChecklist> findAll() {
+		// TODO Auto-generated method stub
+		return rxChecklistRepository.findAll();
 	}
-	
 
 }

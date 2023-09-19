@@ -1,10 +1,13 @@
 package com.nextscience.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.repo.FaxPrescriptionsRepository;
@@ -18,20 +21,9 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public PageResponseDTO fetchList() {
-		Page<FaxPrescriptions> pageOfFaxPrescriptionsResponses = (Page<FaxPrescriptions>) faxPrescriptionsRepository.findAll();
-		
-		PageResponseDTO pageResponse = new PageResponseDTO();
-		pageResponse.setData(pageOfFaxPrescriptionsResponses.getContent());
-		pageResponse.setFirst(pageOfFaxPrescriptionsResponses.isFirst());
-		pageResponse.setLast(pageOfFaxPrescriptionsResponses.isLast());
-		pageResponse.setPageNumber(pageOfFaxPrescriptionsResponses.getNumber());
-		pageResponse.setRecordCount(pageOfFaxPrescriptionsResponses.getNumberOfElements());
-		pageResponse.setRecordOffset(pageOfFaxPrescriptionsResponses.getPageable().getOffset());
-		pageResponse.setRequestedCount(pageOfFaxPrescriptionsResponses.getSize());
-		pageResponse.setTotalPages(pageOfFaxPrescriptionsResponses.getTotalPages());
-		pageResponse.setTotalRecords(pageOfFaxPrescriptionsResponses.getTotalElements());
-		return pageResponse;
+	public List<FaxPrescriptions> findAll() {
+		// TODO Auto-generated method stub
+		return faxPrescriptionsRepository.findAll();
 	}
-
+	
 }
