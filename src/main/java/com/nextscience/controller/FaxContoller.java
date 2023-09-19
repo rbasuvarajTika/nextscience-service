@@ -84,6 +84,17 @@ public class FaxContoller {
 				response, "Successfully ", "Error");
     }
 	
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/faxDupeById/{faxId}")
+	public NSServiceResponse<List<DupeRxResponse>> faxDupeId(@PathVariable String faxId){
+    
+		List<DupeRxResponse> response =faxRxService.getDuplicateByIdResponse(faxId);
+		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
+				response, "Successfully ", "Error");
+    }
+	
 	@GetMapping(value="/getFaxPdf/{faxId}",produces= MediaType.APPLICATION_PDF_VALUE)
 	public  @ResponseBody byte[]  faxPdfDownload(@PathVariable String faxId) {
 

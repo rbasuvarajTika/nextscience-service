@@ -18,5 +18,7 @@ public interface FaxRxService {
 	
 
 	public List<DupeRxResponse> getDuplicateResponse();
+	
+	public List<DupeRxResponse> getDuplicateByIdResponse(String faxId);
 
 }

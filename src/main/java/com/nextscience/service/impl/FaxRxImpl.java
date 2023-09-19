@@ -78,6 +78,19 @@ public class FaxRxImpl implements FaxRxService {
 		      	
 		return dupeRxResponse;
 	}
+	
+	@Override
+	public List<DupeRxResponse> getDuplicateByIdResponse(String faxId) {
+		
+		List<Object[]> faxRxResponse= faxRxRepository.getDupeResponse();
+		List<DupeRxResponse> dupeRxResponse = faxRxResponse.stream().map(this::mapToObjectsArray)
+		        .collect(Collectors.toList());
+		      	
+		List<DupeRxResponse> filterResponse =  dupeRxResponse.stream().filter(e->e.getFaxId().equalsIgnoreCase(faxId)).collect(Collectors.toList());
+		String dupeFaxId = filterResponse.get(0).getDupeFaxId();
+		List<DupeRxResponse> filterResponseNew =  dupeRxResponse.stream().filter(e->e.getDupeFaxId().equalsIgnoreCase(dupeFaxId)).collect(Collectors.toList());
+		return filterResponseNew;
+	}
 	private DupeRxResponse mapToObjectsArray(Object[] row) {
 		DupeRxResponse response = new DupeRxResponse();
 	    response.setTrnFaxId((Integer) row[0]);
