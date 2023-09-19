@@ -289,7 +289,7 @@ public class UserServiceImpl implements UserService {
 		
 		
 		List<UserResponse> activeUserList = userList.stream()
-	            .filter(user -> "Active".equals(user.getUserType())) // Filter users with userType "active"
+	            .filter(user -> "Active".equals(user.getUserStatusFlag())) // Filter users with userType "active"
 	            .map(user -> {
 	                UserResponse userResponse = new UserResponse();
 	                userResponse.setUser_Id(user.getUserId());
@@ -312,7 +312,7 @@ public class UserServiceImpl implements UserService {
 		
 		
 		List<UserResponse> deactiveUserList = userList.stream()
-	            .filter(user -> "Deactivated".equals(user.getUserType())) // Filter users with userType "active"
+	            .filter(user -> "Deactivated".equals(user.getUserStatusFlag())) // Filter users with userType "active"
 	            .map(user -> {
 	                UserResponse userResponse = new UserResponse();
 	                userResponse.setUser_Id(user.getUserId());
@@ -322,7 +322,7 @@ public class UserServiceImpl implements UserService {
 	                userResponse.setPhone(user.getPhone());
 	                userResponse.setRole(user.getRole());
 	                userResponse.setType(user.getUserType());
-	                //userResponse.setStatus(user.getUserStatusFlag());
+	               // userResponse.setStatus(user.getUserStatusFlag());
 	                return userResponse;
 	            })
 	            .collect(Collectors.toList()); 
