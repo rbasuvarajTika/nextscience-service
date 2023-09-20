@@ -2,6 +2,8 @@ package com.nextscience.dto.request;
 
 import java.util.Date;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +16,18 @@ import lombok.NoArgsConstructor;
 public class UpdateUserRequest {
 	
 	 private int userId;
-	 private String username;
+	 @NotBlank
+	 private String userName;
+	 @NotBlank
 	 private String firstName;
 	 private String middleName;
+	 @NotBlank
 	 private String lastName;
 	 private String fullName;
 	 private String title;
 	 private String role;
+	 @NotBlank
+	 @Email
 	 private String userMail;
 	 private String phone;
 	 private String userMobile;

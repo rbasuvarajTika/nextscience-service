@@ -1,5 +1,6 @@
 package com.nextscience.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -13,13 +14,17 @@ import com.nextscience.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findByUserName(String email);
-    
-    Optional<User> findByUserId(int id);
+	Optional<User> findByUserName(String email);
+
+	Optional<User> findByUserId(int id);
 
 	User findByUserMail(String email);
-	
-	 @Query(nativeQuery = true, value = "SELECT * from DIM_USER ORDER BY USER_ID DESC")
-	 Page<User> findAllCustom(PageRequest page); 
-	
+
+	boolean existsByUserName(String userName);
+
+	boolean existsByUserMail(String email);
+
+	@Query(nativeQuery = true, value = "SELECT * from DIM_USER ORDER BY USER_ID DESC")
+	Page<User> findAllCustom(PageRequest page);
+
 }
