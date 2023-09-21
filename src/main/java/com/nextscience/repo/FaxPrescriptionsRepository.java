@@ -30,7 +30,7 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 			+ "join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
 			+ "join [BRDG_FAX_RX_WOUND_PRODUCT_INFO] wp on (a.[TRN_FAX_ID]=wp.[TRN_FAX_ID])\r\n"
 			+ "join [DIM_PRODUCT] pr on (wp.[PRODUCT_ID]=pr.PRODUCT_ID)")
-	List<Object[]> getFaxRxPrscTrackerList();
+	List<Object[]> getFaxRxTrackerList();
 
 
 }
