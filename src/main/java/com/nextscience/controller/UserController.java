@@ -27,6 +27,8 @@ import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
 import com.nextscience.utility.ResponseHelper;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/users")
@@ -36,12 +38,12 @@ public class UserController {
 	private  UserService userService;
 
 	@PostMapping("/create/user")
-    public ResponseEntity<String> createUser(@RequestBody SignUpRequest request) {
+    public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
         return ResponseEntity.ok(userService.createUser(request));
     }
 	
 	@PutMapping("/update/user/{id}")
-    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequest request, @PathVariable int id) {
+    public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
         return ResponseEntity.ok(userService.updateUser(request,id));
     }
 
