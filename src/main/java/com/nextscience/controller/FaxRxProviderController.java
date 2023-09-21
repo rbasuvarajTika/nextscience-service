@@ -34,7 +34,7 @@ public class FaxRxProviderController {
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<FaxRxPayerResponse>(), account, "Successfully ", "Error");
 	  }
-}
+
 	
 
 }
