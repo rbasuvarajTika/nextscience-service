@@ -34,7 +34,7 @@ public class FaxRxProvider {
 	private HcpDetails hcpDetails;
 	
 	@Column(name = "PROVIDER_TYPE", length = 25)
-	private Integer providerType;
+	private String providerType;
 	
 	@Column(name = "CREATED_USER", length = 255)
 	private String createdUser;

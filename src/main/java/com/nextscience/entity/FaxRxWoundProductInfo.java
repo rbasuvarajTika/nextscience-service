@@ -38,6 +38,9 @@ public class FaxRxWoundProductInfo {
 
 	@Column(name = "WND4")
 	private Integer wnd4;
+	
+	@Column(name = "WND_CODE", length = 10)
+	private String wndCode;
 
 	@Column(name = "CREATED_USER", length = 255)
 	private String createdUser;

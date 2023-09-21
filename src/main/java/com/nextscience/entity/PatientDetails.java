@@ -66,7 +66,7 @@ public class PatientDetails {
 	private String maritialStatus;
 	
 	@Column(name = "EMERGENCY_CONTACT_NAME",length = 125)
-	private String emergencyContactNumber;
+	private String emergencyContactName;
 	
 	@Column(name = "EMERGENCY_CONTACT_PHONE",length = 15)
 	private String emergencyContactPhone;

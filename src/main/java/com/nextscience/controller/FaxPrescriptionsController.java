@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.FaxPrescriptionsResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
+import com.nextscience.dto.response.FaxRxPrescriptionsResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxChecklistResponse;
@@ -35,6 +36,16 @@ public class FaxPrescriptionsController {
 		List<FaxPrescriptions> prescription = faxPrescriptionsService.findAll();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<FaxPrescriptionsResponse>(), prescription, "Successfully ", "Error");
+	  }
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/faxRxPrescriptions")
+	public NSServiceResponse<List<FaxRxPrescriptionsResponse>>getFaxRxPrescriptionDetail()
+	  
+	{ 
+		List<FaxRxPrescriptionsResponse> prescription = faxPrescriptionsService.getFaxRxPrescriptTracker();
+	  return ResponseHelper.createResponse(new
+	  NSServiceResponse<FaxRxPrescriptionsResponse>(), prescription, "Successfully ", "Error");
 	  }
 	
 	

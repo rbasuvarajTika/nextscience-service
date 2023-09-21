@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "TRN_FAX_PRESCRIPTIONS  " ,  schema ="dbo")
+@Table(name = "TRN_FAX_RX_PRESCRIPTIONS" ,  schema ="dbo")
 	
 public class FaxPrescriptions {
 	
