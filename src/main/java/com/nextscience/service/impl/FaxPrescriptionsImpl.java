@@ -9,7 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.dto.response.DupeRxResponse;
-import com.nextscience.dto.response.FaxRxPrescriptionsResponse;
+
+import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxPrescriptions;
@@ -31,16 +32,16 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	}
 
 	@Override
-	public List<FaxRxPrescriptionsResponse> getFaxRxPrescriptTracker() {
-		List<Object[]> faxRxPrscptResponse= faxPrescriptionsRepository.getFaxRxPrscTrackerList();
-		List<FaxRxPrescriptionsResponse> responses = faxRxPrscptResponse.stream().map(this::mapToObjectsArray)
+	public List<FaxRxTrackerResponse> getFaxRxTrackerList() {
+		List<Object[]> faxRxTrackerResponse= faxPrescriptionsRepository.getFaxRxTrackerList();
+		List<FaxRxTrackerResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArray)
 		        .collect(Collectors.toList());
 		      	
 		return responses;
 	}
 	
-	private FaxRxPrescriptionsResponse mapToObjectsArray(Object[] row) {
-		FaxRxPrescriptionsResponse response = new FaxRxPrescriptionsResponse();
+	private FaxRxTrackerResponse mapToObjectsArray(Object[] row) {
+		FaxRxTrackerResponse response = new FaxRxTrackerResponse();
 		
 		response.setTrnRxId((Integer) row[0]);	
 	    response.setTrnFaxId((Integer) row[1]);

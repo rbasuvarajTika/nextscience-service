@@ -27,6 +27,7 @@ import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
 import com.nextscience.utility.ResponseHelper;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 
 @RestController
@@ -38,6 +39,7 @@ public class UserController {
 	private  UserService userService;
 
 	@PostMapping("/create/user")
+	
     public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
         return ResponseEntity.ok(userService.createUser(request));
     }
@@ -79,10 +81,12 @@ public class UserController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/userList")
     public NSServiceResponse<List<?>> executeCustomQuery(
+    		
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = "pageSize", required = false, defaultValue = "150") int pageSize,
     		@RequestParam(value = "sortBy", defaultValue = "CREATED_DATE", required = false) String sortBy,            
-    		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType ){ 
+    		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType )
+	{ 
 		 PageRequest page = null;       
 		 if ("desc".equals(orderType)) {    
 			 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());    
@@ -97,7 +101,11 @@ public class UserController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/activateUsers")
-    public NSServiceResponse<List<UserResponse>> getActivateusers() {
+    public NSServiceResponse<List<UserResponse>> getActivateusers(
+    		  @Parameter(description = "Authorization Token", required = true)
+    		    @RequestParam(name = "Authorization") String authorizationToken) 
+
+	{
 		List<UserResponse> ActivateusersList = userService.getActivateusers();
 		/*
 		 * if(ActivateusersList ==null && ActivateusersList.isEmpty()) { return

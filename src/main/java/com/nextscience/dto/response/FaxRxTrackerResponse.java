@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class FaxRxPrescriptionsResponse {
+public class FaxRxTrackerResponse {
 
 	private Integer trnRxId;
 	private Integer trnFaxId;
@@ -53,7 +53,7 @@ public class FaxRxPrescriptionsResponse {
 	private String productDisplayName;
 	private String wndCode;
 
-	public FaxRxPrescriptionsResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
+	public FaxRxTrackerResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
 			String faxNumber, String faxUrl, String verifiedFlag, String providerType, String hcpName, String hcpAddress1,
 			String hcpAddress2, String hcpCity, String hcpState, String hcpZip, String accountName, String accAddress1,
 			String accCity, String accState, String accZip, String patientName, Date dateOfBirth, String gender,
