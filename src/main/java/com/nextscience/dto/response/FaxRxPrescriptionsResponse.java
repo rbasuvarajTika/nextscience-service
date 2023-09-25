@@ -2,6 +2,8 @@ package com.nextscience.dto.response;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,7 @@ public class FaxRxPrescriptionsResponse {
 	private Integer trnFaxId;
 	private String faxId;
 	private Integer caseId;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date faxDate;
 	private String faxNumber;
 	private String faxUrl;
@@ -30,6 +33,7 @@ public class FaxRxPrescriptionsResponse {
 	private String accState;
 	private String accZip;
 	private String patientName;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
 	private String gender;
 	private String cellPhone;
