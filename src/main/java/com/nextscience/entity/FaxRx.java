@@ -58,7 +58,7 @@ public class FaxRx {
     @Column(name = "EMAIL", length = 255)
     private String email;
 
-    @Column(name = "PLACE_OFP_SERVICE", length = 255)
+    @Column(name = "PLACE_OF_SERVICE", length = 255)
     private String placeOfService;
 
     @Column(name = "ORDER_TYPE", length = 25)

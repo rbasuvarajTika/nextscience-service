@@ -102,10 +102,13 @@ public class UserController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/activateUsers")
     public NSServiceResponse<List<UserResponse>> getActivateusers(
-    		  @Parameter(description = "Authorization Token", required = true)
+			/* @Parameter(description = "Authorization Token", required = true) */
     		    @RequestParam(name = "Authorization") String authorizationToken) 
 
 	{
+		String token = authorizationToken.replace("Bearer ", "");
+
+
 		List<UserResponse> ActivateusersList = userService.getActivateusers();
 		/*
 		 * if(ActivateusersList ==null && ActivateusersList.isEmpty()) { return

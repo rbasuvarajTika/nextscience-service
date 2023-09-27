@@ -14,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -123,5 +125,15 @@ public class FaxContoller {
 	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
 	    			faxRxResponse, "Successfully ", "Error");
 	}
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping(value="/updateFax/{dupeTrnFaxId}/{mainTrnFaxId}",produces= MediaType.APPLICATION_JSON_VALUE)
+	public  NSServiceResponse<FaxRx>  updateFax(@PathVariable String dupeTrnFaxId,@PathVariable String mainTrnFaxId) {
+	    	FaxRx faxRxResponse = faxRxService.updatefax(dupeTrnFaxId, mainTrnFaxId);
+	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
+	    			faxRxResponse, "Successfully ", "Error");
+	}
+	
+	
 }
 

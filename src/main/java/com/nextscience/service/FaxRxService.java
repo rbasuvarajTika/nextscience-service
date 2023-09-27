@@ -21,4 +21,12 @@ public interface FaxRxService {
 	
 	public List<DupeRxResponse> getDuplicateByIdResponse(String faxId);
 
+	
+
+	FaxRx updatefax(String dupeTrnFaxId, String mainTrnFaxId);
+
+	
+
+	
+
 }
