@@ -135,5 +135,13 @@ public class FaxContoller {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	@PutMapping(value="/keepDuplicate/{trnFaxId}",produces= MediaType.APPLICATION_JSON_VALUE)
+	public  NSServiceResponse<String>  keepDuplicate(@PathVariable String trnFaxId) {
+	    	String response = faxRxService.keepDuplicate(trnFaxId);
+	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
+	    			response, "updated Successfully ", "Error");
+	}
+	
 }
 

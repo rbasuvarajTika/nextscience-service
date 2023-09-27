@@ -25,6 +25,8 @@ public interface FaxRxService {
 
 	FaxRx updatefax(String dupeTrnFaxId, String mainTrnFaxId);
 
+	public String keepDuplicate(String trnFaxId);
+
 	
 
 	
