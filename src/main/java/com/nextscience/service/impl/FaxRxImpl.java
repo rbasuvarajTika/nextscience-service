@@ -119,7 +119,7 @@ public class FaxRxImpl implements FaxRxService {
 	}
      @Override
 	@Transactional
-	public FaxRx updatefax(String dupeTrnFaxId ,String mainTrnFaxId) {
+	public String updatefax(String dupeTrnFaxId ,String mainTrnFaxId) {
 		
 		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' WHERE FAX_STATUS = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 		 
@@ -128,7 +128,7 @@ public class FaxRxImpl implements FaxRxService {
 	        // Update BRDG_FAX_RX_CASES
 	        String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Main' WHERE CASE_TYPE = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 	        
-	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :mainTrnFaxId";
+	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
 
 
 	        entityManager.createNativeQuery(trnFaxRxUpdateQuery)
@@ -151,7 +151,7 @@ public class FaxRxImpl implements FaxRxService {
 	        
 	        
 	        
-	        return null;
+	        return "updated successfully";
 	    }
 
 	@Override

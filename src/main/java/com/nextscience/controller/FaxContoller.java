@@ -128,10 +128,10 @@ public class FaxContoller {
 	
 	@SuppressWarnings("unchecked")
 	@PutMapping(value="/updateFax/{dupeTrnFaxId}/{mainTrnFaxId}",produces= MediaType.APPLICATION_JSON_VALUE)
-	public  NSServiceResponse<FaxRx>  updateFax(@PathVariable String dupeTrnFaxId,@PathVariable String mainTrnFaxId) {
-	    	FaxRx faxRxResponse = faxRxService.updatefax(dupeTrnFaxId, mainTrnFaxId);
-	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
-	    			faxRxResponse, "Successfully ", "Error");
+	public  NSServiceResponse<String>  updateFax(@PathVariable String dupeTrnFaxId,@PathVariable String mainTrnFaxId) {
+		String response = faxRxService.updatefax(dupeTrnFaxId, mainTrnFaxId);
+	    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+	    			response, "Successfully ", "Error");
 	}
 	
 	
