@@ -121,32 +121,34 @@ public class FaxRxImpl implements FaxRxService {
 	@Transactional
 	public FaxRx updatefax(String dupeTrnFaxId ,String mainTrnFaxId) {
 		
-		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX t SET t.FAX_STATUS = 'Main' WHERE t.FAX_STATUS = 'Duplicate' AND t.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
+		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' FROM TRN_FAX_RX t WHERE t.FAX_STATUS = 'Duplicate' AND t.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 		 
-	        String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX t SET t.FAX_STATUS = 'Duplicate' WHERE t.TRN_FAX_ID = :MAIN_TRN_FAX_ID";
+	        String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
 
 	        // Update BRDG_FAX_RX_CASES
-	        String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES b SET b.CASE_TYPE = 'Main' WHERE b.CASE_TYPE = 'Duplicate' AND b.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
+	        String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Main' WHERE CASE_TYPE = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 	        
-	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES b SET b.CASE_TYPE = 'Duplicate' WHERE b.TRN_FAX_ID = :mainTrnFaxId";
-
+	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
 
 	        entityManager.createNativeQuery(trnFaxRxUpdateQuery)
-	            .setParameter("dupeTrnFaxId", dupeTrnFaxId)
+	            .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)
 	            .executeUpdate();
 	        
+            System.out.println(trnFaxRxUpdateQuery);
+
+	        
 	        entityManager.createNativeQuery(trnFaxRxDupeQuery)
-            .setParameter("mainTrnFaxId", mainTrnFaxId)
+            .setParameter("MAIN_TRN_FAX_ID", mainTrnFaxId)
             .executeUpdate();
 	        
 	        
 
 	        entityManager.createNativeQuery(brdgFaxRxCasesUpdateQuery)
-	            .setParameter("dupeTrnFaxId", dupeTrnFaxId)
+	            .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)
 	            .executeUpdate();
 	        
 	        entityManager.createNativeQuery(brdgFaxRxCasesDupeQuery)
-            .setParameter("mainTrnFaxId", mainTrnFaxId)
+            .setParameter("MAIN_TRN_FAX_ID", mainTrnFaxId)
             .executeUpdate();
 	        
 	        
