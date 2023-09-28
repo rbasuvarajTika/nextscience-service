@@ -121,24 +121,21 @@ public class FaxRxImpl implements FaxRxService {
 	@Transactional
 	public String updatefax(String dupeTrnFaxId ,String mainTrnFaxId) {
 		
-<<<<<<< HEAD
+
 		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' FROM TRN_FAX_RX t WHERE t.FAX_STATUS = 'Duplicate' AND t.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 		 
 	        String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
-=======
-		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' WHERE FAX_STATUS = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
+
 		 
-	        String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX SET FAX_STATUS = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
->>>>>>> 16533e19559132fe8f984adc21e582b3bdf90460
+
 
 	        // Update BRDG_FAX_RX_CASES
 	        String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Main' WHERE CASE_TYPE = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 	        
 	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
-<<<<<<< HEAD
-=======
 
->>>>>>> 16533e19559132fe8f984adc21e582b3bdf90460
+
+
 
 	        entityManager.createNativeQuery(trnFaxRxUpdateQuery)
 	            .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)

@@ -5,18 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.FaxPrescriptionsResponse;
-import com.nextscience.dto.response.FaxRxPayerResponse;
-
+import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.RxChecklistResponse;
 import com.nextscience.entity.FaxPrescriptions;
-import com.nextscience.entity.FaxRxProvider;
 import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -24,31 +21,68 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")
 public class FaxPrescriptionsController {
-	
+
 	@Autowired
 	FaxPrescriptionsService faxPrescriptionsService;
-	
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/faxPrescriptions")
-	public NSServiceResponse<List<FaxPrescriptionsResponse>>getPrescriptionDetail()
-	  
-	{ 
+	public NSServiceResponse<List<FaxPrescriptionsResponse>> getPrescriptionDetail()
+
+	{
 		List<FaxPrescriptions> prescription = faxPrescriptionsService.findAll();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<FaxPrescriptionsResponse>(), prescription, "Successfully ", "Error");
-	  }
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrescriptionsResponse>(), prescription,
+				"Successfully ", "Error");
+	}
+
 	@SuppressWarnings("unchecked")
 	@GetMapping("/rxTrackerList")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetails()
-	  
-	{ 
+
+	{
 		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerList();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ", "Error");
-	  }
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
+				"Error");
+	}
+
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerWoundList")
+	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundDetails()
+
+	{
+		List<FaxPrscTrkWoundResponse> rxTracker = faxPrescriptionsService.getFaxRxTrkWoundDetailsList();
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrscTrkWoundResponse>(), rxTracker,
+				"Successfully ", "Error");
+	}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerDetailList")
+	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetailsList()
+
+	{
+		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerDetailsList();
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
+				"Error");
+	}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerWoundList/{trnRxId}")
+	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundById(@PathVariable int trnRxId)
+
+	{
+		List<FaxPrscTrkWoundResponse> rxTracker = faxPrescriptionsService.getWoundByIdResponse(trnRxId);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrscTrkWoundResponse>(), rxTracker,
+				"Successfully ", "Error");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerDetailList/{trnRxId}")
+	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListById(@PathVariable int trnRxId)
+
+	{
+		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListById(trnRxId);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
+				"Error");
+	}
 
 }
