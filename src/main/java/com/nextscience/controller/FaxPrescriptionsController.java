@@ -76,11 +76,32 @@ public class FaxPrescriptionsController {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerWoundList/{caseId}")
+	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundByCaseId(@PathVariable int caseId)
+
+	{
+		List<FaxPrscTrkWoundResponse> rxTracker = faxPrescriptionsService.getWoundByCaseId(caseId);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrscTrkWoundResponse>(), rxTracker,
+				"Successfully ", "Error");
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/rxTrackerDetailList/{trnRxId}")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListById(@PathVariable int trnRxId)
 
 	{
 		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListById(trnRxId);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
+				"Error");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxTrackerDetailList/{caseId}")
+	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListByCaseId(@PathVariable int caseId)
+
+	{
+		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListByCaseId(caseId);
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
 				"Error");
 	}

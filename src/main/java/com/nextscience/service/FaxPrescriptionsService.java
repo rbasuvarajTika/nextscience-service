@@ -20,5 +20,9 @@ public interface FaxPrescriptionsService {
 
 	List<FaxPrscTrkWoundResponse> getWoundByIdResponse(int trnRxId);
 
+	List<FaxRxTrackerResponse> getFaxRxTrackerListByCaseId(int caseId);
+
+	List<FaxPrscTrkWoundResponse> getWoundByCaseId(int caseId);
+
 	
 }

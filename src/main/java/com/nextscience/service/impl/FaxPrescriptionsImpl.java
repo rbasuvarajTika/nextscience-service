@@ -132,11 +132,33 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 
 		return responses;
 	}
+	
+	
+	@Override
+	public List<FaxRxTrackerResponse> getFaxRxTrackerListByCaseId(int caseId) {
+		List<Object[]> faxRxTrackerResponse = faxPrescriptionsRepository.getFaxRxTrackerCaseList(caseId);
+		List<FaxRxTrackerResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+	}
 
 	@Override
 	public List<FaxPrscTrkWoundResponse> getWoundByIdResponse(int trnRxId)
 	{
 		List<Object[]> faxPrscTrkkWoundResponse = faxPrescriptionsRepository.getFaxRxTrkWoundDetailsList(trnRxId);
+		List<FaxPrscTrkWoundResponse> responses = faxPrscTrkkWoundResponse.stream().map(this::mapToObjectsArrayFax)
+				.collect(Collectors.toList());
+
+		return responses;
+		
+	}
+	
+	
+	@Override
+	public List<FaxPrscTrkWoundResponse> getWoundByCaseId(int caseId)
+	{
+		List<Object[]> faxPrscTrkkWoundResponse = faxPrescriptionsRepository.getFaxRxTrkWoundCaseList(caseId);
 		List<FaxPrscTrkWoundResponse> responses = faxPrscTrkkWoundResponse.stream().map(this::mapToObjectsArrayFax)
 				.collect(Collectors.toList());
 
