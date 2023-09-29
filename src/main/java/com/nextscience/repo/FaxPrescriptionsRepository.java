@@ -118,7 +118,7 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 			+ "join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 			+ "join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
 			+ "join [BRDG_FAX_RX_WOUND_PRODUCT_INFO] wp on (a.[TRN_FAX_ID]=wp.[TRN_FAX_ID])\r\n"
-			+ "join [DIM_PRODUCT] pr on (wp.[PRODUCT_ID]=pr.PRODUCT_ID) WHERE a.TRN_RX_ID =:caseId")
+			+ "join [DIM_PRODUCT] pr on (wp.[PRODUCT_ID]=pr.PRODUCT_ID) WHERE b.CASE_ID =:caseId")
 	List<Object[]> getFaxRxTrackerCaseList(@Param(value = "caseId") int caseId);
 
 
@@ -129,7 +129,7 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 			+ "FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"
 			+ "join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
 			+ "join [BRDG_FAX_RX_CASES] cp on (a.[TRN_FAX_ID]=cp.[TRN_FAX_ID])\r\n"
-			+ "join [BRDG_FAX_RX_WOUND_INFO] wi on (a.[TRN_FAX_ID]=wi.[TRN_FAX_ID]) WHERE a.TRN_RX_ID =:trnRxId")
+			+ "join [BRDG_FAX_RX_WOUND_INFO] wi on (a.[TRN_FAX_ID]=wi.[TRN_FAX_ID]) WHERE b.CASE_ID =:caseId")
 	
 	List<Object[]> getFaxRxTrkWoundCaseList(@Param(value = "caseId") int caseId);
 	

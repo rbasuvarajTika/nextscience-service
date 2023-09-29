@@ -76,7 +76,7 @@ public class FaxPrescriptionsController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxTrackerWoundList/{caseId}")
+	@GetMapping("/rxTrackerWound/{caseId}")
 	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundByCaseId(@PathVariable int caseId)
 
 	{
@@ -97,7 +97,7 @@ public class FaxPrescriptionsController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxTrackerDetailList/{caseId}")
+	@GetMapping("/rxTrackerDetail/{caseId}")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListByCaseId(@PathVariable int caseId)
 
 	{
