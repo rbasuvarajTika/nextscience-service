@@ -3,6 +3,8 @@ package com.nextscience.dto.response;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,7 @@ public class FaxPrscTrkWoundResponse {
 	private Integer trnFaxId;
 	private String faxId;
 	private Integer caseId;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date faxDate;
 	private String faxNumber;
 	private String faxUrl;
@@ -25,6 +28,7 @@ public class FaxPrscTrkWoundResponse {
 	private String woundThickness;
 	private String drainage;
 	private Integer debrided;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date debridedDate;
 	private String icdCode;
 	
