@@ -120,22 +120,26 @@ public class FaxRxImpl implements FaxRxService {
      @Override
 	@Transactional
 	public String updatefax(String dupeTrnFaxId ,String mainTrnFaxId) {
-		
+    	 
+    	 String getStatusQuery = "SELECT FAX_STATUS FROM TRN_FAX_RX WHERE TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 
-		 String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' FROM TRN_FAX_RX t WHERE t.FAX_STATUS = 'Duplicate' AND t.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
+    	// Execute the query to retrieve FAX_STATUS
+    	String faxStatus = (String) entityManager.createNativeQuery(getStatusQuery)
+    	    .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)
+    	    .getSingleResult();
+    	
+    	String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Main' FROM TRN_FAX_RX t WHERE t.FAX_STATUS = 'Duplicate' AND t.TRN_FAX_ID = :DUPE_TRN_FAX_ID";
 		 
-	        String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
-
-		 
-
+	    String trnFaxRxDupeQuery = "UPDATE TRN_FAX_RX  SET FAX_STATUS = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
+	    
+	    String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Main' WHERE CASE_TYPE = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
+        
+	     String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
+    	 
+    	if ("Duplicate".equals(faxStatus)) {
 
 	        // Update BRDG_FAX_RX_CASES
-	        String brdgFaxRxCasesUpdateQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Main' WHERE CASE_TYPE = 'Duplicate' AND TRN_FAX_ID = :DUPE_TRN_FAX_ID";
-	        
-	        String brdgFaxRxCasesDupeQuery = "UPDATE BRDG_FAX_RX_CASES SET CASE_TYPE = 'Duplicate' WHERE TRN_FAX_ID = :MAIN_TRN_FAX_ID";
-
-
-
+	     
 
 	        entityManager.createNativeQuery(trnFaxRxUpdateQuery)
 	            .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)
@@ -143,13 +147,10 @@ public class FaxRxImpl implements FaxRxService {
 	        
             System.out.println(trnFaxRxUpdateQuery);
 
-	        
 	        entityManager.createNativeQuery(trnFaxRxDupeQuery)
             .setParameter("MAIN_TRN_FAX_ID", mainTrnFaxId)
             .executeUpdate();
 	        
-	        
-
 	        entityManager.createNativeQuery(brdgFaxRxCasesUpdateQuery)
 	            .setParameter("DUPE_TRN_FAX_ID", dupeTrnFaxId)
 	            .executeUpdate();
@@ -158,7 +159,26 @@ public class FaxRxImpl implements FaxRxService {
             .setParameter("MAIN_TRN_FAX_ID", mainTrnFaxId)
             .executeUpdate();
 	        
+    	}else {
+    		 entityManager.createNativeQuery(trnFaxRxUpdateQuery)
+	            .setParameter("DUPE_TRN_FAX_ID", mainTrnFaxId)
+	            .executeUpdate();
 	        
+         System.out.println(trnFaxRxUpdateQuery);
+
+	        entityManager.createNativeQuery(trnFaxRxDupeQuery)
+         .setParameter("MAIN_TRN_FAX_ID", dupeTrnFaxId)
+         .executeUpdate();
+	        
+	        entityManager.createNativeQuery(brdgFaxRxCasesUpdateQuery)
+            .setParameter("DUPE_TRN_FAX_ID", mainTrnFaxId)
+            .executeUpdate();
+        
+        entityManager.createNativeQuery(brdgFaxRxCasesDupeQuery)
+        .setParameter("MAIN_TRN_FAX_ID", dupeTrnFaxId)
+        .executeUpdate();
+    		
+    	}
 	        
 	        return "updated successfully";
 	    }
