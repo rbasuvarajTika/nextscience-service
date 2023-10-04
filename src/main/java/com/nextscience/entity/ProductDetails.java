@@ -43,7 +43,7 @@ public class ProductDetails {
     private Integer productOrder;
 
     @Column(name = "PRODUCT_PRICE", precision = 18, scale = 2)
-    private float productPrice;
+    private BigDecimal productPrice;
 
     @Column(name = "DESCRIPTION", length = 255)
     private String description;

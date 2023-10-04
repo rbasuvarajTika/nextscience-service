@@ -56,6 +56,7 @@ public class HcpDetailsResponse {
     private Integer stageId;
 
     private String stageDesc;
+    
     private Date rfrshDate;
 
     
