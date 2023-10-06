@@ -2,7 +2,6 @@ package com.nextscience.service.impl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -15,18 +14,24 @@ import com.nextscience.repo.HcpDetailsRepository;
 import com.nextscience.service.HcpDetailsService;
 
 @Service
-public class HcpDetailsImpl implements HcpDetailsService{
-	
-    @Autowired
+public class HcpDetailsImpl implements HcpDetailsService {
+
+	@Autowired
 	HcpDetailsRepository hcpDetailsRepository;
-    
-    @SuppressWarnings("unchecked")
-	
+
 	@Override
-	public List<HcpDetails> getHcpList() {
-    	
-		return hcpDetailsRepository.findAll();
+	public List<HcpDetails> findAllHcpDetails() {
+
+		return hcpDetailsRepository.findAllHcpDetails();
+		
 	}
 
-	
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @Override public List<HcpDetails> getHcpList() {
+	 * 
+	 * return hcpDetailsRepository.findAll(); }
+	 */
+
 }

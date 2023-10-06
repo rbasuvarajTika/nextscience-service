@@ -3,6 +3,7 @@ package com.nextscience.service;
 import java.util.List;
 
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
+import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.entity.FaxPrescriptions;
 

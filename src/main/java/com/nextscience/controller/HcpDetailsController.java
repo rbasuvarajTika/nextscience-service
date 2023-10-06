@@ -32,7 +32,7 @@ public class HcpDetailsController {
 	public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail()
 	  
 	{ 
-		List<HcpDetails> hcpInfo = hcpDetailsService.getHcpList();
+		List<HcpDetails> hcpInfo = hcpDetailsService.findAllHcpDetails();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<HcpDetailsResponse>(), hcpInfo, "Successfully ", "Error");
 	  }

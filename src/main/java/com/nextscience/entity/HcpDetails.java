@@ -128,7 +128,11 @@ public class HcpDetails {
 	@Column(name = "UPDATE_USER", length = 255)
 	private String updateUser;
 
+	
+	
+	
 	@Column(name = "UPDATE_DATE")
+	
 	private Date updateDate;
 
 }
