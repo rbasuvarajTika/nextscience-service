@@ -21,7 +21,7 @@ public class ProductDetailsImpl implements ProductDetailsService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductDetails> findAll() {
-		// TODO Auto-generated method stub
+		
 		return productDetailsRepository.findAll();
 	}
 }

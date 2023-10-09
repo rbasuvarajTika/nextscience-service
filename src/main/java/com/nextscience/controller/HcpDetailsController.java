@@ -22,6 +22,7 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")
 public class HcpDetailsController {
+	
 	@Autowired
 	HcpDetailsService hcpDetailsService;
 	
@@ -31,10 +32,11 @@ public class HcpDetailsController {
 	public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail()
 	  
 	{ 
-		List<HcpDetails> hcpInfo = hcpDetailsService.findAll();
+		List<HcpDetails> hcpInfo = hcpDetailsService.findAllHcpDetails();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<HcpDetailsResponse>(), hcpInfo, "Successfully ", "Error");
 	  }
 	
-
+	
 }
+

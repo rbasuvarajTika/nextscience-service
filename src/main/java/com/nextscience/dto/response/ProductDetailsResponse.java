@@ -1,5 +1,6 @@
 package com.nextscience.dto.response;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.Data;
@@ -27,7 +28,7 @@ public class ProductDetailsResponse {
 
     private Integer productOrder;
 
-    private float productPrice;
+    private BigDecimal productPrice;
 
     private String description;
 
@@ -56,7 +57,7 @@ public class ProductDetailsResponse {
 
 	public ProductDetailsResponse(Integer productId, String productCode, String productName, String productDisplayName,
 			String productShortName, String productGroupCode, String productGroupDesc, Integer productOrder,
-			float productPrice, String description, Integer productWhId, Integer productGroupId, String productCategory,
+			BigDecimal productPrice, String description, Integer productWhId, Integer productGroupId, String productCategory,
 			String productUom, Integer productQty, String activeFlag, String createUser, Date createDate,
 			String updateUser, Date updateDate) {
 		super();

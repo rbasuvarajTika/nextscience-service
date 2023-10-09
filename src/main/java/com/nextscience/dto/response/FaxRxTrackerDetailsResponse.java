@@ -51,10 +51,8 @@ public class FaxRxTrackerDetailsResponse {
 	private String productCode;
 	private String productDisplayName;
 	private String wndCode;
-	private Integer hcpId;
-	private Integer accountId;
 	private Integer patientId;
-	private Integer productId;
+	
 	
 	
 	public FaxRxTrackerDetailsResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
@@ -64,7 +62,7 @@ public class FaxRxTrackerDetailsResponse {
 			String gender, String cellPhone, String workPhone, String shipToAddress, String patientCity,
 			String patientState, String patientZip, String patientZip4, String ssn, String mrn, String pmsId,
 			String maritialStatus, String emergencyContactName, String emergencyContactPhone, String productCode,
-			String productDisplayName, String wndCode, Integer hcpId, Integer accountId, Integer patientId,
+			String productDisplayName, String wndCode,Integer patientId,
 			Integer productId) {
 		super();
 		this.trnRxId = trnRxId;
@@ -106,10 +104,8 @@ public class FaxRxTrackerDetailsResponse {
 		this.productCode = productCode;
 		this.productDisplayName = productDisplayName;
 		this.wndCode = wndCode;
-		this.hcpId = hcpId;
-		this.accountId = accountId;
 		this.patientId = patientId;
-		this.productId = productId;
+		
 	}
 	
 	
