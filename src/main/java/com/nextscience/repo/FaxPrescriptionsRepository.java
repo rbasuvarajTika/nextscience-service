@@ -132,6 +132,8 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 			+ "join [BRDG_FAX_RX_WOUND_INFO] wi on (a.[TRN_FAX_ID]=wi.[TRN_FAX_ID]) WHERE b.CASE_ID =:caseId")
 	
 	List<Object[]> getFaxRxTrkWoundCaseList(@Param(value = "caseId") int caseId);
+
+
 	
 
 }
