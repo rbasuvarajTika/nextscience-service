@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.FaxPrescriptionsResponse;
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
+import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxPrescriptions;
@@ -60,7 +61,7 @@ public class FaxPrescriptionsController {
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetailsList()
 
 	{
-		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerDetailsList();
+		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerDetailsList();
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
 				"Error");
 	}
@@ -90,7 +91,7 @@ public class FaxPrescriptionsController {
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListById(@PathVariable int trnRxId)
 
 	{
-		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListById(trnRxId);
+		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListById(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
 				"Error");
 	}
@@ -100,7 +101,7 @@ public class FaxPrescriptionsController {
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListByCaseId(@PathVariable int caseId)
 
 	{
-		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListByCaseId(caseId);
+		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListByCaseId(caseId);
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, "Successfully ",
 				"Error");
 	}

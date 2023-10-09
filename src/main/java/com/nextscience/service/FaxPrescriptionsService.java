@@ -13,15 +13,15 @@ public interface FaxPrescriptionsService {
 
 	List<FaxRxTrackerResponse> getFaxRxTrackerList();
 	
-	List<FaxRxTrackerResponse> getFaxRxTrackerDetailsList();
+	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsList();
 	
 	List<FaxPrscTrkWoundResponse> getFaxRxTrkWoundDetailsList();
 	
-	List<FaxRxTrackerResponse> getFaxRxTrackerListById(int trnRxId);
+	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerListById(int trnRxId);
 
 	List<FaxPrscTrkWoundResponse> getWoundByIdResponse(int trnRxId);
 
-	List<FaxRxTrackerResponse> getFaxRxTrackerListByCaseId(int caseId);
+	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerListByCaseId(int caseId);
 
 	List<FaxPrscTrkWoundResponse> getWoundByCaseId(int caseId);
 

@@ -7,7 +7,8 @@ import com.nextscience.entity.HcpDetails;
 
 public interface HcpDetailsService {
 	
-	public List<HcpDetails> findAllHcpDetails();
-	//public List<HcpDetails> getHcpList();
-
+	
+	
+	  public List<HcpDetails> getHcpList();
+	 
 }

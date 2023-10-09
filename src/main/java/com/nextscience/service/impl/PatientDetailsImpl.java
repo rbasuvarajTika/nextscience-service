@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.entity.PatientDetails;
@@ -19,11 +21,26 @@ public class PatientDetailsImpl implements PatientDetailsService{
 	
 	@Autowired
 	PatientDetailsRepository  patientDetailsRepository;
+
+	/*
+	 * @Override public List<PatientDetails> findAll() { // TODO Auto-generated
+	 * method stub return patientDetailsRepository.findAll(); }
+	 */
+	@Override
+	public List<RxPatientDetailsResponse> getRxPatientList() {
+		List<Object[]> rxPatientDetailsResponse=patientDetailsRepository.getRxPatientList();
+		return null;
+	}
+
 	@Override
 	public List<PatientDetails> findAll() {
 		// TODO Auto-generated method stub
-		return patientDetailsRepository.findAll();
+		return null;
 	}
-	
-	
 }
+		
+		
+		
+		
+	
+	

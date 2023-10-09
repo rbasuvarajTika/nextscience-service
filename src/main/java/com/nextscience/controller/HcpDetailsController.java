@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.response.FaxRxPayerResponse;
@@ -32,11 +33,18 @@ public class HcpDetailsController {
 	public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail()
 	  
 	{ 
-		List<HcpDetails> hcpInfo = hcpDetailsService.findAllHcpDetails();
+		List<HcpDetails> hcpInfo = hcpDetailsService.getHcpList();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<HcpDetailsResponse>(), hcpInfo, "Successfully ", "Error");
 	  }
 	
-	
+	/*public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail( @RequestParam(name = "cellPhone", required = false) String cellPhone,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "address1", required = false) String address1,
+            @RequestParam(name = "city", required = false) String city,
+            @RequestParam(name = "state", required = false) String state,
+            @RequestParam(name = "zip", required = false) String zip) {
+        return (NSServiceResponse<List<HcpDetailsResponse>>) hcpDetailsService.findAllHcpDetails(cellPhone, email, address1, city, state, zip);
+			
+}*/
 }
-

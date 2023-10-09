@@ -19,19 +19,24 @@ public class HcpDetailsImpl implements HcpDetailsService {
 	@Autowired
 	HcpDetailsRepository hcpDetailsRepository;
 
-	@Override
-	public List<HcpDetails> findAllHcpDetails() {
-
-		return hcpDetailsRepository.findAllHcpDetails();
-		
-	}
-
 	/*
-	 * @SuppressWarnings("unchecked")
+	 * @Override public List<HcpDetails> findAllHcpDetails( String cellPhone, String
+	 * email, String address1, String city, String state, String zip) {
 	 * 
-	 * @Override public List<HcpDetails> getHcpList() {
+	 * return hcpDetailsRepository.findAllHcpDetails( cellPhone, email, address1,
+	 * city, state, zip);
 	 * 
-	 * return hcpDetailsRepository.findAll(); }
+	 * }
 	 */
+	 
+
+	
+	
+	  @SuppressWarnings("unchecked")
+	  
+	  @Override public List<HcpDetails> getHcpList() {
+	  
+	  return hcpDetailsRepository.findAll(); }
+	 
 
 }

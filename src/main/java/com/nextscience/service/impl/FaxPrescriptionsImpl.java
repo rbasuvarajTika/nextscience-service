@@ -85,44 +85,44 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	}
 
 	
-	/*
-	 * private FaxRxTrackerDetailsResponse mapToObjectsArrays(Object[] row) {
-	 * FaxRxTrackerDetailsResponse response = new FaxRxTrackerDetailsResponse();
-	 * 
-	 * response.setTrnRxId((Integer) row[0]); response.setTrnFaxId((Integer)
-	 * row[1]); response.setFaxId((String) row[2]); response.setCaseId((Integer)
-	 * row[3]); response.setFaxDate((Date) row[4]); response.setFaxNumber((String)
-	 * row[5]); response.setFaxUrl((String) row[6]);
-	 * response.setVerifiedFlag((String) row[7]); response.setProviderType((String)
-	 * row[8]); response.setHcpName((String) row[9]);
-	 * response.setHcpAddress2((String) row[10]); response.setHcpAddress2((String)
-	 * row[11]); response.setHcpCity((String) row[12]);
-	 * response.setHcpState((String) row[13]); response.setHcpZip((String) row[14]);
-	 * response.setAccountName((String) row[15]); response.setAccAddress1((String)
-	 * row[16]); response.setAccCity((String) row[17]);
-	 * response.setAccState((String) row[18]); response.setAccZip((String) row[19]);
-	 * response.setPatientName((String) row[20]); response.setDateOfBirth((Date)
-	 * row[21]); response.setGender((String) row[22]);
-	 * response.setCellPhone((String) row[23]); response.setWorkPhone((String)
-	 * row[24]); response.setShipToAddress((String) row[25]);
-	 * response.setPatientCity((String) row[26]); response.setPatientState((String)
-	 * row[27]); response.setPatientZip((String) row[28]);
-	 * response.setPatientZip4((String) row[29]); response.setSsn((String) row[30]);
-	 * response.setMrn((String) row[31]); response.setPmsId((String) row[32]);
-	 * response.setMaritialStatus((String) row[33]);
-	 * response.setEmergencyContactName((String) row[34]);
-	 * response.setEmergencyContactPhone((String) row[35]);
-	 * response.setProductCode((String) row[36]);
-	 * response.setProductDisplayName((String) row[37]);
-	 * response.setWndCode((String) row[38]); response.setPatientId((Integer)
-	 * row[39]);
-	 * 
-	 * return response; }
-	 */
+	
+	  private FaxRxTrackerDetailsResponse mapToObjectsArrays(Object[] row) {
+	  FaxRxTrackerDetailsResponse response = new FaxRxTrackerDetailsResponse();
+	  
+	  response.setTrnRxId((Integer) row[0]); response.setTrnFaxId((Integer)
+	  row[1]); response.setFaxId((String) row[2]); response.setCaseId((Integer)
+	  row[3]); response.setFaxDate((Date) row[4]); response.setFaxNumber((String)
+	  row[5]); response.setFaxUrl((String) row[6]);
+	  response.setVerifiedFlag((String) row[7]); response.setProviderType((String)
+	  row[8]); response.setHcpName((String) row[9]);
+	  response.setHcpAddress2((String) row[10]); response.setHcpAddress2((String)
+	  row[11]); response.setHcpCity((String) row[12]);
+	  response.setHcpState((String) row[13]); response.setHcpZip((String) row[14]);
+	  response.setAccountName((String) row[15]); response.setAccAddress1((String)
+	  row[16]); response.setAccCity((String) row[17]);
+	  response.setAccState((String) row[18]); response.setAccZip((String) row[19]);
+	  response.setPatientName((String) row[20]); response.setDateOfBirth((Date)
+	  row[21]); response.setGender((String) row[22]);
+	  response.setCellPhone((String) row[23]); response.setWorkPhone((String)
+	  row[24]); response.setShipToAddress((String) row[25]);
+	  response.setPatientCity((String) row[26]); response.setPatientState((String)
+	  row[27]); response.setPatientZip((String) row[28]);
+	  response.setPatientZip4((String) row[29]); response.setSsn((String) row[30]);
+	  response.setMrn((String) row[31]); response.setPmsId((String) row[32]);
+	  response.setMaritialStatus((String) row[33]);
+	  response.setEmergencyContactName((String) row[34]);
+	  response.setEmergencyContactPhone((String) row[35]);
+	  response.setProductCode((String) row[36]);
+	  response.setProductDisplayName((String) row[37]);
+	  response.setWndCode((String) row[38]); response.setPatientId((Integer)
+	  row[39]);
+	  
+	  return response; }
+	 
 	@Override
-	public List<FaxRxTrackerResponse> getFaxRxTrackerDetailsList() {
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsList() {
 		List<Object[]> faxRxTrackerResponse = faxPrescriptionsRepository.getFaxRxTrackerDetailsList();
-		List<FaxRxTrackerResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArray)
+		List<FaxRxTrackerDetailsResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArrays)
 				.collect(Collectors.toList());
 
 		return responses;
@@ -160,9 +160,9 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	}
 	
 	@Override
-	public List<FaxRxTrackerResponse> getFaxRxTrackerListById(int trnRxId) {
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerListById(int trnRxId) {
 		List<Object[]> faxRxTrackerResponse = faxPrescriptionsRepository.getFaxRxTrackerDetailsList(trnRxId);
-		List<FaxRxTrackerResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArray)
+		List<FaxRxTrackerDetailsResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArrays)
 				.collect(Collectors.toList());
 
 		return responses;
@@ -170,9 +170,9 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	
 	
 	@Override
-	public List<FaxRxTrackerResponse> getFaxRxTrackerListByCaseId(int caseId) {
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerListByCaseId(int caseId) {
 		List<Object[]> faxRxTrackerResponse = faxPrescriptionsRepository.getFaxRxTrackerCaseList(caseId);
-		List<FaxRxTrackerResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArray)
+		List<FaxRxTrackerDetailsResponse> responses = faxRxTrackerResponse.stream().map(this::mapToObjectsArrays)
 				.collect(Collectors.toList());
 
 		return responses;
