@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,9 @@ import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxChecklistResponse;
+import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.entity.ProductDetails;
 import com.nextscience.entity.RxChecklist;
 import com.nextscience.service.RxChecklistService;
@@ -36,6 +39,15 @@ public class RxChecklistController {
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<RxChecklistResponse>(), checkList, "Successfully ", "Error");
 	  }
-}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/checkList/{trnRxId}")
+	public NSServiceResponse<List<CheckListResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
+	{
+		List<CheckListResponse> checkList = rxChecklistService.getCheckLisDetByTrnRxId(trnRxId);
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList, "Successfully ","Error");
+
+		
+}
+}	
 

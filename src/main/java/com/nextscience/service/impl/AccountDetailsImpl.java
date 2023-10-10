@@ -47,6 +47,15 @@ public class AccountDetailsImpl implements AccountDetailsService{
 		response.setZip((String) row[10]);
 		return response;
 	}
+	@Override
+	public List<OfficeAccResponse> getAccDetByTrnRxId(int trnFaxId) {
+		List<Object[]> officeAccResponse=accountDetailsRepository.getAccDetByTrnRxId(trnFaxId);
+		List<OfficeAccResponse> responses = officeAccResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+		
+	}
 }
 		
 

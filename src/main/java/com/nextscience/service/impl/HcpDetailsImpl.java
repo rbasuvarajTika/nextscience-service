@@ -46,6 +46,15 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		response.setSignature_Date((Date) row[9]);
 		return response;
 	}
+	@Override
+	public List<HcpInfoResponse> getHcpDetByTrnRxId(int trnFaxId) {
+		List<Object[]> hcpInfoResponse=hcpDetailsRepository.getHcpDetByTrnRxId(trnFaxId);
+		List<HcpInfoResponse> responses = hcpInfoResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+		
+	}
 	
 	/*
 	 * @Override public List<HcpDetails> findAllHcpDetails( String cellPhone, String

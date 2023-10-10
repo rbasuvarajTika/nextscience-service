@@ -41,6 +41,14 @@ public class RxChecklistImpl implements RxChecklistService {
 		response.setComments((String) row[6]);
 		return response;
 	}
+	@Override
+	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnFaxId) {
+		List<Object[]> checkListResponse=rxChecklistRepository.getCheckLisDetByTrnRxId(trnFaxId);
+		List<CheckListResponse> responses = checkListResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+	}
 		
 	/*
 	 * @SuppressWarnings("unchecked")
