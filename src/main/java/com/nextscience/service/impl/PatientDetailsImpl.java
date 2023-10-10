@@ -37,6 +37,15 @@ public class PatientDetailsImpl implements PatientDetailsService{
 		return responses;
 		
 	}
+	
+	@Override
+	public List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId) {
+		List<Object[]> rxPatientDetailsResponse=patientDetailsRepository.getRxPatientDetByTrnRxId(trnFaxId);
+		List<RxPatientDetailsResponse> responses = rxPatientDetailsResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+	}
 	private RxPatientDetailsResponse mapToObjectsArray(Object[] row) {
 		RxPatientDetailsResponse response = new RxPatientDetailsResponse();
 		
@@ -74,6 +83,12 @@ public class PatientDetailsImpl implements PatientDetailsService{
 		return response;
 	
 }
+	@Override
+	public int updatePatientDetAndFaxRx(Object object) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
 		
 		

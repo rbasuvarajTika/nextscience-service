@@ -11,8 +11,10 @@ public interface PatientDetailsService {
 	//List<PatientDetails> findAll();
 	
 	public	List<RxPatientDetailsResponse> getRxPatientList();
-
 	
+	public	List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId);
+
+	public int updatePatientDetAndFaxRx(Object object);
 	
 
 }

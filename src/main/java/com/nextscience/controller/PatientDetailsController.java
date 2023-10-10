@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,17 @@ public class PatientDetailsController {
 	public NSServiceResponse<List<RxPatientDetailsResponse>>getPatientDetailList()
 	{
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientList();
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, "Successfully ","Error");
+
+		
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxpatient/{trnFaxId}")
+	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
+	{
+		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, "Successfully ","Error");
 
 		
