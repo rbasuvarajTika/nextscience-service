@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductDetailsResponse;
@@ -27,11 +28,11 @@ public class RxChecklistController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxChecklist")
-	public NSServiceResponse<List<RxChecklistResponse>>getchecklistDetail()
+	@GetMapping("/checkList")
+	public NSServiceResponse<List<CheckListResponse>>getchecklistDetail()
 	  
 	{ 
-		List<RxChecklist> checkList = rxChecklistService.findAll();
+		List<CheckListResponse> checkList = rxChecklistService.getCheckList();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<RxChecklistResponse>(), checkList, "Successfully ", "Error");
 	  }

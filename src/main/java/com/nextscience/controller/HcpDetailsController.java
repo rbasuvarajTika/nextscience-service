@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxWoundProductInfoResponse;
 import com.nextscience.dto.response.HcpDetailsResponse;
+import com.nextscience.dto.response.HcpInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxRxWoundProductInfo;
@@ -29,22 +30,14 @@ public class HcpDetailsController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/hcp")
-	public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail()
+	@GetMapping("/hcpInfo")
+	public NSServiceResponse<List<HcpInfoResponse>>gethcpDetail()
 	  
 	{ 
-		List<HcpDetails> hcpInfo = hcpDetailsService.getHcpList();
+		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpInfoList();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<HcpDetailsResponse>(), hcpInfo, "Successfully ", "Error");
+	  NSServiceResponse<HcpDetailsResponse>(), hcpDetailInfo, "Successfully ", "Error");
 	  }
 	
-	/*public NSServiceResponse<List<HcpDetailsResponse>>gethcpDetail( @RequestParam(name = "cellPhone", required = false) String cellPhone,
-            @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "address1", required = false) String address1,
-            @RequestParam(name = "city", required = false) String city,
-            @RequestParam(name = "state", required = false) String state,
-            @RequestParam(name = "zip", required = false) String zip) {
-        return (NSServiceResponse<List<HcpDetailsResponse>>) hcpDetailsService.findAllHcpDetails(cellPhone, email, address1, city, state, zip);
-			
-}*/
+	
 }

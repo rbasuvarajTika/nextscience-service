@@ -7,5 +7,6 @@ import com.nextscience.entity.FaxRxProvider;
 
 @Repository
 public interface FaxRxProviderRepository extends JpaRepository<FaxRxProvider, Integer>{
+	
 
 }

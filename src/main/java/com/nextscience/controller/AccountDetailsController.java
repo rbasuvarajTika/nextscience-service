@@ -15,6 +15,7 @@ import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.OfficeAccResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.AccountDetails;
 import com.nextscience.service.AccountDetailsService;
@@ -28,12 +29,12 @@ public class AccountDetailsController {
 	@Autowired
 	private AccountDetailsService accountDetailsService;
 	@SuppressWarnings("unchecked")
-	@GetMapping("/account")
+	@GetMapping("/officeInfo")
     
-	public NSServiceResponse<List<AccountDetailsResponse>>getAccountDetail()
+	public NSServiceResponse<List<OfficeAccResponse>>getAccountDetail()
 	  
 	{ 
-		List<AccountDetails> account = accountDetailsService.findAll();
+		List<OfficeAccResponse> account = accountDetailsService.getAccountList();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<AccountDetailsResponse>(), account, "Successfully ", "Error");
 	  }

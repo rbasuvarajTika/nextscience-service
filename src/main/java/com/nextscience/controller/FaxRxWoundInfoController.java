@@ -14,6 +14,9 @@ import com.nextscience.dto.response.FaxRxProviderResponse;
 import com.nextscience.dto.response.FaxRxWoundInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.dto.response.ProductKitsResponse;
+import com.nextscience.dto.response.RxPatientDetailsResponse;
+import com.nextscience.dto.response.WoundInfoResponse;
 import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxRxWoundInfo;
 import com.nextscience.service.FaxRxProviderService;
@@ -28,15 +31,26 @@ public class FaxRxWoundInfoController {
 	@Autowired
 	FaxRxWoundInfoService faxRxWoundInfoService;
 	
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @GetMapping("/woundList") public
+	 * NSServiceResponse<List<WoundInfoResponse>>getWoundDetail()
+	 * 
+	 * { List<WoundInfoResponse> woundInfo =
+	 * faxRxWoundInfoService.getRxWoundInfoList(); return
+	 * ResponseHelper.createResponse(new
+	 * NSServiceResponse<FaxRxWoundInfoResponse>(), woundInfo, "Successfully ",
+	 * "Error"); }
+	 */
 	@SuppressWarnings("unchecked")
-	@GetMapping("/woundList")
-	public NSServiceResponse<List<FaxRxWoundInfoResponse>>getWoundDetail()
-	  
-	{ 
-		List<FaxRxWoundInfo> woundInfo = faxRxWoundInfoService.findAll();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<FaxRxWoundInfoResponse>(), woundInfo, "Successfully ", "Error");
-	  }
-	
+	@GetMapping("/woundInfo")
+	public NSServiceResponse <List<WoundInfoResponse>>getWoundInfoList()
+	{
+		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundInfoList();
+		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo, "Successfully ","Error");
+		
+
+	}
 
 }

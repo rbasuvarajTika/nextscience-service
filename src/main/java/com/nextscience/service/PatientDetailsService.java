@@ -8,9 +8,11 @@ import com.nextscience.entity.PatientDetails;
 
 public interface PatientDetailsService {
 
-	List<PatientDetails> findAll();
+	//List<PatientDetails> findAll();
 	
 	public	List<RxPatientDetailsResponse> getRxPatientList();
+
+	
 	
 
 }
