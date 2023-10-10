@@ -47,6 +47,17 @@ public class ProductDetailsImpl implements ProductDetailsService {
 		response.setWndCode((String) row[11]);
 		return response;
 	}
+
+	@Override
+	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnFaxId) {
+		List<Object[]> productKitsResponse=productDetailsRepository.getProductDetByTrnRxId(trnFaxId);
+		List<ProductKitsResponse> responses = productKitsResponse.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+
+		return responses;
+		
+		
+	}
 }
 		
 	/*

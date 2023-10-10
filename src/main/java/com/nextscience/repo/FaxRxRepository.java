@@ -60,29 +60,39 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "where b.CASE_TYPE='Duplicate'")
 	List<Object[]> getDupeResponse();
 	
-	@Query(nativeQuery = true, value = "UPDATE TRN_FAX_RX \r\n"
-			+ "    SET PLACE_OF_SERVICE = :PLACE_OF_SERVICE, \r\n"
-			+ "        ORDER_TYPE = :ORDER_TYPE, \r\n"
-			+ "        WOUND_ACTIVE = :WOUND_ACTIVE, \r\n"
-			+ "        REP_NAME = :REP_NAME, \r\n"
-			+ "        REP_PHONE_NO = :REP_PHONE_NO, \r\n"
-			+ "        DISTRIBUTOR_ID = :DISTRIBUTOR_ID,  \r\n"
-			+ "        UPDATED_USER = :USER, \r\n"
-			+ "        UPDATED_DATE = GETDATE() \r\n"
-			+ "    WHERE  TRN_FAX_ID = :TRN_FAX_ID AND \r\n"
-			+ "           FAX_ID = :FAX_ID  AND \r\n"
-			+ "           PATIENT_ID = :PATIENT_ID")
-	int updateFaxRxDetails(@Param(value = "PLACE_OF_SERVICE") String placeOfService,
-			@Param(value = "ORDER_TYPE") String orderType,
-			@Param(value = "WOUND_ACTIVE") Integer woundActive,
-			@Param(value = "REP_NAME") String repName,
-			@Param(value = "REP_PHONE_NO") String repPhoneNo,
-			@Param(value = "DISTRIBUTOR_ID") String state,
-			@Param(value = "USER") String user,
-			@Param(value = "TRN_FAX_ID") Integer trnFaxId,
-			@Param(value = "FAX_ID") String faxId,
-			@Param(value = "PATIENT_ID") Integer patientId);
-	
-	
-
+	/*
+	 * @Query(nativeQuery = true, value = "UPDATE TRN_FAX_RX \r\n" +
+	 * "    SET PLACE_OF_SERVICE = :PLACE_OF_SERVICE, \r\n" +
+	 * "        ORDER_TYPE = :ORDER_TYPE, \r\n" +
+	 * "        WOUND_ACTIVE = :WOUND_ACTIVE, \r\n" +
+	 * "        REP_NAME = :REP_NAME, \r\n" +
+	 * "        REP_PHONE_NO = :REP_PHONE_NO, \r\n" +
+	 * "        DISTRIBUTOR_ID = :DISTRIBUTOR_ID,  \r\n" +
+	 * "        UPDATED_USER = :USER, \r\n" +
+	 * "        UPDATED_DATE = GETDATE() \r\n" +
+	 * "    WHERE  TRN_FAX_ID = :TRN_FAX_ID AND \r\n" +
+	 * "           FAX_ID = :FAX_ID  AND \r\n" +
+	 * "           PATIENT_ID = :PATIENT_ID") int updateFaxRxDetails(@Param(value =
+	 * "PLACE_OF_SERVICE") String placeOfService,
+	 * 
+	 * @Param(value = "ORDER_TYPE") String orderType,
+	 * 
+	 * @Param(value = "WOUND_ACTIVE") Integer woundActive,
+	 * 
+	 * @Param(value = "REP_NAME") String repName,
+	 * 
+	 * @Param(value = "REP_PHONE_NO") String repPhoneNo,
+	 * 
+	 * @Param(value = "DISTRIBUTOR_ID") String state,
+	 * 
+	 * @Param(value = "USER") String user,
+	 * 
+	 * @Param(value = "TRN_FAX_ID") Integer trnFaxId,
+	 * 
+	 * @Param(value = "FAX_ID") String faxId,
+	 * 
+	 * @Param(value = "PATIENT_ID") Integer patientId);
+	 * 
+	 * 
+	 */
 }

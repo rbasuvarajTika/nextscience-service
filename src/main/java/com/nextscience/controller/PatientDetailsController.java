@@ -54,7 +54,7 @@ public class PatientDetailsController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxpatient/{trnFaxId}")
+	@GetMapping("/rxpatient/{trnRxId}")
 	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientDetByTrnRxId(trnRxId);

@@ -40,28 +40,35 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
 	List<Object[]> getRxPatientDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
 
-	@Query(nativeQuery = true, value = "UPDATE DIM_PATIENT \r\n"
-			+ "    SET PATIENT_FULL_NAME = :PATIENT_NAME, \r\n"
-			+ "        DATE_OF_BIRTH = :DATE_OF_BIRTH, \r\n"
-			+ "        CELL_PHONE = :CELL_PHONE, \r\n"
-			+ "        SHIP_TO_ADDRESS = :SHIP_TO_ADDRESS, \r\n"
-			+ "        CITY = :CITY, \r\n"
-			+ "        STATE = :STATE,  \r\n"
-			+ "        ZIP = :ZIP, \r\n"
-			+ "        SSN = CONCAT( 'XXX-XXXX-', :SSN), \r\n"
-			+ "        UPDATED_USER = :USER, \r\n"
-			+ "        UPDATED_DATE = GETDATE() \r\n"
-			+ "    WHERE PATIENT_ID = :PATIENT_ID")
-	int updateRxPatientDetails(@Param(value = "PATIENT_NAME") String patientName,
-			@Param(value = "DATE_OF_BIRTH") Date dateOfBirth,
-			@Param(value = "CELL_PHONE") String cellPhone,
-			@Param(value = "SHIP_TO_ADDRESS") String shipToAddress,
-			@Param(value = "CITY") String city,@Param(value = "STATE") String state,
-			@Param(value = "ZIP") String zip,@Param(value = "SSN") String ssn,
-			@Param(value = "UPDATED_USER") String updatedUser,
-			@Param(value = "UPDATED_DATE") Date updatedDate,
-			@Param(value = "PATIENT_ID") Integer patientId);
-	
+	/*
+	 * @Query(nativeQuery = true, value = "UPDATE DIM_PATIENT \r\n" +
+	 * "    SET PATIENT_FULL_NAME = :PATIENT_NAME, \r\n" +
+	 * "        DATE_OF_BIRTH = :DATE_OF_BIRTH, \r\n" +
+	 * "        CELL_PHONE = :CELL_PHONE, \r\n" +
+	 * "        SHIP_TO_ADDRESS = :SHIP_TO_ADDRESS, \r\n" +
+	 * "        CITY = :CITY, \r\n" + "        STATE = :STATE,  \r\n" +
+	 * "        ZIP = :ZIP, \r\n" + "        SSN = CONCAT( 'XXX-XXXX-', :SSN), \r\n"
+	 * + "        UPDATED_USER = :USER, \r\n" +
+	 * "        UPDATED_DATE = GETDATE() \r\n" +
+	 * "    WHERE PATIENT_ID = :PATIENT_ID") int updateRxPatientDetails(@Param(value
+	 * = "PATIENT_NAME") String patientName,
+	 * 
+	 * @Param(value = "DATE_OF_BIRTH") Date dateOfBirth,
+	 * 
+	 * @Param(value = "CELL_PHONE") String cellPhone,
+	 * 
+	 * @Param(value = "SHIP_TO_ADDRESS") String shipToAddress,
+	 * 
+	 * @Param(value = "CITY") String city,@Param(value = "STATE") String state,
+	 * 
+	 * @Param(value = "ZIP") String zip,@Param(value = "SSN") String ssn,
+	 * 
+	 * @Param(value = "UPDATED_USER") String updatedUser,
+	 * 
+	 * @Param(value = "UPDATED_DATE") Date updatedDate,
+	 * 
+	 * @Param(value = "PATIENT_ID") Integer patientId);
+	 */
 	
 	
 	

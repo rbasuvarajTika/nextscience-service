@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +50,16 @@ public class FaxRxWoundInfoController {
 	{
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundInfoList();
 		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo, "Successfully ","Error");
+		
+
+	}
+	@SuppressWarnings("unchecked")
+	@GetMapping("/woundInfo/{trnRxId}")
+	public NSServiceResponse<List<WoundInfoResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
+	{
+		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundDetByTrnRxId(trnRxId);
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo, "Successfully ","Error");
+
 		
 
 	}

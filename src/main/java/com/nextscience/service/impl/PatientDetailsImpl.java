@@ -83,11 +83,10 @@ public class PatientDetailsImpl implements PatientDetailsService{
 		return response;
 	
 }
-	@Override
-	public int updatePatientDetAndFaxRx(Object object) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+/*
+ * @Override public int updatePatientDetAndFaxRx(Object object) { // TODO
+ * Auto-generated method stub return 0; }
+ */
 
 }
 		

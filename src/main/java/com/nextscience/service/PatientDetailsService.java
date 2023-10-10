@@ -14,7 +14,7 @@ public interface PatientDetailsService {
 	
 	public	List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId);
 
-	public int updatePatientDetAndFaxRx(Object object);
+	//public int updatePatientDetAndFaxRx(Object object);
 	
 
 }
