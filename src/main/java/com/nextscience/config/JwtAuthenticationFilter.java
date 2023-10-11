@@ -2,9 +2,11 @@ package com.nextscience.config;
 
 import java.io.IOException;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,5 +53,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 		}
 		filterChain.doFilter(request, response);
+	}
+	public String getCurrentUserName() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null && authentication.isAuthenticated()) {
+			return authentication.getName();
+		}
+		return null;
 	}
 }

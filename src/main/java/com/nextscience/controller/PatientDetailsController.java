@@ -2,24 +2,18 @@ package com.nextscience.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
-import com.nextscience.dto.response.FaxRxPayerResponse;
-import com.nextscience.dto.response.FaxRxWoundProductInfoResponse;
+import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.PatientDetailsResponse;
-import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
-import com.nextscience.entity.AccountDetails;
-import com.nextscience.entity.PatientDetails;
 import com.nextscience.service.PatientDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -62,6 +56,15 @@ public class PatientDetailsController {
 
 		
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping("/rxpatient")
+	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(@RequestBody UpdatePatientTrnFaxRxRequest req)
+	{
+		String response = patientDetailsService.updatePatientDetAndFaxRx(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
 	}
 	
 }

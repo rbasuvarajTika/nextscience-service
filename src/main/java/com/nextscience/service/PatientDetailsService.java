@@ -2,6 +2,7 @@ package com.nextscience.service;
 
 import java.util.List;
 
+import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.entity.PatientDetails;
@@ -14,7 +15,7 @@ public interface PatientDetailsService {
 	
 	public	List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId);
 
-	//public int updatePatientDetAndFaxRx(Object object);
+	public String updatePatientDetAndFaxRx(UpdatePatientTrnFaxRxRequest req);
 	
 
 }
