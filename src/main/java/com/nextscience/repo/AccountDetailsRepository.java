@@ -24,6 +24,6 @@ public interface AccountDetailsRepository extends JpaRepository<AccountDetails, 
 					+ "join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
 					+ "left join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-			List<Object[]> getAccDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+			List<Object[]> getAccDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 }

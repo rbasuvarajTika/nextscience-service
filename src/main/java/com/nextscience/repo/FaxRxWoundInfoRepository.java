@@ -30,7 +30,7 @@ public interface FaxRxWoundInfoRepository extends JpaRepository<FaxRxWoundInfo, 
 			+ "left join [BRDG_FAX_RX_CASES] cp on (a.[TRN_FAX_ID]=cp.[TRN_FAX_ID])\r\n"
 			+ "left join [BRDG_FAX_RX_WOUND_INFO] wi on (a.[TRN_FAX_ID]=wi.[TRN_FAX_ID])\r\n"
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-	List<Object[]> getRxWoundDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+	List<Object[]> getRxWoundDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 	
 

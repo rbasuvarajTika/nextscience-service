@@ -48,8 +48,8 @@ public class AccountDetailsImpl implements AccountDetailsService{
 		return response;
 	}
 	@Override
-	public List<OfficeAccResponse> getAccDetByTrnRxId(int trnFaxId) {
-		List<Object[]> officeAccResponse=accountDetailsRepository.getAccDetByTrnRxId(trnFaxId);
+	public List<OfficeAccResponse> getAccDetByTrnRxId(int trnRxId) {
+		List<Object[]> officeAccResponse=accountDetailsRepository.getAccDetByTrnRxId(trnRxId);
 		List<OfficeAccResponse> responses = officeAccResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 

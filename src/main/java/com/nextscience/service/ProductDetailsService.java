@@ -11,7 +11,7 @@ public interface ProductDetailsService {
 	
 	//public List<ProductDetails> findAll();
 	public List<ProductKitsResponse> getProductDetailList();
-	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnFaxId);
+	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnRxId);
 
 
 

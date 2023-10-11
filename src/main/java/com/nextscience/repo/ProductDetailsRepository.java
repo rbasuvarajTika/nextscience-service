@@ -29,7 +29,7 @@ public interface ProductDetailsRepository extends JpaRepository<ProductDetails, 
 			+ "left join [BRDG_FAX_RX_WOUND_PRODUCT_INFO] wp on (a.[TRN_FAX_ID]=wp.[TRN_FAX_ID])\r\n"
 			+ "left join [DIM_PRODUCT] pr on (wp.[PRODUCT_ID]=pr.PRODUCT_ID)\r\n"
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-	List<Object[]> getProductDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+	List<Object[]> getProductDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 	
 	
 }

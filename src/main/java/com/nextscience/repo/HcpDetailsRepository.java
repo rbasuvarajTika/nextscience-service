@@ -30,6 +30,6 @@ public interface HcpDetailsRepository extends JpaRepository<HcpDetails, Integer>
 			+ "left join [BRDG_FAX_RX_PROVIDER] c on (a.[TRN_FAX_ID]=c.[TRN_FAX_ID])\r\n"
 			+ "left join [DIM_HCP] p on (c.[HCP_ID]=p.[HCP_ID])\r\n" 
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-	List<Object[]> getHcpDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+	List<Object[]> getHcpDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 }

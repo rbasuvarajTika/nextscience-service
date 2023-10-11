@@ -14,6 +14,6 @@ public interface FaxRxWoundInfoService {
 
 	//public List<FaxRxWoundInfo> findAll();
 	public	List<WoundInfoResponse> getRxWoundInfoList();
-	public List<WoundInfoResponse> getRxWoundDetByTrnRxId(int trnFaxId);
+	public List<WoundInfoResponse> getRxWoundDetByTrnRxId(int trnRxId);
 
 }

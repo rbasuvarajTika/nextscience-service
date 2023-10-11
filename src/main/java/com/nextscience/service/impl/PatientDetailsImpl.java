@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.nextscience.config.JwtAuthenticationFilter;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
@@ -24,6 +25,7 @@ import com.nextscience.service.PatientDetailsService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.Valid;
 
 @Service
 public class PatientDetailsImpl implements PatientDetailsService {
@@ -52,8 +54,8 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	}
 
 	@Override
-	public List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId) {
-		List<Object[]> rxPatientDetailsResponse = patientDetailsRepository.getRxPatientDetByTrnRxId(trnFaxId);
+	public List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnRxId) {
+		List<Object[]> rxPatientDetailsResponse = patientDetailsRepository.getRxPatientDetByTrnRxId(trnRxId);
 		List<RxPatientDetailsResponse> responses = rxPatientDetailsResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 
@@ -78,7 +80,10 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		response.setCity((String) row[12]);
 		response.setState((String) row[13]);
 		response.setZip((String) row[14]);
-		response.setSsn((String) row[15]);
+		String getSsn = (String) row[15];
+		String ssn = getSsn.substring(getSsn.length()-4);
+		System.out.println(ssn);
+		response.setSsn(ssn);
 		response.setWorkPhone((String) row[16]);
 		response.setGender((String) row[17]);
 		response.setZip4((String) row[18]);
@@ -100,7 +105,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 
 	@Override
 	@Transactional
-	public String updatePatientDetAndFaxRx(UpdatePatientTrnFaxRxRequest req) {
+	public String updatePatientDetAndFaxRx(@Valid @RequestBody UpdatePatientTrnFaxRxRequest req) {
 
 		String updatePatienDetails = "UPDATE DIM_PATIENT SET PATIENT_FULL_NAME = :PATIENT_NAME,"
 				+ "	DATE_OF_BIRTH = :DATE_OF_BIRTH, CELL_PHONE = :CELL_PHONE,"

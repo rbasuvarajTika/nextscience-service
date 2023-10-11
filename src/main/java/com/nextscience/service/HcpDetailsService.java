@@ -13,7 +13,7 @@ public interface HcpDetailsService {
 	
 	 // public List<HcpDetails> getHcpList();
 	public List<HcpInfoResponse> getHcpInfoList();
-	public	List<HcpInfoResponse> getHcpDetByTrnRxId(int trnFaxId);
+	public	List<HcpInfoResponse> getHcpDetByTrnRxId(int trnRxId);
 	
 	 
 }

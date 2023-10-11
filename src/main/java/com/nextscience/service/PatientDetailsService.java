@@ -13,7 +13,7 @@ public interface PatientDetailsService {
 	
 	public	List<RxPatientDetailsResponse> getRxPatientList();
 	
-	public	List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnFaxId);
+	public	List<RxPatientDetailsResponse> getRxPatientDetByTrnRxId(int trnRxId);
 
 	public String updatePatientDetAndFaxRx(UpdatePatientTrnFaxRxRequest req);
 	

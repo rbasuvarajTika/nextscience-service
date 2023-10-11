@@ -47,8 +47,8 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		return response;
 	}
 	@Override
-	public List<HcpInfoResponse> getHcpDetByTrnRxId(int trnFaxId) {
-		List<Object[]> hcpInfoResponse=hcpDetailsRepository.getHcpDetByTrnRxId(trnFaxId);
+	public List<HcpInfoResponse> getHcpDetByTrnRxId(int trnRxId) {
+		List<Object[]> hcpInfoResponse=hcpDetailsRepository.getHcpDetByTrnRxId(trnRxId);
 		List<HcpInfoResponse> responses = hcpInfoResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 

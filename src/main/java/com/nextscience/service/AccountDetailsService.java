@@ -15,7 +15,7 @@ public interface AccountDetailsService {
 
 	//List<AccountDetails> findAll();
 	public List<OfficeAccResponse> getAccountList();
-	public	List<OfficeAccResponse> getAccDetByTrnRxId(int trnFaxId);
+	public	List<OfficeAccResponse> getAccDetByTrnRxId(int trnRxId);
 	
 
 	

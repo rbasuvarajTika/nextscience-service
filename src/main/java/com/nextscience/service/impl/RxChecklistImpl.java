@@ -42,8 +42,8 @@ public class RxChecklistImpl implements RxChecklistService {
 		return response;
 	}
 	@Override
-	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnFaxId) {
-		List<Object[]> checkListResponse=rxChecklistRepository.getCheckLisDetByTrnRxId(trnFaxId);
+	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnRxId) {
+		List<Object[]> checkListResponse=rxChecklistRepository.getCheckLisDetByTrnRxId(trnRxId);
 		List<CheckListResponse> responses = checkListResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 

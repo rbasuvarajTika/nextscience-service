@@ -49,8 +49,8 @@ public class ProductDetailsImpl implements ProductDetailsService {
 	}
 
 	@Override
-	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnFaxId) {
-		List<Object[]> productKitsResponse=productDetailsRepository.getProductDetByTrnRxId(trnFaxId);
+	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnRxId) {
+		List<Object[]> productKitsResponse=productDetailsRepository.getProductDetByTrnRxId(trnRxId);
 		List<ProductKitsResponse> responses = productKitsResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 

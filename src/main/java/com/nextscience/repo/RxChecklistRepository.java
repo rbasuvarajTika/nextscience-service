@@ -26,7 +26,7 @@ public interface RxChecklistRepository extends JpaRepository<RxChecklist, Intege
 					+ "left join BRDG_FAX_RX_CHECKLIST rc on (a.[TRN_RX_ID]=rc.[TRN_RX_ID])\r\n"
 					+ "left join [DIM_RX_CHECKLIST] r on (rc.[RX_CHECKLIST_ID]=r.[RX_CHECKLIST_ID])\r\n"
 					+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-			List<Object[]> getCheckLisDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+			List<Object[]> getCheckLisDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 	
 

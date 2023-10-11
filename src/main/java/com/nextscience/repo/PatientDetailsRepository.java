@@ -36,6 +36,6 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 			+ "join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
 			+ "left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
 			+ "left join [DIM_DISTRIBUTOR] d on (b.[DISTRIBUTOR_ID]=d.[DISTRIBUTOR_ID])\r\n" + "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
-	List<Object[]> getRxPatientDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnFaxId);
+	List<Object[]> getRxPatientDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 }

@@ -60,8 +60,8 @@ public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 	}
 
 	@Override
-	public List<WoundInfoResponse> getRxWoundDetByTrnRxId(int trnFaxId) {
-		List<Object[]> woundInfoResponse=faxRxWoundInfoRepository.getRxWoundDetByTrnRxId(trnFaxId);
+	public List<WoundInfoResponse> getRxWoundDetByTrnRxId(int trnRxId) {
+		List<Object[]> woundInfoResponse=faxRxWoundInfoRepository.getRxWoundDetByTrnRxId(trnRxId);
 		List<WoundInfoResponse> responses = woundInfoResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 

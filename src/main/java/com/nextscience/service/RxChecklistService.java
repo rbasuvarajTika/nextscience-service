@@ -12,7 +12,7 @@ public interface RxChecklistService {
 
 	//public List<RxChecklist> findAll();
 	public List<CheckListResponse> getCheckList();
-	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnFaxId);
+	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnRxId);
 
 
 }
