@@ -6,9 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.InsertWoundInfoRequest;
+import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
+import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxProviderResponse;
@@ -63,5 +70,32 @@ public class FaxRxWoundInfoController {
 		
 
 	}
+	@SuppressWarnings("unchecked")
+	@PostMapping("/woundInfo")
+	public NSServiceResponse<InsertWoundInfoRequest> insertWoundDetail(@RequestBody InsertWoundInfoRequest req)
+	{
+		String response = faxRxWoundInfoService.insertWoundInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
 
+	@SuppressWarnings("unchecked")
+	@PutMapping("/woundInfo")
+	public NSServiceResponse<UpdateWoundInfoRequest> updateWoundDetails(@RequestBody UpdateWoundInfoRequest req)
+	{
+		String response = faxRxWoundInfoService.updateWoundInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping("/woundInfoDetails")
+	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req)
+	{
+		String response = faxRxWoundInfoService.DeleteWoundInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
+	
+	
 }

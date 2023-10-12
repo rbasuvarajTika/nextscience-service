@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.request.UpdateHcpInfoRequest;
+import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.FaxRxWoundProductInfoResponse;
 import com.nextscience.dto.response.HcpDetailsResponse;
@@ -20,6 +24,7 @@ import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.entity.FaxRxWoundProductInfo;
 import com.nextscience.entity.HcpDetails;
 import com.nextscience.service.HcpDetailsService;
+import com.nextscience.service.PatientDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 @RestController
@@ -47,8 +52,17 @@ public class HcpDetailsController {
 	{
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), hcpDetailInfo, "Successfully ","Error");
-
-		
-
+		}
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping("/hcpInfo")
+	public NSServiceResponse<UpdateHcpInfoRequest> updateHcpInfoDet(@RequestBody UpdateHcpInfoRequest req)
+	{
+		String response = hcpDetailsService.updateHcpProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
 	}
+	
+	
+	
 }

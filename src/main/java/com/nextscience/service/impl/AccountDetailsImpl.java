@@ -1,6 +1,7 @@
 package com.nextscience.service.impl;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.HcpInfoResponse;
 import com.nextscience.dto.response.OfficeAccResponse;
@@ -17,11 +19,20 @@ import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.repo.AccountDetailsRepository;
 import com.nextscience.service.AccountDetailsService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 @Service
 public class AccountDetailsImpl implements AccountDetailsService{
 	
 	@Autowired
 	AccountDetailsRepository accountDetailsRepository;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+
 
 	@Override
 	public List<OfficeAccResponse> getAccountList() {
@@ -55,6 +66,32 @@ public class AccountDetailsImpl implements AccountDetailsService{
 
 		return responses;
 		
+	}
+	@Override
+	public String updateOffInfoProc(UpdateOfficeInfoRequest req) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Office_Edit");
+		query.registerStoredProcedureParameter("ACCOUNT_ID", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("ACCOUNT_NAME", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("CELL_PHONE", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("EMAIL", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("SHIP_TO_ADDRESS", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("CITY", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("STATE", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("ZIP", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		
+		
+		query.setParameter("ACCOUNT_ID", req.getAccountId());
+		query.setParameter("ACCOUNT_NAME", req.getAccountName());
+      	query.setParameter("CELL_PHONE", req.getPhone());
+		query.setParameter("EMAIL", req.getEmail());
+		query.setParameter("SHIP_TO_ADDRESS", req.getAddress1());
+		query.setParameter("CITY", req.getCity());
+		query.setParameter("STATE", req.getState());
+		query.setParameter("ZIP", req.getZip());
+		query.setParameter("USER", req.getUpdatedUser());
+		query.execute();
+		return "updated Successfully";
 	}
 }
 		

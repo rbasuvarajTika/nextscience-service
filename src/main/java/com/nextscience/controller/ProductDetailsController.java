@@ -6,9 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.dto.request.DeleteProductInfoRequest;
+import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.InsertProductInfoRequest;
+import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
+import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.PharmacyDetailsResponse;
@@ -51,6 +59,33 @@ public class ProductDetailsController {
 		
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/productInfo")
+	public NSServiceResponse<InsertProductInfoRequest> InsertProductInfoDet(@RequestBody InsertProductInfoRequest req)
+	{
+		String response = productDetailsService.InsertProductInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
+	@SuppressWarnings("unchecked")
+	@PutMapping("/productInfo")
+	public NSServiceResponse<UpdateProductInfoRequest> UpdateProductInfoDet(@RequestBody UpdateProductInfoRequest req)
+	{
+		String response = productDetailsService.UpdateProductInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PutMapping("/productInfoDetails")
+	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req)
+	{
+		String response = productDetailsService.DeleteProductInfoProc(req);
+    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    			response, "Successfully ", "Error");
+	}
+	
 	/*
 	 * @SuppressWarnings("unchecked")
 	 * 

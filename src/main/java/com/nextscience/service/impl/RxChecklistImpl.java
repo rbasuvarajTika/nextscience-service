@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductKitsResponse;
@@ -15,11 +16,19 @@ import com.nextscience.entity.RxChecklist;
 import com.nextscience.repo.RxChecklistRepository;
 import com.nextscience.service.RxChecklistService;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
+
 @Service
 public class RxChecklistImpl implements RxChecklistService {
 	
 	@Autowired
 	RxChecklistRepository rxChecklistRepository;
+	
+	@PersistenceContext
+	 private EntityManager entityManager;
 
 	@Override
 	public List<CheckListResponse> getCheckList() {
@@ -48,6 +57,28 @@ public class RxChecklistImpl implements RxChecklistService {
 				.collect(Collectors.toList());
 
 		return responses;
+	}
+	@Override
+	public String updateChecklistInfoProc(UpdateChecklistInfoRequest req) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Office_Edit");
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("TRN_RX_ID", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("RX_CHECKLIST_ID", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("CHECKLIST_FLAG", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("COMMENTS", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		
+		
+
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
+      	query.setParameter("RX_CHECKLIST_ID", req.getRxChecklistId());
+		query.setParameter("CHECKLIST_FLAG", req.getChecklist_Flag());
+		query.setParameter("COMMENTS", req.getComments());
+		query.setParameter("USER", req.getUpdatedUser());
+		query.execute();
+		
+		return "updated successfully";
 	}
 		
 	/*
