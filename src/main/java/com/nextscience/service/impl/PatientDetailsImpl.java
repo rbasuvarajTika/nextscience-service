@@ -24,7 +24,9 @@ import com.nextscience.repo.PayerDetailsRepository;
 import com.nextscience.service.PatientDetailsService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 import jakarta.validation.Valid;
 
 @Service
@@ -148,6 +150,57 @@ public class PatientDetailsImpl implements PatientDetailsService {
          .executeUpdate();
 		 
 		return "updated successfully";
+	}
+
+	@Override
+	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req) {
+		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_PatientDetails_Edit");
+
+	        // Set the parameters for the stored procedure
+	        query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_ID", Integer.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PATIENT_ID", Integer.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PATIENT_NAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("DATE_OF_BIRTH", Date.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("CELL_PHONE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("SHIP_TO_ADDRESS", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("CITY", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("STATE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("ZIP", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("SSN", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PLACE_OF_SERVICE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("ORDER_TYPE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("WOUND_ACTIVE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("REP_NAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("REP_PHONE_NO", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("DISTRIBUTOR_NAME", String.class, ParameterMode.IN);
+
+	        // Set parameter values
+	        query.setParameter("USER", req.getUpdatedUser());
+	        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+	        query.setParameter("TRN_RX_ID", req.getTrnRxId());
+	        query.setParameter("FAX_ID", req.getFaxId());
+	        query.setParameter("PATIENT_ID", req.getPatientId());
+	        query.setParameter("PATIENT_NAME", req.getPatientName());
+	        query.setParameter("DATE_OF_BIRTH", req.getDateOfBirth());
+	        query.setParameter("CELL_PHONE", req.getCellPhone());
+	        query.setParameter("SHIP_TO_ADDRESS", req.getShipToAddress());
+	        query.setParameter("CITY", req.getCity());
+	        query.setParameter("STATE", req.getState());
+	        query.setParameter("ZIP", req.getZip());
+	        query.setParameter("SSN", req.getSsn());
+	        query.setParameter("PLACE_OF_SERVICE", req.getPlaceOfService());
+	        query.setParameter("ORDER_TYPE", req.getOrderType());
+	        query.setParameter("WOUND_ACTIVE", req.getWoundActive());
+	        query.setParameter("REP_NAME", req.getRepName());
+	        query.setParameter("REP_PHONE_NO", req.getRepPhoneNo());
+	        query.setParameter("DISTRIBUTOR_NAME", req.getDistributorName());
+
+	        // Execute the stored procedure
+	        query.execute();
+	        return "updated successfully";
 	}
 
 }

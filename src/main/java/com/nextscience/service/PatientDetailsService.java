@@ -17,5 +17,5 @@ public interface PatientDetailsService {
 
 	public String updatePatientDetAndFaxRx(UpdatePatientTrnFaxRxRequest req);
 	
-
+	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req);
 }

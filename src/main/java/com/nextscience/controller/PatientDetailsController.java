@@ -62,7 +62,7 @@ public class PatientDetailsController {
 	@PutMapping("/rxpatient")
 	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(@RequestBody UpdatePatientTrnFaxRxRequest req)
 	{
-		String response = patientDetailsService.updatePatientDetAndFaxRx(req);
+		String response = patientDetailsService.updatePatientDetAndFaxRxProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
     			response, "Successfully ", "Error");
 	}

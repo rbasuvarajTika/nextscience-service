@@ -18,9 +18,11 @@ public class UpdatePatientTrnFaxRxRequest {
 	
 	private Integer patientId;
 	private Integer trnFaxId;
+	private Integer trnRxId;
 	private String faxId;
 	
 	private String patientFullName;
+	private String patientName;
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
@@ -41,4 +43,5 @@ public class UpdatePatientTrnFaxRxRequest {
 	private String repName;
 	private Integer repPhoneNo;
 	private Integer distributorId;
+	private String distributorName;
 }
