@@ -31,9 +31,9 @@ public class AccountDetailsController {
 
 	@Autowired
 	private AccountDetailsService accountDetailsService;
+	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/officeInfo")
-    
 	public NSServiceResponse<List<OfficeAccResponse>>getAccountDetail()
 	  
 	{ 
