@@ -147,10 +147,7 @@ public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 		query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
 		query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
 		query.setParameter("ICD_CODE", req.getIcdCode());
-		
-		
 		query.execute();
-
 		return "Updated successfully";
 		
 		
