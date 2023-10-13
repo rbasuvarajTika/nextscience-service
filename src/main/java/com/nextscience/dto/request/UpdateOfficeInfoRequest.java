@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Processes an {@link UpdateOfficeInfoRequest } request.
+ * 
  * @author Raghu
  *
  */
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateOfficeInfoRequest {
-
+	private Integer trnFaxId;
+	private Integer trnRxId;
 	private Integer accountId;
 	private String accountName;
 	private String phone;
@@ -27,6 +29,5 @@ public class UpdateOfficeInfoRequest {
 	private String state;
 	private String zip;
 	private String updatedUser;
-	private Date updatedDate;
 
 }

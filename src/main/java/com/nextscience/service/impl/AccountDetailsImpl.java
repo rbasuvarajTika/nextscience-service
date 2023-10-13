@@ -70,6 +70,10 @@ public class AccountDetailsImpl implements AccountDetailsService{
 	@Override
 	public String updateOffInfoProc(UpdateOfficeInfoRequest req) {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Office_Edit");
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("ACCOUNT_ID", Integer.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("ACCOUNT_NAME", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("CELL_PHONE", String.class, ParameterMode.IN);
@@ -78,9 +82,12 @@ public class AccountDetailsImpl implements AccountDetailsService{
 		query.registerStoredProcedureParameter("CITY", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("STATE", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("ZIP", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		
 		
+		query.setParameter("USER", req.getUpdatedUser());
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
+
 		query.setParameter("ACCOUNT_ID", req.getAccountId());
 		query.setParameter("ACCOUNT_NAME", req.getAccountName());
       	query.setParameter("CELL_PHONE", req.getPhone());
@@ -89,7 +96,7 @@ public class AccountDetailsImpl implements AccountDetailsService{
 		query.setParameter("CITY", req.getCity());
 		query.setParameter("STATE", req.getState());
 		query.setParameter("ZIP", req.getZip());
-		query.setParameter("USER", req.getUpdatedUser());
+		
 		query.execute();
 		return "updated Successfully";
 	}

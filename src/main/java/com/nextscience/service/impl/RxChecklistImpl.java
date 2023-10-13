@@ -60,22 +60,22 @@ public class RxChecklistImpl implements RxChecklistService {
 	}
 	@Override
 	public String updateChecklistInfoProc(UpdateChecklistInfoRequest req) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Office_Edit");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Checklist_Edit");
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("TRN_RX_ID", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("RX_CHECKLIST_ID", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("RX_CHECKLIST_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("CHECKLIST_FLAG", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("COMMENTS", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		
 		
-
+		query.setParameter("USER", req.getUpdatedUser());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 		query.setParameter("TRN_RX_ID", req.getTrnRxId());
       	query.setParameter("RX_CHECKLIST_ID", req.getRxChecklistId());
 		query.setParameter("CHECKLIST_FLAG", req.getChecklist_Flag());
 		query.setParameter("COMMENTS", req.getComments());
-		query.setParameter("USER", req.getUpdatedUser());
+		
 		query.execute();
 		
 		return "updated successfully";
