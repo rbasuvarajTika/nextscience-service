@@ -2,10 +2,14 @@ package com.nextscience.dto.response;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Processes an {@link ProductDetailsResponse } response.
+ * @author Raghu
+ *
+ */
 
 @Data
 @NoArgsConstructor

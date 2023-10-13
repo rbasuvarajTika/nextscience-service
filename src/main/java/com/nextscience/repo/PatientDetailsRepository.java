@@ -1,13 +1,17 @@
 package com.nextscience.repo;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import com.nextscience.entity.PatientDetails;
+
+/**
+ * Repository interface for managing {@link PatientDetailsRepository}.
+ * 
+ * @author Raghu
+ */
 
 @Repository
 public interface PatientDetailsRepository extends JpaRepository<PatientDetails, Integer> {
@@ -35,7 +39,8 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 			+ "FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"
 			+ "join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
 			+ "left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
-			+ "left join [DIM_DISTRIBUTOR] d on (b.[DISTRIBUTOR_ID]=d.[DISTRIBUTOR_ID])\r\n" + "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
+			+ "left join [DIM_DISTRIBUTOR] d on (b.[DISTRIBUTOR_ID]=d.[DISTRIBUTOR_ID])\r\n"
+			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
 	List<Object[]> getRxPatientDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
 
 }

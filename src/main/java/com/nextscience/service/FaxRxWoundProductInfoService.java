@@ -9,5 +9,6 @@ public interface FaxRxWoundProductInfoService {
 	
 
 	List<FaxRxWoundProductInfo> findAll();
+	
 
 }

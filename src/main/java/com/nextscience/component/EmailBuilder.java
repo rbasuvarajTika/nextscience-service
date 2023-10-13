@@ -14,7 +14,7 @@ import com.nextscience.dto.request.EmailDto;
 
 /**
  * Processes an {@link EmailBuilder} request.
- * @author R@aghu
+ * @author Raghu
  *
  */
 

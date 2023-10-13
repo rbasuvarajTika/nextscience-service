@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,23 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
-import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
-import com.nextscience.dto.response.AccountDetailsResponse;
-import com.nextscience.dto.response.FaxRxPayerResponse;
-import com.nextscience.dto.response.FaxRxProviderResponse;
-import com.nextscience.dto.response.FaxRxWoundInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.dto.response.WoundInfoResponse;
-import com.nextscience.entity.AccountDetails;
-import com.nextscience.entity.FaxRxWoundInfo;
-import com.nextscience.service.FaxRxProviderService;
 import com.nextscience.service.FaxRxWoundInfoService;
 import com.nextscience.utility.ResponseHelper;
 
+/**
+ * Processes an {@link FaxRxWoundInfoController } request.
+ * @author Raghu
+ *
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")
@@ -89,7 +85,7 @@ public class FaxRxWoundInfoController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@PutMapping("/woundInfoDetails")
+	@DeleteMapping("/woundInfoDetails")
 	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req)
 	{
 		String response = faxRxWoundInfoService.DeleteWoundInfoProc(req);

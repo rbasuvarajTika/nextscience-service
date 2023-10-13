@@ -4,11 +4,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link UpdateWoundInfoRequest } request.
+ * 
+ * @author Raghu
+ *
+ */
 
 @Data
 @Builder
@@ -16,32 +22,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateWoundInfoRequest {
 
-private Integer trnFaxId;
-	
-	private Integer woundNo;
+	private int trnFaxId;
+	private int trnRxId;
+	private String woundNo;
 
 	private String woundLocation;
 
-	private BigDecimal woundLength;
+	private double woundLength;
 
-	private BigDecimal woundWidth;
+	private double woundWidth;
 
-	private BigDecimal woundDepth;
+	private double woundDepth;
 
 	private String woundThickness;
 	private String woundType;
 
 	private String drainage;
 
-	private Integer debrided;
+	private int debrided;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date debridedDate;
 	private String debridedType;
 
 	private String icdCode;
-private String updatedUser;
-	
-	private Date updatedDate;
+	private String updatedUser;
 
 }

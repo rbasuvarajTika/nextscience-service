@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Processes an {@link UserResponse } response.
+ * @author Raghu
+ *
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

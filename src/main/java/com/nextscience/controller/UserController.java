@@ -20,16 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
-import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserResponse;
-import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
 import com.nextscience.utility.ResponseHelper;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+
+/**
+ * Processes an {@link UserController } request.
+ * @author Raghu
+ *
+ */
 
 @RestController
 @CrossOrigin("*")

@@ -1,9 +1,14 @@
 package com.nextscience.dto.response;
 
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link RxChecklistResponse } response.
+ * @author Raghu
+ *
+ */
 
 @Data
 @NoArgsConstructor

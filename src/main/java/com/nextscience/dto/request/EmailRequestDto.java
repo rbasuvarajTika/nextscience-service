@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Processes an {@link EmailRequestDto } request.
+ * @author Raghu
+ *
+ */
+
 @AllArgsConstructor
 @Data
 @NoArgsConstructor

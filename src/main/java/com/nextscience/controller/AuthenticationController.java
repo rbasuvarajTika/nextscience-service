@@ -2,19 +2,23 @@ package com.nextscience.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextscience.dto.response.JwtAuthenticationResponse;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.SigninRequest;
+import com.nextscience.dto.response.JwtAuthenticationResponse;
 import com.nextscience.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Processes an {@link AuthenticationController } request.
+ * @author Raghu
+ *
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/auth")

@@ -20,6 +20,12 @@ import com.nextscience.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Processes an {@link SecurityConfiguration } request.
+ * @author Raghu
+ *
+ */
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

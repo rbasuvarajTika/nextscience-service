@@ -9,23 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
-import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
-import com.nextscience.dto.response.FaxRxPayerResponse;
-import com.nextscience.dto.response.FaxRxWoundProductInfoResponse;
 import com.nextscience.dto.response.HcpDetailsResponse;
 import com.nextscience.dto.response.HcpInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
-import com.nextscience.entity.FaxRxWoundProductInfo;
-import com.nextscience.entity.HcpDetails;
 import com.nextscience.service.HcpDetailsService;
-import com.nextscience.service.PatientDetailsService;
 import com.nextscience.utility.ResponseHelper;
+
+/**
+ * Processes an {@link HcpDetailsController } request.
+ * @author Raghu
+ *
+ */
 
 @RestController
 @CrossOrigin("*")

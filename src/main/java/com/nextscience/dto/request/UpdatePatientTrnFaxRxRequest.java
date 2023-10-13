@@ -1,14 +1,17 @@
 package com.nextscience.dto.request;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link UpdatePatientTrnFaxRxRequest } request.
+ * @author Raghu
+ *
+ */
 
 @Data
 @Builder

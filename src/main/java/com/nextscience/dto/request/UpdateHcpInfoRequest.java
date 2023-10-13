@@ -1,14 +1,17 @@
 package com.nextscience.dto.request;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link UpdateHcpInfoRequest } request.
+ * @author Raghu
+ *
+ */
 
 @Data
 @Builder
@@ -16,6 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateHcpInfoRequest {
 	private Integer trnFaxId;
+	private Integer trnRxId;
 	private Integer profId;
 	private Integer hcpId;
 	private String signature_Flag;

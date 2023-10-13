@@ -17,6 +17,12 @@ import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.service.PatientDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
+/**
+ * Processes an {@link PatientDetailsController } request.
+ * @author Raghu
+ *
+ */
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")

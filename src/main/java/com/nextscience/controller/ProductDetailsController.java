@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,21 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.request.DeleteProductInfoRequest;
-import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
-import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.PharmacyDetailsResponse;
-import com.nextscience.dto.response.ProductDetailsResponse;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
-import com.nextscience.dto.response.WoundInfoResponse;
-import com.nextscience.entity.PharmacyDetails;
-import com.nextscience.entity.ProductDetails;
 import com.nextscience.service.ProductDetailsService;
 import com.nextscience.utility.ResponseHelper;
+
+/**
+ * Processes an {@link ProductDetailsController } request.
+ * @author Raghu
+ *
+ */
 
 @RestController
 @CrossOrigin("*")
@@ -78,7 +77,7 @@ public class ProductDetailsController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@PutMapping("/productInfoDetails")
+	@DeleteMapping("/productInfoDetails")
 	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req)
 	{
 		String response = productDetailsService.DeleteProductInfoProc(req);

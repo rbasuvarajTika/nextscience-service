@@ -1,9 +1,15 @@
 package com.nextscience.dto.response;
 
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link FaxRxPayerResponse } response.
+ * @author Raghu
+ *
+ */
+
 @Data
 @NoArgsConstructor
 public class FaxRxPayerResponse {

@@ -2,11 +2,15 @@ package com.nextscience.dto.response;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link FaxPrscTrkWoundResponse } response.
+ * @author Raghu
+ *
+ */
 
 @Data
 @NoArgsConstructor

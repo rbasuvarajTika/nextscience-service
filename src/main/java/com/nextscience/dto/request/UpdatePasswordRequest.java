@@ -5,6 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Processes an {@link UpdatePasswordRequest } request.
+ * @author Raghu
+ *
+ */
+
 @Data
 @Builder
 @NoArgsConstructor

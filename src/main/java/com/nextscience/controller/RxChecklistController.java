@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
-import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.ProductDetailsResponse;
-import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxChecklistResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
-import com.nextscience.entity.ProductDetails;
-import com.nextscience.entity.RxChecklist;
 import com.nextscience.service.RxChecklistService;
 import com.nextscience.utility.ResponseHelper;
+
+/**
+ * Processes an {@link RxChecklistController } request.
+ * @author Raghu
+ *
+ */
 
 @RestController
 @CrossOrigin("*")

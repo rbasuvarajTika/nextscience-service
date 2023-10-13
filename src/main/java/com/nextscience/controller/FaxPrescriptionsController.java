@@ -18,6 +18,11 @@ import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
 
+/**
+ * Processes an {@link FaxPrescriptionsController } request.
+ * @author Raghu
+ *
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")

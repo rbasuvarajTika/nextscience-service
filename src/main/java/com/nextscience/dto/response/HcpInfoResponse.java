@@ -1,11 +1,15 @@
 package com.nextscience.dto.response;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link HcpInfoResponse } response.
+ * @author Raghu
+ *
+ */
 
 @Data
 @NoArgsConstructor

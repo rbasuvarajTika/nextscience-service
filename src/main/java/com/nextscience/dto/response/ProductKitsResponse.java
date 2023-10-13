@@ -1,10 +1,13 @@
 package com.nextscience.dto.response;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link ProductKitsResponse } response.
+ * @author Raghu
+ *
+ */
 
 @Data
 @NoArgsConstructor
@@ -13,9 +16,7 @@ public class ProductKitsResponse {
 	private Integer trnRxId;
 	private Integer trnFaxId;
 	private String faxId;
-
 	private Integer productId;
-
 	private String productCode;
 	private String productDisplayName;
 	private Integer quantity;

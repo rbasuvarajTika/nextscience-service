@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
-import com.nextscience.dto.response.UserResponse;
-import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.service.FaxRxPayerService;
 import com.nextscience.utility.ResponseHelper;
 
+/**
+ * Processes an {@link FaxRxPayerController } request.
+ * @author Raghu
+ *
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/fax")

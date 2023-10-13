@@ -5,6 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Processes an {@link JwtAuthenticationResponse } response.
+ * @author Raghu
+ *
+ */
+
 @Data
 @Builder
 @NoArgsConstructor

@@ -1,20 +1,19 @@
 package com.nextscience.service;
 
 import com.nextscience.dto.request.EmailDto;
-
 import jakarta.mail.MessagingException;
 
 /**
- * @author R@aghu
- * The UserService interface
+ * Service interface for managing {@link EmailService}.
+ * 
+ * @author Raghu
  */
 
 public interface EmailService {
 
-	
 	/**
 	 * sendMail details
-	 *  
+	 * 
 	 * @param EmailDto,isHtml
 	 * @return
 	 */

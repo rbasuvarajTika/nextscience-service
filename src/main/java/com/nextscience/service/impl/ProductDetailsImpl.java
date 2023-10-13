@@ -26,23 +26,23 @@ import jakarta.persistence.StoredProcedureQuery;
 
 @Service
 public class ProductDetailsImpl implements ProductDetailsService {
-	
+
 	@Autowired
 	ProductDetailsRepository productDetailsRepository;
-	
+
 	@PersistenceContext
-	 private EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Override
 	public List<ProductKitsResponse> getProductDetailList() {
-		List<Object[]> productKitsResponse=productDetailsRepository.getProductList();
+		List<Object[]> productKitsResponse = productDetailsRepository.getProductList();
 		List<ProductKitsResponse> responses = productKitsResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 
 		return responses;
-				
+
 	}
-	
+
 	private ProductKitsResponse mapToObjectsArray(Object[] row) {
 		ProductKitsResponse response = new ProductKitsResponse();
 		response.setTrnRxId((Integer) row[0]);
@@ -62,86 +62,106 @@ public class ProductDetailsImpl implements ProductDetailsService {
 
 	@Override
 	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnRxId) {
-		List<Object[]> productKitsResponse=productDetailsRepository.getProductDetByTrnRxId(trnRxId);
+		List<Object[]> productKitsResponse = productDetailsRepository.getProductDetByTrnRxId(trnRxId);
 		List<ProductKitsResponse> responses = productKitsResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
 
 		return responses;
-		
-		
+
 	}
 
 	@Override
 	public String InsertProductInfoProc(InsertProductInfoRequest req) {
-		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Add");
-     
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Add");
 
-        query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("QUANTITY", Integer.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("WND2", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("WND3", Date.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("WND4", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-        
-        
-        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-        query.setParameter("PRODUCT_ID", req.getProductId());
-        query.setParameter("QUANTITY", req.getQuantity());
-        query.setParameter("WND1", req.getWnd1());
-        query.setParameter("WND2", req.getWnd2());
-        query.setParameter("WND3", req.getWnd3());
-        query.setParameter("WND4", req.getWnd4());
-        query.setParameter("USER", req.getCreatedUser());
-        query.execute();
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+		// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
+		// ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
+
+		query.setParameter("USER", req.getCreatedUser());
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
+
+		query.setParameter("PRODUCT_CODE", req.getProductCode());
+		// query.setParameter("PRODUCT_ID", req.getProductId());
+		query.setParameter("QUANTITY", req.getQuantity());
+		query.setParameter("WND1", req.getWnd1());
+		query.setParameter("WND2", req.getWnd2());
+		query.setParameter("WND3", req.getWnd3());
+		query.setParameter("WND4", req.getWnd4());
+
+		query.execute();
 		return "created successfully";
 	}
 
 	@Override
 	public String UpdateProductInfoProc(UpdateProductInfoRequest req) {
-		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Edit");
-		 query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("QUANTITY", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("WND2", String.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("WND3", Date.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("WND4", String.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-	        
-	        
-	        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-	        query.setParameter("PRODUCT_ID", req.getProductId());
-	        query.setParameter("QUANTITY", req.getQuantity());
-	        query.setParameter("WND1", req.getWnd1());
-	        query.setParameter("WND2", req.getWnd2());
-	        query.setParameter("WND3", req.getWnd3());
-	        query.setParameter("WND4", req.getWnd4());
-	        query.setParameter("USER", req.getUpdatedUser());
-	        query.execute();
-	        
-			return "Updated successfully";
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Edit");
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+		// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
+		// ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
+
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
+		query.setParameter("USER", req.getUpdatedUser());
+		query.setParameter("PRODUCT_CODE", req.getProductCode());
+		// query.setParameter("PRODUCT_CODE", req.getProductCode());
+		query.setParameter("QUANTITY", req.getQuantity());
+		query.setParameter("WND1", req.getWnd1());
+		query.setParameter("WND2", req.getWnd2());
+		query.setParameter("WND3", req.getWnd3());
+		query.setParameter("WND4", req.getWnd4());
+
+		query.execute();
+
+		return "Updated successfully";
 	}
 
 	@Override
 	public String DeleteProductInfoProc(DeleteProductInfoRequest req) {
-		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Del");
-		 query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class, ParameterMode.IN);
-	        
-	        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-	        query.setParameter("PRODUCT_ID", req.getProductId());
-	        
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Del");
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+
+		query.setParameter("USER", req.getUser());
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
+		query.setParameter("PRODUCT_CODE", req.getProductCode());
+		query.execute();
+
 		return "Deleted Successfully";
 	}
 }
-		
-	/*
-	 * @SuppressWarnings("unchecked")
-	 * 
-	 * @Override public List<ProductDetails> findAll() {
-	 * 
-	 * return productDetailsRepository.findAll(); }
-	 */
 
+/*
+ * @SuppressWarnings("unchecked")
+ * 
+ * @Override public List<ProductDetails> findAll() {
+ * 
+ * return productDetailsRepository.findAll(); }
+ */

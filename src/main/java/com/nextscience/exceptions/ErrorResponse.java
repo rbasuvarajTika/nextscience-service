@@ -2,6 +2,13 @@ package com.nextscience.exceptions;
 
 import lombok.Data;
 
+/**
+ * Processes an {@link ErrorResponse } request.
+ * 
+ * @author Raghu
+ *
+ */
+
 @Data
 public class ErrorResponse {
 

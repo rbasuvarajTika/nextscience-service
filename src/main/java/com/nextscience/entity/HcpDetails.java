@@ -2,7 +2,6 @@ package com.nextscience.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+
+/**
+ * Represents the entity class for HcpDetails.
+ * 
+ * @author Raghu
+ */
 
 @Data
 @Entity
@@ -76,10 +81,10 @@ public class HcpDetails {
 	private String profWhId;
 
 	@Column(name = "LATITUDE", precision = 18, scale = 9)
-	private BigDecimal  latitude;
+	private BigDecimal latitude;
 
 	@Column(name = "LONGITUDE", precision = 18, scale = 9)
-	private BigDecimal  longitude;
+	private BigDecimal longitude;
 
 	@Column(name = "RETIRED_FLAG", length = 1)
 	private String retiredFlag;
@@ -128,7 +133,7 @@ public class HcpDetails {
 
 	@Column(name = "UPDATE_USER", length = 255)
 	private String updateUser;
-	
+
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;
 

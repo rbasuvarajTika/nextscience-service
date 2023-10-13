@@ -108,8 +108,7 @@ public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 		query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
 		query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
 		query.setParameter("ICD_CODE", req.getIcdCode());
-		
-		
+	
 		query.execute();
 
 		return "created successfully";
@@ -120,51 +119,55 @@ public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Edit");
 		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WOUND_NO", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("WOUND_LOCATION", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_LENGTH", BigDecimal.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_WIDTH", BigDecimal.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_DEPTH", BigDecimal.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WOUND_LENGTH", Double.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WOUND_WIDTH", Double.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WOUND_DEPTH", Double.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("WOUND_THICKNESS", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("WOUND_TYPE", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("DRAINEGE", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("DEBRIDED", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("DEBRIDED_DATE", Date.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
-		
-		query.setParameter("USER", req.getUpdatedUser());
-		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-		query.setParameter("WOUND_NO", req.getWoundNo());
-		query.setParameter("WOUND_LOCATION", req.getWoundLocation());
-		query.setParameter("WOUND_LENGTH", req.getWoundLength());
-		query.setParameter("WOUND_WIDTH", req.getWoundWidth());
-		query.setParameter("WOUND_DEPTH", req.getWoundDepth());
-		query.setParameter("WOUND_THICKNESS", req.getWoundThickness());
-		query.setParameter("WOUND_TYPE", req.getWoundType());
-		query.setParameter("DRAINEGE", req.getDrainage());
-		query.setParameter("DEBRIDED", req.getDebrided());
-		query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
-		query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
-		query.setParameter("ICD_CODE", req.getIcdCode());
-		query.execute();
-		return "Updated successfully";
-		
+        query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
+
+        query.setParameter("USER", req.getUpdatedUser());
+        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+        query.setParameter("TRN_RX_ID", req.getTrnRxId());
+        query.setParameter("WOUND_NO", req.getWoundNo());
+        query.setParameter("WOUND_LOCATION", req.getWoundLocation());
+        query.setParameter("WOUND_LENGTH", req.getWoundLength());
+        query.setParameter("WOUND_WIDTH", req.getWoundWidth());
+        query.setParameter("WOUND_DEPTH", req.getWoundDepth());
+        query.setParameter("WOUND_THICKNESS", req.getWoundThickness());
+        query.setParameter("WOUND_TYPE", req.getWoundType());
+        query.setParameter("DRAINEGE", req.getDrainage());
+        query.setParameter("DEBRIDED", req.getDebrided());
+        query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
+        query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
+        query.setParameter("ICD_CODE", req.getIcdCode());
+
+        query.execute();
+        return "Updated successfully";
 		
 	}
 
 	@Override
 	public String DeleteWoundInfoProc(DeleteWoundInfoRequest req) {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Del");
-
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-
+		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
-
+		
+		 query.setParameter("USER", req.getUser());
+		query.setParameter("TRN_RX_ID", req.getTrnRxId());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-
 		query.setParameter("WOUND_NO", req.getWoundNo());
-
+		query.execute();
+		
 		return "Deleted successfully";
 	}
 }

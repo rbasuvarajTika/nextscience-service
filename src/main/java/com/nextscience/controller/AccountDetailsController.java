@@ -3,30 +3,29 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.AccountDetailsConstant;
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
-import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
-import com.nextscience.dto.response.DupeRxResponse;
-import com.nextscience.dto.response.FaxRxPayerResponse;
-import com.nextscience.dto.response.HcpInfoResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.OfficeAccResponse;
-import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
-import com.nextscience.entity.AccountDetails;
 import com.nextscience.service.AccountDetailsService;
 import com.nextscience.utility.ResponseHelper;
+
+/**
+ * Processes an {@link AccountDetailsController } request.
+ * @author Raghu
+ *
+ */
 
 @RestController
 @CrossOrigin("*")
@@ -37,13 +36,13 @@ public class AccountDetailsController {
 	private AccountDetailsService accountDetailsService;
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/officeInfo")
+	@GetMapping(AccountDetailsConstant.OFFICEINFOURL)
 	public NSServiceResponse<List<OfficeAccResponse>>getAccountDetail()
 	  
 	{ 
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccountList();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<AccountDetailsResponse>(), accountInfo, "Successfully ", "Error");
+	  NSServiceResponse<AccountDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY, "Error");
 	  }
 	
 	

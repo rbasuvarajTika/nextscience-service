@@ -1,14 +1,15 @@
 package com.nextscience.dto.request;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Processes an {@link DeleteWoundInfoRequest } request.
+ * @author Raghu
+ *
+ */
 
 @Data
 @Builder
@@ -16,7 +17,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DeleteWoundInfoRequest {
 	private Integer trnFaxId;
+	private Integer trnRxId;	
 	private Integer woundNo;
+	private String user;
 	
 
 }

@@ -67,22 +67,27 @@ public class HcpDetailsImpl implements HcpDetailsService {
 	}
 	@Override
 	public String updateHcpProc(UpdateHcpInfoRequest req) {
-		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
-		 query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		 
+	StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
+	query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+	query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
 			query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
-			query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
+			//query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("SIGNATURE_FLAG", String.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
-			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+			
 			
 			
 			query.setParameter("USER", req.getUpdatedUser());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+	        query.setParameter("TRN_RX_ID", req.getTrnRxId());
+
 			query.setParameter("PROF_ID", req.getProfId());
-			query.setParameter("HCP_ID", req.getHcpId());
+			//query.setParameter("HCP_ID", req.getHcpId());
 			query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
 			query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
-			query.setParameter("USER", req.getUpdatedUser());
 			query.execute();
 
 		return "updated Successfully";
