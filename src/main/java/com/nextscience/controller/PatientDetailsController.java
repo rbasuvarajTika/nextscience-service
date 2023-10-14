@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.PatientDetailsConstant;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
@@ -25,7 +27,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class PatientDetailsController {
 	
 	@Autowired
@@ -43,34 +45,34 @@ public class PatientDetailsController {
 	 * "Error"); }
 	 */
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxpatient")
+	@GetMapping(PatientDetailsConstant.RXPATIENT)
 	public NSServiceResponse<List<RxPatientDetailsResponse>>getPatientDetailList()
 	{
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientList();
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 		
 
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxpatient/{trnRxId}")
+	@GetMapping(PatientDetailsConstant.RXPATIENTTRNRXID)
 	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 		
 
 	}
 	
 	@SuppressWarnings("unchecked")
-	@PutMapping("/rxpatient")
+	@PutMapping(PatientDetailsConstant.RXPATIENT)
 	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(@RequestBody UpdatePatientTrnFaxRxRequest req)
 	{
 		String response = patientDetailsService.updatePatientDetAndFaxRxProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
 }

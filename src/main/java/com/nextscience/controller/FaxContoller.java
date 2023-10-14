@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.FaxRxConstant;
 import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -35,14 +37,15 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class FaxContoller {
 
 	@Autowired
 	private FaxRxService faxRxService;
 	
+	/**Retrieves A list of FaxRxList*/
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxList")
+	@GetMapping(FaxRxConstant.FAXLIST)
     public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
@@ -57,11 +60,11 @@ public class FaxContoller {
 		 PageResponseDTO response =faxRxService.fetchList(page);
 		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-				response, "Successfully ", "Error");
+				response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
     }
 	
-
-	@GetMapping(value="/faxPdf",produces= MediaType.APPLICATION_PDF_VALUE)
+	/**Retrieves a Pdf From FaxPdf*/
+	@GetMapping(value=FaxRxConstant.FAXPDF,produces= MediaType.APPLICATION_PDF_VALUE)
 	public  @ResponseBody byte[]  faxPdfDownload() {
 
 	    try {
@@ -78,28 +81,30 @@ public class FaxContoller {
 	    return null;
 	}
 	
+	/**Retrieves A Duplicate Value of FaxRxDupe*/
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxDupe")
+	@GetMapping(FaxRxConstant.FAXDUPE)
 	public NSServiceResponse<List<DupeRxResponse>> executeCustomQuery(){
     
 		List<DupeRxResponse> response =faxRxService.getDuplicateResponse();
 		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-				response, "Successfully ", "Error");
+				response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
     }
 	
-	
+	/**Retrieves A DuplicateByFaxId Value of FaxRxDupe*/
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxDupeById/{faxId}")
+	@GetMapping(FaxRxConstant.FAXDUPEBYFAXID)
 	public NSServiceResponse<List<DupeRxResponse>> faxDupeId(@PathVariable String faxId){
     
 		List<DupeRxResponse> response =faxRxService.getDuplicateByIdResponse(faxId);
 		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-				response, "Successfully ", "Error");
+				response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
     }
 	
-	@GetMapping(value="/getFaxPdf/{faxId}",produces= MediaType.APPLICATION_PDF_VALUE)
+	/**Retrieves A FaxPdfByFaxId in FaxRx*/
+	@GetMapping(value=FaxRxConstant.GETFAXPDFFAXID,produces= MediaType.APPLICATION_PDF_VALUE)
 	public  @ResponseBody byte[]  faxPdfDownload(@PathVariable String faxId) {
 
 	    try {
@@ -119,31 +124,30 @@ public class FaxContoller {
 	    return null;
 	}
 	
-	
+	/**Retrieves A FaxDetailsPdfByFaxId in FaxRx*/
 	@SuppressWarnings("unchecked")
-	@GetMapping(value="/getFaxDetails/{faxId}",produces= MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value=FaxRxConstant.GETFAXDETAILSFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
 	public  NSServiceResponse<FaxRx>  faxDetails(@PathVariable String faxId) {
 	    	FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
-	    			faxRxResponse, "Successfully ", "Error");
+	    			faxRxResponse, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
+	/**Update A DupeMainFaxId in FaxRx*/
 	@SuppressWarnings("unchecked")
-	@PutMapping(value="/updateFax/{dupeTrnFaxId}/{mainTrnFaxId}",produces= MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value=FaxRxConstant.UPDATEFAXDUPEMAINFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
 	public  NSServiceResponse<String>  updateFax(@PathVariable String dupeTrnFaxId,@PathVariable String mainTrnFaxId) {
 		String response = faxRxService.updatefax(dupeTrnFaxId, mainTrnFaxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-	    			response, "Successfully ", "Error");
+	    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
-	
+	/**Update A KeepDuplicateTrnFaxId in FaxRx*/
 	@SuppressWarnings("unchecked")
-	@PutMapping(value="/keepDuplicate/{trnFaxId}",produces= MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value=FaxRxConstant.KEEPDUPLICATETRNFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
 	public  NSServiceResponse<String>  keepDuplicate(@PathVariable String trnFaxId) {
 	    	String response = faxRxService.keepDuplicate(trnFaxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
-	    			response, "updated Successfully ", "Error");
+	    			response, CommonConstants.UPDATEDSUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
 }
 

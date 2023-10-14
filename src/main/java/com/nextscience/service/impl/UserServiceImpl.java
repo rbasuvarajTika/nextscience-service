@@ -41,6 +41,13 @@ import io.jsonwebtoken.lang.Collections;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service Class for managing {@link UserServiceImpl}.request
+ * 
+ * @author Raghu
+ */
+
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {

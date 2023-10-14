@@ -13,6 +13,12 @@ import com.nextscience.entity.PayerDetails;
 import com.nextscience.repo.PayerDetailsRepository;
 import com.nextscience.service.PayerDetailsService;
 
+/**
+ * Service Class for managing {@link PayerDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class PayerDetailsImpl implements PayerDetailsService {
 	

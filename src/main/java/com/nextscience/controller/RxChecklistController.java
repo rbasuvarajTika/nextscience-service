@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.RxCheckListConstant;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -27,7 +29,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class RxChecklistController {
 
 	@Autowired
@@ -35,30 +37,30 @@ public class RxChecklistController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/checkList")
+	@GetMapping(RxCheckListConstant.CHECKLIST)
 	public NSServiceResponse<List<CheckListResponse>>getchecklistDetail()
 	  
 	{ 
 		List<CheckListResponse> checkList = rxChecklistService.getCheckList();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<RxChecklistResponse>(), checkList, "Successfully ", "Error");
+	  NSServiceResponse<RxChecklistResponse>(), checkList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/checkList/{trnRxId}")
+	@GetMapping(RxCheckListConstant.CHECKLISTTRNRXID)
 	public NSServiceResponse<List<CheckListResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<CheckListResponse> checkList = rxChecklistService.getCheckLisDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList, "Successfully ","Error");		
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);		
 }
 	
 	@SuppressWarnings("unchecked")
-	@PutMapping("/checkList")
+	@PutMapping(RxCheckListConstant.CHECKLIST)
 	public NSServiceResponse<UpdateChecklistInfoRequest> updateOffDetails(@RequestBody UpdateChecklistInfoRequest req)
 	{
 		String response = rxChecklistService.updateChecklistInfoProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 }	
 

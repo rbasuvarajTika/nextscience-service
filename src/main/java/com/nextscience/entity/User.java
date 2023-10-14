@@ -20,7 +20,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Processes an {@link User } request.
+ * Processes an {@link User } 
  * 
  * @author Raghu
  *

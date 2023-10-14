@@ -24,6 +24,12 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 
+/**
+ * Service Class for managing {@link ProductDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class ProductDetailsImpl implements ProductDetailsService {
 

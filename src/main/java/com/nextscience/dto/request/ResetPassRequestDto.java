@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *  @author R@aghu
+ *  @author Raghu
  * The {@code ResetPassRequestDto} class
  * is used to retrieve from the DB.
  * <br> {@code @Data} annotation is used to generate

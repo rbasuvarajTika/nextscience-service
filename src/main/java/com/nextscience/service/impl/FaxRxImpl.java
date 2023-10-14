@@ -21,6 +21,12 @@ import com.nextscience.service.FaxRxService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+/**
+ * Service Class for managing {@link FaxRxImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class FaxRxImpl implements FaxRxService {
 

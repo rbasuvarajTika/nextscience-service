@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.UsersConstant;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
@@ -36,44 +38,44 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/users")
+@RequestMapping(CommonConstants.APIV1USERS)
 public class UserController {
 	
 	@Autowired
 	private  UserService userService;
 
-	@PostMapping("/create/user")
+	@PostMapping(UsersConstant.CREATEUSER)
 	
     public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
         return ResponseEntity.ok(userService.createUser(request));
     }
 	
-	@PutMapping("/update/user/{id}")
+	@PutMapping(UsersConstant.UPDATEUSERID)
     public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
         return ResponseEntity.ok(userService.updateUser(request,id));
     }
 
 	
-	@PutMapping("/update/user/password/{id}")
+	@PutMapping(UsersConstant.UPDATEUSERPASSWORDID)
     public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request, @PathVariable int id) {
         return ResponseEntity.ok(userService.updatePassword(request,id));
     }
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/getUsersList")
+	@GetMapping(UsersConstant.GETUSERSLIST)
 	public NSServiceResponse<List<UserResponse>> getUserDetail() {
 		List<UserResponse> userDto = userService.getUserDetail();
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				userDto, "Successfully ", "Error");
+				userDto, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
 	
-	@PutMapping("/delete/user/{id}")
+	@PutMapping(UsersConstant.DELETEUSERID)
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 	
-	@GetMapping("/forgot/user/{email}")
+	@GetMapping(UsersConstant.FORTOTUSEREMAIL)
     public ResponseEntity<String> getUserName(@PathVariable String email) {
 		String userName = userService.getUserName(email);
 		if(userName ==null) {
@@ -83,7 +85,7 @@ public class UserController {
     }
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/userList")
+	@GetMapping(UsersConstant.GETUSERSLIST)
     public NSServiceResponse<List<?>> executeCustomQuery(
     		
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
@@ -100,11 +102,11 @@ public class UserController {
 		 PageResponseDTO response =userService.fetchUserList(page);
 		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-				response, "Successfully ", "Error");
+				response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
     }
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/activateUsers")
+	@GetMapping(UsersConstant.ACTIVATEUSERS)
     public NSServiceResponse<List<UserResponse>> getActivateusers(
 			/* @Parameter(description = "Authorization Token", required = true) */
     		    @RequestHeader(name = "Authorization") String authorizationToken) 
@@ -119,11 +121,11 @@ public class UserController {
 		 * NSServiceResponse.notFound().build(); }
 		 */
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				ActivateusersList, "Successfully ", "Error");   
+				ActivateusersList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);   
 		}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/DeactivateUsers")
+	@GetMapping(UsersConstant.DEACTIVATEUSERS)
     public NSServiceResponse<List<UserResponse>> getDeactivateUsers() {
 		List<UserResponse> deactivateUsersList = userService.getDeactivateUsers();
 		/*
@@ -131,7 +133,7 @@ public class UserController {
 		 * ResponseEntity.notFound().build(); }
 		 */
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				deactivateUsersList, "Successfully ", "Error");   
+				deactivateUsersList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);   
 }
 	
 

@@ -15,6 +15,12 @@ import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.repo.FaxPrescriptionsRepository;
 import com.nextscience.service.FaxPrescriptionsService;
 
+/**
+ * Service Class for managing {@link FaxPrescriptionsImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 

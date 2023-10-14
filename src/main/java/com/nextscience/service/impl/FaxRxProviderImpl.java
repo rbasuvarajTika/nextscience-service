@@ -17,6 +17,11 @@ import com.nextscience.repo.FaxRxProviderRepository;
 import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.FaxRxProviderService;
 
+/**
+ * Service Class for managing {@link FaxRxProviderImpl}.request
+ * 
+ * @author Raghu
+ */
 
 @Service
 public class FaxRxProviderImpl implements FaxRxProviderService {

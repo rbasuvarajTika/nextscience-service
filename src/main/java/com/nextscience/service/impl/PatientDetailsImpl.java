@@ -29,6 +29,14 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.validation.Valid;
 
+
+/**
+ * Service Class for managing {@link PatientDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
+
+
 @Service
 public class PatientDetailsImpl implements PatientDetailsService {
 

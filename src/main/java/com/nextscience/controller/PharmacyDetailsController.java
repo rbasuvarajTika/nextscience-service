@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.PharmacyDetailsConstant;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PharmacyDetailsResponse;
 import com.nextscience.entity.PharmacyDetails;
@@ -22,7 +24,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 
 public class PharmacyDetailsController {
 	
@@ -31,12 +33,12 @@ public class PharmacyDetailsController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/pharmacy")
+	@GetMapping(PharmacyDetailsConstant.PHARMACY)
 	public NSServiceResponse<List<PharmacyDetailsResponse>>getPharmacyDetail()
 	  
 	{ 
 		List<PharmacyDetails> pharmacy = pharmacyDetailsService.findAll();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<PharmacyDetailsResponse>(), pharmacy, "Successfully ", "Error");
+	  NSServiceResponse<PharmacyDetailsResponse>(), pharmacy, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 }

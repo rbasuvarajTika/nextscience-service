@@ -18,6 +18,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+/**
+ * Service Class for managing {@link JwtServiceImpl}.request
+ * 
+ * @author Raghu
+ */
+
+
 @Service
 public class JwtServiceImpl implements JwtService {
     @Value("${token.signing.key}")

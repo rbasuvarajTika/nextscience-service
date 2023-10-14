@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.EmailConstant;
 import com.nextscience.component.EmailBuilder;
 import com.nextscience.dto.request.EmailDto;
 import com.nextscience.dto.request.EmailRequestDto;
@@ -32,7 +34,7 @@ import jakarta.mail.MessagingException;
 
 
 @RestController
-@RequestMapping("/api/v1/notification/emails")
+@RequestMapping(CommonConstants.APIV1NOTIFICATIONEMAILS)
 public class EmailController {
 	
 	
@@ -76,8 +78,9 @@ public class EmailController {
 	@Autowired
 	private  UserService userService;
 	
+	/** For ForgotPassword for a User.*/
 	@SuppressWarnings("unchecked")
-	@PostMapping("/forgotpassword")
+	@PostMapping(EmailConstant.FORGOTPASSWORD)
 	public NSServiceResponse<EmailResponseDto> resetpassword( @RequestBody EmailRequestDto request){
 		try {
 			EmailResponseDto response = new EmailResponseDto();

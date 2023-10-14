@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.ProductDetailsConstant;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
@@ -30,7 +32,7 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class ProductDetailsController {
 	
 	
@@ -40,20 +42,20 @@ public class ProductDetailsController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/productInfo")
+	@GetMapping(ProductDetailsConstant.PRODUCTINFO)
 	   public NSServiceResponse<List<ProductKitsResponse>>getProductDetail()
 	{
 	List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
-	return ResponseHelper.createResponse(new NSServiceResponse<ProductKitsResponse>(), productInfo, "Successfully ","Error");
+	return ResponseHelper.createResponse(new NSServiceResponse<ProductKitsResponse>(), productInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 		
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/productInfo/{trnRxId}")
+	@GetMapping(ProductDetailsConstant.PRODUCTINFOTRNRXID)
 	public NSServiceResponse<List<ProductKitsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 		
 

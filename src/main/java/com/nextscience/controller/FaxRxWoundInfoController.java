@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.FaxRxWoundInfoConstant;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
@@ -29,7 +31,7 @@ import com.nextscience.utility.ResponseHelper;
  */
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class FaxRxWoundInfoController {
 
 	@Autowired
@@ -48,49 +50,49 @@ public class FaxRxWoundInfoController {
 	 * "Error"); }
 	 */
 	@SuppressWarnings("unchecked")
-	@GetMapping("/woundInfo")
+	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFO)
 	public NSServiceResponse <List<WoundInfoResponse>>getWoundInfoList()
 	{
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundInfoList();
-		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 		
 
 	}
 	@SuppressWarnings("unchecked")
-	@GetMapping("/woundInfo/{trnRxId}")
+	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFOTRNRXID)
 	public NSServiceResponse<List<WoundInfoResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 		
 
 	}
 	@SuppressWarnings("unchecked")
-	@PostMapping("/woundInfo")
+	@PostMapping(FaxRxWoundInfoConstant.WOUNDINFO)
 	public NSServiceResponse<InsertWoundInfoRequest> insertWoundDetail(@RequestBody InsertWoundInfoRequest req)
 	{
 		String response = faxRxWoundInfoService.insertWoundInfoProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
 	@SuppressWarnings("unchecked")
-	@PutMapping("/woundInfo")
+	@PutMapping(FaxRxWoundInfoConstant.WOUNDINFO)
 	public NSServiceResponse<UpdateWoundInfoRequest> updateWoundDetails(@RequestBody UpdateWoundInfoRequest req)
 	{
 		String response = faxRxWoundInfoService.updateWoundInfoProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
 	@SuppressWarnings("unchecked")
-	@DeleteMapping("/woundInfoDetails")
+	@DeleteMapping(FaxRxWoundInfoConstant.WOUNDINFODETAILS)
 	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req)
 	{
 		String response = faxRxWoundInfoService.DeleteWoundInfoProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response,  CommonConstants.SUCCESSFULLY,  CommonConstants.ERRROR);
 	}
 	
 	

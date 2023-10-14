@@ -21,6 +21,12 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 
+/**
+ * Service Class for managing {@link RxChecklistImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class RxChecklistImpl implements RxChecklistService {
 	

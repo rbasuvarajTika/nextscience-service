@@ -12,6 +12,13 @@ import com.nextscience.entity.FaxRxWoundProductInfo;
 
 import com.nextscience.repo.FaxRxWoundProductInfoRepository;
 import com.nextscience.service.FaxRxWoundProductInfoService;
+
+/**
+ * Service Class for managing {@link FaxRxWoundProductInfoImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class FaxRxWoundProductInfoImpl implements FaxRxWoundProductInfoService {
 

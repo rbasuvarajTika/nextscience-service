@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *  @author R@aghu
+ *  @author Raghu
  * The {@code EmailDto} class
  * <br> {@code @Data} annotation is used to generate
  * <br>

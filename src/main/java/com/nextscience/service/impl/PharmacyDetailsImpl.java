@@ -12,6 +12,13 @@ import com.nextscience.entity.PayerDetails;
 import com.nextscience.entity.PharmacyDetails;
 import com.nextscience.repo.PharmacyDetailsRepository;
 import com.nextscience.service.PharmacyDetailsService;
+
+/**
+ * Service Class for managing {@link PharmacyDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class PharmacyDetailsImpl implements PharmacyDetailsService{
 

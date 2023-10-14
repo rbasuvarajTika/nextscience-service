@@ -24,6 +24,12 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 
+/**
+ * Service Class for managing {@link HcpDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class HcpDetailsImpl implements HcpDetailsService {
 

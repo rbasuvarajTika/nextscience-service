@@ -3,9 +3,17 @@ package com.nextscience.utility;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
+import com.nextscience.service.impl.UserServiceImpl;
+/**
+ * ResponseHelper for managing {@link ResponseHelper}.request
+ * 
+ * @author Raghu
+ */
 
 public class ResponseHelper {
 
+	
+	
 	/**
 	 * Use when the API return some response class.
 	 * 

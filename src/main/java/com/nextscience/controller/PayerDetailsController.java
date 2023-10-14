@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.PayerDetailsConstant;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PayerDetailsResponse;
 import com.nextscience.entity.PayerDetails;
@@ -22,21 +24,21 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class PayerDetailsController {
 	
 	@Autowired
 	PayerDetailsService payerDetailsService;
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/payer")
+	@GetMapping(PayerDetailsConstant.PAYER)
 
 	public NSServiceResponse<List<PayerDetailsResponse>>getPayerDetail()
 	  
 	{ 
 		List<PayerDetails> payerDetails = payerDetailsService.findAll();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<PayerDetailsResponse>(), payerDetails, "Successfully ", "Error");
+	  NSServiceResponse<PayerDetailsResponse>(), payerDetails, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 
 }

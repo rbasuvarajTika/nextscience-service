@@ -19,6 +19,36 @@ import com.nextscience.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.nextscience.dto.request.UpdateOfficeInfoRequest;
+import com.nextscience.dto.response.AccountDetailsResponse;
+import com.nextscience.dto.response.HcpInfoResponse;
+import com.nextscience.dto.response.OfficeAccResponse;
+import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.entity.AccountDetails;
+import com.nextscience.entity.FaxRxPayer;
+import com.nextscience.repo.AccountDetailsRepository;
+import com.nextscience.service.AccountDetailsService;
+import com.nextscience.service.UserService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
+
+/**
+ * Service Class for managing {@link AuthenticationServiceImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {

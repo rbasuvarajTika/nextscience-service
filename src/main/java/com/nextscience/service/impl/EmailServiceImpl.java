@@ -13,7 +13,7 @@ import jakarta.mail.internet.MimeMessage;
 
 
 /**
- * @author R@aghu
+ * @author Raghu
  * The {@code EmailServiceImpl} implements {@code EmailService}
  * <br>
  * {@code @Service} is a stereotypical annotation used for Service Layer

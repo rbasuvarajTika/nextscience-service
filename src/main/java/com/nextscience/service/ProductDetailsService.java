@@ -12,13 +12,30 @@ import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.WoundInfoResponse;
 import com.nextscience.entity.ProductDetails;
 
+
+/**
+ * Service interface for managing {@link ProductDetailsService}.
+ * 
+ * @author Raghu
+ */
+
 public interface ProductDetailsService {
 	
 	//public List<ProductDetails> findAll();
+	
+	/**Retrieves A List Of ProductDetailList*/
 	public List<ProductKitsResponse> getProductDetailList();
+	
+	/**Retrieves A List Of ProductDetailByTrnRxId*/
 	public List<ProductKitsResponse> getProductDetByTrnRxId(int trnRxId);
+	
+	/**Insert a Values in ProductDetails*/
 	public String InsertProductInfoProc(InsertProductInfoRequest req);
+	
+	/**Update a Values in ProductDetails*/
 	public String UpdateProductInfoProc(UpdateProductInfoRequest req);
+	
+	/**Delete a Values in ProductDetails*/
 	public String DeleteProductInfoProc(DeleteProductInfoRequest req);
 
 

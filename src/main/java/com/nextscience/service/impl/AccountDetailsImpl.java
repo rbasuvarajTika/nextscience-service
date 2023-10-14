@@ -19,11 +19,17 @@ import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.repo.AccountDetailsRepository;
 import com.nextscience.service.AccountDetailsService;
+import com.nextscience.service.UserService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+/**
+ * Service Class for managing {@link AccountDetailsImpl}.request
+ * 
+ * @author Raghu
+ */
 @Service
 public class AccountDetailsImpl implements AccountDetailsService{
 	

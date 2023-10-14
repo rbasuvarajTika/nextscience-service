@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *  @author R@aghu
+ *  @author Raghu
  * The {@code EmailResponse} class
  * <br>
  * <i>Getters, Setters</i>

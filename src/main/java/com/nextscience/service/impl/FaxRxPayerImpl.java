@@ -18,6 +18,14 @@ import com.nextscience.entity.User;
 import com.nextscience.repo.FaxRxPayerRepository;
 import com.nextscience.service.FaxRxPayerService;
 
+
+/**
+ * Service Class for managing {@link FaxRxPayerImpl}.request
+ * 
+ * @author Raghu
+ */
+
+
 @Service
 public class FaxRxPayerImpl implements FaxRxPayerService {
 	

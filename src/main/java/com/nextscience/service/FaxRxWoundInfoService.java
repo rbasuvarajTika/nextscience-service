@@ -10,17 +10,30 @@ import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.dto.response.WoundInfoResponse;
 import com.nextscience.entity.FaxRxWoundInfo;
-
+/**
+ * Service interface for managing {@link FaxRxWoundInfoService}.
+ * 
+ * @author Raghu
+ */
 public interface FaxRxWoundInfoService {
-	
-	
-	
 
 	//public List<FaxRxWoundInfo> findAll();
+	
+	
+	
+	/**Retrieves a List of RxWoundInfo.*/
 	public	List<WoundInfoResponse> getRxWoundInfoList();
+	
+	/**Retrieves a List of RxWoundInfoByTrnRxId.*/
 	public List<WoundInfoResponse> getRxWoundDetByTrnRxId(int trnRxId);
+	
+	/**Insert values in RxWoundInfo*/
 	public String insertWoundInfoProc(InsertWoundInfoRequest req);
+	
+	/**Updates values in RxWoundInfo*/
 	public String updateWoundInfoProc(UpdateWoundInfoRequest req);
+	
+	/**Delete values in RxWoundInfo*/
 	public String DeleteWoundInfoProc(DeleteWoundInfoRequest req);
 	
 }

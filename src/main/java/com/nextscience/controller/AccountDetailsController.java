@@ -29,12 +29,13 @@ import com.nextscience.utility.ResponseHelper;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class AccountDetailsController {
 
 	@Autowired
 	private AccountDetailsService accountDetailsService;
 	
+	/**Retrieves A list of AccountDetailsList*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(AccountDetailsConstant.OFFICEINFOURL)
 	public NSServiceResponse<List<OfficeAccResponse>>getAccountDetail()
@@ -42,27 +43,27 @@ public class AccountDetailsController {
 	{ 
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccountList();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<AccountDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY, "Error");
+	  NSServiceResponse<AccountDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 	
-	
+	/**Retrieves A list of AccountDetailsList by Using TrnRxID*/
 	@SuppressWarnings("unchecked")
-	@GetMapping("/officeInfo/{trnRxId}")
+	@GetMapping(AccountDetailsConstant.OFFICEINFOURLID)
 	public NSServiceResponse<List<OfficeAccResponse>> getAcctDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), accountInfo, "Successfully ","Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 	}	
 	
-	
+	/**Update Values in OfficeInfo.*/
 	@SuppressWarnings("unchecked")
-	@PutMapping("/officeInfo")
+	@PutMapping(AccountDetailsConstant.OFFICEINFOURL)
 	public NSServiceResponse<UpdateOfficeInfoRequest> updateOffDetails(@RequestBody UpdateOfficeInfoRequest req)
 	{
 		String response = accountDetailsService.updateOffInfoProc(req);
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 }
 	

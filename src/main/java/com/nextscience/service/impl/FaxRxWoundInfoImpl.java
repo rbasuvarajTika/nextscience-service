@@ -26,6 +26,12 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 
+/**
+ * Service Class for managing {@link FaxRxWoundInfoImpl}.request
+ * 
+ * @author Raghu
+ */
+
 @Service
 public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.FaxRxProviderConstant;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRxProvider;
@@ -21,20 +23,20 @@ import com.nextscience.utility.ResponseHelper;
  */
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class FaxRxProviderController {
 	
 	@Autowired
 	FaxRxProviderService faxRxProviderService;
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/ProviderList")
+	@GetMapping(FaxRxProviderConstant.PROVIDERLIST)
 	public NSServiceResponse<List<FaxRxPayerResponse>>getProviderDetail()
 	  
 	{ 
 		List<FaxRxProvider> account = faxRxProviderService.findAll();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<FaxRxPayerResponse>(), account, "Successfully ", "Error");
+	  NSServiceResponse<FaxRxPayerResponse>(), account, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 }
 	

@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Processes an {@link RxChecklist } request.
+ * Processes an {@link RxChecklist } .
  * 
  * @author Raghu
  *

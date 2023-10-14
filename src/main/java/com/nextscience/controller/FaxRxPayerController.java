@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.FaxRxPayerConstant;
 import com.nextscience.dto.response.FaxRxPayerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
@@ -24,7 +26,7 @@ import com.nextscience.utility.ResponseHelper;
  */
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/fax")
+@RequestMapping(CommonConstants.APIV1FAX)
 public class FaxRxPayerController {
 	
 	@Autowired
@@ -32,7 +34,7 @@ public class FaxRxPayerController {
 	
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/payerList")
+	@GetMapping(FaxRxPayerConstant.PAYERLIST)
     public NSServiceResponse<List<FaxRxPayerResponse>> executeCustomQuery(
     		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
@@ -49,7 +51,7 @@ public class FaxRxPayerController {
 			 PageResponseDTO response =faxRxPayerService.fetchList(page);
 			//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
 			return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-					response, "Successfully ", "Error");
+					response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 }
 	}
 }
