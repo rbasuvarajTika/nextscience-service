@@ -1,22 +1,21 @@
 package com.nextscience.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
+
 /**
- * Service interface for managing {@link JwtService}.
+ * Service interface for managing {@link JwtService}.request
  * 
  * @author Raghu
  */
 
-
-
 public interface JwtService {
-	
-	/** Extacts UserName from Token*/
-    String extractUserName(String token);
 
-    /**GenerateToken from UserDetails*/
-    String generateToken(UserDetails userDetails);
+	/** Extacts UserName from Token */
+	String extractUserName(String token);
 
-    /**Check Whether Token is valid or not */
-    boolean isTokenValid(String token, UserDetails userDetails);
+	/** GenerateToken from UserDetails */
+	String generateToken(UserDetails userDetails);
+
+	/** Check Whether Token is valid or not */
+	boolean isTokenValid(String token, UserDetails userDetails);
 }

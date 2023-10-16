@@ -1,7 +1,7 @@
 package com.nextscience.Constants;
 
 /**
- * Processes an {@link HcpDetailsConstant } request.
+ * Processes an {@link HcpDetailsConstant } constant.
  * @author Raghu
  *
  */

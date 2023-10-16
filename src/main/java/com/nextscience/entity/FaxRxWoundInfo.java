@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Represents the entity class for FaxRxWoundInfo.
+ * Represents the entity class for FaxRxWoundInfo.request
  * 
  * @author Raghu
  */

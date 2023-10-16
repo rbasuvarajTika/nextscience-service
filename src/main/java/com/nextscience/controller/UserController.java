@@ -31,7 +31,8 @@ import com.nextscience.utility.ResponseHelper;
 import jakarta.validation.Valid;
 
 /**
- * Processes an {@link UserController } request.
+ * Processes an {@link UserController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -40,101 +41,105 @@ import jakarta.validation.Valid;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1USERS)
 public class UserController {
-	
+
 	@Autowired
-	private  UserService userService;
+	private UserService userService;
 
+	/** Create a User in userList */
 	@PostMapping(UsersConstant.CREATEUSER)
-	
-    public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(userService.createUser(request));
-    }
-	
-	@PutMapping(UsersConstant.UPDATEUSERID)
-    public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
-        return ResponseEntity.ok(userService.updateUser(request,id));
-    }
 
-	
+	public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
+		return ResponseEntity.ok(userService.createUser(request));
+	}
+
+	/** Update User in UserDetails list */
+	@PutMapping(UsersConstant.UPDATEUSERID)
+	public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
+		return ResponseEntity.ok(userService.updateUser(request, id));
+	}
+
+	/** Update Password in UserDetails List */
 	@PutMapping(UsersConstant.UPDATEUSERPASSWORDID)
-    public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request, @PathVariable int id) {
-        return ResponseEntity.ok(userService.updatePassword(request,id));
-    }
-	
+	public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request, @PathVariable int id) {
+		return ResponseEntity.ok(userService.updatePassword(request, id));
+	}
+
+	/** Retrieves A list of UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.GETUSERSLIST)
 	public NSServiceResponse<List<UserResponse>> getUserDetail() {
 		List<UserResponse> userDto = userService.getUserDetail();
-		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				userDto, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), userDto,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	
+
+	/** Delete a User in UserDetails List */
 	@PutMapping(UsersConstant.DELETEUSERID)
-    public ResponseEntity<String> deleteUser(@PathVariable int id) {
-        return ResponseEntity.ok(userService.deleteUser(id));
-    }
-	
+	public ResponseEntity<String> deleteUser(@PathVariable int id) {
+		return ResponseEntity.ok(userService.deleteUser(id));
+	}
+
+	/** Retrieves A list of UserDetails By Email */
 	@GetMapping(UsersConstant.FORTOTUSEREMAIL)
-    public ResponseEntity<String> getUserName(@PathVariable String email) {
+	public ResponseEntity<String> getUserName(@PathVariable String email) {
 		String userName = userService.getUserName(email);
-		if(userName ==null) {
+		if (userName == null) {
 			return ResponseEntity.notFound().build();
 		}
-        return ResponseEntity.ok("Your UserName is: "+ userName);
-    }
-	
+		return ResponseEntity.ok("Your UserName is: " + userName);
+	}
+
+	/** Retrieves A list of User By Pagination */
 	@SuppressWarnings("unchecked")
-	@GetMapping(UsersConstant.GETUSERSLIST)
-    public NSServiceResponse<List<?>> executeCustomQuery(
-    		
-    		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
-    		@RequestParam(value = "pageSize", required = false, defaultValue = "150") int pageSize,
-    		@RequestParam(value = "sortBy", defaultValue = "CREATED_DATE", required = false) String sortBy,            
-    		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType )
-	{ 
-		 PageRequest page = null;       
-		 if ("desc".equals(orderType)) {    
-			 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());    
-			 } else {               
-				 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending()); 
-				 }
-		 PageResponseDTO response =userService.fetchUserList(page);
-		//List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
-		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), 
-				response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-    }
-	
+	@GetMapping(UsersConstant.USERSLIST)
+	public NSServiceResponse<List<?>> executeCustomQuery(
+
+			@RequestParam(value = "pageNo", required = false, defaultValue = "0") int pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "150") int pageSize,
+			@RequestParam(value = "sortBy", defaultValue = "CREATED_DATE", required = false) String sortBy,
+			@RequestParam(value = "orderBy", defaultValue = "desc", required = false) String orderType) {
+		PageRequest page = null;
+		if ("desc".equals(orderType)) {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+		} else {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+		}
+		PageResponseDTO response = userService.fetchUserList(page);
+		// List<FaxRxResponse> faxRxResponse = faxRxService.fetchList();
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Retrieves A list Of ActiveUsers In UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.ACTIVATEUSERS)
-    public NSServiceResponse<List<UserResponse>> getActivateusers(
+	public NSServiceResponse<List<UserResponse>> getActivateusers(
 			/* @Parameter(description = "Authorization Token", required = true) */
-    		    @RequestHeader(name = "Authorization") String authorizationToken) 
+			@RequestHeader(name = "Authorization") String authorizationToken)
 
 	{
 		String token = authorizationToken.replace("Bearer ", "");
-
 
 		List<UserResponse> ActivateusersList = userService.getActivateusers();
 		/*
 		 * if(ActivateusersList ==null && ActivateusersList.isEmpty()) { return
 		 * NSServiceResponse.notFound().build(); }
 		 */
-		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				ActivateusersList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);   
-		}
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), ActivateusersList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Retrieves A List Of DeActiveUsers In UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.DEACTIVATEUSERS)
-    public NSServiceResponse<List<UserResponse>> getDeactivateUsers() {
+	public NSServiceResponse<List<UserResponse>> getDeactivateUsers() {
 		List<UserResponse> deactivateUsersList = userService.getDeactivateUsers();
 		/*
 		 * if(deactivateUsersList ==null && !deactivateUsersList.isEmpty()) { return
 		 * ResponseEntity.notFound().build(); }
 		 */
-		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), 
-				deactivateUsersList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);   
-}
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), deactivateUsersList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
 
 }

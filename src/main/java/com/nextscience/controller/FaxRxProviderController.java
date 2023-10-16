@@ -17,7 +17,7 @@ import com.nextscience.service.FaxRxProviderService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link FaxRxProviderController } request.
+ * Processes an {@link FaxRxProviderController } controller.
  * @author Raghu
  *
  */
@@ -29,6 +29,7 @@ public class FaxRxProviderController {
 	@Autowired
 	FaxRxProviderService faxRxProviderService;
 	
+	/**Retrieves A list of FaxRxProvider Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxProviderConstant.PROVIDERLIST)
 	public NSServiceResponse<List<FaxRxPayerResponse>>getProviderDetail()

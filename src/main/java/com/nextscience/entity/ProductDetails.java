@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Represents the entity class for ProductDetails.
+ * Represents the entity class for ProductDetails.request
  * 
  * @author Raghu
  */

@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Represents the entity class for HcpDetails.
+ * Represents the entity class for HcpDetails.request
  * 
  * @author Raghu
  */

@@ -27,7 +27,7 @@ import jakarta.mail.MessagingException;
 
 
 /**
- * Processes an {@link EmailController} request.
+ * Processes an {@link EmailController} controller.
  * @author Raghu
  *
  */

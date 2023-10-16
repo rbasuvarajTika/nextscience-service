@@ -21,7 +21,7 @@ import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link FaxPrescriptionsController } request.
+ * Processes an {@link FaxPrescriptionsController } controller.
  * @author Raghu
  *
  */
@@ -33,7 +33,7 @@ public class FaxPrescriptionsController {
 	@Autowired
 	FaxPrescriptionsService faxPrescriptionsService;
 
-	/** Retrieves a List in FaxPrescriptions.*/
+	/** Retrieves a List of FaxPrescriptions Details.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.FAXPRESCRIPTIONS)
 	public NSServiceResponse<List<FaxPrescriptionsResponse>> getPrescriptionDetail()

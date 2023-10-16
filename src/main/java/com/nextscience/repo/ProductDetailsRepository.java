@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.ProductDetails;
 
 /**
- * Repository interface for managing {@link ProductDetailsRepository}.
+ * Repository interface for managing {@link ProductDetailsRepository}.request
  * 
  * @author Raghu
  */

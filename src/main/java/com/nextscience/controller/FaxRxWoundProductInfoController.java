@@ -16,7 +16,7 @@ import com.nextscience.entity.FaxRxWoundProductInfo;
 import com.nextscience.service.FaxRxWoundProductInfoService;
 import com.nextscience.utility.ResponseHelper;
 /**
- * Processes an {@link FaxRxWoundProductInfoController } request.
+ * Processes an {@link FaxRxWoundProductInfoController } controller.
  * @author Raghu
  *
  */
@@ -27,6 +27,7 @@ public class FaxRxWoundProductInfoController {
 	@Autowired
 	FaxRxWoundProductInfoService faxRxWoundProductInfoService;
 	
+	/**Retrieves A list of WoundProductInfo Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundProductInfoConstant.WOUNDPRODUCT)
 	public NSServiceResponse<List<FaxRxWoundProductInfoResponse>>getProductDetail()

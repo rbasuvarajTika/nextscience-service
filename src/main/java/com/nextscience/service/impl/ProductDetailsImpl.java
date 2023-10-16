@@ -57,7 +57,7 @@ public class ProductDetailsImpl implements ProductDetailsService {
 		response.setProductId((Integer) row[3]);
 		response.setProductCode((String) row[4]);
 		response.setProductDisplayName((String) row[5]);
-		response.setQuantity((Integer) row[6]);
+		response.setQuantity((String) row[6]);
 		response.setWnd1((Integer) row[7]);
 		response.setWnd2((Integer) row[8]);
 		response.setWnd3((Integer) row[9]);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.PatientDetails;
 
 /**
- * Repository interface for managing {@link PatientDetailsRepository}.
+ * Repository interface for managing {@link PatientDetailsRepository}.request
  * 
  * @author Raghu
  */

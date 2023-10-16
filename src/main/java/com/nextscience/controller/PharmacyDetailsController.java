@@ -17,7 +17,8 @@ import com.nextscience.service.PharmacyDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link PharmacyDetailsController } request.
+ * Processes an {@link PharmacyDetailsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -27,18 +28,18 @@ import com.nextscience.utility.ResponseHelper;
 @RequestMapping(CommonConstants.APIV1FAX)
 
 public class PharmacyDetailsController {
-	
+
 	@Autowired
 	PharmacyDetailsService pharmacyDetailsService;
-	
-	
+
+	/** Retrieves A list of PharmacyDetails Listt */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PharmacyDetailsConstant.PHARMACY)
-	public NSServiceResponse<List<PharmacyDetailsResponse>>getPharmacyDetail()
-	  
-	{ 
+	public NSServiceResponse<List<PharmacyDetailsResponse>> getPharmacyDetail()
+
+	{
 		List<PharmacyDetails> pharmacy = pharmacyDetailsService.findAll();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<PharmacyDetailsResponse>(), pharmacy, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-	  }
+		return ResponseHelper.createResponse(new NSServiceResponse<PharmacyDetailsResponse>(), pharmacy,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
 }

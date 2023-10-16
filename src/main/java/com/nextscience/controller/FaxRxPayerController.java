@@ -20,7 +20,7 @@ import com.nextscience.service.FaxRxPayerService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link FaxRxPayerController } request.
+ * Processes an {@link FaxRxPayerController } controller.
  * @author Raghu
  *
  */
@@ -32,7 +32,7 @@ public class FaxRxPayerController {
 	@Autowired
 	private FaxRxPayerService faxRxPayerService;
 	
-
+	/**Retrieves A list of FaxPayer Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxPayerConstant.PAYERLIST)
     public NSServiceResponse<List<FaxRxPayerResponse>> executeCustomQuery(

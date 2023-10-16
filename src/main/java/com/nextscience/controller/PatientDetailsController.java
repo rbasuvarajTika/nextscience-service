@@ -20,7 +20,8 @@ import com.nextscience.service.PatientDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link PatientDetailsController } request.
+ * Processes an {@link PatientDetailsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -29,7 +30,7 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class PatientDetailsController {
-	
+
 	@Autowired
 	PatientDetailsService patientDetailsService;
 	/*
@@ -44,35 +45,35 @@ public class PatientDetailsController {
 	 * NSServiceResponse<PatientDetailsResponse>(), patient, "Successfully ",
 	 * "Error"); }
 	 */
+
+	/** Retrieves A list of PatientDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PatientDetailsConstant.RXPATIENT)
-	public NSServiceResponse<List<RxPatientDetailsResponse>>getPatientDetailList()
-	{
+	public NSServiceResponse<List<RxPatientDetailsResponse>> getPatientDetailList() {
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientList();
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-
-		
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
-	
+
+	/** Retrieves A list of PatientDetailsList By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PatientDetailsConstant.RXPATIENTTRNRXID)
-	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
-	{
+	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-
-		
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
-	
+
+	/** Updates Values in PatientDetails List */
 	@SuppressWarnings("unchecked")
 	@PutMapping(PatientDetailsConstant.RXPATIENT)
-	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(@RequestBody UpdatePatientTrnFaxRxRequest req)
-	{
+	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(
+			@RequestBody UpdatePatientTrnFaxRxRequest req) {
 		String response = patientDetailsService.updatePatientDetAndFaxRxProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
-	
+
 }

@@ -1,7 +1,7 @@
 package com.nextscience.entity;
 
 /**
- * Enumeration representing user roles.
+ * Enumeration representing user roles.request
  * 
  * @author Raghu
  */

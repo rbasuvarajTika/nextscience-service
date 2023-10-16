@@ -9,25 +9,22 @@ import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.entity.RxChecklist;
 
-
 /**
- * Service interface for managing {@link RxChecklistService}.
+ * Service interface for managing {@link RxChecklistService}.request
  * 
  * @author Raghu
  */
 public interface RxChecklistService {
-	
 
-	//public List<RxChecklist> findAll();
-	
-	/**Retrieves all List Of RxCheckListt*/
+	// public List<RxChecklist> findAll();
+
+	/** Retrieves all List Of RxCheckListt */
 	public List<CheckListResponse> getCheckList();
-	
-	/**Retrieves  List Of RxCheckListt*/
-	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnRxId);
-	
-	/**Update a values in RxCheckListt*/
-	public String updateChecklistInfoProc(UpdateChecklistInfoRequest req);
 
+	/** Retrieves List Of RxCheckListt */
+	public List<CheckListResponse> getCheckLisDetByTrnRxId(int trnRxId);
+
+	/** Update a values in RxCheckListt */
+	public String updateChecklistInfoProc(UpdateChecklistInfoRequest req);
 
 }

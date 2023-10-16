@@ -25,7 +25,8 @@ import com.nextscience.service.FaxRxWoundInfoService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link FaxRxWoundInfoController } request.
+ * Processes an {@link FaxRxWoundInfoController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -36,7 +37,7 @@ public class FaxRxWoundInfoController {
 
 	@Autowired
 	FaxRxWoundInfoService faxRxWoundInfoService;
-	
+
 	/*
 	 * @SuppressWarnings("unchecked")
 	 * 
@@ -49,51 +50,52 @@ public class FaxRxWoundInfoController {
 	 * NSServiceResponse<FaxRxWoundInfoResponse>(), woundInfo, "Successfully ",
 	 * "Error"); }
 	 */
+
+	/** Retrieves A list of WoundInfo Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFO)
-	public NSServiceResponse <List<WoundInfoResponse>>getWoundInfoList()
-	{
+	public NSServiceResponse<List<WoundInfoResponse>> getWoundInfoList() {
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundInfoList();
-		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-		
+		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
+
+	/** Retrieves A list of WoundInfo Details By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFOTRNRXID)
-	public NSServiceResponse<List<WoundInfoResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
-	{
+	public NSServiceResponse<List<WoundInfoResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-
-		
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
+
+	/**Insert Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@PostMapping(FaxRxWoundInfoConstant.WOUNDINFO)
-	public NSServiceResponse<InsertWoundInfoRequest> insertWoundDetail(@RequestBody InsertWoundInfoRequest req)
-	{
+	public NSServiceResponse<InsertWoundInfoRequest> insertWoundDetail(@RequestBody InsertWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.insertWoundInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
 
+	/**Update Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@PutMapping(FaxRxWoundInfoConstant.WOUNDINFO)
-	public NSServiceResponse<UpdateWoundInfoRequest> updateWoundDetails(@RequestBody UpdateWoundInfoRequest req)
-	{
+	public NSServiceResponse<UpdateWoundInfoRequest> updateWoundDetails(@RequestBody UpdateWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.updateWoundInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
 	
+	/**Delete Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@DeleteMapping(FaxRxWoundInfoConstant.WOUNDINFODETAILS)
-	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req)
-	{
+	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.DeleteWoundInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response,  CommonConstants.SUCCESSFULLY,  CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
-	
-	
+
 }

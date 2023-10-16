@@ -11,46 +11,47 @@ import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
+
 /**
- * Service interface for managing {@link UserService}.
+ * Service interface for managing {@link UserService}.request
  * 
  * @author Raghu
  */
 public interface UserService {
-	
-	/** Create a new user in UserInfo*/
+
+	/** Create a new user in UserInfo */
 	String createUser(SignUpRequest request);
-	
-  /** Retrieves a List of UserDetail.*/
+
+	/** Retrieves a List of UserDetail. */
 	List<UserResponse> getUserDetail();
-	
-	 /** Retrieves all List of UsersInfo.*/
+
+	/** Retrieves all List of UsersInfo. */
 	List<User> findAll();
 
 	UserDetailsService userDetailsService();
 
-	/** Updates a values of UsersInfo.*/
+	/** Updates a values of UsersInfo. */
 	String updateUser(UpdateUserRequest request, int id);
-  
-	/** Updates Password of UsersInfo.*/
+
+	/** Updates Password of UsersInfo. */
 	String updatePassword(UpdatePasswordRequest request, int id);
 
-	/** Delete a user in UsersInfo.*/
+	/** Delete a user in UsersInfo. */
 	String deleteUser(int id);
 
-	/** Retrieves Email for a user in UsersInfo.*/
+	/** Retrieves Email for a user in UsersInfo. */
 	String getUserName(String email);
-	
-	/** Retrieves userName for a user in UsersInfo.*/
+
+	/** Retrieves userName for a user in UsersInfo. */
 	int getUserId(String userName);
-	
-	/** Fetches a paginated list of faxRx*/
+
+	/** Fetches a paginated list of faxRx */
 	public PageResponseDTO fetchUserList(PageRequest page);
 
-	/** Retrieves a List of Activateusers in UsersInfo.*/
+	/** Retrieves a List of Activateusers in UsersInfo. */
 	List<UserResponse> getActivateusers();
-	
-	/** Retrieves a List of DeActivateusers in UsersInfo.*/
+
+	/** Retrieves a List of DeActivateusers in UsersInfo. */
 	List<UserResponse> getDeactivateUsers();
 
 }

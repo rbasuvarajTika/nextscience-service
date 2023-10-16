@@ -17,7 +17,8 @@ import com.nextscience.service.PayerDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link PayerDetailsController } request.
+ * Processes an {@link PayerDetailsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -26,19 +27,20 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class PayerDetailsController {
-	
+
 	@Autowired
 	PayerDetailsService payerDetailsService;
 
+	/** Retrieves A list of PayerDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PayerDetailsConstant.PAYER)
 
-	public NSServiceResponse<List<PayerDetailsResponse>>getPayerDetail()
-	  
-	{ 
+	public NSServiceResponse<List<PayerDetailsResponse>> getPayerDetail()
+
+	{
 		List<PayerDetails> payerDetails = payerDetailsService.findAll();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<PayerDetailsResponse>(), payerDetails, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-	  }
+		return ResponseHelper.createResponse(new NSServiceResponse<PayerDetailsResponse>(), payerDetails,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
 
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.User;
 
 /**
- * Repository interface for managing {@link UserRepository}.
+ * Repository interface for managing {@link UserRepository}.request
  * 
  * @author Raghu
  */

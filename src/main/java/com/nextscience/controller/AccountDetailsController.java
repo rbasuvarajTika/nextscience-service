@@ -22,7 +22,7 @@ import com.nextscience.service.AccountDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link AccountDetailsController } request.
+ * Processes an {@link AccountDetailsController } controller.
  * @author Raghu
  *
  */

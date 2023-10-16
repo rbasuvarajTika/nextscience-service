@@ -1,6 +1,6 @@
 package com.nextscience.Constants;
 /**
- * Processes an {@link ProductDetailsConstant } request.
+ * Processes an {@link ProductDetailsConstant } constant.
  * @author Raghu
  *
  */

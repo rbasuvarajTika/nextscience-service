@@ -16,7 +16,7 @@ import com.nextscience.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Processes an {@link AuthenticationController } request.
+ * Processes an {@link AuthenticationController } .controller
  * @author Raghu
  *
  */

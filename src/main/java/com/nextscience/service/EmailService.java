@@ -4,7 +4,7 @@ import com.nextscience.dto.request.EmailDto;
 import jakarta.mail.MessagingException;
 
 /**
- * Service interface for managing {@link EmailService}.
+ * Service interface for managing {@link EmailService}.request
  * 
  * @author Raghu
  */

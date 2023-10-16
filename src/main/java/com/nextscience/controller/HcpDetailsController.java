@@ -22,7 +22,8 @@ import com.nextscience.service.HcpDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link HcpDetailsController } request.
+ * Processes an {@link HcpDetailsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -31,38 +32,37 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class HcpDetailsController {
-	
+
 	@Autowired
 	HcpDetailsService hcpDetailsService;
-	
-	
+
+	/** Retrieves A list of HcpDetailInfo List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(HcpDetailsConstant.HCPINFO)
-	public NSServiceResponse<List<HcpInfoResponse>>gethcpDetail()
-	  
-	{ 
+	public NSServiceResponse<List<HcpInfoResponse>> gethcpDetail()
+
+	{
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpInfoList();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<HcpDetailsResponse>(), hcpDetailInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-	  }
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<HcpDetailsResponse>(), hcpDetailInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Retrieves A list of HcpDetails List By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(HcpDetailsConstant.HCPINFOTRNRXID)
-	public NSServiceResponse<List<HcpInfoResponse>> getRxHcptDetByTrnRxId(@PathVariable int trnRxId)
-	{
+	public NSServiceResponse<List<HcpInfoResponse>> getRxHcptDetByTrnRxId(@PathVariable int trnRxId) {
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), hcpDetailInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-		}
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), hcpDetailInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Updates values in HcpDetailsInfo */
 	@SuppressWarnings("unchecked")
 	@PutMapping(HcpDetailsConstant.HCPINFO)
-	public NSServiceResponse<UpdateHcpInfoRequest> updateHcpInfoDet(@RequestBody UpdateHcpInfoRequest req)
-	{
+	public NSServiceResponse<UpdateHcpInfoRequest> updateHcpInfoDet(@RequestBody UpdateHcpInfoRequest req) {
 		String response = hcpDetailsService.updateHcpProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
-	
-	
-	
+
 }

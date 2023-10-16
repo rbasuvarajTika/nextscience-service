@@ -22,7 +22,8 @@ import com.nextscience.service.RxChecklistService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link RxChecklistController } request.
+ * Processes an {@link RxChecklistController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -34,33 +35,33 @@ public class RxChecklistController {
 
 	@Autowired
 	RxChecklistService rxChecklistService;
-	
-	
+
+	/** Retrieves A list of RxCheckList Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(RxCheckListConstant.CHECKLIST)
-	public NSServiceResponse<List<CheckListResponse>>getchecklistDetail()
-	  
-	{ 
+	public NSServiceResponse<List<CheckListResponse>> getchecklistDetail()
+
+	{
 		List<CheckListResponse> checkList = rxChecklistService.getCheckList();
-	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<RxChecklistResponse>(), checkList, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-	  }
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<RxChecklistResponse>(), checkList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Retrieves A list of RxCheckList By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(RxCheckListConstant.CHECKLISTTRNRXID)
-	public NSServiceResponse<List<CheckListResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
-	{
+	public NSServiceResponse<List<CheckListResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<CheckListResponse> checkList = rxChecklistService.getCheckLisDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);		
-}
-	
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	/** Update Values in RxCheckList Deatils */
 	@SuppressWarnings("unchecked")
 	@PutMapping(RxCheckListConstant.CHECKLIST)
-	public NSServiceResponse<UpdateChecklistInfoRequest> updateOffDetails(@RequestBody UpdateChecklistInfoRequest req)
-	{
+	public NSServiceResponse<UpdateChecklistInfoRequest> updateOffDetails(@RequestBody UpdateChecklistInfoRequest req) {
 		String response = rxChecklistService.updateChecklistInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
 	}
-}	
-
+}

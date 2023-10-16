@@ -1,7 +1,7 @@
 package com.nextscience.Constants;
 
 /**
- * Processes an {@link EmailConstant } request.
+ * Processes an {@link EmailConstant } constant.
  * @author Raghu
  *
  */

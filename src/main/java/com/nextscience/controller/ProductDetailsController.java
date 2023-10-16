@@ -25,7 +25,8 @@ import com.nextscience.service.ProductDetailsService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link ProductDetailsController } request.
+ * Processes an {@link ProductDetailsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -34,59 +35,54 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class ProductDetailsController {
-	
-	
+
 	@Autowired
 	ProductDetailsService productDetailsService;
-	
-	
-	
+
+	/** Retrieves A list ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(ProductDetailsConstant.PRODUCTINFO)
-	   public NSServiceResponse<List<ProductKitsResponse>>getProductDetail()
-	{
-	List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
-	return ResponseHelper.createResponse(new NSServiceResponse<ProductKitsResponse>(), productInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-		
+	public NSServiceResponse<List<ProductKitsResponse>> getProductDetail() {
+		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
+		return ResponseHelper.createResponse(new NSServiceResponse<ProductKitsResponse>(), productInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
 	}
-	
+
+	/** Retrieves A list of ProductDetails By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(ProductDetailsConstant.PRODUCTINFOTRNRXID)
-	public NSServiceResponse<List<ProductKitsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId)
-	{
+	public NSServiceResponse<List<ProductKitsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
-
-		
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
-	
+
+	/** Insert Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@PostMapping("/productInfo")
-	public NSServiceResponse<InsertProductInfoRequest> InsertProductInfoDet(@RequestBody InsertProductInfoRequest req)
-	{
+	public NSServiceResponse<InsertProductInfoRequest> InsertProductInfoDet(@RequestBody InsertProductInfoRequest req) {
 		String response = productDetailsService.InsertProductInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
+
+	/** Update Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@PutMapping("/productInfo")
-	public NSServiceResponse<UpdateProductInfoRequest> UpdateProductInfoDet(@RequestBody UpdateProductInfoRequest req)
-	{
+	public NSServiceResponse<UpdateProductInfoRequest> UpdateProductInfoDet(@RequestBody UpdateProductInfoRequest req) {
 		String response = productDetailsService.UpdateProductInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
-	
+
+	/** Delete Values in Product Details List */
 	@SuppressWarnings("unchecked")
 	@DeleteMapping("/productInfoDetails")
-	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req)
-	{
+	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req) {
 		String response = productDetailsService.DeleteProductInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
-    			response, "Successfully ", "Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
-	
+
 	/*
 	 * @SuppressWarnings("unchecked")
 	 * 
@@ -98,6 +94,5 @@ public class ProductDetailsController {
 	 * NSServiceResponse<ProductDetailsResponse>(), product, "Successfully ",
 	 * "Error"); }
 	 */
-	
 
 }

@@ -3,7 +3,7 @@ package com.nextscience.Constants;
 import com.nextscience.controller.AccountDetailsController;
 
 /**
- * Processes an {@link AccountDetailsConstant } request.
+ * Processes an {@link AccountDetailsConstant } constant.
  * @author Raghu
  *
  */

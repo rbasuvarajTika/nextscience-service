@@ -30,7 +30,7 @@ import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
 /**
- * Processes an {@link FaxContoller } request.
+ * Processes an {@link FaxContoller } controller.
  * @author Raghu
  *
  */
@@ -124,7 +124,7 @@ public class FaxContoller {
 	    return null;
 	}
 	
-	/**Retrieves A FaxDetailsPdfByFaxId in FaxRx*/
+	/**Retrieves A List of FaxDetailsPdfByFaxId in FaxRx Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(value=FaxRxConstant.GETFAXDETAILSFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
 	public  NSServiceResponse<FaxRx>  faxDetails(@PathVariable String faxId) {

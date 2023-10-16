@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.FaxPrescriptions;
 
 /**
- * Repository interface for managing {@link FaxPrescriptionsRepository}
+ * Repository interface for managing {@link FaxPrescriptionsRepository}.request
  * 
  * @author Raghu
  */

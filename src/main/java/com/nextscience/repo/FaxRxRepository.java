@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.FaxRx;
 
 /**
- * Repository interface for managing {@link FaxRxRepository}.
+ * Repository interface for managing {@link FaxRxRepository}.request
  * 
  * @author Raghu
  */

@@ -1,6 +1,6 @@
 package com.nextscience.Constants;
 /**
- * Processes an {@link UsersConstant } request.
+ * Processes an {@link UsersConstant } constant.
  * @author Raghu
  *
  */
@@ -13,6 +13,8 @@ public class UsersConstant {
 	public static final String FORTOTUSEREMAIL ="/forgot/user/{email}";
 	public static final String ACTIVATEUSERS = "/activateUsers";	
 	public static final String DEACTIVATEUSERS ="/DeactivateUsers";
+	public static final String USERSLIST = "/usersList";
+
 	
 
 }

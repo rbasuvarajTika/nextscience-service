@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.RxChecklist;
 
 /**
- * Repository interface for managing {@link RxChecklistRepository}.
+ * Repository interface for managing {@link RxChecklistRepository}.request
  * 
  * @author Raghu
  */

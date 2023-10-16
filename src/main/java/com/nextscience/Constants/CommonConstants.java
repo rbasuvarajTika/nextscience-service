@@ -1,7 +1,7 @@
 package com.nextscience.Constants;
 
 /**
- * Processes an {@link CommonConstants } request.
+ * Processes an {@link CommonConstants } constant.
  * @author Raghu
  *
  */

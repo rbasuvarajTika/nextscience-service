@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 /**
- * Represents the entity class for FaxRxCase.
+ * Represents the entity class for FaxRxCase.request
  * 
  * @author Raghu
  */

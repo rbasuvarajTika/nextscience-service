@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.HcpDetails;
 
 /**
- * Repository interface for managing {@link HcpDetailsRepository}.
+ * Repository interface for managing {@link HcpDetailsRepository}.request
  * 
  * @author Raghu
  */

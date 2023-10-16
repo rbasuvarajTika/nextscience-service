@@ -6,7 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * Represents the entity class for FaxRx.
+ * Represents the entity class for FaxRx.request
  * 
  * @author Raghu
  */

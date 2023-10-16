@@ -1,6 +1,6 @@
 package com.nextscience.Constants;
 /**
- * Processes an {@link FaxRxProviderConstant } request.
+ * Processes an {@link FaxRxProviderConstant } constant.
  * @author Raghu
  *
  */

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nextscience.entity.FaxRxWoundInfo;
 
 /**
- * Repository interface for managing {@link FaxRxWoundInfoRepository}.
+ * Repository interface for managing {@link FaxRxWoundInfoRepository}.request
  * 
  * @author Raghu
  */

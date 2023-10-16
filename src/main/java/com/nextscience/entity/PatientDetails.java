@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * Represents the entity class for PatientDetails.
+ * Represents the entity class for PatientDetails.request
  * 
  * @author Raghu
  */

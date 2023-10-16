@@ -2,7 +2,7 @@ package com.nextscience.Constants;
 
 
 /**
- * Processes an {@link PatientDetailsConstant } request.
+ * Processes an {@link PatientDetailsConstant } constant.
  * @author Raghu
  *
  */
