@@ -23,6 +23,7 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin("*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class StateDetailsController {
+	
 	@Autowired
 	private StateDetailsService stateDetailsService;
 	
@@ -31,7 +32,7 @@ public class StateDetailsController {
 	public NSServiceResponse<List<StateDetailsResponse>>getStateDetail()
 	  
 	{ 
-		List<StateDetailsResponse> stateInfo = stateDetailsService.getStatesDetails();
+	  List<StateDetailsResponse> stateInfo = stateDetailsService.getStatesDetails();
 	  return ResponseHelper.createResponse(new
 	  NSServiceResponse<AccountDetailsResponse>(), stateInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
