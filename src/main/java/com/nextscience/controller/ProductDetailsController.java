@@ -61,7 +61,7 @@ public class ProductDetailsController {
 
 	/** Insert Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
-	@PostMapping("/productInfo")
+	@PostMapping(ProductDetailsConstant.PRODUCTINFO)
 	public NSServiceResponse<InsertProductInfoRequest> InsertProductInfoDet(@RequestBody InsertProductInfoRequest req) {
 		String response = productDetailsService.InsertProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
@@ -69,7 +69,7 @@ public class ProductDetailsController {
 
 	/** Update Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
-	@PutMapping("/productInfo")
+	@PutMapping(ProductDetailsConstant.PRODUCTINFO)
 	public NSServiceResponse<UpdateProductInfoRequest> UpdateProductInfoDet(@RequestBody UpdateProductInfoRequest req) {
 		String response = productDetailsService.UpdateProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
@@ -82,6 +82,15 @@ public class ProductDetailsController {
 		String response = productDetailsService.DeleteProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/productDetailsInfo")
+	public NSServiceResponse<List<ProductKitsResponse>> getProductDetails (){
+		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
+		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
 
 	/*
 	 * @SuppressWarnings("unchecked")
@@ -94,5 +103,5 @@ public class ProductDetailsController {
 	 * NSServiceResponse<ProductDetailsResponse>(), product, "Successfully ",
 	 * "Error"); }
 	 */
-
+	}
 }

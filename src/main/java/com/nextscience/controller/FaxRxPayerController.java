@@ -36,12 +36,12 @@ public class FaxRxPayerController {
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxPayerConstant.PAYERLIST)
     public NSServiceResponse<List<FaxRxPayerResponse>> executeCustomQuery(
-    		@RequestParam(value = "pageNo", required = false, defaultValue ="0") int pageNo,
-    		@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-    		@RequestParam(value = "sortBy", defaultValue = "createdDate", required = false) String sortBy,            
-    		@RequestParam(value = "orderBy",defaultValue = "desc", required = false) String orderType ){ 
+    		@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue ="0") int pageNo,
+    		@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") int pageSize,
+    		@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,            
+    		@RequestParam(value = CommonConstants.ORDERBY,defaultValue = CommonConstants.DESC, required = false) String orderType ){ 
 		 PageRequest page = null;       
-		 if ("desc".equals(orderType)) {    
+		 if (CommonConstants.DESC.equals(orderType)) {    
 			 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());    
 			 } else {               
 				 page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending()); 

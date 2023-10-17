@@ -14,6 +14,7 @@ import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
+import com.nextscience.dto.response.StateDetailsResponse;
 import com.nextscience.entity.PharmacyDetails;
 import com.nextscience.entity.ProductDetails;
 import com.nextscience.repo.ProductDetailsRepository;
@@ -23,6 +24,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
 /**
  * Service Class for managing {@link ProductDetailsImpl}.request
@@ -162,7 +164,27 @@ public class ProductDetailsImpl implements ProductDetailsService {
 
 		return "Deleted Successfully";
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<ProductKitsResponse> getProductInfoDetails() {
+		        String productInfo = "SELECT PRODUCT_ID, PRODUCT_CODE, PRODUCT_NAME FROM DIM_PRODUCT";
+		        List<Object[]> results = entityManager.createNativeQuery(productInfo).getResultList();
+		        List<ProductKitsResponse> responses = results.stream().map(this::mapToObjectsArrays)
+						.collect(Collectors.toList());
+		        return responses;
+		    }
+	private ProductKitsResponse mapToObjectsArrays(Object[] row) {
+		ProductKitsResponse response = new ProductKitsResponse();
+		response.setProductId((Integer) row[0]);
+		response.setProductCode((String) row[1]);
+		response.setProductDisplayName((String) row[2]);
+		return response;
+		
+	}
 }
+
 
 /*
  * @SuppressWarnings("unchecked")

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.response.CheckListResponse;
 import com.nextscience.dto.response.PageResponseDTO;
@@ -84,7 +85,7 @@ public class RxChecklistImpl implements RxChecklistService {
 		
 		query.execute();
 		
-		return "updated successfully";
+		return CommonConstants.UPDATEDSUCCESSFULLY;
 	}
 		
 	/*

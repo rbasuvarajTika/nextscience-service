@@ -41,31 +41,31 @@ public class EmailController {
 	@Autowired
 	private EmailService emailService;
 	
-	@Value("${mail.from.email.id}")
+	@Value(CommonConstants.MAILFROMEMAILID)
 	private String fromEmail;	
 	
-	@Value("${mail.subject.resetpassword.template}")
+	@Value(CommonConstants.MAILSUBJECTRESETPASSWORDTEMPLATE)
 	private String resetTemplate;
 	
-	@Value("${mail.subject.email}")
+	@Value(CommonConstants.MAILSUBJECTEMAIL)
 	private String subject;
 	
-	@Value("${mail.subject.resetpassword.link}")
+	@Value(CommonConstants.MAILSUBJECTRESETPASSWORDLINK)
 	private String resetParams;
 	
-	@Value("${mail.subject.email.resetpassword}")
+	@Value(CommonConstants.MAILSUBJECTEMAILRESETPASSWORD)
 	private String resetPassword;
 	
-	@Value("${mail.subject.createUser.template}")
+	@Value(CommonConstants.MAILSUBJECTCREATEUSERTEMPLATE)
 	private String createUserTemplate;
 	
-	@Value("${mail.subject.createUser.firstName}")
+	@Value(CommonConstants.MAILSUBJECTCREATEUSERFIRSTNAME)
 	private String firstName;
 	
-	@Value("${mail.subject.createUser.userName}")
+	@Value(CommonConstants.MAILSUBJECTCREATEUSERUSERNAME)
 	private String userName;
 	
-	@Value("${mail.subject.createUser.userCreated}")
+	@Value(CommonConstants.MAILSUBJECTCREATEUSERUSERCREATED)
 	private String userCreated;
 	
 	/**
@@ -93,11 +93,11 @@ public class EmailController {
 					.AddContext(resetParams,request.getResetLink()+"/"+userid)
 					.Subject(resetPassword).createMail();
 			emailService.sendMail(mail, true);
-			response.setMessage("Email Sent Successfully");
+			response.setMessage(CommonConstants.EMAILSENTSUCCESSFULLY);
 			return ResponseHelper.createResponse(new NSServiceResponse<EmailResponseDto>(), response,
-					"Email Sent Successfully", "Email Send Failed");
+					CommonConstants.EMAILSENTSUCCESSFULLY, CommonConstants.EMAILSENTFAILED);
 		} catch (MessagingException e) {
-			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, "Email Sent Failed");
+			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, CommonConstants.EMAILSENTFAILED);
 		}
 	}
 

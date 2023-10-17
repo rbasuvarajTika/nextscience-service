@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
@@ -186,7 +187,7 @@ public class FaxRxImpl implements FaxRxService {
     		
     	}
 	        
-	        return "updated successfully";
+	        return CommonConstants.UPDATEDSUCCESSFULLY;
 	    }
 
 	@Override
@@ -196,7 +197,7 @@ public class FaxRxImpl implements FaxRxService {
 		 entityManager.createNativeQuery(trnFaxRxUpdateQuery)
          .setParameter("TRN_FAX_ID", trnFaxId)
          .executeUpdate();
-		return "updated successfully";
+		return CommonConstants.UPDATEDSUCCESSFULLY;
 	}
 
 	

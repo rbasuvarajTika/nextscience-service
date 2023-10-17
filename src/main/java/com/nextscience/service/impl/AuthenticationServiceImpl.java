@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.CustomPasswordEncoder;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.SigninRequest;
@@ -67,7 +68,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
         var user = userRepository.findByUserName(request.getUserName())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+                .orElseThrow(() -> new IllegalArgumentException(CommonConstants.INVALIDEMAILORPASSWORD));
         var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).role(user.getRole()).build();
     }
@@ -98,6 +99,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				 .updatedUser(request.getUpdatedUser())
 				 .updatedDate(request.getUpdateDate()).build();
 	        userRepository.save(user);
-	        return "Admin user created successfully";
+	        return CommonConstants.ADMINUSERCREATEDSUCCESSFULLY;
 	}
 }

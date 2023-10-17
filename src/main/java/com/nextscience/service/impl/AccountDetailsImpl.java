@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.HcpInfoResponse;
@@ -104,7 +105,7 @@ public class AccountDetailsImpl implements AccountDetailsService{
 		query.setParameter("ZIP", req.getZip());
 		
 		query.execute();
-		return "updated Successfully";
+		return CommonConstants.UPDATEDSUCCESSFULLY;
 	}
 }
 		

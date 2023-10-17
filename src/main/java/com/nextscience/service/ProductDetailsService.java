@@ -36,5 +36,8 @@ public interface ProductDetailsService {
 
 	/** Delete a Values in ProductDetails */
 	public String DeleteProductInfoProc(DeleteProductInfoRequest req);
+	
+	
+	public List<ProductKitsResponse>getProductInfoDetails();
 
 }

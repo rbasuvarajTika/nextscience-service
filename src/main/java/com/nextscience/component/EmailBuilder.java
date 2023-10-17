@@ -7,6 +7,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.Template;
 
+import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.EmailDto;
 
 
@@ -88,7 +89,7 @@ public class EmailBuilder {
 
 		// Check state of the mails.
 		if (this.mailTo.isEmpty() || this.mailFrom.isEmpty()) {
-			throw new IllegalArgumentException("Missing mail headers");
+			throw new IllegalArgumentException(CommonConstants.MISSINGMAILHEADERS);
 		}
 
 		// Build mail object
