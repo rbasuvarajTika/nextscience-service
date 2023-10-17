@@ -9,6 +9,7 @@ import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.dto.response.ProductInfoResponse;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.WoundInfoResponse;
 import com.nextscience.entity.ProductDetails;
@@ -39,6 +40,6 @@ public interface ProductDetailsService {
 	public String DeleteProductInfoProc(DeleteProductInfoRequest req);
 	
 	
-	public List<ProductDetailsResponse>getProductInfoDetails();
+	public List<ProductInfoResponse>getProductInfoDetails();
 
 }

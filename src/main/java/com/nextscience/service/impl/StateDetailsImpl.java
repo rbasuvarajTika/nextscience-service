@@ -35,8 +35,7 @@ public class StateDetailsImpl implements StateDetailsService {
 		response.setStateId((Integer) row[0]);
 		response.setStateName((String) row[1]);
 		response.setShortName((String) row[2]);
-		response.setCreatedUser((String) row[3]);
-		response.setCreatedDate((Date) row[4]);
+		
 		return response;
 }
 }

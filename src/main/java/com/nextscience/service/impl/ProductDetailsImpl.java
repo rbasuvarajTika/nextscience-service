@@ -13,6 +13,7 @@ import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.dto.response.ProductInfoResponse;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.dto.response.StateDetailsResponse;
@@ -169,15 +170,15 @@ public class ProductDetailsImpl implements ProductDetailsService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<ProductDetailsResponse> getProductInfoDetails() {
+	public List<ProductInfoResponse> getProductInfoDetails() {
 		List<Object[]> productDetailsResponse = productDetailsRepository.getProductInfoDetails();
 
-		        List<ProductDetailsResponse> responses = productDetailsResponse.stream().map(this::mapToObjectsArrays)
+		        List<ProductInfoResponse> responses = productDetailsResponse.stream().map(this::mapToObjectsArrays)
 						.collect(Collectors.toList());
 		        return responses;
 		    }
-	private ProductDetailsResponse mapToObjectsArrays(Object[] row) {
-		ProductDetailsResponse response = new ProductDetailsResponse();
+	private ProductInfoResponse mapToObjectsArrays(Object[] row) {
+		ProductInfoResponse response = new ProductInfoResponse();
 		response.setProductId((Integer) row[0]);
 		response.setProductCode((String) row[1]);
 		response.setProductName((String) row[2]);

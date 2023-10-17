@@ -14,16 +14,13 @@ public class StateDetailsResponse {
 	private Integer stateId;
 	private String stateName;
 	private String shortName;
-	private String createdUser;
-	private Date createdDate;
-	public StateDetailsResponse(Integer stateId, String stateName, String shortName, String createdUser,
-			Date createdDate) {
+	
+	public StateDetailsResponse(Integer stateId, String stateName, String shortName) {
 		super();
 		this.stateId = stateId;
 		this.stateName = stateName;
 		this.shortName = shortName;
-		this.createdUser = createdUser;
-		this.createdDate = createdDate;
+		
 	}
 
 }

@@ -20,6 +20,7 @@ import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.ProductDetailsResponse;
+import com.nextscience.dto.response.ProductInfoResponse;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.service.ProductDetailsService;
@@ -93,9 +94,9 @@ public class ProductDetailsController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/productDetailsInfo")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<ProductDetailsResponse>> getProductDetails (){
-		List<ProductDetailsResponse> productInfo = productDetailsService.getProductInfoDetails();
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo,
+	public NSServiceResponse<List<ProductInfoResponse>> getProductDetails (){
+		List<ProductInfoResponse> productInfo = productDetailsService.getProductInfoDetails();
+		return ResponseHelper.createResponse(new NSServiceResponse<ProductInfoResponse>(), productInfo,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 
