@@ -38,7 +38,7 @@ import jakarta.validation.Valid;
  */
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(CommonConstants.APIV1USERS)
 public class UserController {
 
@@ -47,13 +47,14 @@ public class UserController {
 
 	/** Create a User in userList */
 	@PostMapping(UsersConstant.CREATEUSER)
-
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
 		return ResponseEntity.ok(userService.createUser(request));
 	}
 
 	/** Update User in UserDetails list */
 	@PutMapping(UsersConstant.UPDATEUSERID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
 		return ResponseEntity.ok(userService.updateUser(request, id));
 	}
