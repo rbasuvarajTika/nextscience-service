@@ -29,11 +29,13 @@ public class AuthenticationController {
     
     /**Create a Newuser in userinfo.*/
     @PostMapping("/signup")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<String> signup(@RequestBody SignUpRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignup(request));
     }
     /** Login a User.*/
     @PostMapping("/signin")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.adminSignin(request));
     }

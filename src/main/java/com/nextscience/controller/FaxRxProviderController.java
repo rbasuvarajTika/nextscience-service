@@ -32,6 +32,7 @@ public class FaxRxProviderController {
 	/**Retrieves A list of FaxRxProvider Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxProviderConstant.PROVIDERLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxPayerResponse>>getProviderDetail()
 	  
 	{ 

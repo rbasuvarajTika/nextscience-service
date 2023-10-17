@@ -46,6 +46,7 @@ public class FaxContoller {
 	/**Retrieves A list of FaxRxList*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxConstant.FAXLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
     public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
     		@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") int pageSize,
@@ -65,6 +66,7 @@ public class FaxContoller {
 	
 	/**Retrieves a Pdf From FaxPdf*/
 	@GetMapping(value=FaxRxConstant.FAXPDF,produces= MediaType.APPLICATION_PDF_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  @ResponseBody byte[]  faxPdfDownload() {
 
 	    try {
@@ -84,6 +86,7 @@ public class FaxContoller {
 	/**Retrieves A Duplicate Value of FaxRxDupe*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxConstant.FAXDUPE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<DupeRxResponse>> executeCustomQuery(){
     
 		List<DupeRxResponse> response =faxRxService.getDuplicateResponse();
@@ -95,6 +98,7 @@ public class FaxContoller {
 	/**Retrieves A DuplicateByFaxId Value of FaxRxDupe*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxConstant.FAXDUPEBYFAXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<DupeRxResponse>> faxDupeId(@PathVariable String faxId){
     
 		List<DupeRxResponse> response =faxRxService.getDuplicateByIdResponse(faxId);
@@ -105,6 +109,7 @@ public class FaxContoller {
 	
 	/**Retrieves A FaxPdfByFaxId in FaxRx*/
 	@GetMapping(value=FaxRxConstant.GETFAXPDFFAXID,produces= MediaType.APPLICATION_PDF_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  @ResponseBody byte[]  faxPdfDownload(@PathVariable String faxId) {
 
 	    try {
@@ -127,6 +132,7 @@ public class FaxContoller {
 	/**Retrieves A List of FaxDetailsPdfByFaxId in FaxRx Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(value=FaxRxConstant.GETFAXDETAILSFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  NSServiceResponse<FaxRx>  faxDetails(@PathVariable String faxId) {
 	    	FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
@@ -135,6 +141,7 @@ public class FaxContoller {
 	/**Update A DupeMainFaxId in FaxRx*/
 	@SuppressWarnings("unchecked")
 	@PutMapping(value=FaxRxConstant.UPDATEFAXDUPEMAINFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  NSServiceResponse<String>  updateFax(@PathVariable String dupeTrnFaxId,@PathVariable String mainTrnFaxId) {
 		String response = faxRxService.updatefax(dupeTrnFaxId, mainTrnFaxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
@@ -144,6 +151,7 @@ public class FaxContoller {
 	/**Update A KeepDuplicateTrnFaxId in FaxRx*/
 	@SuppressWarnings("unchecked")
 	@PutMapping(value=FaxRxConstant.KEEPDUPLICATETRNFAXID,produces= MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  NSServiceResponse<String>  keepDuplicate(@PathVariable String trnFaxId) {
 	    	String response = faxRxService.keepDuplicate(trnFaxId);
 	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 

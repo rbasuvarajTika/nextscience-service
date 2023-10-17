@@ -36,6 +36,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List of FaxPrescriptions Details.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.FAXPRESCRIPTIONS)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxPrescriptionsResponse>> getPrescriptionDetail()
 
 	{
@@ -47,6 +48,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerList.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetails()
 
 	{
@@ -57,6 +59,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerWoundList.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundDetails()
 
 	{
@@ -67,6 +70,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerDetaiLList.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetailsList()
 
 	{
@@ -77,6 +81,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerWoundListByTrnRxId.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDLISTTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundById(@PathVariable int trnRxId)
 
 	{
@@ -88,6 +93,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerWoundCaseId.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDCASEID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxPrscTrkWoundResponse>> getFaxRxTrkWoundByCaseId(@PathVariable int caseId)
 
 	{
@@ -99,6 +105,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerDetailListByTrnRxId.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListById(@PathVariable int trnRxId)
 
 	{
@@ -109,6 +116,7 @@ public class FaxPrescriptionsController {
 	/** Retrieves a List From RxTrackerDetailCaseId.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILCASEID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerListByCaseId(@PathVariable int caseId)
 
 	{

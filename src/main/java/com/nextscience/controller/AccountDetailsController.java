@@ -38,6 +38,7 @@ public class AccountDetailsController {
 	/**Retrieves A list of AccountDetailsList*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(AccountDetailsConstant.OFFICEINFOURL)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<OfficeAccResponse>>getAccountDetail()
 	  
 	{ 
@@ -49,6 +50,7 @@ public class AccountDetailsController {
 	/**Retrieves A list of AccountDetailsList by Using TrnRxID*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(AccountDetailsConstant.OFFICEINFOURLID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<OfficeAccResponse>> getAcctDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccDetByTrnRxId(trnRxId);
@@ -59,6 +61,7 @@ public class AccountDetailsController {
 	/**Update Values in OfficeInfo.*/
 	@SuppressWarnings("unchecked")
 	@PutMapping(AccountDetailsConstant.OFFICEINFOURL)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateOfficeInfoRequest> updateOffDetails(@RequestBody UpdateOfficeInfoRequest req)
 	{
 		String response = accountDetailsService.updateOffInfoProc(req);

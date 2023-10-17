@@ -49,6 +49,7 @@ public class PatientDetailsController {
 	/** Retrieves A list of PatientDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PatientDetailsConstant.RXPATIENT)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<RxPatientDetailsResponse>> getPatientDetailList() {
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientList();
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail,
@@ -59,6 +60,7 @@ public class PatientDetailsController {
 	/** Retrieves A list of PatientDetailsList By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PatientDetailsConstant.RXPATIENTTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<RxPatientDetailsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<RxPatientDetailsResponse> patientDetail = patientDetailsService.getRxPatientDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), patientDetail,
@@ -69,6 +71,7 @@ public class PatientDetailsController {
 	/** Updates Values in PatientDetails List */
 	@SuppressWarnings("unchecked")
 	@PutMapping(PatientDetailsConstant.RXPATIENT)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdatePatientTrnFaxRxRequest> updatePatientFaxRxDet(
 			@RequestBody UpdatePatientTrnFaxRxRequest req) {
 		String response = patientDetailsService.updatePatientDetAndFaxRxProc(req);

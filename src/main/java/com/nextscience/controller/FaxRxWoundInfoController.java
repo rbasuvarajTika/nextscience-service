@@ -54,6 +54,7 @@ public class FaxRxWoundInfoController {
 	/** Retrieves A list of WoundInfo Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<WoundInfoResponse>> getWoundInfoList() {
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundInfoList();
 		return ResponseHelper.createResponse(new NSServiceResponse<WoundInfoResponse>(), woundInfo,
@@ -64,6 +65,7 @@ public class FaxRxWoundInfoController {
 	/** Retrieves A list of WoundInfo Details By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundInfoConstant.WOUNDINFOTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<WoundInfoResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<WoundInfoResponse> woundInfo = faxRxWoundInfoService.getRxWoundDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), woundInfo,
@@ -74,6 +76,7 @@ public class FaxRxWoundInfoController {
 	/**Insert Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@PostMapping(FaxRxWoundInfoConstant.WOUNDINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<InsertWoundInfoRequest> insertWoundDetail(@RequestBody InsertWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.insertWoundInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
@@ -83,6 +86,7 @@ public class FaxRxWoundInfoController {
 	/**Update Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@PutMapping(FaxRxWoundInfoConstant.WOUNDINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateWoundInfoRequest> updateWoundDetails(@RequestBody UpdateWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.updateWoundInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
@@ -92,6 +96,7 @@ public class FaxRxWoundInfoController {
 	/**Delete Values in WoundInfo Details*/
 	@SuppressWarnings("unchecked")
 	@DeleteMapping(FaxRxWoundInfoConstant.WOUNDINFODETAILS)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteWoundInfoRequest> deleteWoundDetails(@RequestBody DeleteWoundInfoRequest req) {
 		String response = faxRxWoundInfoService.DeleteWoundInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,

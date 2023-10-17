@@ -39,6 +39,7 @@ public class HcpDetailsController {
 	/** Retrieves A list of HcpDetailInfo List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(HcpDetailsConstant.HCPINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<HcpInfoResponse>> gethcpDetail()
 
 	{
@@ -50,6 +51,7 @@ public class HcpDetailsController {
 	/** Retrieves A list of HcpDetails List By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(HcpDetailsConstant.HCPINFOTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<HcpInfoResponse>> getRxHcptDetByTrnRxId(@PathVariable int trnRxId) {
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), hcpDetailInfo,
@@ -59,6 +61,7 @@ public class HcpDetailsController {
 	/** Updates values in HcpDetailsInfo */
 	@SuppressWarnings("unchecked")
 	@PutMapping(HcpDetailsConstant.HCPINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateHcpInfoRequest> updateHcpInfoDet(@RequestBody UpdateHcpInfoRequest req) {
 		String response = hcpDetailsService.updateHcpProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,

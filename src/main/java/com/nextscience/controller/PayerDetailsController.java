@@ -34,6 +34,7 @@ public class PayerDetailsController {
 	/** Retrieves A list of PayerDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PayerDetailsConstant.PAYER)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 
 	public NSServiceResponse<List<PayerDetailsResponse>> getPayerDetail()
 

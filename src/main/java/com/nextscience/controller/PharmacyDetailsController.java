@@ -35,6 +35,7 @@ public class PharmacyDetailsController {
 	/** Retrieves A list of PharmacyDetails Listt */
 	@SuppressWarnings("unchecked")
 	@GetMapping(PharmacyDetailsConstant.PHARMACY)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<PharmacyDetailsResponse>> getPharmacyDetail()
 
 	{

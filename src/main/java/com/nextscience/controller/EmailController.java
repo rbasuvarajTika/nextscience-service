@@ -4,6 +4,7 @@ package com.nextscience.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,6 +82,7 @@ public class EmailController {
 	/** For ForgotPassword for a User.*/
 	@SuppressWarnings("unchecked")
 	@PostMapping(EmailConstant.FORGOTPASSWORD)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<EmailResponseDto> resetpassword( @RequestBody EmailRequestDto request){
 		try {
 			EmailResponseDto response = new EmailResponseDto();

@@ -19,6 +19,7 @@ import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.ProductDetailsResponse;
 import com.nextscience.dto.response.ProductKitsResponse;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
 import com.nextscience.service.ProductDetailsService;
@@ -42,6 +43,7 @@ public class ProductDetailsController {
 	/** Retrieves A list ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(ProductDetailsConstant.PRODUCTINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<ProductKitsResponse>> getProductDetail() {
 		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
 		return ResponseHelper.createResponse(new NSServiceResponse<ProductKitsResponse>(), productInfo,
@@ -52,6 +54,7 @@ public class ProductDetailsController {
 	/** Retrieves A list of ProductDetails By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(ProductDetailsConstant.PRODUCTINFOTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<ProductKitsResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo,
@@ -62,6 +65,7 @@ public class ProductDetailsController {
 	/** Insert Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@PostMapping(ProductDetailsConstant.PRODUCTINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<InsertProductInfoRequest> InsertProductInfoDet(@RequestBody InsertProductInfoRequest req) {
 		String response = productDetailsService.InsertProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
@@ -70,6 +74,7 @@ public class ProductDetailsController {
 	/** Update Values in ProductDetails List */
 	@SuppressWarnings("unchecked")
 	@PutMapping(ProductDetailsConstant.PRODUCTINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateProductInfoRequest> UpdateProductInfoDet(@RequestBody UpdateProductInfoRequest req) {
 		String response = productDetailsService.UpdateProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
@@ -78,6 +83,7 @@ public class ProductDetailsController {
 	/** Delete Values in Product Details List */
 	@SuppressWarnings("unchecked")
 	@DeleteMapping("/productInfoDetails")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req) {
 		String response = productDetailsService.DeleteProductInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
@@ -86,8 +92,9 @@ public class ProductDetailsController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/productDetailsInfo")
-	public NSServiceResponse<List<ProductKitsResponse>> getProductDetails (){
-		List<ProductKitsResponse> productInfo = productDetailsService.getProductDetailList();
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<ProductDetailsResponse>> getProductDetails (){
+		List<ProductDetailsResponse> productInfo = productDetailsService.getProductInfoDetails();
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), productInfo,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 

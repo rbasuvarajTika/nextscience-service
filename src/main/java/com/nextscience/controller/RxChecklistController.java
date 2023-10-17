@@ -39,6 +39,7 @@ public class RxChecklistController {
 	/** Retrieves A list of RxCheckList Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(RxCheckListConstant.CHECKLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<CheckListResponse>> getchecklistDetail()
 
 	{
@@ -50,6 +51,7 @@ public class RxChecklistController {
 	/** Retrieves A list of RxCheckList By TrnRxId */
 	@SuppressWarnings("unchecked")
 	@GetMapping(RxCheckListConstant.CHECKLISTTRNRXID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<CheckListResponse>> getRxPatientDetByTrnRxId(@PathVariable int trnRxId) {
 		List<CheckListResponse> checkList = rxChecklistService.getCheckLisDetByTrnRxId(trnRxId);
 		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), checkList,
@@ -59,6 +61,7 @@ public class RxChecklistController {
 	/** Update Values in RxCheckList Deatils */
 	@SuppressWarnings("unchecked")
 	@PutMapping(RxCheckListConstant.CHECKLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateChecklistInfoRequest> updateOffDetails(@RequestBody UpdateChecklistInfoRequest req) {
 		String response = rxChecklistService.updateChecklistInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,

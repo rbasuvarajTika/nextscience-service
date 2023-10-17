@@ -29,6 +29,7 @@ public class StateDetailsController {
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping(StateDetailsConstant.STATEINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<StateDetailsResponse>>getStateDetail()
 	  
 	{ 

@@ -30,6 +30,7 @@ public class FaxRxWoundProductInfoController {
 	/**Retrieves A list of WoundProductInfo Details*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxWoundProductInfoConstant.WOUNDPRODUCT)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxWoundProductInfoResponse>>getProductDetail()
 	  
 	{ 

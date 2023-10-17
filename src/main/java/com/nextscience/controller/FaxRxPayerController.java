@@ -35,6 +35,7 @@ public class FaxRxPayerController {
 	/**Retrieves A list of FaxPayer Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxRxPayerConstant.PAYERLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
     public NSServiceResponse<List<FaxRxPayerResponse>> executeCustomQuery(
     		@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue ="0") int pageNo,
     		@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") int pageSize,

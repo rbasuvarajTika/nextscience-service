@@ -61,6 +61,7 @@ public class UserController {
 
 	/** Update Password in UserDetails List */
 	@PutMapping(UsersConstant.UPDATEUSERPASSWORDID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request, @PathVariable int id) {
 		return ResponseEntity.ok(userService.updatePassword(request, id));
 	}
@@ -68,6 +69,7 @@ public class UserController {
 	/** Retrieves A list of UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.GETUSERSLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<UserResponse>> getUserDetail() {
 		List<UserResponse> userDto = userService.getUserDetail();
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), userDto,
@@ -76,12 +78,14 @@ public class UserController {
 
 	/** Delete a User in UserDetails List */
 	@PutMapping(UsersConstant.DELETEUSERID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<String> deleteUser(@PathVariable int id) {
 		return ResponseEntity.ok(userService.deleteUser(id));
 	}
 
 	/** Retrieves A list of UserDetails By Email */
 	@GetMapping(UsersConstant.FORTOTUSEREMAIL)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public ResponseEntity<String> getUserName(@PathVariable String email) {
 		String userName = userService.getUserName(email);
 		if (userName == null) {
@@ -93,6 +97,7 @@ public class UserController {
 	/** Retrieves A list of User By Pagination */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.USERSLIST)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<?>> executeCustomQuery(
 
 			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") int pageNo,
@@ -114,6 +119,7 @@ public class UserController {
 	/** Retrieves A list Of ActiveUsers In UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.ACTIVATEUSERS)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<UserResponse>> getActivateusers(
 			/* @Parameter(description = "Authorization Token", required = true) */
 			@RequestHeader(name = CommonConstants.AUTHORIZATION) String authorizationToken)
@@ -133,6 +139,7 @@ public class UserController {
 	/** Retrieves A List Of DeActiveUsers In UserDetails List */
 	@SuppressWarnings("unchecked")
 	@GetMapping(UsersConstant.DEACTIVATEUSERS)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<UserResponse>> getDeactivateUsers() {
 		List<UserResponse> deactivateUsersList = userService.getDeactivateUsers();
 		/*
