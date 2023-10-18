@@ -18,7 +18,7 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 
 	@Query(nativeQuery = true, value = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID,b.CASE_ID,b.FAX_DATE,b.FAX_NUMBER,b.FAX_URL\r\n"
 			+ ",a.PATIENT_ID,concat(r.PATIENT_FIRST_NAME,' ',r.PATIENT_LAST_NAME) PATIENT_NAME\r\n"
-			+ ",r.DATE_OF_BIRTH ,r.CELL_PHONE \r\n" + ",r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP,r.SSN\r\n"
+			+ ",r.PATIENT_FIRST_NAME,r.PATIENT_LAST_NAME,r.DATE_OF_BIRTH ,r.CELL_PHONE \r\n" + ",r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP,r.SSN\r\n"
 			+ ",r.WORK_PHONE,r.GENDER ,r.ZIP4,r.MRN,r.PMS_ID,r.MARITIAL_STATUS\r\n"
 			+ ",r.EMERGENCY_CONTACT_NAME,r.EMERGENCY_CONTACT_PHONE\r\n"
 			+ ",b.PLACE_OF_SERVICE, b.ORDER_TYPE,b.WOUND_ACTIVE\r\n"
@@ -31,7 +31,7 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 
 	@Query(nativeQuery = true, value = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID,b.CASE_ID,b.FAX_DATE,b.FAX_NUMBER,b.FAX_URL\r\n"
 			+ ",a.PATIENT_ID,concat(r.PATIENT_FIRST_NAME,' ',r.PATIENT_LAST_NAME) PATIENT_NAME\r\n"
-			+ ",r.DATE_OF_BIRTH ,r.CELL_PHONE \r\n" + ",r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP,r.SSN\r\n"
+			+ ",r.PATIENT_FIRST_NAME,r.PATIENT_LAST_NAME,r.DATE_OF_BIRTH ,r.CELL_PHONE \r\n" + ",r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP,r.SSN\r\n"
 			+ ",r.WORK_PHONE,r.GENDER ,r.ZIP4,r.MRN,r.PMS_ID,r.MARITIAL_STATUS\r\n"
 			+ ",r.EMERGENCY_CONTACT_NAME,r.EMERGENCY_CONTACT_PHONE\r\n"
 			+ ",b.PLACE_OF_SERVICE, b.ORDER_TYPE,b.WOUND_ACTIVE\r\n"

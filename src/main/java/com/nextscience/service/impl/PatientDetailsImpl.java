@@ -170,7 +170,9 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	        query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("FAX_ID", Integer.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("PATIENT_ID", Integer.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("PATIENT_NAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PATIENT_FIRST_NAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PATIENT_LAST_NAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PATIENT_MIDDLE_NAME", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("DATE_OF_BIRTH", Date.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("CELL_PHONE", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("SHIP_TO_ADDRESS", String.class, ParameterMode.IN);
@@ -191,7 +193,10 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	        query.setParameter("TRN_RX_ID", req.getTrnRxId());
 	        query.setParameter("FAX_ID", req.getFaxId());
 	        query.setParameter("PATIENT_ID", req.getPatientId());
-	        query.setParameter("PATIENT_NAME", req.getPatientName());
+	        query.setParameter("PATIENT_FIRST_NAME", req.getPatinetFirstName());
+	        query.setParameter("PATIENT_LAST_NAME", req.getPatientLastName());
+	        query.setParameter("PATIENT_MIDDLE_NAME", req.getPatinetMiddleName());
+	        
 	        query.setParameter("DATE_OF_BIRTH", req.getDateOfBirth());
 	        query.setParameter("CELL_PHONE", req.getCellPhone());
 	        query.setParameter("SHIP_TO_ADDRESS", req.getShipToAddress());

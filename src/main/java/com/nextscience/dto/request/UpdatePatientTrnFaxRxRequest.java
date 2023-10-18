@@ -26,6 +26,10 @@ public class UpdatePatientTrnFaxRxRequest {
 	
 	private String patientFullName;
 	private String patientName;
+	private String patinetFirstName;
+	private String patinetMiddleName;
+	private String patientLastName;
+	
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;

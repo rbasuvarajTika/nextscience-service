@@ -26,10 +26,10 @@ public class PatientDetails {
 	private Integer patientId;
 
 	@Column(name = "PATIENT_FIRST_NAME", length = 125)
-	private Integer patientFirstName;
+	private String patientFirstName;
 
 	@Column(name = "PATIENT_LAST_NAME", length = 125)
-	private Integer patientLastName;
+	private String patientLastName;
 
 	@Column(name = "DATE_OF_BIRTH")
 	private Date dateOfBirth;

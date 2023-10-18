@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Processes an {@link RxPatientDetailsResponse } response.
+ * 
  * @author Raghu
  *
  */
@@ -25,6 +26,8 @@ public class RxPatientDetailsResponse {
 	private String faxUrl;
 	private Integer patientId;
 	private String patientName;
+	private String patientFirstName;
+	private String patientLastName;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfBirth;
 	private String cellPhone;
@@ -48,12 +51,14 @@ public class RxPatientDetailsResponse {
 	private Integer repPhoneNo;
 	private Integer distributorId;
 	private String distributorName;
+
 	public RxPatientDetailsResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
-			String faxNumber, String faxUrl, Integer patientId, String patientName, Date dateOfBirth, String cellPhone,
-			String shipToAddress, String city, String state, String zip, String ssn, String workPhone, String gender,
-			String zip4, String mrn, String pmsId, String maritalStatus, String emergencyContactName,
-			String emergencyContactPhone, String placeOfService, String orderType, Integer woundActive, String repName,
-			Integer repPhoneNo, Integer distributorId, String distributorName) {
+			String faxNumber, String faxUrl, Integer patientId, String patientName, String patientFirstName,
+			String patientLastName, Date dateOfBirth, String cellPhone, String shipToAddress, String city, String state,
+			String zip, String ssn, String workPhone, String gender, String zip4, String mrn, String pmsId,
+			String maritalStatus, String emergencyContactName, String emergencyContactPhone, String placeOfService,
+			String orderType, Integer woundActive, String repName, Integer repPhoneNo, Integer distributorId,
+			String distributorName) {
 		super();
 		this.trnRxId = trnRxId;
 		this.trnFaxId = trnFaxId;
@@ -64,6 +69,8 @@ public class RxPatientDetailsResponse {
 		this.faxUrl = faxUrl;
 		this.patientId = patientId;
 		this.patientName = patientName;
+		this.patientFirstName = patientFirstName;
+		this.patientLastName = patientLastName;
 		this.dateOfBirth = dateOfBirth;
 		this.cellPhone = cellPhone;
 		this.shipToAddress = shipToAddress;
