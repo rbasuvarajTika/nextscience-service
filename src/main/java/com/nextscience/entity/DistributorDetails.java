@@ -67,7 +67,7 @@ public class DistributorDetails {
 	@Column(name = "CREATE_DATE")
 	private Date createDate;
 	
-	@Column(name = "CREATE_DATE")
+	@Column(name = "UPDATE_USER")
 	private String updateUser;
 	
 	@Column(name = "UPDATE_DATE")

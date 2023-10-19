@@ -26,8 +26,8 @@ public class UpdatePatientTrnFaxRxRequest {
 	
 	private String patientFullName;
 	private String patientName;
-	private String patinetFirstName;
-	private String patinetMiddleName;
+	private String patientFirstName;
+	private String patientMiddleName;
 	private String patientLastName;
 	
 	
