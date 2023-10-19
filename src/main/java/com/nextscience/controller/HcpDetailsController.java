@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.HcpDetailsConstant;
+import com.nextscience.Constants.ProductDetailsConstant;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
+import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.response.HcpDetailsResponse;
 import com.nextscience.dto.response.HcpInfoResponse;
@@ -66,6 +70,14 @@ public class HcpDetailsController {
 		String response = hcpDetailsService.updateHcpProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping(HcpDetailsConstant.HCPINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<InsertHcpInfoRequest> InsertHcpInfoDet(@RequestBody InsertHcpInfoRequest req) {
+		String response = hcpDetailsService.InsertHcpInfoProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
 
 }

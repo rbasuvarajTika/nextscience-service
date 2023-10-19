@@ -3,6 +3,8 @@ package com.nextscience.service;
 import java.util.List;
 
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
+import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.response.HcpInfoResponse;
 import com.nextscience.dto.response.PageResponseDTO;
@@ -27,5 +29,8 @@ public interface HcpDetailsService {
 
 	/** Update values in HcpInfo */
 	public String updateHcpProc(UpdateHcpInfoRequest req);
+	
+	
+	public String InsertHcpInfoProc(InsertHcpInfoRequest req);
 
 }

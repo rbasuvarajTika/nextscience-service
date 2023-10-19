@@ -21,6 +21,8 @@ public class HcpInfoResponse {
 	private Integer hcpId;
 
     private String hcp_first_Name;
+    private String hcp_middle_Name;
+    
     private String hcp_last_Name;
     private String provider_Type;
     private String npi;

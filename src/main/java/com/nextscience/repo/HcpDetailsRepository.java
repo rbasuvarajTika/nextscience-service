@@ -16,7 +16,7 @@ import com.nextscience.entity.HcpDetails;
 @Repository
 public interface HcpDetailsRepository extends JpaRepository<HcpDetails, Integer> {
 	@Query(nativeQuery = true, value = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID\r\n"
-			+ ",p.hCP_ID,p.FIRST_NAME HCP_FIRST_NAME,p.LAST_NAME HCP_LAST_NAME,c.PROVIDER_TYPE\r\n"
+			+ ",p.hCP_ID,p.FIRST_NAME HCP_FIRST_NAME,p.MIDDLE_NAME HCP_MIDDLE_NAME,p.LAST_NAME HCP_LAST_NAME,c.PROVIDER_TYPE\r\n"
 			+ ",p.NPI,c.SIGNATURE_FLAG,c.SIGNATURE_DATE\r\n"
 			+ "----,p.ADDRESS1,p.ADDRESS2 ,p.CITY ,p.[STATE] ,p.ZIP \r\n"
 			+ "FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"
@@ -26,7 +26,7 @@ public interface HcpDetailsRepository extends JpaRepository<HcpDetails, Integer>
 	List<Object[]> getHcpInfoList();
 
 	@Query(nativeQuery = true, value = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID\r\n"
-			+ ",p.hCP_ID,p.FIRST_NAME HCP_FIRST_NAME,p.LAST_NAME HCP_LAST_NAME,c.PROVIDER_TYPE\r\n"
+			+ ",p.hCP_ID,p.FIRST_NAME HCP_FIRST_NAME,p.MIDDLE_NAME HCP_MIDDLE_NAME,p.LAST_NAME HCP_LAST_NAME,c.PROVIDER_TYPE\r\n"
 			+ ",p.NPI,c.SIGNATURE_FLAG,c.SIGNATURE_DATE\r\n"
 			+ "----,p.ADDRESS1,p.ADDRESS2 ,p.CITY ,p.[STATE] ,p.ZIP \r\n"
 			+ "FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"

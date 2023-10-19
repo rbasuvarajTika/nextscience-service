@@ -25,8 +25,12 @@ public class UpdateHcpInfoRequest {
 	private String signature_Flag;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date signature_Date;
+    private String firstName;
+    private String middleName;
+	private String lastName;
+	private String npi;
     private String updatedUser;
-    private Date updatedDate;
+   
 	 
 	
 
