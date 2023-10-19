@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
@@ -24,6 +25,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+
 
 /**
  * Service Class for managing {@link HcpDetailsImpl}.request
@@ -56,11 +58,12 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		response.setFaxId((String) row[2]);
 		response.setHcpId((Integer) row[3]);
 		response.setHcp_first_Name((String) row[4]);
-		response.setHcp_last_Name((String) row[5]);
-		response.setProvider_Type((String) row[6]);
-		response.setNpi((String) row[7]);
-		response.setSignature_Flag((String) row[8]);
-		response.setSignature_Date((Date) row[9]);
+		response.setHcp_middle_Name((String) row[5]);
+		response.setHcp_last_Name((String) row[6]);
+		response.setProvider_Type((String) row[7]);
+		response.setNpi((String) row[8]);
+		response.setSignature_Flag((String) row[9]);
+		response.setSignature_Date((Date) row[10]);
 		return response;
 	}
 	@Override
@@ -73,6 +76,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		
 	}
 	@Override
+	@Transactional
 	public String updateHcpProc(UpdateHcpInfoRequest req) {
 		 
 	StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
@@ -85,9 +89,9 @@ public class HcpDetailsImpl implements HcpDetailsService {
 			query.registerStoredProcedureParameter("SIGNATURE_FLAG", String.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
-			query.registerStoredProcedureParameter("MIDDLE_NAME", Date.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
-			query.registerStoredProcedureParameter("NPI", Date.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
 			
 			
 			
@@ -110,6 +114,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		return "updated Successfully";
 	}
 	@Override
+	@Transactional
 	public String InsertHcpInfoProc(InsertHcpInfoRequest req) {
 		
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
