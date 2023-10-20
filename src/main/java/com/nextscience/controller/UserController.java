@@ -38,7 +38,7 @@ import jakarta.validation.Valid;
  */
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping(CommonConstants.APIV1USERS)
 public class UserController {
 
@@ -47,7 +47,7 @@ public class UserController {
 
 	/** Create a User in userList */
 	@PostMapping(UsersConstant.CREATEUSER)
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<String> createUser(@Valid @RequestBody SignUpRequest request) {
 		return ResponseEntity.ok(userService.createUser(request));
 	}

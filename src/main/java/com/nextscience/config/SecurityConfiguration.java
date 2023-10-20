@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.nextscience.service.UserService;
 
@@ -37,12 +38,11 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(
-						request -> request
-								.requestMatchers("/fax/faxPdf", "/getFaxPdf/**", "/h2-console/**",
-										"api/v1/users/update/user/password/**", "/api/v1/auth/signup",
-										"/api/v1/notification/emails/forgotpassword", "/api/v1/auth/signin",
-										"v3/api-docs", "/swagger-ui.html","/api-docs/**", "/swagger-ui/**")
-								.permitAll().anyRequest().authenticated())
+						request -> request.requestMatchers(new AntPathRequestMatcher("/test"),new AntPathRequestMatcher("/api/v1/**"),new AntPathRequestMatcher("/api/v1/users/usersList"),
+								new AntPathRequestMatcher("/api/v1/users/getUsersList"), new AntPathRequestMatcher("/getFaxPdf/**"), new AntPathRequestMatcher("/h2-console/**"),
+								new AntPathRequestMatcher("api/v1/users/update/user/password/**"), new AntPathRequestMatcher("/api/v1/auth/signup"),
+								new AntPathRequestMatcher("/api/v1/notification/emails/forgotpassword"), new AntPathRequestMatcher("/api/v1/auth/signin"),
+								new AntPathRequestMatcher("v3/api-docs"), new AntPathRequestMatcher("/swagger-ui.html"),new AntPathRequestMatcher("/api-docs/**"), new AntPathRequestMatcher("/swagger-ui/**")).permitAll().anyRequest().authenticated())
 				.sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

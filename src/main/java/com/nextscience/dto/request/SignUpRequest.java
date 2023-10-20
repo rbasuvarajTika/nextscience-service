@@ -27,12 +27,9 @@ public class SignUpRequest {
 	private String middleName;
 	@NotBlank
 	private String lastName;
-	@NotBlank
-	@Email
 	private String email;
 	@NotBlank
 	private String password;
-	@NotBlank
 	private String confirmPassword;
 	private String otherPassword;
 	private Date passwordUpdatedDate;
