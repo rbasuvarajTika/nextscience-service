@@ -116,11 +116,11 @@ public class UserServiceImpl implements UserService {
 				.updatedUser(request.getUpdatedUser()).updatedDate(request.getUpdateDate()).build();
 		userRepository.save(user);
 		log.info("Saved user");
-		EmailDto mail = new EmailBuilder().From(fromEmail).To("rbasuvaraj@tikamobile.com").Template(createUserTemplate)
+		EmailDto mail = new EmailBuilder().From(fromEmail).To(request.getEmail()).Template(createUserTemplate)
 				.AddContext(subject, "New User Created").AddContext(firstName, request.getFirstName())
 				.AddContext(userName, request.getUserName())
 				.AddContext(resetParams, "http://localhost:3000/resetpassword" + "/" + user.getUserId())
-				.Subject(resetPassword).createMail();
+				.Subject(userCreated).createMail();
 		try {
 			log.info("Email Sending");
 			emailService.sendMail(mail, true);
