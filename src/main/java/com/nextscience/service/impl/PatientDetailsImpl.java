@@ -186,7 +186,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	        query.registerStoredProcedureParameter("SSN", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("PLACE_OF_SERVICE", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("ORDER_TYPE", String.class, ParameterMode.IN);
-	        query.registerStoredProcedureParameter("WOUND_ACTIVE", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("WOUND_ACTIVE", Integer.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("REP_NAME", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("REP_PHONE_NO", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("DISTRIBUTOR_NAME", String.class, ParameterMode.IN);

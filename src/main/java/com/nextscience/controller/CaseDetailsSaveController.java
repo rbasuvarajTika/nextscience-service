@@ -53,8 +53,8 @@ public class CaseDetailsSaveController {
 		List<DeleteWoundInfoRequest> deleteWoundRequest = request.getDeleteWound();
 		List<DeleteProductInfoRequest> deleteProductRequest = request.getDeleteProduct();
 		
-		
-		if(updatePatientRequest !=null || updatePatientRequest.getPatientId() !=null ||updatePatientRequest.getFaxId()!=null )
+			
+		if(updatePatientRequest !=null || updatePatientRequest.getPatientId() !=null ||updatePatientRequest.getFaxId()!=null || updatePatientRequest.getTrnFaxId()!=null)
 		   caseDetailsSaveService.updatePatientDetAndFaxRxProc(updatePatientRequest);
 		if(updateWoundRequest !=null ||updateWoundRequest.get(0).getTrnFaxId()!=0 || updateWoundRequest.get(0).getWoundNo()!=null)
 		   caseDetailsSaveService.updateWoundInfoProc(updateWoundRequest);
@@ -85,3 +85,4 @@ public class CaseDetailsSaveController {
 	}
 
 }
+
