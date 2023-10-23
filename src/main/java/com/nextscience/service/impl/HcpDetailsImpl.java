@@ -62,7 +62,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		response.setHcp_last_Name((String) row[6]);
 		response.setProvider_Type((String) row[7]);
 		response.setNpi((String) row[8]);
-		response.setSignature_Flag((String) row[9]);
+		response.setSignature_Flag((Integer) row[9]);
 		response.setSignature_Date((Date) row[10]);
 		return response;
 	}
@@ -86,7 +86,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 
 			query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
 			//query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
-			query.registerStoredProcedureParameter("SIGNATURE_FLAG", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);

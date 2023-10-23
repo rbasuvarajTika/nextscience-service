@@ -27,11 +27,11 @@ public class HcpInfoResponse {
     
     private String provider_Type;
     private String npi;
-    private String signature_Flag;
+    private Integer signature_Flag;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date signature_Date;
 	public HcpInfoResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer hcpId, String hcp_first_Name,
-			String hcp_last_Name, String provider_Type, String npi, String signature_Flag, Date signature_Date) {
+			String hcp_last_Name, String provider_Type, String npi, Integer signature_Flag, Date signature_Date) {
 		super();
 		this.trnRxId = trnRxId;
 		this.trnFaxId = trnFaxId;

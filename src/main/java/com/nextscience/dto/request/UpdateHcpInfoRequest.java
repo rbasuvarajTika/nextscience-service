@@ -22,7 +22,7 @@ public class UpdateHcpInfoRequest {
 	private Integer trnRxId;
 	private Integer profId;
 	private Integer hcpId;
-	private String signature_Flag;
+	private Integer signature_Flag;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date signature_Date;
     private String firstName;
