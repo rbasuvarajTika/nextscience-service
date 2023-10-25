@@ -16,6 +16,7 @@ import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
+
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
@@ -124,5 +125,10 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
+	
+	
+	
+	
+	
 
 }

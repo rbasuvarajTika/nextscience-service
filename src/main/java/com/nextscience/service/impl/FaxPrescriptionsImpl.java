@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
+
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.repo.FaxPrescriptionsRepository;
 import com.nextscience.service.FaxPrescriptionsService;
@@ -120,8 +121,14 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	  response.setEmergencyContactPhone((String) row[35]);
 	  response.setProductCode((String) row[36]);
 	  response.setProductDisplayName((String) row[37]);
-	  response.setWndCode((String) row[38]); response.setPatientId((Integer)
-	  row[39]);
+	  response.setWndCode((String) row[38]); 
+	  response.setProcessStatus((String) row[39]);
+	  response.setRxFulfilmentStatus((String) row[40]);
+	  response.setNetsuiteRxId((Integer) row[41]);
+	  response.setPrimaryPayerName((String) row[42]);
+	  response.setPrimaryPayerId((Integer) row[43]);
+	  response.setPatientId((Integer)row[44]);	
+	  response.setPayerType((String) row[45]);
 	  
 	  return response; }
 	 
@@ -206,4 +213,8 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 		return responses;
 		
 	}
+
+	
+	
+	
 }

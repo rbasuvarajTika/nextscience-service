@@ -56,7 +56,7 @@ public class CaseDetailsSaveController {
 			
 		if(updatePatientRequest !=null || updatePatientRequest.getPatientId() !=null ||updatePatientRequest.getFaxId()!=null || updatePatientRequest.getTrnFaxId()!=null)
 		   caseDetailsSaveService.updatePatientDetAndFaxRxProc(updatePatientRequest);
-		if(updateWoundRequest !=null ||updateWoundRequest.get(0).getTrnFaxId()!=0 || updateWoundRequest.get(0).getWoundNo()!=null)
+		if(updateWoundRequest !=null ||updateWoundRequest.get(0).getTrnFaxId() !=0 || updateWoundRequest.get(0).getWoundNo()!=null )
 		   caseDetailsSaveService.updateWoundInfoProc(updateWoundRequest);
 		if(updateProductRequest !=null ||updateProductRequest.get(0).getTrnFaxId()!=0 || updateProductRequest.get(0).getProductCode()!=null )
 		   caseDetailsSaveService.UpdateProductInfoProc(updateProductRequest);

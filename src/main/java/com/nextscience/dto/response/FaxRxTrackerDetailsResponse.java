@@ -56,6 +56,15 @@ public class FaxRxTrackerDetailsResponse {
 	private String productDisplayName;
 	private String wndCode;
 	private Integer patientId;
+	private String processStatus;
+	private String rxFulfilmentStatus;
+	private Integer netsuiteRxId;
+	private String primaryPayerName;
+	private Integer primaryPayerId;
+	private String payerType;
+	
+	
+	
 	
 	
 	
@@ -66,8 +75,9 @@ public class FaxRxTrackerDetailsResponse {
 			String gender, String cellPhone, String workPhone, String shipToAddress, String patientCity,
 			String patientState, String patientZip, String patientZip4, String ssn, String mrn, String pmsId,
 			String maritialStatus, String emergencyContactName, String emergencyContactPhone, String productCode,
-			String productDisplayName, String wndCode,Integer patientId,
-			Integer productId) {
+			String productDisplayName, String wndCode,Integer patientId,String processStatus,
+			String rxFulfilmentStatus, Integer netsuiteRxId, String primaryPayerName,Integer primaryPayerId, String payerType
+			) {
 		super();
 		this.trnRxId = trnRxId;
 		this.trnFaxId = trnFaxId;
@@ -109,6 +119,12 @@ public class FaxRxTrackerDetailsResponse {
 		this.productDisplayName = productDisplayName;
 		this.wndCode = wndCode;
 		this.patientId = patientId;
+		this.processStatus = processStatus;
+		this.rxFulfilmentStatus = rxFulfilmentStatus;
+		this.netsuiteRxId = netsuiteRxId;
+		this.primaryPayerName = primaryPayerName;
+		this.primaryPayerId = primaryPayerId;
+		this.payerType = payerType;
 		
 	}
 	

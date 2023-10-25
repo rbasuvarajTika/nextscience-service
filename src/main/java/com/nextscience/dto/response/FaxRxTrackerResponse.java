@@ -24,8 +24,8 @@ public class FaxRxTrackerResponse {
 	private String faxNumber;
 	private String faxUrl;
 	private String verifiedFlag;
-	private String providerType;
 	private String hcpName;
+	private String providerType;
 	private String hcpAddress1;
 	private String hcpAddress2;
 	private String hcpCity;
@@ -56,14 +56,23 @@ public class FaxRxTrackerResponse {
 	private String productCode;
 	private String productDisplayName;
 	private String wndCode;
+	private Integer patientId;
+	private String processStatus;
+	private String rxFulfilmentStatus;
+	private Integer netsuiteRxId;
+	private String primaryPayerName;
+	private Integer primaryPayerId;
+	private String payerType;
 
 	public FaxRxTrackerResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
-			String faxNumber, String faxUrl, String verifiedFlag, String providerType, String hcpName, String hcpAddress1,
-			String hcpAddress2, String hcpCity, String hcpState, String hcpZip, String accountName, String accAddress1,
-			String accCity, String accState, String accZip, String patientName, Date dateOfBirth, String gender,
-			String cellPhone, String workPhone, String shipToAddress, String patientCity, String patientState, String patientZip,
-			String patientZip4, String ssn, String mrn, String pmsId, String maritialStatus, String emergencyContactName,
-			String emergencyContactPhone, String productCode, String productDisplayName, String wndCode) {
+			String faxNumber, String faxUrl, String verifiedFlag, String hcpName, String providerType,
+			String hcpAddress1, String hcpAddress2, String hcpCity, String hcpState, String hcpZip, String accountName,
+			String accAddress1, String accCity, String accState, String accZip, String patientName, Date dateOfBirth,
+			String gender, String cellPhone, String workPhone, String shipToAddress, String patientCity,
+			String patientState, String patientZip, String patientZip4, String ssn, String mrn, String pmsId,
+			String maritialStatus, String emergencyContactName, String emergencyContactPhone, String productCode,
+			String productDisplayName, String wndCode, Integer patientId, String processStatus,
+			String rxFulfilmentStatus, Integer netsuiteRxId, String primaryPayerName,Integer primaryPayerId, String payerType) {
 		super();
 		this.trnRxId = trnRxId;
 		this.trnFaxId = trnFaxId;
@@ -73,8 +82,8 @@ public class FaxRxTrackerResponse {
 		this.faxNumber = faxNumber;
 		this.faxUrl = faxUrl;
 		this.verifiedFlag = verifiedFlag;
-		this.providerType = providerType;
 		this.hcpName = hcpName;
+		this.providerType = providerType;
 		this.hcpAddress1 = hcpAddress1;
 		this.hcpAddress2 = hcpAddress2;
 		this.hcpCity = hcpCity;
@@ -104,7 +113,15 @@ public class FaxRxTrackerResponse {
 		this.productCode = productCode;
 		this.productDisplayName = productDisplayName;
 		this.wndCode = wndCode;
-
+		this.patientId = patientId;
+		this.processStatus = processStatus;
+		this.rxFulfilmentStatus = rxFulfilmentStatus;
+		this.netsuiteRxId = netsuiteRxId;
+		this.primaryPayerName = primaryPayerName;
+		this.primaryPayerId = primaryPayerId;
+		this.payerType = payerType;
 	}
-
+	
+	
+	
 }
