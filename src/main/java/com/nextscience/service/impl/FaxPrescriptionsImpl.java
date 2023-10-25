@@ -100,9 +100,10 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	  row[1]); response.setFaxId((String) row[2]); response.setCaseId((Integer)
 	  row[3]); response.setFaxDate((Date) row[4]); response.setFaxNumber((String)
 	  row[5]); response.setFaxUrl((String) row[6]);
-	  response.setVerifiedFlag((String) row[7]); response.setProviderType((String)
-	  row[8]); response.setHcpName((String) row[9]);
-	  response.setHcpAddress2((String) row[10]); response.setHcpAddress2((String)
+	  response.setVerifiedFlag((String) row[7]); 
+	  response.setHcpName((String) row[8]);
+	  response.setProviderType((String) row[9]);
+	  response.setHcpAddress1((String) row[10]); response.setHcpAddress2((String)
 	  row[11]); response.setHcpCity((String) row[12]);
 	  response.setHcpState((String) row[13]); response.setHcpZip((String) row[14]);
 	  response.setAccountName((String) row[15]); response.setAccAddress1((String)
