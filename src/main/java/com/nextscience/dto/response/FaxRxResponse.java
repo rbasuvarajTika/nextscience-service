@@ -20,15 +20,24 @@ public class FaxRxResponse {
 	private Integer caseId;
 	private String faxStatus;
 	private String dupeFaxId;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM-dd-yyyy")
 	private Date faxDate;
 	private String faxNumber;
 	private String ocrStatus;
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date  ocrDate;
-
+	@JsonFormat(pattern="MM-dd-yyyy")
+	private Date ocrDate;
+	@JsonFormat(pattern="MM-dd-yyyy")
+	private Date faxDateTime;
+	private String verifiedFlag;
+	private String actionRequired;
+	
+	
+	
+	
 	public FaxRxResponse(Integer trnFaxId, String faxId, Integer caseId, String faxStatus, String dupeFaxId,
-			Date faxDate, String faxNumber, String ocrStatus, Date  ocrDate) {
+			Date faxDate, String faxNumber, String ocrStatus, Date ocrDate, Date faxDateTime, String verifiedFlag,
+			String actionRequired) {
+		super();
 		this.trnFaxId = trnFaxId;
 		this.faxId = faxId;
 		this.caseId = caseId;
@@ -38,5 +47,15 @@ public class FaxRxResponse {
 		this.faxNumber = faxNumber;
 		this.ocrStatus = ocrStatus;
 		this.ocrDate = ocrDate;
+		this.faxDateTime = faxDateTime;
+		this.verifiedFlag = verifiedFlag;
+		this.actionRequired = actionRequired;
 	}
-}
+	
+	
+	
+	
+
+	
+	}
+

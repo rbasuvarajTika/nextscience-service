@@ -102,34 +102,30 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	  row[5]); response.setFaxUrl((String) row[6]);
 	  response.setVerifiedFlag((String) row[7]); 
 	  response.setHcpName((String) row[8]);
-	  response.setProviderType((String) row[9]);
-	  response.setHcpAddress1((String) row[10]); response.setHcpAddress2((String)
-	  row[11]); response.setHcpCity((String) row[12]);
-	  response.setHcpState((String) row[13]); response.setHcpZip((String) row[14]);
-	  response.setAccountName((String) row[15]); response.setAccAddress1((String)
-	  row[16]); response.setAccCity((String) row[17]);
-	  response.setAccState((String) row[18]); response.setAccZip((String) row[19]);
-	  response.setPatientName((String) row[20]); response.setDateOfBirth((Date)
-	  row[21]); response.setGender((String) row[22]);
-	  response.setCellPhone((String) row[23]); response.setWorkPhone((String)
-	  row[24]); response.setShipToAddress((String) row[25]);
-	  response.setPatientCity((String) row[26]); response.setPatientState((String)
-	  row[27]); response.setPatientZip((String) row[28]);
-	  response.setPatientZip4((String) row[29]); response.setSsn((String) row[30]);
-	  response.setMrn((String) row[31]); response.setPmsId((String) row[32]);
-	  response.setMaritialStatus((String) row[33]);
-	  response.setEmergencyContactName((String) row[34]);
-	  response.setEmergencyContactPhone((String) row[35]);
-	  response.setProductCode((String) row[36]);
-	  response.setProductDisplayName((String) row[37]);
-	  response.setWndCode((String) row[38]); 
-	  response.setProcessStatus((String) row[39]);
-	  response.setRxFulfilmentStatus((String) row[40]);
-	  response.setNetsuiteRxId((Integer) row[41]);
-	  response.setPrimaryPayerName((String) row[42]);
-	  response.setPrimaryPayerId((Integer) row[43]);
-	  response.setPatientId((Integer)row[44]);	
-	  response.setPayerType((String) row[45]);
+	  response.setHcpAddress1((String) row[9]); response.setHcpAddress2((String)
+	  row[10]); response.setHcpCity((String) row[11]);
+	  response.setHcpState((String) row[12]); response.setHcpZip((String) row[13]);
+	  response.setAccountName((String) row[14]); response.setAccAddress1((String)
+	  row[15]); response.setAccCity((String) row[16]);
+	  response.setAccState((String) row[17]); response.setAccZip((String) row[18]);
+	  response.setPatientName((String) row[19]); response.setDateOfBirth((Date)
+	  row[20]); response.setGender((String) row[21]);
+	  response.setCellPhone((String) row[22]); response.setWorkPhone((String)
+	  row[23]); response.setShipToAddress((String) row[24]);
+	  response.setPatientCity((String) row[25]); response.setPatientState((String)
+	  row[26]); response.setPatientZip((String) row[27]);
+	  response.setPatientZip4((String) row[28]); response.setSsn((String) row[29]);
+	  response.setMrn((String) row[30]); response.setPmsId((String) row[31]);
+	  response.setMaritialStatus((String) row[32]);
+	  response.setEmergencyContactName((String) row[33]);
+	  response.setEmergencyContactPhone((String) row[34]);
+	  response.setProcessStatus((String) row[35]);
+	  response.setRxFulfilmentStatus((String) row[36]);
+	  response.setNetsuiteRxId((Integer) row[37]);
+	  response.setPrimaryPayerName((String) row[38]);
+	  response.setPrimaryPayerId((Integer) row[39]);
+	  response.setPatientId((Integer)row[40]);	
+	  response.setPayerType((String) row[41]);
 	  
 	  return response; }
 	 

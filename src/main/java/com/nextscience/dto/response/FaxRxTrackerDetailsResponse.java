@@ -24,7 +24,7 @@ public class FaxRxTrackerDetailsResponse {
 	private String faxUrl;
 	private String verifiedFlag;
 	private String hcpName;
-	private String providerType;
+	
 	private String hcpAddress1;
 	private String hcpAddress2;
 	private String hcpCity;
@@ -52,9 +52,6 @@ public class FaxRxTrackerDetailsResponse {
 	private String maritialStatus;
 	private String emergencyContactName;
 	private String emergencyContactPhone;
-	private String productCode;
-	private String productDisplayName;
-	private String wndCode;
 	private Integer patientId;
 	private String processStatus;
 	private String rxFulfilmentStatus;
@@ -69,13 +66,12 @@ public class FaxRxTrackerDetailsResponse {
 	
 	
 	public FaxRxTrackerDetailsResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer caseId, Date faxDate,
-			String faxNumber, String faxUrl, String verifiedFlag, String hcpName, String providerType,
+			String faxNumber, String faxUrl, String verifiedFlag, String hcpName,
 			String hcpAddress1, String hcpAddress2, String hcpCity, String hcpState, String hcpZip, String accountName,
 			String accAddress1, String accCity, String accState, String accZip, String patientName, Date dateOfBirth,
 			String gender, String cellPhone, String workPhone, String shipToAddress, String patientCity,
 			String patientState, String patientZip, String patientZip4, String ssn, String mrn, String pmsId,
-			String maritialStatus, String emergencyContactName, String emergencyContactPhone, String productCode,
-			String productDisplayName, String wndCode,Integer patientId,String processStatus,
+			String maritialStatus, String emergencyContactName, String emergencyContactPhone, Integer patientId,String processStatus,
 			String rxFulfilmentStatus, Integer netsuiteRxId, String primaryPayerName,Integer primaryPayerId, String payerType
 			) {
 		super();
@@ -88,7 +84,6 @@ public class FaxRxTrackerDetailsResponse {
 		this.faxUrl = faxUrl;
 		this.verifiedFlag = verifiedFlag;
 		this.hcpName = hcpName;
-		this.providerType = providerType;
 		this.hcpAddress1 = hcpAddress1;
 		this.hcpAddress2 = hcpAddress2;
 		this.hcpCity = hcpCity;
@@ -115,9 +110,6 @@ public class FaxRxTrackerDetailsResponse {
 		this.maritialStatus = maritialStatus;
 		this.emergencyContactName = emergencyContactName;
 		this.emergencyContactPhone = emergencyContactPhone;
-		this.productCode = productCode;
-		this.productDisplayName = productDisplayName;
-		this.wndCode = wndCode;
 		this.patientId = patientId;
 		this.processStatus = processStatus;
 		this.rxFulfilmentStatus = rxFulfilmentStatus;

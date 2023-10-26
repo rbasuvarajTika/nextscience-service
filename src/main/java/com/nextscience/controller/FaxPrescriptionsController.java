@@ -72,11 +72,11 @@ public class FaxPrescriptionsController {
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<FaxRxTrackerResponse>> getFaxRxTrackerDetailsList()
+	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList()
 
 	{
 		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerDetailsList();
-		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerDetailsResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
 	/** Retrieves a List From RxTrackerWoundListByTrnRxId.*/
