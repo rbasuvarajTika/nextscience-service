@@ -112,6 +112,7 @@ public class UserServiceImpl implements UserService {
 				.address1(request.getAddress()).role(request.getRole()).userType(request.getType())
 				.city(request.getCity()).state(request.getState()).zip(request.getZip())
 				.userImageUrl(request.getImage()).salesForce(request.getSalesForce())
+				.userStatusFlag(request.getUserStatusFlag())
 				.createdUser(request.getCreatedUser()).createdDate(request.getCreatedDate())
 				.updatedUser(request.getUpdatedUser()).updatedDate(request.getUpdateDate()).build();
 		userRepository.save(user);

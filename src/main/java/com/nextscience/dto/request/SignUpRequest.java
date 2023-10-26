@@ -42,6 +42,7 @@ public class SignUpRequest {
 	private String zip;
 	private String image;
 	private String salesForce;
+	private String userStatusFlag;
 	private String createdUser;
 	private Date createdDate;
 	private String updatedUser;
