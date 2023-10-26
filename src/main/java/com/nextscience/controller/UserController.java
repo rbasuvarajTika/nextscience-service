@@ -1,6 +1,7 @@
 package com.nextscience.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -148,6 +150,13 @@ public class UserController {
 		 */
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), deactivateUsersList,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
+	/** Update User in UserDetails list */
+	@PatchMapping(UsersConstant.UPDATEUSERID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public ResponseEntity<String> updatePatchUser(@Valid @RequestBody Map<String,Object> request, @PathVariable int id) {
+		return ResponseEntity.ok(userService.updatePatchUser(request, id));
 	}
 
 }

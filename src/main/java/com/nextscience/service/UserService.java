@@ -1,6 +1,7 @@
 package com.nextscience.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -53,5 +54,9 @@ public interface UserService {
 
 	/** Retrieves a List of DeActivateusers in UsersInfo. */
 	List<UserResponse> getDeactivateUsers();
+	
+	/** Updates patch a values of UsersInfo. */
+	String updatePatchUser(Map<String,Object> request, int id);
+
 
 }

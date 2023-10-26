@@ -1,7 +1,10 @@
 package com.nextscience.service.impl;
 
+import java.lang.reflect.Field;
 import java.security.cert.CollectionCertStoreParameters;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -46,7 +51,6 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * @author Raghu
  */
-
 
 @Service
 @Slf4j
@@ -112,9 +116,9 @@ public class UserServiceImpl implements UserService {
 				.address1(request.getAddress()).role(request.getRole()).userType(request.getType())
 				.city(request.getCity()).state(request.getState()).zip(request.getZip())
 				.userImageUrl(request.getImage()).salesForce(request.getSalesForce())
-				.userStatusFlag(request.getUserStatusFlag())
-				.createdUser(request.getCreatedUser()).createdDate(request.getCreatedDate())
-				.updatedUser(request.getUpdatedUser()).updatedDate(request.getUpdateDate()).build();
+				.userStatusFlag(request.getUserStatusFlag()).createdUser(request.getCreatedUser())
+				.createdDate(request.getCreatedDate()).updatedUser(request.getUpdatedUser())
+				.updatedDate(request.getUpdateDate()).build();
 		userRepository.save(user);
 		log.info("Saved user");
 		EmailDto mail = new EmailBuilder().From(fromEmail).To(request.getEmail()).Template(createUserTemplate)
@@ -142,16 +146,16 @@ public class UserServiceImpl implements UserService {
 		if (existingUserOptional != null) {
 
 			User existingUser = existingUserOptional.get();
-			if (!request.getUserName().equals(existingUser.getUsername())) {
-				if (userRepository.existsByUserName(request.getUserName())) {
-					throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
-				}
+			if (request.getUserName().equals(existingUser.getUsername())
+					|| userRepository.existsByUserName(request.getUserName())) {
+				throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
 			}
-			if (!request.getUserMail().equals(existingUser.getUserMail())) {
-				if (userRepository.existsByUserMail(request.getUserMail())) {
-					throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
-				}
+
+			if (request.getUserMail().equals(existingUser.getUserMail())
+					|| userRepository.existsByUserMail(request.getUserMail())) {
+				throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
 			}
+
 			existingUser.setUserName(request.getUserName());
 			existingUser.setFirstName(request.getFirstName());
 			existingUser.setMiddleName(request.getMiddleName());
@@ -351,6 +355,45 @@ public class UserServiceImpl implements UserService {
 					return userResponse;
 				}).collect(Collectors.toList());
 		return deactiveUserList;
+	}
+
+	@Override
+	public String updatePatchUser(Map<String, Object> request, int id) {
+
+		Optional<User> existingUserOptional = userRepository.findByUserId(id);
+		if (existingUserOptional != null) {
+
+			User existingUser = existingUserOptional.get();
+
+			if (request.containsKey("userName")) {
+				if (request.get("userName").equals(existingUser.getUsername())
+						|| userRepository.existsByUserName(request.get("userName").toString())) {
+					throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
+				}
+			}
+			if (request.containsKey("userMail")) {
+				if (request.get("userMail").equals(existingUser.getUserMail())
+						|| userRepository.existsByUserMail(request.get("userMail").toString())) {
+					throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
+				}
+			}
+			if (request.containsKey("password")) {		
+				String encodePassword = passwordEncoder.encode(request.get("password").toString());
+				request.replace("password", encodePassword);
+			}
+			if( request.containsKey("confirmPassword")) {
+				String encodePassword = passwordEncoder.encode(request.get("confirmPassword").toString());
+				request.replace("confirmPassword", encodePassword);
+			}
+			request.forEach((key, value) -> {
+				Field field = ReflectionUtils.findField(User.class, key);
+				field.setAccessible(true);
+				ReflectionUtils.setField(field, existingUser, value);
+			});
+
+			userRepository.save(existingUser);
+		}
+		return "User updated successfully";
 	}
 
 }
