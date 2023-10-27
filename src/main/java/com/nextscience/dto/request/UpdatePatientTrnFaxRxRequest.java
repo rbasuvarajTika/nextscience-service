@@ -31,7 +31,7 @@ public class UpdatePatientTrnFaxRxRequest {
 	private String patientLastName;
 	
 	
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date dateOfBirth;
 	
 	private String cellPhone;
@@ -43,7 +43,7 @@ public class UpdatePatientTrnFaxRxRequest {
     private String ssn;
     private String placeOfService;
     private String updatedUser;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date updatedDate;
 	private String orderType;
 	private Integer woundActive;

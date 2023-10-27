@@ -18,7 +18,7 @@ public class FaxRxTrackerDetailsResponse {
 	private Integer trnFaxId;
 	private String faxId;
 	private Integer caseId;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date faxDate;
 	private String faxNumber;
 	private String faxUrl;
@@ -36,7 +36,7 @@ public class FaxRxTrackerDetailsResponse {
 	private String accState;
 	private String accZip;
 	private String patientName;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date dateOfBirth;
 	private String gender;
 	private String cellPhone;

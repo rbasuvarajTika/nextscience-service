@@ -20,13 +20,13 @@ public class FaxRxResponse {
 	private Integer caseId;
 	private String faxStatus;
 	private String dupeFaxId;
-	@JsonFormat(pattern="MM-dd-yyyy")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date faxDate;
 	private String faxNumber;
 	private String ocrStatus;
-	@JsonFormat(pattern="MM-dd-yyyy")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date ocrDate;
-	@JsonFormat(pattern="MM-dd-yyyy")
+	@JsonFormat(pattern="HH:MM:SS")
 	private Date faxDateTime;
 	private String verifiedFlag;
 	private String actionRequired;

@@ -20,11 +20,11 @@ public class DupeRxResponse {
 	private Integer caseId;
 	private String faxStatus;
 	private String dupeFaxId;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date faxDate;
 	private String faxNumber;
 	private String ocrStatus;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date  ocrDate;
 	private String faxUrl;
 	private String verifiedFlag;
