@@ -21,6 +21,7 @@ public class InsertHcpInfoRequest {
 	private String middleName;
 	private String lastName;
 	private Integer signature_Flag;
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date signature_Date;
 	private String createUser;
 

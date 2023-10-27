@@ -27,7 +27,7 @@ public class WoundInfoResponse {
 	private String woundType;
 	private String drainage;
 	private Integer debrided;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date debridedDate;
 	private String debridedType;
 	private String icdCode;

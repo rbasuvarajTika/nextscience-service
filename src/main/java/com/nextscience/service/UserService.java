@@ -57,6 +57,12 @@ public interface UserService {
 	
 	/** Updates patch a values of UsersInfo. */
 	String updatePatchUser(Map<String,Object> request, int id);
+	
+	/** Fetches a User list by userId of faxRx */
+	public List<User> findAllCustomByUserId(Integer userId);
+	
+	public List<User> findAllUsersByUserName(String userName);
+	
 
 
 }

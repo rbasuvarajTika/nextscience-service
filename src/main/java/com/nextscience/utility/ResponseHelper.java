@@ -31,7 +31,7 @@ public class ResponseHelper {
 			response.setData(data);
 			response.setMessage(successMessage);
 		} else {
-			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, errorMessage);
+			throw new NSException(ErrorCodes.OK, errorMessage);
 		}
 		return response;
 	}
@@ -51,7 +51,7 @@ public class ResponseHelper {
 			response.setSuccess(flag);
 			response.setMessage(successMessage);
 		} else {
-			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, errorMessage);
+			throw new NSException(ErrorCodes.OK, errorMessage);
 		}
 		return response;
 	}

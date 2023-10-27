@@ -1,6 +1,9 @@
 package com.nextscience.dto.response;
 
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -64,7 +67,7 @@ public class HcpDetailsResponse {
     
     private Date rfrshDate;
 
-    
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date geoDate;
 
     private String residencyFlag;

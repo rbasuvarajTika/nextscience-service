@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.coyote.http11.Http11InputBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -101,10 +102,10 @@ public class UserServiceImpl implements UserService {
 	public String createUser(SignUpRequest request) {
 
 		if (userRepository.existsByUserName(request.getUserName())) {
-			throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
+			throw new NSException(ErrorCodes.OK, "User Name already exist by this name");
 		}
 		if (userRepository.existsByUserMail(request.getEmail())) {
-			throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
+			throw new NSException(ErrorCodes.OK, "Mail Id already exist by this email");
 		}
 
 		var user = User.builder().userName(request.getUserName()).firstName(request.getFirstName())
@@ -148,12 +149,12 @@ public class UserServiceImpl implements UserService {
 			User existingUser = existingUserOptional.get();
 			if (request.getUserName().equals(existingUser.getUsername())
 					|| userRepository.existsByUserName(request.getUserName())) {
-				throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
+				throw new NSException(ErrorCodes.OK, "User Name already exist by this name");
 			}
 
 			if (request.getUserMail().equals(existingUser.getUserMail())
 					|| userRepository.existsByUserMail(request.getUserMail())) {
-				throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
+				throw new NSException(ErrorCodes.OK, "Mail Id already exist by this email");
 			}
 
 			existingUser.setUserName(request.getUserName());
@@ -220,7 +221,7 @@ public class UserServiceImpl implements UserService {
 							user.getUsername()))
 					.collect(Collectors.toList());
 		} catch (Exception ex) {
-			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, ex);
+			throw new NSException(ErrorCodes.OK, ex);
 		}
 	}
 
@@ -368,13 +369,13 @@ public class UserServiceImpl implements UserService {
 			if (request.containsKey("userName")) {
 				if (request.get("userName").equals(existingUser.getUsername())
 						|| userRepository.existsByUserName(request.get("userName").toString())) {
-					throw new NSException(ErrorCodes.CONFLICT, "User Name already exist by this name");
+					throw new NSException(ErrorCodes.OK, "User Name already exist by this name");
 				}
 			}
 			if (request.containsKey("userMail")) {
 				if (request.get("userMail").equals(existingUser.getUserMail())
 						|| userRepository.existsByUserMail(request.get("userMail").toString())) {
-					throw new NSException(ErrorCodes.CONFLICT, "Mail Id already exist by this email");
+					throw new NSException(ErrorCodes.OK, "Mail Id already exist by this email");
 				}
 			}
 			if (request.containsKey("password")) {		
@@ -394,6 +395,25 @@ public class UserServiceImpl implements UserService {
 			userRepository.save(existingUser);
 		}
 		return "User updated successfully";
+	}
+
+	@Override
+	public List<User> findAllCustomByUserId(Integer userId) {
+		List<User> userList = userRepository.findAllCustomByUserId(userId);
+		if(userList == null) {
+			throw new NSException(ErrorCodes.OK, "User Id Not Found");
+		}
+		return userList;
+	}
+
+	@Override
+	public List<User> findAllUsersByUserName(String userName) {
+		List<User> userList = userRepository.findAllUsersByUserName(userName);
+		if(userList == null) {
+			throw new NSException(ErrorCodes.OK, "User Name Not Found");
+		}
+		return userList;
+		
 	}
 
 }

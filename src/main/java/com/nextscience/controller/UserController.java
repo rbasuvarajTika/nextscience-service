@@ -27,6 +27,7 @@ import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserResponse;
+import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -151,12 +152,38 @@ public class UserController {
 		return ResponseHelper.createResponse(new NSServiceResponse<UserResponse>(), deactivateUsersList,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
+
 	/** Update User in UserDetails list */
 	@PatchMapping(UsersConstant.UPDATEUSERID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<String> updatePatchUser(@Valid @RequestBody Map<String,Object> request, @PathVariable int id) {
+	public ResponseEntity<String> updatePatchUser(@Valid @RequestBody Map<String, Object> request,
+			@PathVariable int id) {
 		return ResponseEntity.ok(userService.updatePatchUser(request, id));
 	}
+
+	/** Retrieves A list Of ActiveUsers In UserDetails List */
+	@SuppressWarnings("unchecked")
+	@GetMapping(UsersConstant.USERSLISTBYUSERID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<User>> findAllCustomByUserId(@PathVariable Integer userId)
+
+	{
+		List<User> usersList = userService.findAllCustomByUserId(userId);
+		return ResponseHelper.createResponse(new NSServiceResponse<User>(), usersList, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
+	/** Retrieves A list Of ActiveUsers In UserDetails List */
+	@SuppressWarnings("unchecked")
+	@GetMapping(UsersConstant.USERSLISTBYUSERNAME)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<User>> findAllUsersByUserName(@PathVariable String userName)
+	{
+		List<User> usersList = userService.findAllUsersByUserName(userName);
+		return ResponseHelper.createResponse(new NSServiceResponse<User>(), usersList, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
+	
 
 }

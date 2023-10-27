@@ -28,7 +28,7 @@ public class HcpInfoResponse {
     private String provider_Type;
     private String npi;
     private Integer signature_Flag;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date signature_Date;
 	public HcpInfoResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer hcpId, String hcp_first_Name,
 			String hcp_last_Name, String provider_Type, String npi, Integer signature_Flag, Date signature_Date) {

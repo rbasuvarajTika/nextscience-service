@@ -14,6 +14,9 @@ public class UsersConstant {
 	public static final String ACTIVATEUSERS = "/activateUsers";	
 	public static final String DEACTIVATEUSERS ="/DeactivateUsers";
 	public static final String USERSLIST = "/usersList";
+	public static final String USERSLISTBYUSERID = "/usersList/userId/{userId}";
+	public static final String USERSLISTBYUSERNAME = "/usersList/userName/{userName}";
+	
 
 	
 

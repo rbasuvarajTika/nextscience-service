@@ -1,11 +1,14 @@
 package com.nextscience.repo;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import com.nextscience.entity.User;
 
 /**
@@ -29,5 +32,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(nativeQuery = true, value = "SELECT * from DIM_USER ORDER BY USER_ID DESC")
 	Page<User> findAllCustom(PageRequest page);
+	
+	@Query(nativeQuery = true, value = "SELECT * from DIM_USER WHERE USER_ID = :userId ORDER BY USER_ID DESC")
+	List<User> findAllCustomByUserId(@PathVariable(value = "userId") Integer userId);
+	
+	@Query(nativeQuery = true, value = "SELECT * from DIM_USER WHERE USER_NAME = :userName ORDER BY USER_ID DESC")
+	List<User> findAllUsersByUserName(@PathVariable(value = "userName") String userName);
 
 }
