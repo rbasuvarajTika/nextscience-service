@@ -56,6 +56,7 @@ public class UpdateUserRequest {
 	 private String salesForce;
 	 private String otherPassword;
 	 private String password;
+	 private String confirmPassword;
 	 private Date passwordUpdatedDate;
 	 private String userStatusFlag;
 	 private String userType;

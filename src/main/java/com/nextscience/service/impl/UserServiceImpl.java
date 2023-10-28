@@ -42,6 +42,7 @@ import com.nextscience.exceptions.NSException;
 import com.nextscience.repo.UserRepository;
 import com.nextscience.service.EmailService;
 import com.nextscience.service.UserService;
+import com.nextscience.utility.CommonUtilService;
 
 import io.jsonwebtoken.lang.Collections;
 import jakarta.mail.MessagingException;
@@ -181,14 +182,10 @@ public class UserServiceImpl implements UserService {
 			existingUser.setOutlookSecretCode(request.getOutlookSecretCode());
 			existingUser.setOutlookEmailId(request.getOutlookEmailId());
 			existingUser.setSalesForce(request.getSalesForce());
-			// .(passwordEncoder.encode(request.getPassword()))
-			// .confirmPassword(passwordEncoder.encode(request.getConfirmPassword()))
 
 			existingUser.setUpdatedDate(request.getPasswordUpdatedDate());
 			existingUser.setUserStatusFlag(request.getUserStatusFlag());
 			existingUser.setUserType(request.getUserType());
-
-			//existingUser.setOtherPassword(passwordEncoder.encode(request.getOtherPassword()));
 
 			existingUser.setUserImageUrl(request.getUserImageUrl());
 			existingUser.setCreatedUser(request.getCreatedUser());
@@ -196,6 +193,11 @@ public class UserServiceImpl implements UserService {
 			existingUser.setUpdatedUser(request.getUpdatedUser());
 
 			existingUser.setUpdatedDate(request.getUpdatedDate());
+
+			if (CommonUtilService.maskNullValue(request.getPassword()) != "") {
+				existingUser.setPassword(passwordEncoder.encode(request.getPassword()));
+				existingUser.setConfirmPassword(passwordEncoder.encode(request.getConfirmPassword()));
+			}
 
 			userRepository.save(existingUser);
 		}
@@ -355,11 +357,11 @@ public class UserServiceImpl implements UserService {
 		if (existingUserOptional != null) {
 
 			User existingUser = existingUserOptional.get();
-			if (request.containsKey("password")) {		
+			if (request.containsKey("password")) {
 				String encodePassword = passwordEncoder.encode(request.get("password").toString());
 				request.replace("password", encodePassword);
 			}
-			if( request.containsKey("confirmPassword")) {
+			if (request.containsKey("confirmPassword")) {
 				String encodePassword = passwordEncoder.encode(request.get("confirmPassword").toString());
 				request.replace("confirmPassword", encodePassword);
 			}
@@ -377,7 +379,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAllCustomByUserId(Integer userId) {
 		List<User> userList = userRepository.findAllCustomByUserId(userId);
-		if(userList == null) {
+		if (userList == null) {
 			throw new NSException(ErrorCodes.OK, "User Id Not Found");
 		}
 		return userList;
@@ -386,11 +388,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAllUsersByUserName(String userName) {
 		List<User> userList = userRepository.findAllUsersByUserName(userName);
-		if(userList == null) {
+		if (userList == null) {
 			throw new NSException(ErrorCodes.OK, "User Name Not Found");
 		}
 		return userList;
-		
+
 	}
 
 }

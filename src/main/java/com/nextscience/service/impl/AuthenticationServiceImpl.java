@@ -70,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> new IllegalArgumentException(CommonConstants.INVALIDEMAILORPASSWORD));
         var jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).role(user.getRole()).build();
+        return JwtAuthenticationResponse.builder().token(jwt).role(user.getRole()).userId(user.getUserId()).build();
     }
 
 	@Override
