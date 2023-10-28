@@ -147,21 +147,11 @@ public class UserServiceImpl implements UserService {
 		if (existingUserOptional != null) {
 
 			User existingUser = existingUserOptional.get();
-			if (request.getUserName().equals(existingUser.getUsername())
-					|| userRepository.existsByUserName(request.getUserName())) {
-				throw new NSException(ErrorCodes.OK, "User Name already exist by this name");
-			}
-
-			if (request.getUserMail().equals(existingUser.getUserMail())
-					|| userRepository.existsByUserMail(request.getUserMail())) {
-				throw new NSException(ErrorCodes.OK, "Mail Id already exist by this email");
-			}
-
 			existingUser.setUserName(request.getUserName());
 			existingUser.setFirstName(request.getFirstName());
 			existingUser.setMiddleName(request.getMiddleName());
 			existingUser.setLastName(request.getLastName());
-			existingUser.setUserMail(request.getUserMail());
+			existingUser.setUserMail(request.getUserName());
 			existingUser.setFullName(request.getFullName());
 			existingUser.setTitle(request.getTitle());
 			existingUser.setRole(request.getRole());
@@ -198,7 +188,7 @@ public class UserServiceImpl implements UserService {
 			existingUser.setUserStatusFlag(request.getUserStatusFlag());
 			existingUser.setUserType(request.getUserType());
 
-			existingUser.setOtherPassword(passwordEncoder.encode(request.getOtherPassword()));
+			//existingUser.setOtherPassword(passwordEncoder.encode(request.getOtherPassword()));
 
 			existingUser.setUserImageUrl(request.getUserImageUrl());
 			existingUser.setCreatedUser(request.getCreatedUser());
@@ -365,19 +355,6 @@ public class UserServiceImpl implements UserService {
 		if (existingUserOptional != null) {
 
 			User existingUser = existingUserOptional.get();
-
-			if (request.containsKey("userName")) {
-				if (request.get("userName").equals(existingUser.getUsername())
-						|| userRepository.existsByUserName(request.get("userName").toString())) {
-					throw new NSException(ErrorCodes.OK, "User Name already exist by this name");
-				}
-			}
-			if (request.containsKey("userMail")) {
-				if (request.get("userMail").equals(existingUser.getUserMail())
-						|| userRepository.existsByUserMail(request.get("userMail").toString())) {
-					throw new NSException(ErrorCodes.OK, "Mail Id already exist by this email");
-				}
-			}
 			if (request.containsKey("password")) {		
 				String encodePassword = passwordEncoder.encode(request.get("password").toString());
 				request.replace("password", encodePassword);

@@ -58,7 +58,7 @@ public class UserController {
 	/** Update User in UserDetails list */
 	@PutMapping(UsersConstant.UPDATEUSERID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable int id) {
+	public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequest request, @PathVariable int id) {
 		return ResponseEntity.ok(userService.updateUser(request, id));
 	}
 
@@ -154,9 +154,9 @@ public class UserController {
 	}
 
 	/** Update User in UserDetails list */
-	@PatchMapping(UsersConstant.UPDATEUSERID)
+	@PatchMapping(UsersConstant.UPDATEUSERPROFILEID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<String> updatePatchUser(@Valid @RequestBody Map<String, Object> request,
+	public ResponseEntity<String> updatePatchUser(@RequestBody Map<String, Object> request,
 			@PathVariable int id) {
 		return ResponseEntity.ok(userService.updatePatchUser(request, id));
 	}

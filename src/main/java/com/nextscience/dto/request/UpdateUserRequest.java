@@ -21,18 +21,13 @@ import lombok.NoArgsConstructor;
 public class UpdateUserRequest {
 	
 	 private int userId;
-	 @NotBlank
 	 private String userName;
-	 @NotBlank
 	 private String firstName;
 	 private String middleName;
-	 @NotBlank
 	 private String lastName;
 	 private String fullName;
 	 private String title;
 	 private String role;
-	 @NotBlank
-	 @Email
 	 private String userMail;
 	 private String phone;
 	 private String userMobile;

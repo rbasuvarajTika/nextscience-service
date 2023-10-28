@@ -16,7 +16,7 @@ public class UsersConstant {
 	public static final String USERSLIST = "/usersList";
 	public static final String USERSLISTBYUSERID = "/usersList/userId/{userId}";
 	public static final String USERSLISTBYUSERNAME = "/usersList/userName/{userName}";
-	
+	public static final String UPDATEUSERPROFILEID ="/updateprofile/user/{id}";
 
 	
 
