@@ -20,7 +20,7 @@ public class RxPatientDetailsResponse {
 	private Integer trnFaxId;
 	private String faxId;
 	private Integer caseId;
-	@JsonFormat(pattern = "MM-dd-yyyy")
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date faxDate;
 	private String faxNumber;
 	private String faxUrl;
@@ -29,7 +29,7 @@ public class RxPatientDetailsResponse {
 	private String patientFirstName;
 	private String patientMiddleName;
 	private String patientLastName;
-	@JsonFormat(pattern = "MM-dd-yyyy")
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date dateOfBirth;
 	private String cellPhone;
 	private String shipToAddress;

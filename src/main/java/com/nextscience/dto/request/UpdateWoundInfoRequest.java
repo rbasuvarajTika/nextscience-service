@@ -41,7 +41,7 @@ public class UpdateWoundInfoRequest {
 
 	private int debrided;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date debridedDate;
 	private String debridedType;
 
