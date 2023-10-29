@@ -83,6 +83,111 @@ public class CaseDetailsSaveController {
 				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/updateWoundInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> updateWoundInfo(@RequestBody List<UpdateWoundInfoRequest> updateWound) {
+	
+		if(updateWound !=null ||updateWound.get(0).getTrnFaxId() !=0 || updateWound.get(0).getWoundNo()!=null )
+			   caseDetailsSaveService.updateWoundInfoProc(updateWound);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/updateProductInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> updateProductInfo(@RequestBody List<UpdateProductInfoRequest> updateProductRequest) {
+	
+		if(updateProductRequest !=null ||updateProductRequest.get(0).getTrnFaxId()!=0 || updateProductRequest.get(0).getProductCode()!=null )
+			   caseDetailsSaveService.UpdateProductInfoProc(updateProductRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping("/updateHCPInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> updateHCPInfoList(@RequestBody List<UpdateHcpInfoRequest> updateHcpRequest) {
+	
+		if(updateHcpRequest !=null || updateHcpRequest.get(0).getTrnFaxId()!=0 || updateHcpRequest.get(0).getProfId()!=0)
+			   caseDetailsSaveService.updateHcpProc(updateHcpRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/insertWoundInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> inserWoundInfoList(@RequestBody List<InsertWoundInfoRequest> insertWoundRequest) {
+	
+		if(insertWoundRequest !=null)
+			   caseDetailsSaveService.insertWoundInfoProc(insertWoundRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/insetrProductInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> inserProductInfoList(@RequestBody List<InsertProductInfoRequest> insertProductRequest) {
+	
+		if(insertProductRequest !=null)
+			   caseDetailsSaveService.InsertProductInfoProc(insertProductRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/insetrHcpInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> insetrHcpInfoList(@RequestBody List<InsertHcpInfoRequest> insertHcpRequest) {
+	
+		if(insertHcpRequest !=null)
+			   caseDetailsSaveService.InsertHcpInfoProc(insertHcpRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/deleteWoundInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> deleteWoundInfoList(@RequestBody List<DeleteWoundInfoRequest> deleteWoundRequest) {
+	
+		if(deleteWoundRequest !=null)
+			   caseDetailsSaveService.DeleteWoundInfoProc(deleteWoundRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/deleteProductInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> deleteProductInfoList(@RequestBody List<DeleteProductInfoRequest> deleteProductRequest) {
+	
+		if(deleteProductRequest !=null)
+			   caseDetailsSaveService.DeleteProductInfoProc(deleteProductRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
 
 }
 

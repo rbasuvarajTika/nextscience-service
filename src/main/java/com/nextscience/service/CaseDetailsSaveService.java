@@ -34,7 +34,5 @@ public interface CaseDetailsSaveService {
 	public String InsertHcpInfoProc(List<InsertHcpInfoRequest> requests);
 	public String DeleteWoundInfoProc(List<DeleteWoundInfoRequest> requests);
 	public String DeleteProductInfoProc(List<DeleteProductInfoRequest> requests);
-	
-	
 
 }
