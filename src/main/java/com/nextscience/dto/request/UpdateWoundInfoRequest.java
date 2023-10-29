@@ -47,5 +47,6 @@ public class UpdateWoundInfoRequest {
 
 	private String icdCode;
 	private String updatedUser;
+	private String status;
 
 }

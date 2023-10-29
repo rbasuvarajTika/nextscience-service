@@ -31,11 +31,12 @@ public class WoundInfoResponse {
 	private Date debridedDate;
 	private String debridedType;
 	private String icdCode;
+	private String status="update";
 	
 	public WoundInfoResponse(Integer trnRxId, Integer trnFaxId, String faxId, Integer woundNo, String woundLocation,
 			BigDecimal woundLength, BigDecimal woundWidth, BigDecimal woundDepth, String woundThickness,
 			String woundType, String drainage, Integer debrided, Date debridedDate, String debridedType,
-			String icdCode) {
+			String icdCode,String status) {
 		super();
 		this.trnRxId = trnRxId;
 		this.trnFaxId = trnFaxId;
@@ -52,6 +53,7 @@ public class WoundInfoResponse {
 		this.debridedDate = debridedDate;
 		this.debridedType = debridedType;
 		this.icdCode = icdCode;
+		this.status=status;
 	}
 
 }
