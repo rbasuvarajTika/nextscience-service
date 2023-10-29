@@ -48,7 +48,7 @@ public class UpdatePatientTrnFaxRxRequest {
 	private String orderType;
 	private Integer woundActive;
 	private String repName;
-	private Integer repPhoneNo;
+	private String repPhoneNo;
 	private Integer distributorId;
 	private String distributorName;
 }

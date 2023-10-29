@@ -110,7 +110,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		response.setOrderType((String) row[28]);
 		response.setWoundActive((Integer) row[29]);
 		response.setRepName((String) row[30]);
-		response.setRepPhoneNo((Integer) row[31]);
+		response.setRepPhoneNo((String) row[31]);
 		response.setDistributorId((Integer) row[32]);
 		response.setDistributorName((String) row[33]);
 		return response;
