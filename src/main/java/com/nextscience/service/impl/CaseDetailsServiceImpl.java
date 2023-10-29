@@ -96,7 +96,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 		
 		 for(UpdateWoundInfoRequest req : requests) {
 			 
-			 if(req.getStatus() == "update") {
+			 if(req.getStatus().equalsIgnoreCase("update")) {
 				 
 				 query= entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Edit");
 				 query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
@@ -133,7 +133,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 			        query.setParameter("ICD_CODE", req.getIcdCode());
 			        query.execute();
 			        
-			}else if(req.getStatus() == "insert") {
+			}else if(req.getStatus().equalsIgnoreCase("insert")) {
 				
 				query=entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Add");
 				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
@@ -170,7 +170,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 		        query.setParameter("ICD_CODE", req.getIcdCode());
 		        query.execute();
 				
-			}else if(req.getStatus() == "delete") {
+			}else if(req.getStatus().equalsIgnoreCase("delete")) {
 				
 				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Del");
 				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
