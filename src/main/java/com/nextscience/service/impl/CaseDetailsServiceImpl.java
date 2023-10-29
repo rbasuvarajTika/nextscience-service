@@ -137,38 +137,37 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 				
 				query=entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Add");
 				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("WOUND_NO", String.class, ParameterMode.IN);
+		        query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("WOUND_LOCATION", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("WOUND_LENGTH", Double.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("WOUND_WIDTH", Double.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("WOUND_DEPTH", Double.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WOUND_LENGTH", BigDecimal.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WOUND_WIDTH", BigDecimal.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WOUND_DEPTH", BigDecimal.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("WOUND_THICKNESS", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("WOUND_TYPE", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("DRAINEGE", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("DEBRIDED", Integer.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("DEBRIDED_DATE", Date.class, ParameterMode.IN);
-		        query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
-		        query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
+				
 
+				query.setParameter("USER", req.getUpdatedUser());
+				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		      	query.setParameter("WOUND_NO", req.getWoundNo());
+				query.setParameter("WOUND_LOCATION", req.getWoundLocation());
+				query.setParameter("WOUND_LENGTH", req.getWoundLength());
+				query.setParameter("WOUND_WIDTH", req.getWoundWidth());
+				query.setParameter("WOUND_DEPTH", req.getWoundDepth());
+				query.setParameter("WOUND_THICKNESS", req.getWoundThickness());
+				query.setParameter("WOUND_TYPE", req.getWoundType());
+				query.setParameter("DRAINEGE", req.getDrainage());
+				query.setParameter("DEBRIDED", req.getDebrided());
+				query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
+				query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
+				query.setParameter("ICD_CODE", req.getIcdCode());
+				query.execute();
 
-		        query.setParameter("USER", req.getUpdatedUser());
-		        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-		        query.setParameter("TRN_RX_ID", req.getTrnRxId());
-		        query.setParameter("WOUND_NO", req.getWoundNo());
-		        query.setParameter("WOUND_LOCATION", req.getWoundLocation());
-		        query.setParameter("WOUND_LENGTH", req.getWoundLength());
-		        query.setParameter("WOUND_WIDTH", req.getWoundWidth());
-		        query.setParameter("WOUND_DEPTH", req.getWoundDepth());
-		        query.setParameter("WOUND_THICKNESS", req.getWoundThickness());
-		        query.setParameter("WOUND_TYPE", req.getWoundType());
-		        query.setParameter("DRAINEGE", req.getDrainage());
-		        query.setParameter("DEBRIDED", req.getDebrided());
-		        query.setParameter("DEBRIDED_DATE", req.getDebridedDate());
-		        query.setParameter("DEBRIDED_TYPE", req.getDebridedType());
-		        query.setParameter("ICD_CODE", req.getIcdCode());
-		        query.execute();
 				
 			}else if(req.getStatus().equalsIgnoreCase("delete")) {
 				
@@ -193,37 +192,91 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 
 	@Override
 	public String UpdateProductInfoProc(List<UpdateProductInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Edit");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
+		
+		
+         for(UpdateProductInfoRequest req : requests) {
+			 
+			 if(req.getStatus().equalsIgnoreCase("update")) {
+				    query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Edit");
+				 
+				    query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+					// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
+					// ParameterMode.IN);
 
-		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
-		// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
-		// ParameterMode.IN);
+					query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
 
-		query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
+					query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+					query.setParameter("TRN_RX_ID", req.getTrnRxId());
+					query.setParameter("USER", req.getUpdatedUser());
+					query.setParameter("PRODUCT_CODE", req.getProductCode());
+					// query.setParameter("PRODUCT_CODE", req.getProductCode());
+					query.setParameter("QUANTITY", req.getQuantity());
+					query.setParameter("WND1", req.getWnd1());
+					query.setParameter("WND2", req.getWnd2());
+					query.setParameter("WND3", req.getWnd3());
+					query.setParameter("WND4", req.getWnd4());
+					query.execute();
+			        
+			}else if(req.getStatus().equalsIgnoreCase("insert")) {
+				
+				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Add");
 
-		 for(UpdateProductInfoRequest req : requests) {
-		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-		query.setParameter("TRN_RX_ID", req.getTrnRxId());
-		query.setParameter("USER", req.getUpdatedUser());
-		query.setParameter("PRODUCT_CODE", req.getProductCode());
-		// query.setParameter("PRODUCT_CODE", req.getProductCode());
-		query.setParameter("QUANTITY", req.getQuantity());
-		query.setParameter("WND1", req.getWnd1());
-		query.setParameter("WND2", req.getWnd2());
-		query.setParameter("WND3", req.getWnd3());
-		query.setParameter("WND4", req.getWnd4());
+				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 
-		query.execute();
-	
+				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
+				query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+				// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
+				// ParameterMode.IN);
+
+				query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
+
+				query.setParameter("USER", "Admin");
+				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+				query.setParameter("TRN_RX_ID", req.getTrnRxId());
+
+				query.setParameter("PRODUCT_CODE", req.getProductCode());
+				// query.setParameter("PRODUCT_ID", req.getProductId());
+				query.setParameter("QUANTITY", req.getQuantity());
+				query.setParameter("WND1", req.getWnd1());
+				query.setParameter("WND2", req.getWnd2());
+				query.setParameter("WND3", req.getWnd3());
+				query.setParameter("WND4", req.getWnd4());
+				query.execute();
+
+				
+			}else if(req.getStatus().equalsIgnoreCase("delete")) {
+				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Del");
+				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+
+				query.setParameter("USER", "Admin");
+				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+				query.setParameter("TRN_RX_ID", req.getTrnRxId());
+				query.setParameter("PRODUCT_CODE", req.getProductCode());
+				query.execute();
+			}
 		 }
+		
+		
+		
 		return "Updated successfully";
 	}
 		
@@ -234,39 +287,73 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 
 	@Override
 	public String updateHcpProc(List<UpdateHcpInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
+		
+		
+        for(UpdateHcpInfoRequest req : requests) {
+			 
+			 if(req.getStatus().equalsIgnoreCase("update")) {
+				    query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
+				 
 
-				query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
-				//query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
+							query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
+							//query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
+							query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
+						
+							
+							query.setParameter("USER", req.getUpdatedUser());
+							query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+					        query.setParameter("TRN_RX_ID", req.getTrnRxId());
+
+							query.setParameter("PROF_ID", req.getHcpId());
+							//query.setParameter("HCP_ID", req.getHcpId());
+							query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
+							query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
+							query.setParameter("FIRST_NAME", req.getFirstName());
+							query.setParameter("MIDDLE_NAME", req.getMiddleName());
+							query.setParameter("LAST_NAME", req.getLastName());
+							query.setParameter("NPI", req.getNpi());
+							query.execute();
+							
+			        
+			}else if(req.getStatus().equalsIgnoreCase("insert")) {
+				
+				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
+				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("PROVIDER_TYPE", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
 				
-				for(UpdateHcpInfoRequest req : requests) {
+				query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
+				query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 				
-				query.setParameter("USER", req.getUpdatedUser());
+				query.setParameter("USER", "Admin");
 				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-		        query.setParameter("TRN_RX_ID", req.getTrnRxId());
-
-				query.setParameter("PROF_ID", req.getProfId());
-				//query.setParameter("HCP_ID", req.getHcpId());
-				query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
-				query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
+				query.setParameter("PROVIDER_TYPE", 2);
+				query.setParameter("NPI", req.getNpi());
 				query.setParameter("FIRST_NAME", req.getFirstName());
 				query.setParameter("MIDDLE_NAME", req.getMiddleName());
 				query.setParameter("LAST_NAME", req.getLastName());
-				query.setParameter("NPI", req.getNpi());
-
 				
+				query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
+				query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
 				query.execute();
-				}
-
+				
+			}
+		 }
+		
 			return "updated Successfully";
 		}
 
