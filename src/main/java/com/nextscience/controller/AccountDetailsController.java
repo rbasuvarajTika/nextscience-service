@@ -77,7 +77,7 @@ public class AccountDetailsController {
 	@SuppressWarnings("unchecked")
 	@DeleteMapping(AccountDetailsConstant.OFFICEINFODELETE)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<DeleteOfficeInfoRequest> deleteWoundDetails(@RequestBody DeleteOfficeInfoRequest req) {
+	public NSServiceResponse<DeleteOfficeInfoRequest> DeleteOfficeInfoProc(@RequestBody DeleteOfficeInfoRequest req) {
 		String response = accountDetailsService.DeleteOfficeInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
