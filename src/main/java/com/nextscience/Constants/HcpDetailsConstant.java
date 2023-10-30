@@ -8,4 +8,5 @@ package com.nextscience.Constants;
 public class HcpDetailsConstant {
 	public static final String HCPINFO ="/hcpInfo";
 	public static final String HCPINFOTRNRXID ="/hcpInfo/{trnRxId}";
+	public static final String HCPINFODETAILS="/hcpInfoDetails";
 }

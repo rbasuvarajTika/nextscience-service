@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.response.HcpInfoResponse;
@@ -147,6 +148,17 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		query.execute();
 				
 		return "created successfully";
+	}
+	@Override
+	public String DeleteHcpInfoProc(DeleteHcpInfoRequest req) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Del");
+		
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
+		query.setParameter("USER", req.getUser());
+		query.setParameter("HCP_ID", req.getHcpId());
+		query.execute();
+		return "deleted successfully";
 	}
 	
 	

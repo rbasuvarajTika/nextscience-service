@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextscience.Constants.AccountDetailsConstant;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.HcpDetailsConstant;
 import com.nextscience.Constants.ProductDetailsConstant;
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
+import com.nextscience.dto.request.DeleteOfficeInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
@@ -79,5 +83,19 @@ public class HcpDetailsController {
 		String response = hcpDetailsService.InsertHcpInfoProc(req);
 		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
 	}
+	
+	
+	
+
+	/**Delete Values in HcpInfo Details*/
+	@SuppressWarnings("unchecked")
+	@DeleteMapping(HcpDetailsConstant.HCPINFODETAILS)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<DeleteHcpInfoRequest> DeleteHcpInfoProc(@RequestBody DeleteHcpInfoRequest req) {
+		String response = hcpDetailsService.DeleteHcpInfoProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
 
 }
