@@ -10,4 +10,6 @@ import com.nextscience.controller.AccountDetailsController;
 public class AccountDetailsConstant {
 	public static final String OFFICEINFOURL = "/officeInfo";
 	public static final String OFFICEINFOURLID="/officeInfo/{trnRxId}";
+	public static final String OFFICEINFODELETE = "/officeInfoDetails";
+	
 }

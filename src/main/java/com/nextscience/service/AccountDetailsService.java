@@ -1,6 +1,9 @@
 package com.nextscience.service;
 
 import java.util.List;
+
+import com.nextscience.dto.request.DeleteOfficeInfoRequest;
+import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.OfficeAccResponse;
 
@@ -22,5 +25,8 @@ public interface AccountDetailsService {
 
 	/** Updates office information. */
 	public String updateOffInfoProc(UpdateOfficeInfoRequest req);
+	
+	/** Delete office information. */
+	public String DeleteOfficeInfoProc(DeleteOfficeInfoRequest req);
 
 }

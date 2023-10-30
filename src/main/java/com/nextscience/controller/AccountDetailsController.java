@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.AccountDetailsConstant;
 import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.FaxRxWoundInfoConstant;
+import com.nextscience.dto.request.DeleteOfficeInfoRequest;
+import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -68,6 +72,17 @@ public class AccountDetailsController {
     	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
     			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	/**Delete Values in OfficeInfo Details*/
+	@SuppressWarnings("unchecked")
+	@DeleteMapping(AccountDetailsConstant.OFFICEINFODELETE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<DeleteOfficeInfoRequest> deleteWoundDetails(@RequestBody DeleteOfficeInfoRequest req) {
+		String response = accountDetailsService.DeleteOfficeInfoProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
 }
 	
 
