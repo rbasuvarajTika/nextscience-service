@@ -83,7 +83,7 @@ public class ProductDetailsController {
 
 	/** Delete Values in Product Details List */
 	@SuppressWarnings("unchecked")
-	@DeleteMapping("/productInfoDetails")
+	@DeleteMapping(ProductDetailsConstant.PRODUCTINFODETAILS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteProductInfoRequest> deleteProductDetails(@RequestBody DeleteProductInfoRequest req) {
 		String response = productDetailsService.DeleteProductInfoProc(req);
@@ -92,7 +92,7 @@ public class ProductDetailsController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/productDetailsInfo")
+	@GetMapping(ProductDetailsConstant.PRODUCTDETAILSINFO)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<ProductInfoResponse>> getProductDetails (){
 		List<ProductInfoResponse> productInfo = productDetailsService.getProductInfoDetails();
