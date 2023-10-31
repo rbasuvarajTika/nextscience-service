@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.CaseDetailsSaveRequest;
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
@@ -186,6 +187,19 @@ public class CaseDetailsSaveController {
 		
 		return ResponseHelper.createResponse(new
 				  NSServiceResponse<>(), "Succfully Added/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/deleteHcpInfoList")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> deleteHcpInfoList(@RequestBody List<DeleteHcpInfoRequest> deleteHcpRequest) {
+	
+		if(deleteHcpRequest !=null)
+			   caseDetailsSaveService.DeleteHcpInfoProc(deleteHcpRequest);
+		
+		return ResponseHelper.createResponse(new
+				  NSServiceResponse<>(), "Succfully Deleted/Updated", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 
 	}
 

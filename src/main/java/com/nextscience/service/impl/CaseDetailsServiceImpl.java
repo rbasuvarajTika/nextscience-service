@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.Constants.CommonConstants;
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
@@ -575,6 +576,21 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 		return "Deleted Successfully";
 	}	
 
+	@Override
+	public String DeleteHcpInfoProc(List<DeleteHcpInfoRequest> requests) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Del");
+		
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
+		
+		for(DeleteHcpInfoRequest req : requests) {
+		query.setParameter("USER", "Admin");
+		query.setParameter("HCP_ID", req.getHcpId());
+		query.execute();
+		}
+		return "deleted successfully";
+	}
+	
 	
 
 }

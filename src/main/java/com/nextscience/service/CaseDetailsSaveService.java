@@ -2,6 +2,7 @@ package com.nextscience.service;
 
 import java.util.List;
 
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
@@ -34,5 +35,7 @@ public interface CaseDetailsSaveService {
 	public String InsertHcpInfoProc(List<InsertHcpInfoRequest> requests);
 	public String DeleteWoundInfoProc(List<DeleteWoundInfoRequest> requests);
 	public String DeleteProductInfoProc(List<DeleteProductInfoRequest> requests);
+	/** Delete values Hcp information. */
+	public String DeleteHcpInfoProc(List<DeleteHcpInfoRequest> req);
 
 }
