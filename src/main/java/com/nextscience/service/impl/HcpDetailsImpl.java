@@ -65,7 +65,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		response.setNpi((String) row[8]);
 		response.setSignature_Flag((Integer) row[9]);
 		response.setSignature_Date((Date) row[10]);
-		response.setProfId((Integer) row[11]);
+		response.setProfId((Integer) row[3]);
 		return response;
 	}
 	@Override
