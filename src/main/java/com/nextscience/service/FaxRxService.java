@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 
+import com.nextscience.dto.request.FaxRxDupeRequest;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.response.DupeRxResponse;
+
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxRx;
@@ -34,6 +37,8 @@ public interface FaxRxService {
 	/** Keeps a duplicate faxRx. */
 	public String keepDuplicate(String trnFaxId);
 	
+	
+	public String faxRxValidateProc(FaxRxDupeRequest req);
 	
 
 }

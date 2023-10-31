@@ -48,7 +48,7 @@ public class AccountDetailsController {
 	{ 
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccountList();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<AccountDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	  NSServiceResponse<OfficeAccResponse>(), accountInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 	
 	/**Retrieves A list of AccountDetailsList by Using TrnRxID*/
@@ -58,7 +58,7 @@ public class AccountDetailsController {
 	public NSServiceResponse<List<OfficeAccResponse>> getAcctDetByTrnRxId(@PathVariable int trnRxId)
 	{
 		List<OfficeAccResponse> accountInfo = accountDetailsService.getAccDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), accountInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<OfficeAccResponse>(), accountInfo, CommonConstants.SUCCESSFULLY,CommonConstants.ERRROR);
 
 	}	
 	
@@ -69,7 +69,7 @@ public class AccountDetailsController {
 	public NSServiceResponse<UpdateOfficeInfoRequest> updateOffDetails(@RequestBody UpdateOfficeInfoRequest req)
 	{
 		String response = accountDetailsService.updateOffInfoProc(req);
-    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
+    	return ResponseHelper.createResponse(new NSServiceResponse<UpdateOfficeInfoRequest>(), 
     			response, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
@@ -79,7 +79,7 @@ public class AccountDetailsController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteOfficeInfoRequest> DeleteOfficeInfoProc(@RequestBody DeleteOfficeInfoRequest req) {
 		String response = accountDetailsService.DeleteOfficeInfoProc(req);
-		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+		return ResponseHelper.createResponse(new NSServiceResponse<DeleteOfficeInfoRequest>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
 	

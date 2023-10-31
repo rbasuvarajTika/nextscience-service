@@ -14,6 +14,6 @@ public class FaxRxConstant {
 	public static final  String KEEPDUPLICATETRNFAXID="/keepDuplicate/{trnFaxId}";
 	public static final  String FAXPDF="/faxPdf";
 	public static final String FAXLIST = "/faxList";
-	
+	public static final String FAXRXDUPE ="/faxRxDupe";
 	
 }

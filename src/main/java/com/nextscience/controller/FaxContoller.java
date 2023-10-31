@@ -13,7 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxRxConstant;
+import com.nextscience.Constants.HcpDetailsConstant;
+import com.nextscience.dto.request.FaxRxDupeRequest;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -154,8 +159,19 @@ public class FaxContoller {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public  NSServiceResponse<String>  keepDuplicate(@PathVariable String trnFaxId) {
 	    	String response = faxRxService.keepDuplicate(trnFaxId);
-	    	return ResponseHelper.createResponse(new NSServiceResponse<FaxRx>(), 
+	    	return ResponseHelper.createResponse(new NSServiceResponse<String>(), 
 	    			response, CommonConstants.UPDATEDSUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping(FaxRxConstant.FAXRXDUPE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<FaxRxDupeRequest> faxRxValidateProc(@RequestBody FaxRxDupeRequest req) {
+		String response = faxRxService.faxRxValidateProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxDupeRequest>(), response, "Successfully ", "Error");
+	}
+	
+	
+	
 }
 

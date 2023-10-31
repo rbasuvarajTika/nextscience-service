@@ -32,7 +32,7 @@ public class DistributorDetailsController {
 	{ 
 	  List<DistributorDetailsResponse> distributorDetailsInfo = distributorDetailsService.getDistributorDetails();
 	  return ResponseHelper.createResponse(new
-	  NSServiceResponse<AccountDetailsResponse>(), distributorDetailsInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	  NSServiceResponse<DistributorDetailsResponse>(), distributorDetailsInfo, CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	  }
 
 }

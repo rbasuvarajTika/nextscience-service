@@ -52,7 +52,7 @@ public class HcpDetailsController {
 
 	{
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpInfoList();
-		return ResponseHelper.createResponse(new NSServiceResponse<HcpDetailsResponse>(), hcpDetailInfo,
+		return ResponseHelper.createResponse(new NSServiceResponse<HcpInfoResponse>(), hcpDetailInfo,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
@@ -62,7 +62,7 @@ public class HcpDetailsController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<HcpInfoResponse>> getRxHcptDetByTrnRxId(@PathVariable int trnRxId) {
 		List<HcpInfoResponse> hcpDetailInfo = hcpDetailsService.getHcpDetByTrnRxId(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<RxPatientDetailsResponse>(), hcpDetailInfo,
+		return ResponseHelper.createResponse(new NSServiceResponse<HcpInfoResponse>(), hcpDetailInfo,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
@@ -72,7 +72,7 @@ public class HcpDetailsController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<UpdateHcpInfoRequest> updateHcpInfoDet(@RequestBody UpdateHcpInfoRequest req) {
 		String response = hcpDetailsService.updateHcpProc(req);
-		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+		return ResponseHelper.createResponse(new NSServiceResponse<UpdateHcpInfoRequest>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
 	
@@ -81,7 +81,7 @@ public class HcpDetailsController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<InsertHcpInfoRequest> InsertHcpInfoDet(@RequestBody InsertHcpInfoRequest req) {
 		String response = hcpDetailsService.InsertHcpInfoProc(req);
-		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, "Successfully ", "Error");
+		return ResponseHelper.createResponse(new NSServiceResponse<InsertHcpInfoRequest>(), response, "Successfully ", "Error");
 	}
 	
 	
@@ -93,7 +93,7 @@ public class HcpDetailsController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteHcpInfoRequest> DeleteHcpInfoProc(@RequestBody DeleteHcpInfoRequest req) {
 		String response = hcpDetailsService.DeleteHcpInfoProc(req);
-		return ResponseHelper.createResponse(new NSServiceResponse<String>(), response, CommonConstants.SUCCESSFULLY,
+		return ResponseHelper.createResponse(new NSServiceResponse<DeleteHcpInfoRequest>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
 	

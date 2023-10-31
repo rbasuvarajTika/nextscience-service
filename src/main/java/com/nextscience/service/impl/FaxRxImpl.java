@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nextscience.Constants.CommonConstants;
+import com.nextscience.dto.request.FaxRxDupeRequest;
 import com.nextscience.dto.response.DupeRxResponse;
+
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxRx;
@@ -20,7 +22,9 @@ import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.FaxRxService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 
 /**
  * Service Class for managing {@link FaxRxImpl}.request
@@ -202,6 +206,23 @@ public class FaxRxImpl implements FaxRxService {
          .executeUpdate();
 		return CommonConstants.UPDATEDSUCCESSFULLY;
 	}
+
+	@Override
+	public String faxRxValidateProc(FaxRxDupeRequest req) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_RX_Validate");
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("DUPE_TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("MAIN_TRN_FAX_ID", Integer.class, ParameterMode.IN);
+		query.setParameter("USER", req.getUser());
+		query.setParameter("DUPE_TRN_FAX_ID", req.getDupeTrnFaxId());
+		query.setParameter("MAIN_TRN_FAX_ID", req.getMainTrnFaxId());
+		query.execute();
+		return "updated successfully";
+		
+		
+	}
+
+	
 
 	
 	}
