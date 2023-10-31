@@ -46,9 +46,9 @@ public class HcpDetailsImpl implements HcpDetailsService {
 	@Override
 	public List<HcpInfoResponse> getHcpInfoList() {
 		List<Object[]> hcpInfoResponse=hcpDetailsRepository.getHcpInfoList();
-		List<HcpInfoResponse> responses = hcpInfoResponse.stream().map(this::mapToObjectsArray)
+		List<HcpInfoResponse> responsesMap = hcpInfoResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
-
+		List<HcpInfoResponse> responses = responsesMap.stream().filter(e->e.getHcpId()!=null).collect(Collectors.toList());
 		return responses;
 	}
 	private HcpInfoResponse mapToObjectsArray(Object[] row) {
@@ -71,9 +71,9 @@ public class HcpDetailsImpl implements HcpDetailsService {
 	@Override
 	public List<HcpInfoResponse> getHcpDetByTrnRxId(int trnRxId) {
 		List<Object[]> hcpInfoResponse=hcpDetailsRepository.getHcpDetByTrnRxId(trnRxId);
-		List<HcpInfoResponse> responses = hcpInfoResponse.stream().map(this::mapToObjectsArray)
+		List<HcpInfoResponse> responsesMap = hcpInfoResponse.stream().map(this::mapToObjectsArray)
 				.collect(Collectors.toList());
-
+		List<HcpInfoResponse> responses = responsesMap.stream().filter(e->e.getHcpId()!=null).collect(Collectors.toList());
 		return responses;
 		
 	}
