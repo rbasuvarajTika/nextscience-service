@@ -108,7 +108,15 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		response.setEmergencyContactPhone((String) row[26]);
 		response.setPlaceOfService((String) row[27]);
 		response.setOrderType((String) row[28]);
-		response.setWoundActive((Integer) row[29]);
+		if((Integer) row[29] !=null) {
+		if((Integer) row[29] == 1) {
+			response.setWoundActive("Yes");
+		}else {
+			response.setWoundActive("No");
+		}
+		}else {
+			response.setWoundActive(null);
+		}
 		response.setRepName((String) row[30]);
 		response.setRepPhoneNo((String) row[31]);
 		response.setDistributorId((Integer) row[32]);
@@ -167,7 +175,9 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	@Override
 	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req) {
 		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_PatientDetails_Edit");
-
+           Integer woundActiveVal=0;
+		    
+		 
 	        // Set the parameters for the stored procedure
 	        query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
@@ -191,6 +201,14 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	        query.registerStoredProcedureParameter("REP_PHONE_NO", String.class, ParameterMode.IN);
 	        query.registerStoredProcedureParameter("DISTRIBUTOR_NAME", String.class, ParameterMode.IN);
 
+	        if(req.getWoundActive()!=null) {
+	        if(req.getWoundActive().equalsIgnoreCase("Yes")) {
+	        	woundActiveVal=1;
+	        }
+	        }else {
+	        	woundActiveVal=null;
+	        }
+	        
 	        // Set parameter values
 	        query.setParameter("USER", req.getUpdatedUser());
 	        query.setParameter("TRN_FAX_ID", req.getTrnFaxId());

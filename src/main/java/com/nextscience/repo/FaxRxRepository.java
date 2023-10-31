@@ -45,11 +45,11 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ ",concat(r.PATIENT_FIRST_NAME,' ',r.PATIENT_LAST_NAME) PATIENT_NAME\r\n"
 			+ "FROM [NEXTSCI_DEV].[dbo].[TRN_FAX_RX] a\r\n"
 			+ "join [BRDG_FAX_RX_CASES] b on (a.[CASE_ID]=b.[CASE_ID])\r\n"
-			+ "join [BRDG_FAX_RX_PROVIDER] c on (a.[TRN_FAX_ID]=c.[TRN_FAX_ID])\r\n"
-			+ "join [DIM_HCP] p on (c.[HCP_ID]=p.[HCP_ID])\r\n"
+			+ "join [DIM_HCP] p on (a.[PROF_ID]=p.[HCP_ID])\r\n"
 			+ "join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 			+ "join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n" + "where b.CASE_TYPE='Duplicate'")
 	List<Object[]> getDupeResponse();
+
 
 	/*
 	 * @Query(nativeQuery = true, value = "UPDATE TRN_FAX_RX \r\n" +

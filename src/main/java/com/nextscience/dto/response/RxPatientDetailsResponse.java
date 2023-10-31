@@ -47,7 +47,7 @@ public class RxPatientDetailsResponse {
 	private String emergencyContactPhone;
 	private String placeOfService;
 	private String orderType;
-	private Integer woundActive;
+	private String woundActive;
 	private String repName;
 	private String repPhoneNo;
 	private Integer distributorId;
@@ -58,7 +58,7 @@ public class RxPatientDetailsResponse {
 			String patientLastName, Date dateOfBirth, String cellPhone, String shipToAddress, String city, String state,
 			String zip, String ssn, String workPhone, String gender, String zip4, String mrn, String pmsId,
 			String maritalStatus, String emergencyContactName, String emergencyContactPhone, String placeOfService,
-			String orderType, Integer woundActive, String repName, String repPhoneNo, Integer distributorId,
+			String orderType, String woundActive, String repName, String repPhoneNo, Integer distributorId,
 			String distributorName) {
 		super();
 		this.trnRxId = trnRxId;

@@ -46,7 +46,7 @@ public class UpdatePatientTrnFaxRxRequest {
     @JsonFormat(pattern="MM/dd/yyyy")
     private Date updatedDate;
 	private String orderType;
-	private Integer woundActive;
+	private String woundActive;
 	private String repName;
 	private String repPhoneNo;
 	private Integer distributorId;
