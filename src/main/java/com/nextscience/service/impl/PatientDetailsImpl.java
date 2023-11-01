@@ -228,7 +228,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	        query.setParameter("SSN", req.getSsn());
 	        query.setParameter("PLACE_OF_SERVICE", req.getPlaceOfService());
 	        query.setParameter("ORDER_TYPE", req.getOrderType());
-	        query.setParameter("WOUND_ACTIVE", req.getWoundActive());
+	        query.setParameter("WOUND_ACTIVE", woundActiveVal);
 	        query.setParameter("REP_NAME", req.getRepName());
 	        query.setParameter("REP_PHONE_NO", req.getRepPhoneNo());
 	        query.setParameter("DISTRIBUTOR_NAME", req.getDistributorName());

@@ -35,6 +35,7 @@ public interface ProductDetailsRepository extends JpaRepository<ProductDetails, 
 	
 	@Query(nativeQuery = true, value = "SELECT PRODUCT_ID, PRODUCT_CODE, PRODUCT_NAME FROM DIM_PRODUCT")
     List<Object[]> getProductInfoDetails();
-
+    
+    
 
 }
