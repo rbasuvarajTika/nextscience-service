@@ -35,4 +35,6 @@ public class CommonConstants {
 	public static final String MISSINGMAILHEADERS ="Missing mail headers";
 	public static final String ADMINUSERCREATEDSUCCESSFULLY = "Admin user created successfully";
 	public static final String INVALIDEMAILORPASSWORD = "Invalid email or password";
+	public static final String MAILSUBJECTALERTTEMPLATE= "${mail.subject.alertMail.template}";
+	public static final String MAILSUBJECTALERTMAIL= "${mail.subject.email.alertMail}";
 }

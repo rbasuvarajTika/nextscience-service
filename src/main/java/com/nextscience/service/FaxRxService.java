@@ -40,5 +40,7 @@ public interface FaxRxService {
 	
 	public String faxRxValidateProc(FaxRxDupeRequest req);
 	
+	public FaxRx faxRxSendMail(String faxId);
+	
 
 }

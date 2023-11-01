@@ -1,5 +1,9 @@
 package com.nextscience.service;
 
+import java.io.InputStream;
+
+import org.springframework.core.io.UrlResource;
+
 import com.nextscience.dto.request.EmailDto;
 import jakarta.mail.MessagingException;
 
@@ -18,4 +22,5 @@ public interface EmailService {
 	 * @return
 	 */
 	public void sendMail(EmailDto message, boolean isHtml) throws MessagingException;
+	public void sendAlertMail(EmailDto message, boolean isHtml, UrlResource urlResource) throws MessagingException;
 }
