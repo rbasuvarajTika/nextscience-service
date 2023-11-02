@@ -2,6 +2,7 @@ package com.nextscience.repo;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,5 +39,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query(nativeQuery = true, value = "SELECT * from DIM_USER WHERE USER_NAME = :userName ORDER BY USER_ID DESC")
 	List<User> findAllUsersByUserName(@PathVariable(value = "userName") String userName);
-
+	
 }

@@ -12,7 +12,7 @@ import com.nextscience.entity.RxLookup;
 public interface RxLookupRepository extends JpaRepository<RxLookup, Integer> {
 
 	@Query(nativeQuery = true, value = "SELECT * from DIM_RX_LOOKUP")
-	List<RxLookup> getALL();
+	List<Object[]> getALL();
 
 	@Query(nativeQuery = true, value = "SELECT [RX_LOOKUP_ID], [RX_LOOKUP_DISPLAY], [RX_LOOKUP_INPUT]\r\n"
 			+ "FROM DIM_RX_LOOKUP\r\n" + "WHERE [ACTIVE_IND]='Y' AND [RX_LOOKUP_TYPE]='Frequency'")

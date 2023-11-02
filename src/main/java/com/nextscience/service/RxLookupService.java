@@ -2,20 +2,20 @@ package com.nextscience.service;
 
 import java.util.List;
 
-import com.nextscience.entity.RxLookup;
+import com.nextscience.dto.response.RxLookupResponse;
 
 public interface RxLookupService {
 
-	List<RxLookup> getALL();
+	List<RxLookupResponse> getALL();
 
-	List<RxLookup> getRxLookupByFrequency();
+	List<RxLookupResponse> getRxLookupByFrequency();
 
-	List<RxLookup> getRxLookupByThickness();
+	List<RxLookupResponse> getRxLookupByThickness();
 
-	List<RxLookup> getRxLookupByDrainage();
+	List<RxLookupResponse> getRxLookupByDrainage();
 
-	List<RxLookup> getRxLookupByWoundstage();
+	List<RxLookupResponse> getRxLookupByWoundstage();
 
-	List<RxLookup> getRxLookupByDebridementType();
+	List<RxLookupResponse> getRxLookupByDebridementType();
 
 }

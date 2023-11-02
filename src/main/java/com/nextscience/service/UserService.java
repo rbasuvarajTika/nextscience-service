@@ -10,6 +10,7 @@ import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.dto.response.UserDetailsResponse;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
 
@@ -54,15 +55,17 @@ public interface UserService {
 
 	/** Retrieves a List of DeActivateusers in UsersInfo. */
 	List<UserResponse> getDeactivateUsers();
-	
+
 	/** Updates patch a values of UsersInfo. */
-	String updatePatchUser(Map<String,Object> request, int id);
-	
+	String updatePatchUser(Map<String, Object> request, int id);
+
 	/** Fetches a User list by userId of faxRx */
 	public List<User> findAllCustomByUserId(Integer userId);
-	
-	public List<User> findAllUsersByUserName(String userName);
-	
 
+	public List<User> findAllUsersByUserName(String userName);
+
+	public List<UserDetailsResponse> getUserByUserId(Integer userId);
+
+	public List<UserDetailsResponse> getUserByUserName(String userName);
 
 }

@@ -26,6 +26,7 @@ import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.dto.response.UserDetailsResponse;
 import com.nextscience.dto.response.UserResponse;
 import com.nextscience.entity.User;
 import com.nextscience.service.UserService;
@@ -181,6 +182,29 @@ public class UserController {
 	{
 		List<User> usersList = userService.findAllUsersByUserName(userName);
 		return ResponseHelper.createResponse(new NSServiceResponse<User>(), usersList, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
+	/** Retrieves A list Of ActiveUsers In UserDetails List */
+	@SuppressWarnings("unchecked")
+	@GetMapping(UsersConstant.USERSDETAILSBYUSERID)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<UserDetailsResponse>> getUserById(@PathVariable Integer userId)
+
+	{
+		List<UserDetailsResponse> usersList = userService.getUserByUserId(userId);
+		return ResponseHelper.createResponse(new NSServiceResponse<UserDetailsResponse>(), usersList, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
+	/** Retrieves A list Of ActiveUsers In UserDetails List */
+	@SuppressWarnings("unchecked")
+	@GetMapping(UsersConstant.USERSDETAILSBYUSERNAME)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<UserDetailsResponse>> getUserByUserName(@PathVariable String userName)
+	{
+		List<UserDetailsResponse> usersList = userService.getUserByUserName(userName);
+		return ResponseHelper.createResponse(new NSServiceResponse<UserDetailsResponse>(), usersList, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
 	
