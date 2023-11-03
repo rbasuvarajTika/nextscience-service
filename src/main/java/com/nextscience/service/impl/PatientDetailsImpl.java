@@ -95,9 +95,11 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		response.setState((String) row[16]);
 		response.setZip((String) row[17]);
 		String getSsn = (String) row[18];
+		if(getSsn!=null) {
 		String ssn = getSsn.substring(getSsn.length()-4);
 		System.out.println(ssn);
 		response.setSsn(ssn);
+		}
 		response.setWorkPhone((String) row[19]);
 		response.setGender((String) row[20]);
 		response.setZip4((String) row[21]);
