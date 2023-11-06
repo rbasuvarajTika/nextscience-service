@@ -85,5 +85,32 @@ public class RxLookupController {
 		return ResponseHelper.createResponse(new NSServiceResponse<RxLookupResponse>(), resultList,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	
+	/** Retrieves A list of RxLookup By PlaceOfService */
+	@SuppressWarnings("unchecked")
+	@GetMapping(RxLookupConstant.LOOKUPPLACEOFSERVICEINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<RxLookupResponse>> getRxLookupByPlaceOfService() {
+		List<RxLookupResponse> resultList = rxLookupService.getRxLookupByPlaceOfService();
+		return ResponseHelper.createResponse(new NSServiceResponse<RxLookupResponse>(), resultList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
+	
+	
+	/** Retrieves A list of RxLookup By OrderInformation */
+	@SuppressWarnings("unchecked")
+	@GetMapping(RxLookupConstant.LOOKUPORDERINFORMATIONINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<RxLookupResponse>> getRxLookupByOrderInformation() {
+		List<RxLookupResponse> resultList = rxLookupService.getRxLookupByOrderInformation();
+		return ResponseHelper.createResponse(new NSServiceResponse<RxLookupResponse>(), resultList,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
+	
+	
+	
 
 }

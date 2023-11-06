@@ -82,6 +82,29 @@ public class RxLookupServiceImpl implements RxLookupService {
 		return responses;
 	}
 
+	@Override
+	public List<RxLookupResponse> getRxLookupByPlaceOfService() {
+		List<Object[]> resultList = rxLookupRepository.getRxLookupByPlaceOfService();
+		if (resultList == null || resultList.isEmpty()) {
+			throw new NSException(ErrorCodes.OK, "List is Empty");
+		}
+		List<RxLookupResponse> responses = resultList.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+		return responses;
+	}
+
+	@Override
+	public List<RxLookupResponse> getRxLookupByOrderInformation() {
+		List<Object[]> resultList = rxLookupRepository.getRxLookupByOrderInformation();
+		if (resultList == null || resultList.isEmpty()) {
+			throw new NSException(ErrorCodes.OK, "List is Empty");
+		}
+
+		List<RxLookupResponse> responses = resultList.stream().map(this::mapToObjectsArray)
+				.collect(Collectors.toList());
+		return responses;
+	}
+
 	private RxLookupResponse mapToObjectsArray(Object[] row) {
 		RxLookupResponse response = new RxLookupResponse();
 		response.setRxLookupId((Integer) row[0]);

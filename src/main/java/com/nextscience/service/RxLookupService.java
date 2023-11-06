@@ -17,5 +17,8 @@ public interface RxLookupService {
 	List<RxLookupResponse> getRxLookupByWoundstage();
 
 	List<RxLookupResponse> getRxLookupByDebridementType();
+	
+	List<RxLookupResponse> getRxLookupByPlaceOfService();
 
+	List<RxLookupResponse> getRxLookupByOrderInformation();
 }

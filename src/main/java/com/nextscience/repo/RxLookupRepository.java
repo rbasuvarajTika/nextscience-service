@@ -33,5 +33,14 @@ public interface RxLookupRepository extends JpaRepository<RxLookup, Integer> {
 	@Query(nativeQuery = true, value = "SELECT [RX_LOOKUP_ID], [RX_LOOKUP_DISPLAY], [RX_LOOKUP_INPUT]\r\n"
 			+ "FROM DIM_RX_LOOKUP\r\n" + "WHERE [ACTIVE_IND]='Y' AND [RX_LOOKUP_TYPE]='Debridement Type'")
 	List<Object[]> getRxLookupByDebridementType();
+	
+	@Query(nativeQuery = true, value = "SELECT [RX_LOOKUP_ID], [RX_LOOKUP_DISPLAY], [RX_LOOKUP_INPUT]\r\n"
+			+ "FROM DIM_RX_LOOKUP\r\n" + "WHERE [ACTIVE_IND]='Y' AND [RX_LOOKUP_TYPE]='Place Of Service'")
+	List<Object[]> getRxLookupByPlaceOfService();
+	
+	@Query(nativeQuery = true, value = "SELECT [RX_LOOKUP_ID], [RX_LOOKUP_DISPLAY], [RX_LOOKUP_INPUT]\r\n"
+			+ "FROM DIM_RX_LOOKUP\r\n" + "WHERE [ACTIVE_IND]='Y' AND [RX_LOOKUP_TYPE]='Order Information'")
+	List<Object[]> getRxLookupByOrderInformation();
+	
 
 }
