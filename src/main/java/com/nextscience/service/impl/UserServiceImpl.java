@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
 			existingUser.setRole(request.getRole());
 			existingUser.setUserMail(request.getUserMail());
 			existingUser.setPhone(request.getPhone());
-			existingUser.setPhone(request.getUserMobile());
+			existingUser.setUserMobile(request.getUserMobile());
 			existingUser.setUserEmpID(request.getUserEmpID());
 			existingUser.setAddress1(request.getAddress1());
 			existingUser.setAddress2(request.getAddress2());
@@ -413,7 +413,7 @@ public class UserServiceImpl implements UserService {
 					userResponse.setRole(user.getRole());
 					userResponse.setUserMail(user.getUserMail());
 					userResponse.setPhone(user.getPhone());
-					userResponse.setPhone(user.getUserMobile());
+					userResponse.setUserMobile(user.getUserMobile());
 					userResponse.setUserEmpID(user.getUserEmpID());
 					userResponse.setAddress1(user.getAddress1());
 					userResponse.setAddress2(user.getAddress2());
@@ -476,7 +476,7 @@ public class UserServiceImpl implements UserService {
 					userResponse.setRole(user.getRole());
 					userResponse.setUserMail(user.getUserMail());
 					userResponse.setPhone(user.getPhone());
-					userResponse.setPhone(user.getUserMobile());
+					userResponse.setUserMobile(user.getUserMobile());
 					userResponse.setUserEmpID(user.getUserEmpID());
 					userResponse.setAddress1(user.getAddress1());
 					userResponse.setAddress2(user.getAddress2());
