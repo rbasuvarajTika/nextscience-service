@@ -36,6 +36,8 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 	Object[] fetchFaxList(@Param(value = "faxId") int faxId);
 
 	FaxRx findByFaxId(String faxId);
+	
+	
 
 	@Query(nativeQuery = true, value = "SELECT a.[TRN_FAX_ID]\r\n" + ",a.FAX_ID\r\n" + ",b.CASE_ID\r\n"
 			+ ",a.FAX_STATUS\r\n" + ",case when b.DUPE_FAX_ID is null then 'NA' else b.DUPE_FAX_ID end DUPE_FAX_ID\r\n"

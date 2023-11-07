@@ -42,5 +42,6 @@ public interface FaxRxService {
 	
 	public FaxRx faxRxSendMail(String faxId);
 	
+	
 
 }
