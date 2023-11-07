@@ -2,6 +2,8 @@ package com.nextscience.service;
 
 import java.util.List;
 
+import com.nextscience.dto.request.InsertHcpInfoRequest;
+import com.nextscience.dto.request.InsertPatientInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.RxPatientDetailsResponse;
@@ -28,4 +30,11 @@ public interface PatientDetailsService {
 
 	/** Updates values in RxWoundInfo Using Proc */
 	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req);
+	
+	/** Insert values in PatientInfo */
+	public String InsertPatientInfoProc(InsertPatientInfoRequest req);
+	
+	
+	
+	
 }

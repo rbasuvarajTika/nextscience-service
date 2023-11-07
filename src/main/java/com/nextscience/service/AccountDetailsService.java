@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.nextscience.dto.request.DeleteOfficeInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
+import com.nextscience.dto.request.InsertOfficeInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.OfficeAccResponse;
 
@@ -28,5 +30,11 @@ public interface AccountDetailsService {
 	
 	/** Delete office information. */
 	public String DeleteOfficeInfoProc(DeleteOfficeInfoRequest req);
+	
+	/** Insert values in HcpInfo */
+	public String InsertOfficeInfoProc(InsertOfficeInfoRequest req);
+	
+	
+	
 
 }

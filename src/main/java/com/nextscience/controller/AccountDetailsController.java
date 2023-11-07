@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nextscience.Constants.AccountDetailsConstant;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxRxWoundInfoConstant;
+import com.nextscience.Constants.HcpDetailsConstant;
 import com.nextscience.dto.request.DeleteOfficeInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.InsertHcpInfoRequest;
+import com.nextscience.dto.request.InsertOfficeInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -82,6 +86,18 @@ public class AccountDetailsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<DeleteOfficeInfoRequest>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
+	
+	/**Insert Values in OfficeInfo Details*/
+	@SuppressWarnings("unchecked")
+	@PostMapping(AccountDetailsConstant.OFFICEINFO)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<InsertOfficeInfoRequest> InsertOfficeInfoProc(@RequestBody InsertOfficeInfoRequest req) {
+		String response = accountDetailsService.InsertOfficeInfoProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<InsertOfficeInfoRequest>(), response, "Successfully ", "Error");
+	}
+	
+	
+	
 	
 }
 	

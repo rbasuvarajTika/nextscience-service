@@ -9,4 +9,7 @@ package com.nextscience.Constants;
 public class PatientDetailsConstant {
 	public static final String RXPATIENT="/rxpatient";
 	public static final String RXPATIENTTRNRXID="/rxpatient/{trnRxId}";
+	public static final String PATIENTDETAILSINFO="/patientDetailsInfo";
+	
+	
 }
