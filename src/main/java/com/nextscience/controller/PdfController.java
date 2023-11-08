@@ -120,7 +120,7 @@ public class PdfController {
 			
 			List<PDDocument> lst = splitting.split(document);
 			PDDocument pdfDocPartial = lst.get(0);
-			File fRange = new File("C:/PDF-TASK/splitfax"+faxId+".pdf");
+			File fRange = new File("C:/SPLITPDF/splitfax"+faxId+".pdf");
 			pdfDocPartial.save(fRange);
 			/*
 			 * int splitNewPageFrom = toPage + 1; int splitNewPageTo = totalPages;
