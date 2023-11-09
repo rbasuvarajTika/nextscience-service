@@ -47,11 +47,8 @@
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
-		<!-- <dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.7.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springdoc</groupId> <artifactId>springdoc-openapi-ui</artifactId> 
+			<version>1.7.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -121,13 +118,18 @@
 			<version>3.11</version>
 			<!-- $NO-MVN-MAN-VER$ -->
 		</dependency>
-		 <!-- Apache PDFBox -->
-<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+		<!-- Apache PDFBox -->
+		<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
 		<dependency>
-		    <groupId>org.apache.pdfbox</groupId>
-		    <artifactId>pdfbox</artifactId>
-		    <version>3.0.0</version>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+				<groupId>com.github.mwiede</groupId>
+				<artifactId>jsch</artifactId>
+				<version>0.2.0</version>
+			</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

@@ -1,5 +1,7 @@
 package com.nextscience.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 //Splitting a PDF in to many using Java 
 import java.io.IOException;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import com.nextscience.Constants.CommonConstants;
+import com.nextscience.config.SftpClient;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
@@ -35,6 +40,9 @@ public class PdfController {
 	
 	@Autowired
 	private FaxRxService faxRxService;
+	
+	@Autowired
+	private SftpClient sftpClient;
 
 	@GetMapping("/splitPdf")
 	@CrossOrigin(origins = "*")
@@ -92,14 +100,14 @@ public class PdfController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/splitPdfByRange/{faxId}/{fromPage}/{toPage}")
 	public NSServiceResponse<String> splitPdf(@PathVariable String faxId, @PathVariable int fromPage,
-			@PathVariable int toPage) throws MalformedURLException, IOException {
+			@PathVariable int toPage) throws MalformedURLException, IOException, SftpException, JSchException {
 		//File pdffile = new File("C:/PDF-TASK/sample.pdf");
 		FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
 		InputStream is;
 		String ftpUrl = faxRxResponse.getFaxUrl();
 		is = new URL(ftpUrl).openStream();
 		Splitter splitting = new Splitter();
-		//Splitter splittingRemain = new Splitter();
+		Splitter splittingRemain = new Splitter();
 		//List<PDDocument> Page;
 		try {
 			PDDocument document = Loader.loadPDF(is.readAllBytes());
@@ -120,18 +128,28 @@ public class PdfController {
 			
 			List<PDDocument> lst = splitting.split(document);
 			PDDocument pdfDocPartial = lst.get(0);
-			File fRange = new File("C:/SPLITPDF/splitfax"+faxId+".pdf");
+			File fRange = new File("C:/SPLITPDF/"+faxId+"-a.pdf");
 			pdfDocPartial.save(fRange);
-			/*
-			 * int splitNewPageFrom = toPage + 1; int splitNewPageTo = totalPages;
-			 * splittingRemain.setStartPage(splitNewPageFrom);
-			 * splittingRemain.setEndPage(splitNewPageTo);
-			 * splittingRemain.setSplitAtPage(splitNewPageTo - splitNewPageFrom + 1);
-			 * 
-			 * List<PDDocument> lst1 = splittingRemain.split(document); PDDocument
-			 * pdfDocPartial1 = lst1.get(0); File fRange1 = new
-			 * File("C:/PDF-TASK/sample-range-remain.pdf"); pdfDocPartial1.save(fRange1);
-			 */
+			
+			
+			  int splitNewPageFrom = toPage + 1; 
+			  int splitNewPageTo = totalPages;
+			  splittingRemain.setStartPage(splitNewPageFrom);
+			  splittingRemain.setEndPage(splitNewPageTo);
+			  splittingRemain.setSplitAtPage(splitNewPageTo - splitNewPageFrom + 1);
+			  
+			  List<PDDocument> lst1 = splittingRemain.split(document); PDDocument
+			  pdfDocPartial1 = lst1.get(0); 
+			  File fRange1 = new File("C:/SPLITPDF/"+faxId+"-b.pdf"); 
+			  pdfDocPartial1.save(fRange1);
+			 
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			pdfDocPartial.save(baos);
+			sftpClient.authPassword();
+			String remoteFileName = "/tikaftp/SplitPdf/splitfax" + faxId + ".pdf";
+			
+		    sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
 			document.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

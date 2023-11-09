@@ -17,5 +17,10 @@ public class FaxRxConstant {
 	public static final String FAXLIST = "/faxList";
 	public static final String FAXRXDUPE = "/faxRxDupe";
 	public static final String FAXRXAlERTMAIL = "/faxRx/alertMail/{faxId}";
+	public static final String DOWNLOADFAXPDFFAXID="/download-fax-pdf/{faxId}";
+	public static final String PDFSENDMAIL="/faxRx/sendPdfMail/{faxId}";
+
+	
+	
 
 }

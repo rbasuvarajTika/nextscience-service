@@ -6,13 +6,19 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -162,6 +168,40 @@ public class FaxContoller {
 		return null;
 	}
 
+	@GetMapping(value = FaxRxConstant.DOWNLOADFAXPDFFAXID, produces = MediaType.APPLICATION_PDF_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public ResponseEntity<byte[]> downloadFaxPdf(@PathVariable String faxId, HttpServletResponse response) {
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			InputStream is;
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			is = new URL(ftpUrl).openStream();
+
+			// Read PDF content into a byte array
+			byte[] pdfBytes = is.readAllBytes();
+
+			// Set the content type and attachment header
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename=downloaded_file.pdf");
+
+			// Copy the file content to the response
+			ServletOutputStream outputStream = response.getOutputStream();
+			outputStream.write(pdfBytes, 0, pdfBytes.length);
+			outputStream.flush();
+			outputStream.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return null;
+	}
+
 	/** Retrieves A List of FaxDetailsPdfByFaxId in FaxRx Details */
 	@SuppressWarnings("unchecked")
 	@GetMapping(value = FaxRxConstant.GETFAXDETAILSFAXID, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -212,6 +252,33 @@ public class FaxContoller {
 			FaxRx faxRxResponse = faxRxService.faxRxSendMail(faxId);
 			InputStream is;
 			InputStreamSource inputStreamSource = null;
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			URL url = new URL(ftpUrl);
+			UrlResource urlResource = new UrlResource(url);
+			EmailResponseDto response = new EmailResponseDto();
+			EmailDto mail = new EmailBuilder().From(fromEmail).To(fromEmail).Template(alertTemplate)
+					.AddContext(subject, alertMail).Subject("Alert Mail").createMail();
+			emailService.sendAlertMail(mail, true, urlResource);
+			response.setMessage(CommonConstants.EMAILSENTSUCCESSFULLY);
+			return ResponseHelper.createResponse(new NSServiceResponse<String>(), "Success",
+					CommonConstants.EMAILSENTSUCCESSFULLY, CommonConstants.EMAILSENTFAILED);
+		} catch (MessagingException e) {
+			throw new NSException(ErrorCodes.INTERNAL_SERVER_ERROR, CommonConstants.EMAILSENTFAILED);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(value = FaxRxConstant.PDFSENDMAIL, produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<String> sendPdfMail(@PathVariable String faxId) {
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			InputStream is;
 			String ftpUrl = faxRxResponse.getFaxUrl();
 			URL url = new URL(ftpUrl);
 			UrlResource urlResource = new UrlResource(url);
