@@ -10,8 +10,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.multipdf.Splitter;
@@ -175,7 +177,6 @@ public class PdfController {
 			sftpClient.authPassword();
 
 			String remoteFileName = "/tikaftp/NextScience/RxMgmt/Fax_Files/fax" + faxId + ".pdf";
-			
 
 			sftpClient.uploadFile(new ByteArrayInputStream(file.getBytes()), remoteFileName);
 
@@ -189,8 +190,8 @@ public class PdfController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/splitPdfByPages/{faxId}")
-	public NSServiceResponse<String> splitPdfByPages(@PathVariable String faxId, @RequestParam List<Integer> pages)
+	@GetMapping("/splitPdfByPages/{faxId}/{pages}")
+	public NSServiceResponse<String> splitPdfByPages(@PathVariable String faxId, @PathVariable String pages)
 			throws IOException, JSchException, SftpException {
 		PDDocument document = null;
 		PDDocument combinedDocument = null;
@@ -203,7 +204,10 @@ public class PdfController {
 			document = Loader.loadPDF(is.readAllBytes());
 			int totalPages = document.getNumberOfPages();
 
-			for (int page : pages) {
+			List<Integer> pageList = Arrays.stream(pages.split(",")).map(Integer::parseInt)
+					.collect(Collectors.toList());
+
+			for (int page : pageList) {
 				if (page < 1 || page > totalPages) {
 					throw new NSException(ErrorCodes.OK, "Invalid page number: " + page);
 				}
@@ -211,7 +215,7 @@ public class PdfController {
 
 			combinedDocument = new PDDocument();
 
-			for (int page : pages) {
+			for (int page : pageList) {
 				combinedDocument.addPage(document.getPage(page - 1));
 			}
 
@@ -244,15 +248,4 @@ public class PdfController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
-	   
-
-	}
-
-	
-
-	
-
-
-	
-
-
+}
