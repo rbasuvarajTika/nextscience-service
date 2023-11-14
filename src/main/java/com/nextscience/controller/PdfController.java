@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.pdfbox.Loader;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -184,4 +188,71 @@ public class PdfController {
 		}
 	}
 
-}
+	@SuppressWarnings("unchecked")
+	@GetMapping("/splitPdfByPages/{faxId}")
+	public NSServiceResponse<String> splitPdfByPages(@PathVariable String faxId, @RequestParam List<Integer> pages)
+			throws IOException, JSchException, SftpException {
+		PDDocument document = null;
+		PDDocument combinedDocument = null;
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			InputStream is = new URL(ftpUrl).openStream();
+
+			document = Loader.loadPDF(is.readAllBytes());
+			int totalPages = document.getNumberOfPages();
+
+			for (int page : pages) {
+				if (page < 1 || page > totalPages) {
+					throw new NSException(ErrorCodes.OK, "Invalid page number: " + page);
+				}
+			}
+
+			combinedDocument = new PDDocument();
+
+			for (int page : pages) {
+				combinedDocument.addPage(document.getPage(page - 1));
+			}
+
+			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			String localOutputFileName = "C:/SPLITPDF/" + faxId + "-combined-" + timestamp + ".pdf";
+			File localOutputFile = new File(localOutputFileName);
+
+			combinedDocument.save(localOutputFile);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			combinedDocument.save(baos);
+			sftpClient.authPassword();
+			String remoteFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-combined-" + timestamp + ".pdf";
+			sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} finally {
+
+			if (combinedDocument != null) {
+				combinedDocument.close();
+			}
+			if (document != null) {
+				document.close();
+			}
+		}
+
+		return ResponseHelper.createResponse(new NSServiceResponse<String>(), "Pdf Splitted Successfully",
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
+	   
+
+	}
+
+	
+
+	
+
+
+	
+
+
