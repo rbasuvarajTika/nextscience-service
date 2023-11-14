@@ -1,21 +1,23 @@
 package com.nextscience.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletResponse;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxRxConstant;
-import com.nextscience.Constants.HcpDetailsConstant;
 import com.nextscience.component.EmailBuilder;
 import com.nextscience.dto.request.EmailDto;
 import com.nextscience.dto.request.FaxRxDupeRequest;
-import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.response.DupeRxResponse;
 import com.nextscience.dto.response.EmailResponseDto;
 import com.nextscience.dto.response.FaxRxResponse;
@@ -50,6 +50,8 @@ import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Processes an {@link FaxContoller } controller.
@@ -296,6 +298,64 @@ public class FaxContoller {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@PutMapping(value = FaxRxConstant.PDFPAGEROTATION, produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public ResponseEntity<Map<String, Object>> updatePageRotation(@PathVariable String faxId,
+			@RequestBody Map<String, Integer> pageRotations) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			try (InputStream is = new URL(ftpUrl).openStream()) {
+
+				PDDocument document = new PDDocument();
+
+				document.addPage(new PDPage());
+
+				for (Map.Entry<String, Integer> entry : pageRotations.entrySet()) {
+					String pageId = entry.getKey();
+					int rotationAngle = entry.getValue();
+
+					int pageIndex = Integer.parseInt(pageId);
+					if (pageIndex >= 0 && pageIndex < document.getNumberOfPages()) {
+						PDPage pageToRotate = document.getPage(pageIndex);
+						 System.out.println("Before Rotation - Page Rotation: " + pageToRotate.getRotation());
+					        pageToRotate.setRotation(rotationAngle);
+					        System.out.println("After Rotation - Page Rotation: " + pageToRotate.getRotation());
+						
+					} else {
+
+						response.put("success", false);
+						response.put("message", "Invalid page index: " + pageIndex);
+						return ResponseEntity.badRequest().body(response);
+					}
+				}
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				document.save(baos);
+				document.close();
+
+				String rotatedPdfContent = Base64.getEncoder().encodeToString(baos.toByteArray());
+				byte[] rotatedPdfBytes = baos.toByteArray();
+				faxRxService.updatePdfInDatabase(faxRxResponse.getFaxId(), rotatedPdfBytes);
+
+				response.put("success", true);
+				response.put("message", "PDF rotated successfully");
+				response.put("rotatedPdfContent", rotatedPdfContent);
+
+				return ResponseEntity.ok(response);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+
+			response.put("success", false);
+			response.put("message", "Error processing PDF: " + e.getMessage());
+			return ResponseEntity.status(500).body(response);
+		}
 	}
 
 }

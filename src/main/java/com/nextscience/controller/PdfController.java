@@ -18,8 +18,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
@@ -36,11 +39,10 @@ import com.nextscience.utility.ResponseHelper;
 @CrossOrigin(origins = "*")
 @RequestMapping(CommonConstants.APIV1FAX)
 public class PdfController {
-	
-	
+
 	@Autowired
 	private FaxRxService faxRxService;
-	
+
 	@Autowired
 	private SftpClient sftpClient;
 
@@ -94,62 +96,57 @@ public class PdfController {
 
 		return ResponseEntity.ok("Pdf Splitted Sucessfully");
 	}
-	
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@GetMapping("/splitPdfByRange/{faxId}/{fromPage}/{toPage}")
 	public NSServiceResponse<String> splitPdf(@PathVariable String faxId, @PathVariable int fromPage,
 			@PathVariable int toPage) throws MalformedURLException, IOException, SftpException, JSchException {
-		//File pdffile = new File("C:/PDF-TASK/sample.pdf");
+		// File pdffile = new File("C:/PDF-TASK/sample.pdf");
 		FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
 		InputStream is;
 		String ftpUrl = faxRxResponse.getFaxUrl();
 		is = new URL(ftpUrl).openStream();
 		Splitter splitting = new Splitter();
 		Splitter splittingRemain = new Splitter();
-		//List<PDDocument> Page;
+		// List<PDDocument> Page;
 		try {
 			PDDocument document = Loader.loadPDF(is.readAllBytes());
 			int totalPages = document.getNumberOfPages();
-			String errorMessage ="Range is Invalid";
-			if(totalPages < fromPage) {
+			String errorMessage = "Range is Invalid";
+			if (totalPages < fromPage) {
 				throw new NSException(ErrorCodes.OK, errorMessage);
-			}else if (totalPages < toPage) {
+			} else if (totalPages < toPage) {
 				throw new NSException(ErrorCodes.OK, errorMessage);
-			}else if (fromPage > toPage) {
+			} else if (fromPage > toPage) {
 				throw new NSException(ErrorCodes.OK, errorMessage);
 			}
 
 			splitting.setStartPage(fromPage);
 			splitting.setEndPage(toPage);
 			splitting.setSplitAtPage(toPage - fromPage + 1);
-			
-			
+
 			List<PDDocument> lst = splitting.split(document);
 			PDDocument pdfDocPartial = lst.get(0);
-			File fRange = new File("C:/SPLITPDF/"+faxId+"-a.pdf");
+			File fRange = new File("C:/SPLITPDF/" + faxId + "-a.pdf");
 			pdfDocPartial.save(fRange);
-			
-			
-			  int splitNewPageFrom = toPage + 1; 
-			  int splitNewPageTo = totalPages;
-			  splittingRemain.setStartPage(splitNewPageFrom);
-			  splittingRemain.setEndPage(splitNewPageTo);
-			  splittingRemain.setSplitAtPage(splitNewPageTo - splitNewPageFrom + 1);
-			  
-			  List<PDDocument> lst1 = splittingRemain.split(document); PDDocument
-			  pdfDocPartial1 = lst1.get(0); 
-			  File fRange1 = new File("C:/SPLITPDF/"+faxId+"-b.pdf"); 
-			  pdfDocPartial1.save(fRange1);
-			 
-			
+
+			int splitNewPageFrom = toPage + 1;
+			int splitNewPageTo = totalPages;
+			splittingRemain.setStartPage(splitNewPageFrom);
+			splittingRemain.setEndPage(splitNewPageTo);
+			splittingRemain.setSplitAtPage(splitNewPageTo - splitNewPageFrom + 1);
+
+			List<PDDocument> lst1 = splittingRemain.split(document);
+			PDDocument pdfDocPartial1 = lst1.get(0);
+			File fRange1 = new File("C:/SPLITPDF/" + faxId + "-b.pdf");
+			pdfDocPartial1.save(fRange1);
+
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			pdfDocPartial.save(baos);
 			sftpClient.authPassword();
 			String remoteFileName = "/tikaftp/SplitPdf/splitfax" + faxId + ".pdf";
-			
-		    sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
+
+			sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
 			document.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -161,6 +158,30 @@ public class PdfController {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@PostMapping("/uploadPdfToSftp/{faxId}")
+	public ResponseEntity<NSServiceResponse<String>> uploadPdfToSftp(@RequestPart("file") MultipartFile file,
+			@PathVariable String faxId) throws JSchException, SftpException, MalformedURLException, IOException {
+		FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+		InputStream is;
+		String ftpUrl = faxRxResponse.getFaxUrl();
+		is = new URL(ftpUrl).openStream();
+		try {
 
+			sftpClient.authPassword();
+
+			String remoteFileName = "/tikaftp/NextScience/RxMgmt/Fax_Files/fax" + faxId + ".pdf";
+			
+
+			sftpClient.uploadFile(new ByteArrayInputStream(file.getBytes()), remoteFileName);
+
+			return ResponseEntity.ok(ResponseHelper.createResponse(new NSServiceResponse<>(),
+					"PDF Uploaded to SFTP Successfully", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(ResponseHelper.createResponse(new NSServiceResponse<>(),
+					"Error uploading PDF to SFTP", CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR));
+		}
+	}
 
 }

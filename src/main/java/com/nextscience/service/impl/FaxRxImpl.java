@@ -1,5 +1,6 @@
 package com.nextscience.service.impl;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -219,6 +220,27 @@ public class FaxRxImpl implements FaxRxService {
 	public FaxRx faxRxSendMail(String faxId) {
 		FaxRx result = faxRxRepository.findByFaxId(faxId);
 		return result;
+	}
+
+	@Override
+	public void updatePdfInDatabase(String faxId, byte[] rotatedPdfBytes) {
+		FaxRx faxRx = faxRxRepository.findByFaxId(faxId);
+
+        if (faxRx != null) {
+            try {
+                // Convert rotated PDF content to Base64 for storing in the URL column
+                String base64RotatedPdf = Base64.getEncoder().encodeToString(rotatedPdfBytes);
+                faxRx.setFaxUrl("data:application/pdf;base64," + base64RotatedPdf);
+                faxRxRepository.save(faxRx);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Handle the exception appropriately (e.g., return an error response)
+            }
+        } else {
+            // Handle the case where the FaxRx entity with the given ID is not found
+            // You might want to throw an exception or log an error message
+        }
+		
 	}
 
 }

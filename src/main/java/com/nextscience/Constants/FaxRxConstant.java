@@ -19,6 +19,7 @@ public class FaxRxConstant {
 	public static final String FAXRXAlERTMAIL = "/faxRx/alertMail/{faxId}";
 	public static final String DOWNLOADFAXPDFFAXID="/download-fax-pdf/{faxId}";
 	public static final String PDFSENDMAIL="/faxRx/sendPdfMail/{faxId}";
+	public static final String PDFPAGEROTATION="PageRotation/{faxId}";
 
 	
 	
