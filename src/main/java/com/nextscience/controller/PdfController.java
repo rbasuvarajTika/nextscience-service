@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -34,6 +35,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.SftpClient;
+import com.nextscience.dto.request.PageRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
@@ -248,4 +250,72 @@ public class PdfController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
-}
+	
+
+	    // Existing code...
+
+	    @SuppressWarnings("unchecked")
+	    @PostMapping("/splitByPdfPages/{faxId}")
+	    public NSServiceResponse<String> splitByPdfPages(
+	            @PathVariable String faxId,
+	            @RequestBody PageRequest request) throws JSchException, SftpException, IOException {
+	        PDDocument document = null;
+	        PDDocument combinedDocument = null;
+
+	        try {
+	            FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+	            String ftpUrl = faxRxResponse.getFaxUrl();
+	            InputStream is = new URL(ftpUrl).openStream();
+
+	            document = Loader.loadPDF(is.readAllBytes());
+	            int totalPages = document.getNumberOfPages();
+
+	            List<String> pageList = Arrays.asList(request.getPages().split(","));
+
+	            for (String page : pageList) {
+	                int pageNumber = Integer.parseInt(page);
+	                if (pageNumber < 1 || pageNumber > totalPages) {
+	                    throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumber);
+	                }
+	            }
+
+	            combinedDocument = new PDDocument();
+
+	            for (String page : pageList) {
+	                int pageNumber = Integer.parseInt(page);
+	                combinedDocument.addPage(document.getPage(pageNumber - 1));
+	            }
+
+	            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	            String localOutputFileName = "C:/SPLITPDF/" + faxId + "-split-" + timestamp + ".pdf";
+	            File localOutputFile = new File(localOutputFileName);
+
+	            combinedDocument.save(localOutputFile);
+
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	            combinedDocument.save(baos);
+	            sftpClient.authPassword();
+	            String remoteFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-split-" + timestamp + ".pdf";
+	            sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+
+	        } finally {
+	            if (combinedDocument != null) {
+	                combinedDocument.close();
+	            }
+	            if (document != null) {
+	                document.close();
+	            }
+	        }
+
+	        return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
+	                CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	    }
+
+	   
+
+	}
+
+
