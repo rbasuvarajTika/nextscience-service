@@ -3,6 +3,7 @@ package com.nextscience.controller;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 //Splitting a PDF in to many using Java 
 import java.io.IOException;
 import java.io.InputStream;
@@ -252,70 +253,81 @@ public class PdfController {
 
 	
 
-	    // Existing code...
+	@SuppressWarnings("unchecked")
+	@PostMapping("/splitByPdfPages/{faxId}")
+	public NSServiceResponse<String> splitByPdfPages(@PathVariable String faxId, @RequestBody PageRequest request)
+			throws IOException, JSchException, SftpException {
+		PDDocument document = null;
+		PDDocument combinedDocument = null;
+		PDDocument remainingPagesDocument = null;
 
-	    @SuppressWarnings("unchecked")
-	    @PostMapping("/splitByPdfPages/{faxId}")
-	    public NSServiceResponse<String> splitByPdfPages(
-	            @PathVariable String faxId,
-	            @RequestBody PageRequest request) throws JSchException, SftpException, IOException {
-	        PDDocument document = null;
-	        PDDocument combinedDocument = null;
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			InputStream is = new URL(ftpUrl).openStream();
 
-	        try {
-	            FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
-	            String ftpUrl = faxRxResponse.getFaxUrl();
-	            InputStream is = new URL(ftpUrl).openStream();
+			document = Loader.loadPDF(is.readAllBytes());
+			int totalPages = document.getNumberOfPages();
 
-	            document = Loader.loadPDF(is.readAllBytes());
-	            int totalPages = document.getNumberOfPages();
+			List<String> pageList = Arrays.asList(request.getPages().split(","));
 
-	            List<String> pageList = Arrays.asList(request.getPages().split(","));
+			combinedDocument = new PDDocument();
+			remainingPagesDocument = new PDDocument();
 
-	            for (String page : pageList) {
-	                int pageNumber = Integer.parseInt(page);
-	                if (pageNumber < 1 || pageNumber > totalPages) {
-	                    throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumber);
-	                }
-	            }
+			for (String page : pageList) {
+				int pageNumber = Integer.parseInt(page);
+				if (pageNumber < 1 || pageNumber > totalPages) {
+					throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumber);
+				}
+				combinedDocument.addPage(document.getPage(pageNumber - 1));
+			}
 
-	            combinedDocument = new PDDocument();
+			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			String combinedOutputFileName = "C:/SPLITPDF/" + faxId + "-splited-" + timestamp + ".pdf";
+			File combinedOutputFile = new File(combinedOutputFileName);
+			combinedDocument.save(combinedOutputFile);
 
-	            for (String page : pageList) {
-	                int pageNumber = Integer.parseInt(page);
-	                combinedDocument.addPage(document.getPage(pageNumber - 1));
-	            }
+			for (int page = 1; page <= totalPages; page++) {
+				if (!pageList.contains(String.valueOf(page))) {
+					remainingPagesDocument.addPage(document.getPage(page - 1));
+				}
+			}
 
-	            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-	            String localOutputFileName = "C:/SPLITPDF/" + faxId + "-split-" + timestamp + ".pdf";
-	            File localOutputFile = new File(localOutputFileName);
+			String remainingOutputFileName = "C:/SPLITPDF/" + faxId + "-remaining-" + timestamp + ".pdf";
+			File remainingOutputFile = new File(remainingOutputFileName);
+			remainingPagesDocument.save(remainingOutputFile);
 
-	            combinedDocument.save(localOutputFile);
+			sftpClient.authPassword();
+			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-splited-" + timestamp + ".pdf";
+			sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
 
-	            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	            combinedDocument.save(baos);
-	            sftpClient.authPassword();
-	            String remoteFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-split-" + timestamp + ".pdf";
-	            sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
+			sftpClient.authPassword();
+			String remoteRemainingFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-remaining-" + timestamp + ".pdf";
+			sftpClient.uploadFile(new FileInputStream(remainingOutputFile), remoteRemainingFileName);
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 
-	        } finally {
-	            if (combinedDocument != null) {
-	                combinedDocument.close();
-	            }
-	            if (document != null) {
-	                document.close();
-	            }
-	        }
+		} finally {
+			if (combinedDocument != null) {
+				combinedDocument.close();
+			}
+			if (remainingPagesDocument != null) {
+				remainingPagesDocument.close();
+			}
+			if (document != null) {
+				document.close();
+			}
+		}
 
-	        return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
-	                CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
-	    }
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
 
 	   
-
 	}
+
+
+	
 
 
