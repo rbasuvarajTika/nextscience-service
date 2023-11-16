@@ -283,7 +283,7 @@ public class PdfController {
 			}
 
 			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String combinedOutputFileName = "C:/SPLITPDF/" + faxId + "-splited-" + timestamp + ".pdf";
+			String combinedOutputFileName = "C:/SPLITPDF/" + faxId + "-a-" + timestamp + ".pdf";
 			File combinedOutputFile = new File(combinedOutputFileName);
 			combinedDocument.save(combinedOutputFile);
 
@@ -293,16 +293,16 @@ public class PdfController {
 				}
 			}
 
-			String remainingOutputFileName = "C:/SPLITPDF/" + faxId + "-remaining-" + timestamp + ".pdf";
+			String remainingOutputFileName = "C:/SPLITPDF/" + faxId + "-b-" + timestamp + ".pdf";
 			File remainingOutputFile = new File(remainingOutputFileName);
 			remainingPagesDocument.save(remainingOutputFile);
 
 			sftpClient.authPassword();
-			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-splited-" + timestamp + ".pdf";
+			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-a-" + timestamp + ".pdf";
 			sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
 
 			sftpClient.authPassword();
-			String remoteRemainingFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-remaining-" + timestamp + ".pdf";
+			String remoteRemainingFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-b-" + timestamp + ".pdf";
 			sftpClient.uploadFile(new FileInputStream(remainingOutputFile), remoteRemainingFileName);
 
 		} catch (IOException e) {
