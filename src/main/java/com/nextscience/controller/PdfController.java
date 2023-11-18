@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,12 +39,15 @@ import com.jcraft.jsch.SftpException;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.SftpClient;
 import com.nextscience.dto.request.PageRequest;
+import com.nextscience.dto.request.RotatePageRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
+
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -54,6 +59,7 @@ public class PdfController {
 
 	@Autowired
 	private SftpClient sftpClient;
+
 
 	@GetMapping("/splitPdf")
 	@CrossOrigin(origins = "*")
@@ -251,8 +257,6 @@ public class PdfController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
-	
-
 	@SuppressWarnings("unchecked")
 	@PostMapping("/splitByPdfPages/{faxId}")
 	public NSServiceResponse<String> splitByPdfPages(@PathVariable String faxId, @RequestBody PageRequest request)
@@ -324,10 +328,56 @@ public class PdfController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
-	   
+	@SuppressWarnings("unchecked")
+	@PostMapping("/rotateAndSavePdf/{faxId}")
+	public NSServiceResponse<String> rotateAndSavePdf(@PathVariable String faxId,
+			@RequestBody Map<String, String> pageAndRotation) throws IOException, JSchException, SftpException {
+		PDDocument document = null;
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			InputStream is = new URL(ftpUrl).openStream();
+
+			document = Loader.loadPDF(is.readAllBytes());
+			int totalPages = document.getNumberOfPages();
+
+			for (Map.Entry<String, String> entry : pageAndRotation.entrySet()) {
+				int pageNumberToRotate = Integer.parseInt(entry.getKey());
+				int rotationDegree = Integer.parseInt(entry.getValue());
+
+				if (pageNumberToRotate < 1 || pageNumberToRotate > totalPages) {
+					throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumberToRotate);
+				}
+
+				PDPage rotatedPage = document.getPage(pageNumberToRotate - 1);
+				rotatedPage.setRotation(rotationDegree);
+			}
+
+			String outputFileName = "C:/SPLITPDF/fax" + faxId + ".pdf";
+			File outputFile = new File(outputFileName);
+
+			document.save(outputFile);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			document.save(baos);
+			sftpClient.authPassword();
+			String remoteFileName = "/tikaftp/NextScience/RxMgmt/Fax_Files/fax" + faxId + ".pdf";
+			sftpClient.uploadFile(new ByteArrayInputStream(baos.toByteArray()), remoteFileName);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (document != null) {
+				document.close();
+			}
+		}
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), "PDF Rotated and Saved Locally Successfully",
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-
-
 	
-
-
+	
+	
+	
+}

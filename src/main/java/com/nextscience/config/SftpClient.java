@@ -1,5 +1,6 @@
 package com.nextscience.config;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -75,12 +76,13 @@ public final class SftpClient {
 
 	}
 
-	public void uploadFile(InputStream inputStream, String remoteFileName) throws JSchException, SftpException, IOException {
-	    try {
-	        channel.put(inputStream, remoteFileName);
-	    } finally {
-	        inputStream.close();  
-	    }
+	public void uploadFile(InputStream inputStream, String remoteFileName)
+			throws JSchException, SftpException, IOException {
+		try {
+			channel.put(inputStream, remoteFileName);
+		} finally {
+			inputStream.close();
+		}
 	}
 
 }
