@@ -21,10 +21,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class PageRequest {
 
+	private String faxId;
 	private String pages;
 
-	
-	}
-	
-	
-
+}

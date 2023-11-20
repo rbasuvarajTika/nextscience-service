@@ -388,14 +388,14 @@ public class PdfController {
 
 	@SuppressWarnings("unchecked")
 	@PostMapping("/sendPdfByPages/{faxId}")
-	public NSServiceResponse<String> sendPdfbyPages(@PathVariable String faxId, @RequestBody PageRequest request)
+	public NSServiceResponse<String> sendPdfbyPages(@RequestBody PageRequest request)
 			throws IOException, JSchException, SftpException {
 		PDDocument document = null;
 		PDDocument combinedDocument = null;
 		PDDocument remainingPagesDocument = null;
 
 		try {
-			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			FaxRx faxRxResponse = faxRxService.fetchListById(request.getFaxId());
 			String ftpUrl = faxRxResponse.getFaxUrl();
 			InputStream is = new URL(ftpUrl).openStream();
 
@@ -416,7 +416,7 @@ public class PdfController {
 			}
 
 			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String combinedOutputFileName = "C:/SPLITPDF/" + faxId + "-a-" + timestamp + ".pdf";
+			String combinedOutputFileName = "C:/SPLITPDF/" + request.getFaxId() + "_1"+".pdf";
 			File combinedOutputFile = new File(combinedOutputFileName);
 			combinedDocument.save(combinedOutputFile);
 
@@ -426,7 +426,7 @@ public class PdfController {
 				}
 			}
 			sftpClient.authPassword();
-			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-a-" + timestamp + ".pdf";
+			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + request.getFaxId() + "_1"+".pdf";
 			sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
 
 			byte[] fileContent = sftpClient.retrieveFileContent(remoteCombinedFileName);
@@ -434,13 +434,21 @@ public class PdfController {
 			String faxIdNew = faxRxResponse.getFaxId() + "_1";
 			OkHttpClient client = new OkHttpClient().newBuilder().build();
 			// MediaType mediaType = MediaType.parse("text/plain");
+			
+			Date date=faxRxResponse.getFaxReceivedDate();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");  
+			String strDate = dateFormat.format(date);  
+			String count =String.valueOf(pageList.size());
+			
 			@SuppressWarnings("deprecation")
 			okhttp3.RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					.addFormDataPart("recvid", faxIdNew).addFormDataPart("faxReceivedDate", "12-12-23")
-					.addFormDataPart("CID", "123123").addFormDataPart("pagecount", "2")
+					.addFormDataPart("recvid", faxIdNew).addFormDataPart("faxReceivedDate",strDate)
+					.addFormDataPart("CID", "123123").addFormDataPart("pagecount", count)
 					.addFormDataPart("file", remoteCombinedFileName, okhttp3.RequestBody
 							.create(okhttp3.MediaType.parse("application/octet-stream"), fileContent))
 					.build();
+			String username = "springboot";
+	        String password = "f@x@p!@2";
 			Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
 					.addHeader("Authorization", "Basic c3ByaW5nYm9vdDpmQHhAcCE=").build();
 			Response response = client.newCall(request1).execute();
