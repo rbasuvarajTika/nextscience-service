@@ -76,13 +76,34 @@ public final class SftpClient {
 
 	}
 
-	public void uploadFile(InputStream inputStream, String remoteFileName)
-			throws JSchException, SftpException, IOException {
-		try {
-			channel.put(inputStream, remoteFileName);
-		} finally {
-			inputStream.close();
-		}
+	public void uploadFile(InputStream inputStream, String remoteFileName) throws JSchException, SftpException, IOException {
+	    try {
+	        channel.put(inputStream, remoteFileName);
+	    } finally {
+	        inputStream.close();  
+	    }
 	}
+	
+	public byte[] retrieveFileContent(String fileName) {
+        try {
+            String remoteFilePath = fileName;
+            InputStream inputStream = channel.get(remoteFilePath);
+            return readInputStream(inputStream);
+        } catch (SftpException | IOException e) {
+            e.printStackTrace();
+            // Handle exceptions as needed
+            return null;
+        }
+    }
+
+    private byte[] readInputStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        return outputStream.toByteArray();
+    }
 
 }

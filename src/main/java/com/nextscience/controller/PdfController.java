@@ -47,6 +47,13 @@ import com.nextscience.exceptions.NSException;
 import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+
+import okhttp3.Response;
+import okhttp3.MultipartBody;
+
 
 
 @RestController
@@ -59,6 +66,8 @@ public class PdfController {
 
 	@Autowired
 	private SftpClient sftpClient;
+	
+	
 
 
 	@GetMapping("/splitPdf")
@@ -376,8 +385,83 @@ public class PdfController {
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), "PDF Rotated and Saved Locally Successfully",
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	
-	
-	
+
+	@SuppressWarnings("unchecked")
+	@PostMapping("/sendPdfByPages/{faxId}")
+	public NSServiceResponse<String> sendPdfbyPages(@PathVariable String faxId, @RequestBody PageRequest request)
+			throws IOException, JSchException, SftpException {
+		PDDocument document = null;
+		PDDocument combinedDocument = null;
+		PDDocument remainingPagesDocument = null;
+
+		try {
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			InputStream is = new URL(ftpUrl).openStream();
+
+			document = Loader.loadPDF(is.readAllBytes());
+			int totalPages = document.getNumberOfPages();
+
+			List<String> pageList = Arrays.asList(request.getPages().split(","));
+
+			combinedDocument = new PDDocument();
+			remainingPagesDocument = new PDDocument();
+
+			for (String page : pageList) {
+				int pageNumber = Integer.parseInt(page);
+				if (pageNumber < 1 || pageNumber > totalPages) {
+					throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumber);
+				}
+				combinedDocument.addPage(document.getPage(pageNumber - 1));
+			}
+
+			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			String combinedOutputFileName = "C:/SPLITPDF/" + faxId + "-a-" + timestamp + ".pdf";
+			File combinedOutputFile = new File(combinedOutputFileName);
+			combinedDocument.save(combinedOutputFile);
+
+			for (int page = 1; page <= totalPages; page++) {
+				if (!pageList.contains(String.valueOf(page))) {
+					remainingPagesDocument.addPage(document.getPage(page - 1));
+				}
+			}
+			sftpClient.authPassword();
+			String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + "-a-" + timestamp + ".pdf";
+			sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
+
+			byte[] fileContent = sftpClient.retrieveFileContent(remoteCombinedFileName);
+
+			String faxIdNew = faxRxResponse.getFaxId() + "_1";
+			OkHttpClient client = new OkHttpClient().newBuilder().build();
+			// MediaType mediaType = MediaType.parse("text/plain");
+			@SuppressWarnings("deprecation")
+			okhttp3.RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					.addFormDataPart("recvid", faxIdNew).addFormDataPart("faxReceivedDate", "12-12-23")
+					.addFormDataPart("CID", "123123").addFormDataPart("pagecount", "2")
+					.addFormDataPart("file", remoteCombinedFileName, okhttp3.RequestBody
+							.create(okhttp3.MediaType.parse("application/octet-stream"), fileContent))
+					.build();
+			Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
+					.addHeader("Authorization", "Basic c3ByaW5nYm9vdDpmQHhAcCE=").build();
+			Response response = client.newCall(request1).execute();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} finally {
+			if (combinedDocument != null) {
+				combinedDocument.close();
+			}
+			if (remainingPagesDocument != null) {
+				remainingPagesDocument.close();
+			}
+			if (document != null) {
+				document.close();
+			}
+		}
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+
 }
