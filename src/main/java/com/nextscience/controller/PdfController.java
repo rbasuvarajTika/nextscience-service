@@ -468,17 +468,7 @@ public class PdfController {
 			Response response = client.newCall(request1).execute();
             System.out.println("Response header --->"+response);
             
-            InsertFaxRxSplitHistRequest  histRequest  = new InsertFaxRxSplitHistRequest();
-            histRequest.setTrnFaxId(faxRxResponse.getTrnFaxId());
-            histRequest.setFaxId(faxRxResponse.getFaxId());           
-            histRequest.setMainFileName(faxRxResponse.getFaxFilename());
-            histRequest.setSplitFaxId(faxIdNew);
-            histRequest.setSplitFileName(request.getFaxId() + "_1"+".pdf");
-            histRequest.setFaxUrl("https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + request.getFaxId() + "_1"+".pdf");
-            histRequest.setSplitPages((String.join(",", pageList)));
-            histRequest.setPageCount(pageList.size());       
-            histRequest.setCreatedUser(faxRxResponse.getCreatedUser());
-            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
+           
             
             
 		} catch (IOException e) {
