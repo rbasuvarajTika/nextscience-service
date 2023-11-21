@@ -42,6 +42,9 @@ public class FaxRxSplitHist {
 
 	@Column(name = "FAX_URL")
 	private String faxUrl;
+	
+	@Column(name = "PAGE_COUNT")
+	private Integer pageCount;
 
 
 	@Column(name = "CREATED_USER", length = 255)

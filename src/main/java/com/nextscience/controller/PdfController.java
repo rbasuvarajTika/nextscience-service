@@ -39,6 +39,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.SftpClient;
+import com.nextscience.dto.request.InsertFaxRxSplitHistRequest;
 import com.nextscience.dto.request.PageRequest;
 import com.nextscience.dto.request.RotatePageRequest;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -74,7 +75,7 @@ public class PdfController {
 	
 	@Autowired
 	private FaxRxSplitHistService faxRxSplitHistService;
-	
+
 	
 
 
@@ -457,9 +458,10 @@ public class PdfController {
 					.build();
 			 System.out.println("Request Body --->"+body);
 			String username = "springboot";
-	        String password = "f@x@p!@2";
-	        String valueToEncode = username + ":" + password;
+			String  password = "f@x@p!@2";
+			String valueToEncode = username + ":" + password;
 	        String token ="Basic " + Base64.getEncoder().encodeToString(valueToEncode.getBytes());
+			
 	        
 			Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
 					.addHeader("Authorization", token).build();
@@ -467,9 +469,7 @@ public class PdfController {
 			Response response = client.newCall(request1).execute();
             System.out.println("Response header --->"+response);
             
-            
-            
-            
+
             
 		} catch (IOException e) {
 			e.printStackTrace();
