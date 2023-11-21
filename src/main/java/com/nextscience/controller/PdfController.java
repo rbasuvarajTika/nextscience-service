@@ -75,6 +75,7 @@ public class PdfController {
 	
 	@Autowired
 	private FaxRxSplitHistService faxRxSplitHistService;
+
 	
 
 
@@ -467,9 +468,7 @@ public class PdfController {
 			 System.out.println("Request header --->"+request1);
 			Response response = client.newCall(request1).execute();
             System.out.println("Response header --->"+response);
-            
-           
-            
+
             
 		} catch (IOException e) {
 			e.printStackTrace();

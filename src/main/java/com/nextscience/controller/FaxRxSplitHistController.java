@@ -22,7 +22,7 @@ public class FaxRxSplitHistController {
 	private FaxRxSplitHistService faxRxSplitHistService;
 	
 	@SuppressWarnings("unchecked")
-	@PostMapping("/insertFaxRxSplitHist")
+	@PostMapping("/FaxRxSplitHist")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<InsertFaxRxSplitHistRequest> InsertFaxRxSplitHistDet(@RequestBody InsertFaxRxSplitHistRequest req) {
 		String response = faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(req);
