@@ -46,6 +46,7 @@ import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 import com.nextscience.service.FaxRxService;
+import com.nextscience.service.FaxRxSplitHistService;
 import com.nextscience.utility.ResponseHelper;
 
 import ch.qos.logback.classic.Logger;
@@ -70,6 +71,9 @@ public class PdfController {
 
 	@Autowired
 	private SftpClient sftpClient;
+	
+	@Autowired
+	private FaxRxSplitHistService faxRxSplitHistService;
 	
 	
 
@@ -462,6 +466,11 @@ public class PdfController {
 			 System.out.println("Request header --->"+request1);
 			Response response = client.newCall(request1).execute();
             System.out.println("Response header --->"+response);
+            
+            
+            
+            
+            
 		} catch (IOException e) {
 			e.printStackTrace();
 
