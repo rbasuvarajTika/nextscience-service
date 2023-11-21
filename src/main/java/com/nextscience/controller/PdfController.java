@@ -12,6 +12,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,8 @@ import com.nextscience.exceptions.NSException;
 import com.nextscience.service.FaxRxService;
 import com.nextscience.utility.ResponseHelper;
 
+import ch.qos.logback.classic.Logger;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -59,6 +62,7 @@ import okhttp3.MultipartBody;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(CommonConstants.APIV1FAX)
+@Slf4j
 public class PdfController {
 
 	@Autowired
@@ -436,23 +440,28 @@ public class PdfController {
 			// MediaType mediaType = MediaType.parse("text/plain");
 			
 			Date date=faxRxResponse.getFaxReceivedDate();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");  
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
 			String strDate = dateFormat.format(date);  
 			String count =String.valueOf(pageList.size());
 			
 			@SuppressWarnings("deprecation")
 			okhttp3.RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					.addFormDataPart("recvid", faxIdNew).addFormDataPart("faxReceivedDate",strDate)
+					.addFormDataPart("recvid", faxIdNew).addFormDataPart("recvdate",strDate)
 					.addFormDataPart("CID", "123123").addFormDataPart("pagecount", count)
 					.addFormDataPart("file", remoteCombinedFileName, okhttp3.RequestBody
 							.create(okhttp3.MediaType.parse("application/octet-stream"), fileContent))
 					.build();
+			 System.out.println("Request Body --->"+body);
 			String username = "springboot";
 	        String password = "f@x@p!@2";
+	        String valueToEncode = username + ":" + password;
+	        String token ="Basic " + Base64.getEncoder().encodeToString(valueToEncode.getBytes());
+	        
 			Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
-					.addHeader("Authorization", "Basic c3ByaW5nYm9vdDpmQHhAcCE=").build();
+					.addHeader("Authorization", token).build();
+			 System.out.println("Request header --->"+request1);
 			Response response = client.newCall(request1).execute();
-
+            System.out.println("Response header --->"+response);
 		} catch (IOException e) {
 			e.printStackTrace();
 
