@@ -1,6 +1,7 @@
 package com.nextscience.dto.request;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,6 +22,8 @@ public class InsertFaxRxSplitHistRequest {
 	private String splitFaxId;
 	private String splitFileName;
 	private String faxUrl;
+	private String splitPages;
+	private Integer pageCount;
 	private String createdUser;
 
 }

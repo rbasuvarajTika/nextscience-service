@@ -39,6 +39,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.SftpClient;
+import com.nextscience.dto.request.InsertFaxRxSplitHistRequest;
 import com.nextscience.dto.request.PageRequest;
 import com.nextscience.dto.request.RotatePageRequest;
 import com.nextscience.dto.response.NSServiceResponse;
@@ -46,6 +47,7 @@ import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
 import com.nextscience.service.FaxRxService;
+import com.nextscience.service.FaxRxSplitHistService;
 import com.nextscience.utility.ResponseHelper;
 
 import ch.qos.logback.classic.Logger;
@@ -71,6 +73,8 @@ public class PdfController {
 	@Autowired
 	private SftpClient sftpClient;
 	
+	@Autowired
+	private FaxRxSplitHistService faxRxSplitHistService;
 	
 
 
@@ -453,15 +457,29 @@ public class PdfController {
 					.build();
 			 System.out.println("Request Body --->"+body);
 			String username = "springboot";
-	        String password = "f@x@p!@2";
-	        String valueToEncode = username + ":" + password;
+			String  password = "f@x@p!@2";
+			String valueToEncode = username + ":" + password;
 	        String token ="Basic " + Base64.getEncoder().encodeToString(valueToEncode.getBytes());
+			
 	        
 			Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
 					.addHeader("Authorization", token).build();
 			 System.out.println("Request header --->"+request1);
 			Response response = client.newCall(request1).execute();
             System.out.println("Response header --->"+response);
+            
+            InsertFaxRxSplitHistRequest  histRequest  = new InsertFaxRxSplitHistRequest();
+            histRequest.setTrnFaxId(faxRxResponse.getTrnFaxId());
+            histRequest.setFaxId(faxRxResponse.getFaxId());           
+            histRequest.setMainFileName(faxRxResponse.getFaxFilename());
+            histRequest.setSplitFaxId(faxIdNew);
+            histRequest.setSplitFileName(request.getFaxId() + "_1"+".pdf");
+            histRequest.setFaxUrl("https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + request.getFaxId() + "_1"+".pdf");
+            histRequest.setSplitPages((String.join(",", pageList)));
+            histRequest.setPageCount(pageList.size());       
+            histRequest.setCreatedUser(faxRxResponse.getCreatedUser());
+            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
+            
 		} catch (IOException e) {
 			e.printStackTrace();
 

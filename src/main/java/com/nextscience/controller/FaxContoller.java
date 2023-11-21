@@ -89,7 +89,7 @@ public class FaxContoller {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxResponse>> executeCustomQuery(
 			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") int pageNo,
-			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "1000") int pageSize,
+			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "1000000") int pageSize,
 			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,
 			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType) {
 		PageRequest page = null;
