@@ -480,6 +480,7 @@ public class PdfController {
             histRequest.setCreatedUser(faxRxResponse.getCreatedUser());
             faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
             
+            
 		} catch (IOException e) {
 			e.printStackTrace();
 
