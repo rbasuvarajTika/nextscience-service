@@ -42,6 +42,8 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 		query.registerStoredProcedureParameter("SPLIT_FAX_ID", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("SPLIT_FILE_NAME", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("FAX_URL", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("SPLIT_PAGES", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("PAGE_COUNT", Integer.class, ParameterMode.IN);
 		
 		query.setParameter("USER", req.getCreatedUser());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
@@ -51,6 +53,11 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 		query.setParameter("SPLIT_FAX_ID", req.getSplitFaxId());
 		query.setParameter("SPLIT_FILE_NAME", req.getSplitFileName());
 		query.setParameter("FAX_URL", req.getFaxUrl());
+		query.setParameter("SPLIT_PAGES", req.getSplitPages());		
+		query.setParameter("PAGE_COUNT", req.getPageCount());
+		
+		
+		
 		query.execute();
 		
 		return "created successfully";
