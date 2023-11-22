@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "TRN_FAX_RX_HIST", schema = "dbo")
+@Table(name = "TRN_FAX_RX_SPLIT_HIST", schema = "dbo")
 public class FaxRxSplitHist {
 
 	@Id
@@ -42,6 +42,9 @@ public class FaxRxSplitHist {
 
 	@Column(name = "FAX_URL")
 	private String faxUrl;
+	
+	@Column(name = "SPLIT_PAGES")
+	private String splitPages;
 	
 	@Column(name = "PAGE_COUNT")
 	private Integer pageCount;
