@@ -27,7 +27,7 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
 			+ "FROM TRN_FAX_RX a JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) ORDER BY b.CASE_ID ASC")
 	Page<Object[]> fetchFaxList(PageRequest page);
-
+		
 	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, "
 			+ "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, "
 			+ "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, "

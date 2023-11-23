@@ -26,7 +26,7 @@ public class FaxPrescriptionsResponse {
 	    private String territoryId;
 	    private Integer payerId;
 	    private String payerType;
-	    private Integer netsuiteRxId;
+	    private String netsuiteRxId;
 	    private String createdUser;
 	    private Date createdDate;
 	    private String updatedUser;
@@ -34,7 +34,7 @@ public class FaxPrescriptionsResponse {
 
 		public FaxPrescriptionsResponse(Integer trnRxId, Integer trnFaxId, String processStatus, String rxStatus,
 				Integer patientId, Integer accountId, Integer profId, String email, String repName, String territoryId,
-				Integer payerId, String payerType, Integer netsuiteRxId, String createdUser, Date createdDate,
+				Integer payerId, String payerType, String netsuiteRxId, String createdUser, Date createdDate,
 				String updatedUser, Date updatedDate) {
 			super();
 			this.trnRxId = trnRxId;

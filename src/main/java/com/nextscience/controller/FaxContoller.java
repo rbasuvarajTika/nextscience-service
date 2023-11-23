@@ -52,6 +52,8 @@ import com.nextscience.utility.ResponseHelper;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 /**
  * Processes an {@link FaxContoller } controller.
@@ -103,6 +105,8 @@ public class FaxContoller {
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	
 
 	/** Retrieves a Pdf From FaxPdf */
 	@GetMapping(value = FaxRxConstant.FAXPDF, produces = MediaType.APPLICATION_PDF_VALUE)

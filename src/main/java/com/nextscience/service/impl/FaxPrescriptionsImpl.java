@@ -121,7 +121,7 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	  response.setEmergencyContactPhone((String) row[34]);
 	  response.setProcessStatus((String) row[35]);
 	  response.setRxFulfilmentStatus((String) row[36]);
-	  response.setNetsuiteRxId((Integer) row[37]);
+	  response.setNetsuiteRxId((String) row[37]);
 	  response.setPrimaryPayerName((String) row[38]);
 	  response.setPrimaryPayerId((Integer) row[39]);
 	  response.setPatientId((Integer)row[40]);	

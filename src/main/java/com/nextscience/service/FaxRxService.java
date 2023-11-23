@@ -21,7 +21,7 @@ public interface FaxRxService {
 
 	/** Fetches a paginated list of faxRx */
 	public PageResponseDTO fetchList(PageRequest page);
-
+	
 	/** Retrieves faxRx by ID. */
 	public FaxRx fetchListById(String faxId);
 
