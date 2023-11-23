@@ -27,6 +27,20 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
 			+ "FROM TRN_FAX_RX a JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) ORDER BY b.CASE_ID ASC")
 	Page<Object[]> fetchFaxList(PageRequest page);
+	
+	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, \r\n"
+	        + "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, \r\n"
+	        + "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, \r\n"
+	        + "a.FAX_DATE as faxDate, a.FAX_NUMBER as faxNumber, a.OCR_STATUS as ocrStatus, a.OCR_DATE as ocrDate ,\r\n"
+	        + "[FAX_RECEIVED_DATE] faxDateTime,\r\n"
+	        + "case when b.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG,\r\n"
+	        + "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
+	        + "FROM TRN_FAX_RX a JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) "
+	        + "WHERE (:search is null or a.FAX_ID like %:search%) " 
+	        + "ORDER BY b.CASE_ID ASC")
+	Page<Object[]> fetchFaxListNew(PageRequest page, @Param("search") String search);
+	
+	
 		
 	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, "
 			+ "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, "

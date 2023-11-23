@@ -106,6 +106,30 @@ public class FaxContoller {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping(FaxRxConstant.FAXLISTNEW)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<FaxRxResponse>> executeCustomQuerys(
+			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNo,
+			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize,
+			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,
+			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType,
+			@RequestParam(value = "search", required = false) String search)
+	      
+	       {
+		PageRequest page = null;
+		if (CommonConstants.DESC.equals(orderType)) {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+		} else {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+		}
+		PageResponseDTO response = faxRxService.fetchListNew(page,search);
+		
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+		
+	
 	
 
 	/** Retrieves a Pdf From FaxPdf */
