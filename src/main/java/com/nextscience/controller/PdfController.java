@@ -456,7 +456,8 @@ public class PdfController {
 	            OkHttpClient client = new OkHttpClient().newBuilder().build();
 
 	            Date date = faxRxResponse.getFaxReceivedDate();
-	            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	            String strDate = dateFormat.format(date);
 	            String count = String.valueOf(pageList.size());
 
