@@ -82,8 +82,7 @@ public class PdfController {
 	@Autowired
 	private FaxRxSplitHistService faxRxSplitHistService;
 
-	private static final String COUNTER_FILE_PATH = "splitCounter.txt";
-    private static Map<String, Integer> splitCounters = new HashMap<>();
+	
 
 
 
@@ -435,7 +434,9 @@ public class PdfController {
 	           
 	            String faxId = request.getFaxId();
 	            List<FaxRxSplitHistResponse> historyResponse =faxRxSplitHistService.getByFaxId(faxId);
-	            int splitCounter = historyResponse.size()+1;
+	          //  int splitCounter = historyResponse.size()+1;
+	            String splitCounter = String.valueOf(historyResponse.size() + 1);
+
 	            
 	            String splitIdentifier = "_" + splitCounter;
 	            String combinedOutputFileName = "C:/SPLITPDF/" + faxId + splitIdentifier + ".pdf";
@@ -482,23 +483,24 @@ public class PdfController {
 	            Response response = client.newCall(request1).execute();
 	            System.out.println("Response header --->" + response);
 
-	            InsertFaxRxSplitHistRequest histRequest = new InsertFaxRxSplitHistRequest();
-	            histRequest.setTrnFaxId(faxRxResponse.getTrnFaxId());
-	            histRequest.setFaxId(faxRxResponse.getFaxId());
-	            histRequest.setMainFileName(faxRxResponse.getFaxFilename());
-	            histRequest.setSplitFaxId(faxIdNew);
-	            histRequest.setSplitFileName(faxId + splitIdentifier + ".pdf");
-	            histRequest.setFaxUrl(
-	                    "https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + faxId + splitIdentifier + ".pdf");
-	            histRequest.setSplitPages((String.join(",", pageList)));
-	            histRequest.setPageCount(pageList.size());
-	            histRequest.getCreatedUser();
-	            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
-
-	            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(COUNTER_FILE_PATH))) {
-	                oos.writeObject(splitCounters);
+	            if(response.code() == 200) {
+		            InsertFaxRxSplitHistRequest histRequest = new InsertFaxRxSplitHistRequest();
+		            histRequest.setTrnFaxId(faxRxResponse.getTrnFaxId());
+		            histRequest.setFaxId(faxRxResponse.getFaxId());
+		            histRequest.setMainFileName(faxRxResponse.getFaxFilename());
+		            histRequest.setSplitFaxId(faxIdNew);
+		            histRequest.setSplitFileName(faxId + splitIdentifier + ".pdf");
+		            histRequest.setFaxUrl(
+		                    "https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + faxId + splitIdentifier + ".pdf");
+		            histRequest.setSplitPages((String.join(",", pageList)));
+		            histRequest.setPageCount(pageList.size());
+		            histRequest.setCreatedUser(request.getUserName());
+		            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
+	            }else {
+	            	
+	            	 System.out.println("Error Response --->" + response);
+	            	 
 	            }
-
 	        } catch (IOException e) {
 	            e.printStackTrace();
 

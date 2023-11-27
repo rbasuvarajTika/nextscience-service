@@ -23,5 +23,6 @@ public class PageRequest {
 
 	private String faxId;
 	private String pages;
+    private String userName;
 
 }

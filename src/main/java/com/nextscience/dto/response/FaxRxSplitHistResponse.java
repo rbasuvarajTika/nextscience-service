@@ -19,10 +19,10 @@ public class FaxRxSplitHistResponse {
 	private String splitPages;
 	private Integer pageCount;
 	private String createdUser;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date createdDate;
 	private String updatedUser;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date updatedDate;
 	public FaxRxSplitHistResponse(Integer trnFaxSplitId, Integer trnFaxId, String faxId, String faxFileName,
 			String splitFaxId, String splitFileName, String faxUrl, String splitPages, Integer pageCount,
