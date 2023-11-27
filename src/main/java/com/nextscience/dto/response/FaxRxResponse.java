@@ -28,6 +28,8 @@ public class FaxRxResponse {
 	private Date ocrDate;
 	@JsonFormat(pattern="HH:MM:SS")
 	private Date faxDateTime;
+	
+	private Integer noOfRxs;
 	private String verifiedFlag;
 	private String actionRequired;
 	

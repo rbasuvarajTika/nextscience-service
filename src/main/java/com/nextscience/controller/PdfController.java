@@ -47,6 +47,7 @@ import com.nextscience.config.SftpClient;
 import com.nextscience.dto.request.InsertFaxRxSplitHistRequest;
 import com.nextscience.dto.request.PageRequest;
 import com.nextscience.dto.request.RotatePageRequest;
+import com.nextscience.dto.response.FaxRxSplitHistResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
@@ -433,9 +434,9 @@ public class PdfController {
 
 	           
 	            String faxId = request.getFaxId();
-	            int splitCounter = splitCounters.getOrDefault(faxId, 1);
-
-	           
+	            List<FaxRxSplitHistResponse> historyResponse =faxRxSplitHistService.getByFaxId(faxId);
+	            int splitCounter = historyResponse.size()+1;
+	            
 	            String splitIdentifier = "_" + splitCounter;
 	            String combinedOutputFileName = "C:/SPLITPDF/" + faxId + splitIdentifier + ".pdf";
 	            File combinedOutputFile = new File(combinedOutputFileName);
@@ -453,6 +454,7 @@ public class PdfController {
 	            byte[] fileContent = sftpClient.retrieveFileContent(remoteCombinedFileName);
 
 	            String faxIdNew = faxRxResponse.getFaxId() + splitIdentifier;
+	            String faxNumber = faxRxResponse.getFaxNumber();
 	            OkHttpClient client = new OkHttpClient().newBuilder().build();
 
 	            Date date = faxRxResponse.getFaxReceivedDate();
@@ -463,7 +465,7 @@ public class PdfController {
 
 	            okhttp3.RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
 	                    .addFormDataPart("recvid", faxIdNew).addFormDataPart("recvdate", strDate)
-	                    .addFormDataPart("CID", "123123").addFormDataPart("pagecount", count)
+	                    .addFormDataPart("CID", faxNumber).addFormDataPart("pagecount", count)
 	                    .addFormDataPart("file", remoteCombinedFileName,
 	                            okhttp3.RequestBody.create(okhttp3.MediaType.parse("application/octet-stream"), fileContent))
 	                    .build();
@@ -490,14 +492,9 @@ public class PdfController {
 	                    "https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + faxId + splitIdentifier + ".pdf");
 	            histRequest.setSplitPages((String.join(",", pageList)));
 	            histRequest.setPageCount(pageList.size());
-	            histRequest.setCreatedUser(faxRxResponse.getCreatedUser());
+	            histRequest.getCreatedUser();
 	            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
 
-	           
-	            splitCounter++;
-	            splitCounters.put(faxId, splitCounter);
-
-	           
 	            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(COUNTER_FILE_PATH))) {
 	                oos.writeObject(splitCounters);
 	            }

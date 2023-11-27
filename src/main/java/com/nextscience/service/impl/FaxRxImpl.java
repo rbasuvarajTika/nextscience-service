@@ -86,8 +86,9 @@ public class FaxRxImpl implements FaxRxService {
 		response.setOcrStatus((String) row[7]);
 		response.setOcrDate((Date) row[8]);
 		response.setFaxDateTime((Date) row[9]);
-		response.setVerifiedFlag((String) row[10]);
-		response.setActionRequired((String) row[11]);
+		response.setNoOfRxs((Integer) row[10]);
+		response.setVerifiedFlag((String) row[11]);
+		response.setActionRequired((String) row[12]);
 		return response;
 	}
 
