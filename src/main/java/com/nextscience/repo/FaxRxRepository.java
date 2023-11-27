@@ -25,7 +25,7 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "[FAX_RECEIVED_DATE] faxDateTime,\r\n"
 			+ "case when b.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG,\r\n"
 			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
-			+ "FROM TRN_FAX_RX a JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) ORDER BY b.CASE_ID ASC")
+			+ "FROM TRN_FAX_RX a LEFT JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) ORDER BY b.CASE_ID ASC")
 	Page<Object[]> fetchFaxList(PageRequest page);
 	
 	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, \r\n"

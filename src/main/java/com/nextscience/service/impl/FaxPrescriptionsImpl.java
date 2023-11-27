@@ -6,14 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
+import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
-
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.repo.FaxPrescriptionsRepository;
+import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.FaxPrescriptionsService;
 
 /**
@@ -211,7 +216,67 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 		
 	}
 
+	@Override
+	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page, String hcpName, String accountName,
+			String patientName) {
+		Page<Object[]> listDetails = faxPrescriptionsRepository.getFaxRxTrackerDetailsListNew(page, hcpName, accountName, patientName);
+
+		List<FaxRxTrackerDetailsResponse> faxRxResponses = listDetails.getContent().stream().map(this::mapsToObjectsArrays)
+				.collect(Collectors.toList());
+
+		Page<FaxRxTrackerDetailsResponse> pageOfFaxResponses = new PageImpl<>(faxRxResponses, page, listDetails.getTotalElements());
+
+	    PageResponseDTO pageResponse = new PageResponseDTO();
+	    pageResponse.setData(pageOfFaxResponses.getContent());
+	    pageResponse.setFirst(pageOfFaxResponses.isFirst());
+	    pageResponse.setLast(pageOfFaxResponses.isLast());
+	    pageResponse.setPageNumber(pageOfFaxResponses.getNumber());
+	    pageResponse.setRecordCount(pageOfFaxResponses.getNumberOfElements());
+	    pageResponse.setRecordOffset(pageOfFaxResponses.getPageable().getOffset());
+	    pageResponse.setRequestedCount(pageOfFaxResponses.getSize());
+	    pageResponse.setTotalPages(pageOfFaxResponses.getTotalPages());
+	    pageResponse.setTotalRecords(pageOfFaxResponses.getTotalElements());
+	    return pageResponse;
+	}
+	 private FaxRxTrackerDetailsResponse mapsToObjectsArrays(Object[] row) {
+		  FaxRxTrackerDetailsResponse response = new FaxRxTrackerDetailsResponse();
+		  
+		  response.setTrnRxId((Integer) row[0]); response.setTrnFaxId((Integer)
+		  row[1]); response.setFaxId((String) row[2]); response.setCaseId((Integer)
+		  row[3]); response.setFaxDate((Date) row[4]); response.setFaxNumber((String)
+		  row[5]); response.setFaxUrl((String) row[6]);
+		  response.setVerifiedFlag((String) row[7]); 
+		  response.setHcpName((String) row[8]);
+		  response.setHcpAddress1((String) row[9]); response.setHcpAddress2((String)
+		  row[10]); response.setHcpCity((String) row[11]);
+		  response.setHcpState((String) row[12]); response.setHcpZip((String) row[13]);
+		  response.setAccountName((String) row[14]); response.setAccAddress1((String)
+		  row[15]); response.setAccCity((String) row[16]);
+		  response.setAccState((String) row[17]); response.setAccZip((String) row[18]);
+		  response.setPatientName((String) row[19]); response.setDateOfBirth((Date)
+		  row[20]); response.setGender((String) row[21]);
+		  response.setCellPhone((String) row[22]); response.setWorkPhone((String)
+		  row[23]); response.setShipToAddress((String) row[24]);
+		  response.setPatientCity((String) row[25]); response.setPatientState((String)
+		  row[26]); response.setPatientZip((String) row[27]);
+		  response.setPatientZip4((String) row[28]); response.setSsn((String) row[29]);
+		  response.setMrn((String) row[30]); response.setPmsId((String) row[31]);
+		  response.setMaritialStatus((String) row[32]);
+		  response.setEmergencyContactName((String) row[33]);
+		  response.setEmergencyContactPhone((String) row[34]);
+		  response.setProcessStatus((String) row[35]);
+		  response.setRxFulfilmentStatus((String) row[36]);
+		  response.setNetsuiteRxId((String) row[37]);
+		  response.setPrimaryPayerName((String) row[38]);
+		  response.setPrimaryPayerId((Integer) row[39]);
+		  response.setPatientId((Integer)row[40]);	
+		  response.setPayerType((String) row[41]);
+		  
+		  return response; }
+		 
+	}
+
 	
 	
 	
-}
+

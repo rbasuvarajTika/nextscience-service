@@ -3,10 +3,13 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
@@ -16,10 +19,13 @@ import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.dto.response.NSServiceResponse;
-
+import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.service.FaxPrescriptionsService;
 import com.nextscience.utility.ResponseHelper;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 /**
  * Processes an {@link FaxPrescriptionsController } controller.
@@ -70,6 +76,32 @@ public class FaxPrescriptionsController {
 	}
 	/** Retrieves a List From RxTrackerDetaiLList.*/
 	@SuppressWarnings("unchecked")
+	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTNEW)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList(
+			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNo,
+			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize,
+			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,
+			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType,
+			 @RequestParam(name = "hcpName", required = false) String hcpName,
+	         @RequestParam(name = "accountName", required = false) String accountName,
+	          @RequestParam(name = "patientName", required = false) String patientName)
+	
+
+	{
+		PageRequest page = null;
+		if (CommonConstants.DESC.equals(orderType)) {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+		} else {
+			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+		}
+		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page, hcpName, accountName, patientName);
+		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList()
@@ -79,6 +111,8 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerDetailsResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
 	}
+	
+	
 	/** Retrieves a List From RxTrackerWoundListByTrnRxId.*/
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDLISTTRNRXID)
