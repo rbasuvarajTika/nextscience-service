@@ -21,6 +21,9 @@ public class InsertFaxRxSplitHistRequest {
 	private String mainFileName;
 	private String splitFaxId;
 	private String splitFileName;
+	private String splitType;
+	private String splitAttempts;
+	private String splitStatus;
 	private String faxUrl;
 	private String splitPages;
 	private Integer pageCount;

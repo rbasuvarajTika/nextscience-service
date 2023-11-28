@@ -44,6 +44,10 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 		query.registerStoredProcedureParameter("FAX_URL", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("SPLIT_PAGES", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("PAGE_COUNT", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("SPLIT_TYPE", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("SPLIT_ATTEMPTS", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("SPLIT_STATUS", String.class, ParameterMode.IN);
+		
 		
 		query.setParameter("USER", req.getCreatedUser());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
@@ -55,9 +59,10 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 		query.setParameter("FAX_URL", req.getFaxUrl());
 		query.setParameter("SPLIT_PAGES", req.getSplitPages());		
 		query.setParameter("PAGE_COUNT", req.getPageCount());
-		
-		
-		
+		query.setParameter("SPLIT_TYPE", req.getSplitType());
+		query.setParameter("SPLIT_ATTEMPTS", req.getSplitAttempts());
+		query.setParameter("SPLIT_STATUS", req.getSplitStatus());
+				
 		query.execute();
 		
 		return "created successfully";
@@ -82,12 +87,15 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 		response.setSplitFaxId((String) row[4]);
 		response.setSplitFileName((String) row[5]);
 		response.setFaxUrl((String) row[6]);
-		response.setSplitPages((String) row[7]);
-		response.setPageCount((Integer) row[8]);
-		response.setCreatedUser((String) row[9]);
-		response.setCreatedDate((Date) row[10]);
-		response.setUpdatedUser((String) row[11]);
-		response.setUpdatedDate((Date) row[12]);
+		response.setSplitType((String) row[7]);
+		response.setSplitAttempts((String) row[8]);
+		response.setSplitStatus((String) row[9]);
+		response.setSplitPages((String) row[10]);
+		response.setPageCount((Integer) row[11]);	
+		response.setCreatedUser((String) row[12]);
+		response.setCreatedDate((Date) row[13]);
+		response.setUpdatedUser((String) row[14]);
+		response.setUpdatedDate((Date) row[15]);
 		
 		return response;
 

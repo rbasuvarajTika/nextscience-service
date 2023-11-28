@@ -16,6 +16,9 @@ public class FaxRxSplitHistResponse {
 	private String splitFaxId;
 	private String splitFileName;
 	private String faxUrl;
+	private String splitType;
+	private String splitAttempts;
+	private String splitStatus;
 	private String splitPages;
 	private Integer pageCount;
 	private String createdUser;
@@ -25,8 +28,9 @@ public class FaxRxSplitHistResponse {
 	@JsonFormat(pattern="MM/dd/yyyy")
 	private Date updatedDate;
 	public FaxRxSplitHistResponse(Integer trnFaxSplitId, Integer trnFaxId, String faxId, String faxFileName,
-			String splitFaxId, String splitFileName, String faxUrl, String splitPages, Integer pageCount,
-			String createdUser, Date createdDate, String updatedUser, Date updatedDate) {
+			String splitFaxId, String splitFileName, String faxUrl, String splitType, String splitAttempts,
+			String splitStatus, String splitPages, Integer pageCount, String createdUser, Date createdDate,
+			String updatedUser, Date updatedDate) {
 		super();
 		this.trnFaxSplitId = trnFaxSplitId;
 		this.trnFaxId = trnFaxId;
@@ -35,6 +39,9 @@ public class FaxRxSplitHistResponse {
 		this.splitFaxId = splitFaxId;
 		this.splitFileName = splitFileName;
 		this.faxUrl = faxUrl;
+		this.splitType = splitType;
+		this.splitAttempts = splitAttempts;
+		this.splitStatus = splitStatus;
 		this.splitPages = splitPages;
 		this.pageCount = pageCount;
 		this.createdUser = createdUser;
@@ -42,6 +49,10 @@ public class FaxRxSplitHistResponse {
 		this.updatedUser = updatedUser;
 		this.updatedDate = updatedDate;
 	}
-
+	
+	
+	
+	
+	
 	
 }
