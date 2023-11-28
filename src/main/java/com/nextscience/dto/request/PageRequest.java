@@ -24,5 +24,8 @@ public class PageRequest {
 	private String faxId;
 	private String pages;
     private String userName;
+    private String splitType;
+    private String splitAttempts;
+    private String splitStatus;
 
 }
