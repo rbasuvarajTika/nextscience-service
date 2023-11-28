@@ -512,7 +512,7 @@ public class PdfController {
 			            histRequest.setSplitPages((String.join(",", pageList)));
 			            histRequest.setSplitType(request.getSplitType());
 			            histRequest.setSplitAttempts("1");
-			            histRequest.setSplitStatus(request.getSplitStatus());
+			            histRequest.setSplitStatus("failure");
 			            histRequest.setPageCount(pageList.size());
 			            histRequest.setCreatedUser(request.getUserName());
 			            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
