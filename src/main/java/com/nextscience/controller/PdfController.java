@@ -46,7 +46,9 @@ import com.nextscience.Constants.CommonConstants;
 import com.nextscience.config.SftpClient;
 import com.nextscience.dto.request.InsertFaxRxSplitHistRequest;
 import com.nextscience.dto.request.PageRequest;
+import com.nextscience.dto.request.PageRequestRetrive;
 import com.nextscience.dto.request.RotatePageRequest;
+import com.nextscience.dto.request.UpdateFaxRxSplitHistRequest;
 import com.nextscience.dto.response.FaxRxSplitHistResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.entity.FaxRx;
@@ -538,4 +540,117 @@ public class PdfController {
 	        return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
 	                CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	    }
+	 
+	 @SuppressWarnings("unchecked")
+	    @PostMapping("/sendPdfByPagesRetrive")
+	    public NSServiceResponse<String> sendPdfbyPagesRetrive(@RequestBody PageRequestRetrive request)
+	            throws IOException, JSchException, SftpException {
+	        PDDocument document = null;
+	        PDDocument combinedDocument = null;
+	        PDDocument remainingPagesDocument = null;
+
+	        try {
+	            FaxRx faxRxResponse = faxRxService.fetchListById(request.getFaxId());
+	            String ftpUrl = faxRxResponse.getFaxUrl();
+	            InputStream is = new URL(ftpUrl).openStream();
+
+	            document = Loader.loadPDF(is.readAllBytes());
+	            int totalPages = document.getNumberOfPages();
+
+	            List<String> pageList = Arrays.asList(request.getPages().split(","));
+
+	            combinedDocument = new PDDocument();
+	            remainingPagesDocument = new PDDocument();
+
+	            for (String page : pageList) {
+	                int pageNumber = Integer.parseInt(page);
+	                if (pageNumber < 1 || pageNumber > totalPages) {
+	                    throw new NSException(ErrorCodes.OK, "Invalid page number: " + pageNumber);
+	                }
+	                combinedDocument.addPage(document.getPage(pageNumber - 1));
+	            }
+
+	         	            
+	            String faxSplitname=request.getSplitFaxId();
+	            String combinedOutputFileName = "C:/SPLITPDF/" +faxSplitname+ ".pdf";
+	            File combinedOutputFile = new File(combinedOutputFileName);
+	            combinedDocument.save(combinedOutputFile);
+
+	            for (int page = 1; page <= totalPages; page++) {
+	                if (!pageList.contains(String.valueOf(page))) {
+	                    remainingPagesDocument.addPage(document.getPage(page - 1));
+	                }
+	            }
+	            sftpClient.authPassword();
+	            String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxSplitname + ".pdf";
+	            sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
+
+	            byte[] fileContent = sftpClient.retrieveFileContent(remoteCombinedFileName);
+
+	            String faxNumber = faxRxResponse.getFaxNumber();
+	            OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+	            Date date = faxRxResponse.getFaxReceivedDate();
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	            String strDate = dateFormat.format(date);
+	            String count = String.valueOf(pageList.size());
+
+	            okhttp3.RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+	                    .addFormDataPart("recvid", faxSplitname).addFormDataPart("recvdate", strDate)
+	                    .addFormDataPart("CID", faxNumber).addFormDataPart("pagecount", count)
+	                    .addFormDataPart("file", remoteCombinedFileName,
+	                            okhttp3.RequestBody.create(okhttp3.MediaType.parse("application/octet-stream"), fileContent))
+	                    .build();
+	            System.out.println("Request Body --->" + body);
+
+	            String username = "springboot";
+	            String password = "f@x@p!@2";
+	            String valueToEncode = username + ":" + password;
+	            String token = "Basic " + Base64.getEncoder().encodeToString(valueToEncode.getBytes());
+
+	            Request request1 = new Request.Builder().url("http://localhost:2345/upload_fax").method("POST", body)
+	                    .addHeader("Authorization", token).build();
+	            System.out.println("Request header --->" + request1);
+	            Response response = client.newCall(request1).execute();
+	            System.out.println("Response header --->" + response);
+
+	            if(response.code() == 200) {
+	            	 UpdateFaxRxSplitHistRequest histRequestRetrive = new UpdateFaxRxSplitHistRequest();
+	            	 histRequestRetrive.setTrnFaxSplitId(request.getTrnFaxSplitId());	            	
+	            	 histRequestRetrive.setSplitStatus("success");
+	            	 histRequestRetrive.setSplitAttempts(request.getSplitAttempts() + 1);
+	            	 histRequestRetrive.setUpdatedUser(request.getUserName());
+	            	 faxRxSplitHistService.updateFaxRxSplitHistInfoProc(histRequestRetrive);
+	            }else {
+	            	
+	            	 UpdateFaxRxSplitHistRequest histRequestRetrive = new UpdateFaxRxSplitHistRequest();
+	            	 histRequestRetrive.setTrnFaxSplitId(request.getTrnFaxSplitId());           	
+	            	 histRequestRetrive.setSplitStatus("failure");
+	            	 histRequestRetrive.setSplitAttempts(request.getSplitAttempts() + 1);
+	            	 histRequestRetrive.setUpdatedUser(request.getUserName());
+	            	
+	            	 faxRxSplitHistService.updateFaxRxSplitHistInfoProc(histRequestRetrive);
+	            	 System.out.println("Error Response --->" + response);
+	            	 
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+
+	        } finally {
+	            if (combinedDocument != null) {
+	                combinedDocument.close();
+	            }
+	            if (remainingPagesDocument != null) {
+	                remainingPagesDocument.close();
+	            }
+	            if (document != null) {
+	                document.close();
+	            }
+	        }
+
+	        return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
+	                CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	    }
+	 
 	}

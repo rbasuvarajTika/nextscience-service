@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxPrescriptionsConstant;
+import com.nextscience.Constants.HcpDetailsConstant;
 import com.nextscience.Constants.RxLookupConstant;
+import com.nextscience.dto.request.DeleteFaxRxSplitHistRequest;
+import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.InsertFaxRxSplitHistRequest;
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxSplitHistResponse;
@@ -59,6 +63,16 @@ public class FaxRxSplitHistController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxSplitHistResponse>(), splitHistResponse,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@DeleteMapping("/faxRxSplitHist")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<DeleteFaxRxSplitHistRequest> DeleteRxSplitHistInfoProc(@RequestBody DeleteFaxRxSplitHistRequest req) {
+		String response = faxRxSplitHistService.DeleteFaxRxSplitHistInfoProc(req);
+		return ResponseHelper.createResponse(new NSServiceResponse<DeleteFaxRxSplitHistRequest>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
+	
 	
 
 }
