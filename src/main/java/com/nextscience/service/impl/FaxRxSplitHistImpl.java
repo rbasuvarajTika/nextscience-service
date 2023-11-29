@@ -125,7 +125,7 @@ public class FaxRxSplitHistImpl implements FaxRxSplitHistService {
 	@Transactional
 	public String updateFaxRxSplitHistInfoProc(UpdateFaxRxSplitHistRequest req) {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Split_Hist_Edit");	
-		query.registerStoredProcedureParameter("TRN_FAX_SPLIT_ID  ", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_FAX_SPLIT_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("SPLIT_STATUS", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("SPLIT_ATTEMPTS", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);

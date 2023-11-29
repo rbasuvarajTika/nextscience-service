@@ -572,9 +572,9 @@ public class PdfController {
 
 	         	            
 	            String faxSplitname=request.getSplitFaxId();
-	            String combinedOutputFileName = "C:/SPLITPDF/" +faxSplitname+ ".pdf";
-	            File combinedOutputFile = new File(combinedOutputFileName);
-	            combinedDocument.save(combinedOutputFile);
+	           String combinedOutputFileName = "C:/SPLITPDF/" +faxSplitname+ ".pdf";
+	           File combinedOutputFile = new File(combinedOutputFileName);
+	           //combinedDocument.save(combinedOutputFile);
 
 	            for (int page = 1; page <= totalPages; page++) {
 	                if (!pageList.contains(String.valueOf(page))) {
@@ -614,12 +614,16 @@ public class PdfController {
 	            System.out.println("Request header --->" + request1);
 	            Response response = client.newCall(request1).execute();
 	            System.out.println("Response header --->" + response);
+	            
+	            Integer attempts = Integer.parseInt(request.getSplitAttempts());
+	            attempts=attempts+1;
+	            String attemptsConverstion = String.valueOf(attempts);
 
 	            if(response.code() == 200) {
 	            	 UpdateFaxRxSplitHistRequest histRequestRetrive = new UpdateFaxRxSplitHistRequest();
 	            	 histRequestRetrive.setTrnFaxSplitId(request.getTrnFaxSplitId());	            	
 	            	 histRequestRetrive.setSplitStatus("success");
-	            	 histRequestRetrive.setSplitAttempts(request.getSplitAttempts() + 1);
+	            	 histRequestRetrive.setSplitAttempts(attemptsConverstion);
 	            	 histRequestRetrive.setUpdatedUser(request.getUserName());
 	            	 faxRxSplitHistService.updateFaxRxSplitHistInfoProc(histRequestRetrive);
 	            }else {
@@ -627,7 +631,7 @@ public class PdfController {
 	            	 UpdateFaxRxSplitHistRequest histRequestRetrive = new UpdateFaxRxSplitHistRequest();
 	            	 histRequestRetrive.setTrnFaxSplitId(request.getTrnFaxSplitId());           	
 	            	 histRequestRetrive.setSplitStatus("failure");
-	            	 histRequestRetrive.setSplitAttempts(request.getSplitAttempts() + 1);
+	            	 histRequestRetrive.setSplitAttempts(attemptsConverstion);
 	            	 histRequestRetrive.setUpdatedUser(request.getUserName());
 	            	
 	            	 faxRxSplitHistService.updateFaxRxSplitHistInfoProc(histRequestRetrive);
