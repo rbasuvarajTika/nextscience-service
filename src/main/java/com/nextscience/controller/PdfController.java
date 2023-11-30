@@ -411,16 +411,19 @@ public class PdfController {
 	        PDDocument document = null;
 	        PDDocument combinedDocument = null;
 	        PDDocument remainingPagesDocument = null;
-
+	        FaxRx faxRxResponse = faxRxService.fetchListById(request.getFaxId());
+	        String faxIdNew = null;
+	        String filenameFile =null;
+	        List<String> pageList = null;
 	        try {
-	            FaxRx faxRxResponse = faxRxService.fetchListById(request.getFaxId());
+	          
 	            String ftpUrl = faxRxResponse.getFaxUrl();
 	            InputStream is = new URL(ftpUrl).openStream();
 
 	            document = Loader.loadPDF(is.readAllBytes());
 	            int totalPages = document.getNumberOfPages();
 
-	            List<String> pageList = Arrays.asList(request.getPages().split(","));
+	            pageList = Arrays.asList(request.getPages().split(","));
 
 	            combinedDocument = new PDDocument();
 	            remainingPagesDocument = new PDDocument();
@@ -433,6 +436,9 @@ public class PdfController {
 	                combinedDocument.addPage(document.getPage(pageNumber - 1));
 	            }
  
+	            if (isDuplicateSplit(request.getFaxId(), pageList)) {
+	                throw new NSException(ErrorCodes.OK, "Duplicate split detected for pages: " + String.join(",", pageList));
+	            }
 	          
 	            String faxId = request.getFaxId();
 	            List<FaxRxSplitHistResponse> historyResponse =faxRxSplitHistService.getByFaxId(faxId);
@@ -450,13 +456,14 @@ public class PdfController {
 	                    remainingPagesDocument.addPage(document.getPage(page - 1));
 	                }
 	            }
+	            filenameFile=faxId + splitIdentifier ;
 	            sftpClient.authPassword();
 	            String remoteCombinedFileName = "/tikaftp/SplitPdf/splitfax" + faxId + splitIdentifier + ".pdf";
 	            sftpClient.uploadFile(new FileInputStream(combinedOutputFile), remoteCombinedFileName);
 
 	            byte[] fileContent = sftpClient.retrieveFileContent(remoteCombinedFileName);
 
-	            String faxIdNew = faxRxResponse.getFaxId() + splitIdentifier;
+	            faxIdNew = faxRxResponse.getFaxId() + splitIdentifier;
 	            String faxNumber = faxRxResponse.getFaxNumber();
 	            OkHttpClient client = new OkHttpClient().newBuilder().build();
 
@@ -523,6 +530,21 @@ public class PdfController {
 	            	 
 	            }
 	        } catch (IOException e) {
+	        	InsertFaxRxSplitHistRequest histRequest = new InsertFaxRxSplitHistRequest();
+	            histRequest.setTrnFaxId(faxRxResponse.getTrnFaxId());
+	            histRequest.setFaxId(faxRxResponse.getFaxId());
+	            histRequest.setMainFileName(faxRxResponse.getFaxFilename());
+	            histRequest.setSplitFaxId(faxIdNew);
+	            histRequest.setSplitFileName(filenameFile+ ".pdf");
+	            histRequest.setFaxUrl(
+	                    "https://sftp.tika.mobi/ftp/tikaftp/SplitPdf/splitfax" + filenameFile + ".pdf");
+	            histRequest.setSplitPages((String.join(",", pageList)));
+	            histRequest.setSplitType(request.getSplitType());
+	            histRequest.setSplitAttempts("1");
+	            histRequest.setSplitStatus("failure");
+	            histRequest.setPageCount(pageList.size());
+	            histRequest.setCreatedUser(request.getUserName());
+	            faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(histRequest);
 	            e.printStackTrace();
 
 	        } finally {
@@ -535,11 +557,33 @@ public class PdfController {
 	            if (document != null) {
 	                document.close();
 	            }
+	            
+        	
+        	 //System.out.println("Error Response --->" + response);
 	        }
 
 	        return ResponseHelper.createResponse(new NSServiceResponse<>(), "Pdf Splitted Successfully",
 	                CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	    }
+	 
+	 private boolean isDuplicateSplit(String faxId, List<String> pageList) {
+		    List<FaxRxSplitHistResponse> historyResponse = faxRxSplitHistService.getByFaxId(faxId);
+		    
+		    // Convert pageList to a sorted string for comparison
+		    String sortedPageList = pageList.stream().sorted().collect(Collectors.joining(","));
+
+		    for (FaxRxSplitHistResponse history : historyResponse) {
+		        // Convert history pages to a sorted string for comparison
+		        List<String> historyPages = Arrays.asList(history.getSplitPages().split(","));
+		        String sortedHistoryPages = historyPages.stream().sorted().collect(Collectors.joining(","));
+
+		        // Check if the current split has the same set of pages
+		        if (sortedPageList.equals(sortedHistoryPages)) {
+		            return true;
+		        }
+		    }
+		    return false;
+		}
 	 
 	 @SuppressWarnings("unchecked")
 	    @PostMapping("/sendPdfByPagesRetrive")
