@@ -384,6 +384,35 @@ public class FaxContoller {
 			response.put("message", "Error processing PDF: " + e.getMessage());
 			return ResponseEntity.status(500).body(response);
 		}
+		
+		
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/ocrStatus")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<FaxRxResponse> findOcrStatus() {
+		List<String> findOcrStatus = faxRxService.findOcrStatus();
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxResponse>(), findOcrStatus,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/faxStatus")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<FaxRxResponse> findFaxStatus() {
+		List<String> findFaxStatus = faxRxService.findFaxStatus();
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxResponse>(), findFaxStatus,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	@SuppressWarnings("unchecked")
+	@GetMapping("/rxStatus")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<FaxRxResponse> findRxStatus() {
+		List<String> findRxStatus = faxRxService.findRxStatus();
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxResponse>(), findRxStatus,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
 }

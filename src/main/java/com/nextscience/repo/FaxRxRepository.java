@@ -65,6 +65,23 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 			+ "join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n" + "where b.CASE_TYPE='Duplicate'")
 	List<Object[]> getDupeResponse();
+	
+	
+	
+	
+	@Query(nativeQuery = true, value = "SELECT Distinct OCR_STATUS from TRN_FAX_RX where OCR_STATUS is not null")
+	List<String>findOcrStatus();
+	
+
+	@Query(nativeQuery = true, value = "SELECT Distinct FAX_STATUS from TRN_FAX_RX where FAX_STATUS is not null")
+	List<String>findFaxStatus();
+	
+	@Query(nativeQuery = true, value = "SELECT Distinct RX_STATUS from TRN_FAX_RX where RX_STATUS is not null")
+	List<String>findRxStatus();
+	
+	
+	
+	
 
 
 	/*

@@ -273,6 +273,7 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 		  response.setPayerType((String) row[41]);
 		  
 		  return response; }
+
 		 
 	}
 

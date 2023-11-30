@@ -285,6 +285,24 @@ public class FaxRxImpl implements FaxRxService {
 		response.setActionRequired((String) row[11]);
 		return response;
 	}
+
+	@Override
+	public List<String> findOcrStatus() {
+		List<String> faxRxResponse = faxRxRepository.findOcrStatus();
+		return faxRxResponse;
+	}
+
+	@Override
+	public List<String> findFaxStatus() {
+		List<String> faxRxResponse = faxRxRepository.findFaxStatus();
+		return faxRxResponse;
+	}
+
+	@Override
+	public List<String> findRxStatus() {
+		List<String> responses = faxRxRepository.findRxStatus();
+		return responses;
+	}
 	
 	}
 

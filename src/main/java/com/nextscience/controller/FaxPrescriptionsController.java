@@ -29,6 +29,7 @@ import jakarta.validation.constraints.Min;
 
 /**
  * Processes an {@link FaxPrescriptionsController } controller.
+ * 
  * @author Raghu
  *
  */
@@ -40,7 +41,7 @@ public class FaxPrescriptionsController {
 	@Autowired
 	FaxPrescriptionsService faxPrescriptionsService;
 
-	/** Retrieves a List of FaxPrescriptions Details.*/
+	/** Retrieves a List of FaxPrescriptions Details. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.FAXPRESCRIPTIONS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -51,8 +52,8 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrescriptionsResponse>(), prescription,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	/** Retrieves a List From RxTrackerList.*/
+
+	/** Retrieves a List From RxTrackerList. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERLIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -60,10 +61,11 @@ public class FaxPrescriptionsController {
 
 	{
 		List<FaxRxTrackerResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerList();
-		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
-				CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	/** Retrieves a List From RxTrackerWoundList.*/
+
+	/** Retrieves a List From RxTrackerWoundList. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDLIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -74,7 +76,8 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrscTrkWoundResponse>(), rxTracker,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	/** Retrieves a List From RxTrackerDetaiLList.*/
+
+	/** Retrieves a List From RxTrackerDetaiLList. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTNEW)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -83,10 +86,9 @@ public class FaxPrescriptionsController {
 			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize,
 			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,
 			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType,
-			 @RequestParam(name = "hcpName", required = false) String hcpName,
-	         @RequestParam(name = "accountName", required = false) String accountName,
-	          @RequestParam(name = "patientName", required = false) String patientName)
-	
+			@RequestParam(name = "hcpName", required = false) String hcpName,
+			@RequestParam(name = "accountName", required = false) String accountName,
+			@RequestParam(name = "patientName", required = false) String patientName)
 
 	{
 		PageRequest page = null;
@@ -95,12 +97,12 @@ public class FaxPrescriptionsController {
 		} else {
 			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
 		}
-		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page, hcpName, accountName, patientName);
+		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page, hcpName, accountName,
+				patientName);
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -108,12 +110,11 @@ public class FaxPrescriptionsController {
 
 	{
 		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerDetailsList();
-		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerDetailsResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
-				CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerDetailsResponse>(), rxTracker,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	
-	/** Retrieves a List From RxTrackerWoundListByTrnRxId.*/
+
+	/** Retrieves a List From RxTrackerWoundListByTrnRxId. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDLISTTRNRXID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -124,8 +125,8 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxPrscTrkWoundResponse>(), rxTracker,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-     
-	/** Retrieves a List From RxTrackerWoundCaseId.*/
+
+	/** Retrieves a List From RxTrackerWoundCaseId. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERWOUNDCASEID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -137,7 +138,7 @@ public class FaxPrescriptionsController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 
-	/** Retrieves a List From RxTrackerDetailListByTrnRxId.*/
+	/** Retrieves a List From RxTrackerDetailListByTrnRxId. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTTRNRXID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -145,10 +146,11 @@ public class FaxPrescriptionsController {
 
 	{
 		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListById(trnRxId);
-		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
-				CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	/** Retrieves a List From RxTrackerDetailCaseId.*/
+
+	/** Retrieves a List From RxTrackerDetailCaseId. */
 	@SuppressWarnings("unchecked")
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILCASEID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -156,13 +158,8 @@ public class FaxPrescriptionsController {
 
 	{
 		List<FaxRxTrackerDetailsResponse> rxTracker = faxPrescriptionsService.getFaxRxTrackerListByCaseId(caseId);
-		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker, CommonConstants.SUCCESSFULLY,
-				CommonConstants.ERRROR);
+		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
-	
-	
-	
-	
-	
 
 }

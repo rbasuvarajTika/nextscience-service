@@ -46,6 +46,13 @@ public interface FaxRxService {
 	public FaxRx faxRxSendMail(String faxId);
 
 	public void updatePdfInDatabase(String trnFaxId, byte[] rotatedPdfBytes);
+	
+	public List<String>findOcrStatus();
+	
+	public List<String>findFaxStatus();
+	
+	public List<String>findRxStatus();
+	
 
 	
 	

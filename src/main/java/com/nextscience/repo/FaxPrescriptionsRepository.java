@@ -172,7 +172,6 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 	
 	
 	
-	 
 	
 
 }
