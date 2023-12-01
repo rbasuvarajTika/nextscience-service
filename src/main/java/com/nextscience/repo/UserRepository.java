@@ -40,4 +40,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(nativeQuery = true, value = "SELECT * from DIM_USER WHERE USER_NAME = :userName ORDER BY USER_ID DESC")
 	List<User> findAllUsersByUserName(@PathVariable(value = "userName") String userName);
 	
+	@Query(nativeQuery = true, value = "SELECT Distinct USER_STATUS_FLAG from DIM_USER where USER_STATUS_FLAG is not null")
+	List<String>findUserStatus();
+	
+	
 }

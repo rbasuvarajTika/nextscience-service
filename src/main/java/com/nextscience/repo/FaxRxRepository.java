@@ -76,7 +76,7 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 	@Query(nativeQuery = true, value = "SELECT Distinct FAX_STATUS from TRN_FAX_RX where FAX_STATUS is not null")
 	List<String>findFaxStatus();
 	
-	@Query(nativeQuery = true, value = "SELECT Distinct RX_STATUS from TRN_FAX_RX where RX_STATUS is not null")
+	@Query(nativeQuery = true, value = "SELECT Distinct PROCESS_STATUS from TRN_FAX_RX where PROCESS_STATUS is not null")
 	List<String>findRxStatus();
 	
 	

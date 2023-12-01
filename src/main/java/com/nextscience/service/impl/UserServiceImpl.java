@@ -522,4 +522,10 @@ public class UserServiceImpl implements UserService {
 		return userDetailsList;
 	}
 
+	@Override
+	public List<String> findUserStatus() {
+		List<String> responses = userRepository.findUserStatus();
+		return responses;
+	}
+
 }

@@ -407,7 +407,7 @@ public class FaxContoller {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	@SuppressWarnings("unchecked")
-	@GetMapping("/rxStatus")
+	@GetMapping("/processStatus")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<FaxRxResponse> findRxStatus() {
 		List<String> findRxStatus = faxRxService.findRxStatus();

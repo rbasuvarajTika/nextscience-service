@@ -208,6 +208,15 @@ public class UserController {
 				CommonConstants.ERRROR);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@GetMapping(UsersConstant.USERSSTATUSFLAG)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<UserDetailsResponse>> findUserStatus()
+	{
+		List<String> findUserStatus = userService.findUserStatus();
+		return ResponseHelper.createResponse(new NSServiceResponse<UserDetailsResponse>(), findUserStatus, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+	}
 	
 
 }

@@ -67,5 +67,7 @@ public interface UserService {
 	public List<UserDetailsResponse> getUserByUserId(Integer userId);
 
 	public List<UserDetailsResponse> getUserByUserName(String userName);
+	
+	public List<String>findUserStatus();
 
 }

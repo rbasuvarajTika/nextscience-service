@@ -19,6 +19,8 @@ public class UsersConstant {
 	public static final String UPDATEUSERPROFILEID ="/updateprofile/user/{id}";
 	public static final String USERSDETAILSBYUSERID = "/usersDetails/userId/{userId}";
 	public static final String USERSDETAILSBYUSERNAME = "/usersDetails/userName/{userName}";
+	public static final String USERSSTATUSFLAG = "/usersStatusFlag";
+	
 
 	
 
