@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
+import com.nextscience.Constants.DistributorConstant;
 import com.nextscience.Constants.StateDetailsConstant;
 import com.nextscience.dto.response.AccountDetailsResponse;
 import com.nextscience.dto.response.DistributorDetailsResponse;
@@ -25,7 +26,7 @@ public class DistributorDetailsController {
 	private DistributorDetailsService distributorDetailsService;
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/distributorDetails")
+	@GetMapping(DistributorConstant.DISTRIBUTORDETAILS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<DistributorDetailsResponse>>getdistributorDetail()
 	  

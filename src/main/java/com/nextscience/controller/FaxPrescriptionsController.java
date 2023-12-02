@@ -84,11 +84,9 @@ public class FaxPrescriptionsController {
 	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList(
 			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNo,
 			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize,
-			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.CREATEDDATE, required = false) String sortBy,
-			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType,
-			@RequestParam(name = "hcpName", required = false) String hcpName,
-			@RequestParam(name = "accountName", required = false) String accountName,
-			@RequestParam(name = "patientName", required = false) String patientName)
+			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.TRNFAXID, required = false) String sortBy,
+			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.DESC, required = false) String orderType)
+			
 
 	{
 		PageRequest page = null;
@@ -97,8 +95,7 @@ public class FaxPrescriptionsController {
 		} else {
 			page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
 		}
-		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page, hcpName, accountName,
-				patientName);
+		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page);
 		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}

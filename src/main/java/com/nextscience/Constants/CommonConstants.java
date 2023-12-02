@@ -37,4 +37,6 @@ public class CommonConstants {
 	public static final String INVALIDEMAILORPASSWORD = "Invalid email or password";
 	public static final String MAILSUBJECTALERTTEMPLATE= "${mail.subject.alertMail.template}";
 	public static final String MAILSUBJECTALERTMAIL= "${mail.subject.email.alertMail}";
+	public static final String TRNFAXID = "trn_fax_id";
+
 }

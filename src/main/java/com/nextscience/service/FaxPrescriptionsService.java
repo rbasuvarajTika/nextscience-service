@@ -26,7 +26,7 @@ public interface FaxPrescriptionsService {
 	/** Retrieves a list of fax prescription tracker details. */
 	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsList();
 	
-	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page,String hcpName,String accountName,String patientName);
+	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page);
 
 	/** Retrieves a list of fax prescription tracker wound details. */
 	List<FaxPrscTrkWoundResponse> getFaxRxTrkWoundDetailsList();

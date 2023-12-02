@@ -390,7 +390,7 @@ public class FaxContoller {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/ocrStatus")
+	@GetMapping(FaxRxConstant.OCRSTATUS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<FaxRxResponse> findOcrStatus() {
 		List<String> findOcrStatus = faxRxService.findOcrStatus();
@@ -399,7 +399,7 @@ public class FaxContoller {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxStatus")
+	@GetMapping(FaxRxConstant.FAXSTATUS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<FaxRxResponse> findFaxStatus() {
 		List<String> findFaxStatus = faxRxService.findFaxStatus();
@@ -407,7 +407,7 @@ public class FaxContoller {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	@SuppressWarnings("unchecked")
-	@GetMapping("/processStatus")
+	@GetMapping(FaxRxConstant.PROCESSSTATUS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<FaxRxResponse> findRxStatus() {
 		List<String> findRxStatus = faxRxService.findRxStatus();

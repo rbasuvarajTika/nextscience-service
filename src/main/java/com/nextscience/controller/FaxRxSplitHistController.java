@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxPrescriptionsConstant;
+import com.nextscience.Constants.FaxRxSplitHistConstant;
 import com.nextscience.Constants.HcpDetailsConstant;
 import com.nextscience.Constants.RxLookupConstant;
 import com.nextscience.dto.request.DeleteFaxRxSplitHistRequest;
@@ -36,7 +37,7 @@ public class FaxRxSplitHistController {
 	private FaxRxSplitHistService faxRxSplitHistService;
 	
 	@SuppressWarnings("unchecked")
-	@PostMapping("/FaxRxSplitHist")
+	@PostMapping(FaxRxSplitHistConstant.FAXRXSPLITHISTS)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<InsertFaxRxSplitHistRequest> InsertFaxRxSplitHistDet(@RequestBody InsertFaxRxSplitHistRequest req) {
 		String response = faxRxSplitHistService.InsertFaxRxSplitHistInfoProc(req);
@@ -44,7 +45,7 @@ public class FaxRxSplitHistController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxRxSplitHist")
+	@GetMapping(FaxRxSplitHistConstant.FAXRXSPLITHIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxSplitHistResponse>> getAll()
 
@@ -54,7 +55,7 @@ public class FaxRxSplitHistController {
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 	@SuppressWarnings("unchecked")
-	@GetMapping("/faxRxSplitHist/{faxId}")
+	@GetMapping(FaxRxSplitHistConstant.FAXRXSPLITHISTFAXID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxSplitHistResponse>> getFaxRxTrkWoundById(@PathVariable String faxId)
 
@@ -65,7 +66,7 @@ public class FaxRxSplitHistController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@DeleteMapping("/faxRxSplitHist")
+	@DeleteMapping(FaxRxSplitHistConstant.FAXRXSPLITHIST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<DeleteFaxRxSplitHistRequest> DeleteRxSplitHistInfoProc(@RequestBody DeleteFaxRxSplitHistRequest req) {
 		String response = faxRxSplitHistService.DeleteFaxRxSplitHistInfoProc(req);

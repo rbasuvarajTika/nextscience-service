@@ -217,9 +217,8 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	}
 
 	@Override
-	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page, String hcpName, String accountName,
-			String patientName) {
-		Page<Object[]> listDetails = faxPrescriptionsRepository.getFaxRxTrackerDetailsListNew(page, hcpName, accountName, patientName);
+	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page) {
+		Page<Object[]> listDetails = faxPrescriptionsRepository.getFaxRxTrackerDetailsListNew(page);
 
 		List<FaxRxTrackerDetailsResponse> faxRxResponses = listDetails.getContent().stream().map(this::mapsToObjectsArrays)
 				.collect(Collectors.toList());

@@ -84,13 +84,9 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 					+ "left join [DIM_HCP] p on (a.[PROF_ID]=p.[HCP_ID])\r\n"
 					+ "left join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 					+ "left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
-	        + " LEFT JOIN DIM_PAYER i ON a.PAYER_ID = i.PAYER_ID"
-	        + " WHERE (:hcpName IS NULL OR CONCAT(p.FIRST_NAME, ' ', p.LAST_NAME) LIKE %:hcpName%) "
-	        + " AND (:accountName IS NULL OR h.ACCOUNT_NAME LIKE %:accountName%) "
-	        + " AND (:patientName IS NULL OR CONCAT(r.PATIENT_FIRST_NAME, ' ', r.PATIENT_LAST_NAME) LIKE %:patientName%)")
-	        Page<Object[]> getFaxRxTrackerDetailsListNew(PageRequest page,@Param("hcpName") String hcpName,
-	        @Param("accountName") String accountName,
-	        @Param("patientName") String patientName);
+					+ "left join DIM_PAYER i on (a.PAYER_ID=i.PAYER_ID)")
+	        Page<Object[]> getFaxRxTrackerDetailsListNew(PageRequest page );
+	      
 	
 
 	@Query(nativeQuery = true, value = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID,b.CASE_ID,b.FAX_DATE,b.FAX_NUMBER,b.FAX_URL,\r\n"
