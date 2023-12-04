@@ -218,6 +218,11 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 
 	@Override
 	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page) {
+		/*
+		 * int offset = page.getPageNumber(); int pageSize = page.getPageSize(); String
+		 * orderType = page.getSort().stream() .map(order -> order.getProperty() + " " +
+		 * order.getDirection()) .collect(Collectors.joining(", "));
+		 */
 		Page<Object[]> listDetails = faxPrescriptionsRepository.getFaxRxTrackerDetailsListNew(page);
 
 		List<FaxRxTrackerDetailsResponse> faxRxResponses = listDetails.getContent().stream().map(this::mapsToObjectsArrays)

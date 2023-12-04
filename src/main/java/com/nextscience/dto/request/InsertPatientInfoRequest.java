@@ -51,7 +51,19 @@ public class InsertPatientInfoRequest {
 	private String zip;
 
 	private String zip4;
-
+	
+	private String repName;
+	
+	private String repPhoneNo;
+	
+	private String distributorName;
+	
+	private String placeOfService;
+	
+	private String orderType;
+	
+	private String woundActive;
+	
 	private String ssn;
 	
 	private String email;

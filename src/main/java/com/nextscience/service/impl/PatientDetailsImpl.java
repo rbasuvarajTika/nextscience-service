@@ -226,8 +226,10 @@ public class PatientDetailsImpl implements PatientDetailsService {
 
 	@Override
 	public String InsertPatientInfoProc(InsertPatientInfoRequest req) {
+		
 
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_PatientDetails_Add");
+		Integer woundActiveVal = 0;
 		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
@@ -243,6 +245,22 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		query.registerStoredProcedureParameter("STATE", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("ZIP", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("SSN", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("REP_NAME", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("REP_PHONE_NO", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("DISTRIBUTOR_NAME", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("PLACE_OF_SERVICE", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("ORDER_TYPE", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("WOUND_ACTIVE", Integer.class, ParameterMode.IN);
+		
+		if (req.getWoundActive() != null) {
+			if (req.getWoundActive().equalsIgnoreCase("Yes")) {
+				woundActiveVal = 1;
+			}
+		} else {
+			woundActiveVal = null;
+		}
+		
+		
 
 		query.setParameter("USER", req.getCreatedUser());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
@@ -259,6 +277,13 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		query.setParameter("STATE", req.getState());
 		query.setParameter("ZIP", req.getZip());
 		query.setParameter("SSN", req.getSsn());
+		query.setParameter("REP_NAME", req.getRepName());
+		query.setParameter("REP_PHONE_NO", req.getRepPhoneNo());
+		query.setParameter("DISTRIBUTOR_NAME", req.getDistributorName());
+		query.setParameter("PLACE_OF_SERVICE", req.getPlaceOfService());
+		query.setParameter("ORDER_TYPE", req.getOrderType());
+		query.setParameter("WOUND_ACTIVE", woundActiveVal);
+		
 
 		query.execute();
 

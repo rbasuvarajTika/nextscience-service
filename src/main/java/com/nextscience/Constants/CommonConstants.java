@@ -24,12 +24,15 @@ public class CommonConstants {
 	public static final String MAILSUBJECTCREATEUSERFIRSTNAME= "${mail.subject.createUser.firstName}";
 	public static final String MAILSUBJECTCREATEUSERUSERNAME = "${mail.subject.createUser.userName}";
 	public static final String MAILSUBJECTCREATEUSERUSERCREATED = "${mail.subject.createUser.userCreated}";
+	public static final String OFFSET="offset";
+	public static final String LIMIT="limit";
 	public static final String PAGENO = "pageNo";
 	public static final String PAGESIZE = "pageSize";
 	public static final String SORTBY = "sortBy";
 	public static final String CREATEDDATE = "created_date";
 	public static final String ORDERBY = "orderBy";
 	public static final String DESC = "desc";
+	public static final String ASC = "asc";
 	public static final String AUTHORIZATION = "Authorization";
 	public static final String BEARER= "Bearer ";
 	public static final String MISSINGMAILHEADERS ="Missing mail headers";
@@ -37,6 +40,7 @@ public class CommonConstants {
 	public static final String INVALIDEMAILORPASSWORD = "Invalid email or password";
 	public static final String MAILSUBJECTALERTTEMPLATE= "${mail.subject.alertMail.template}";
 	public static final String MAILSUBJECTALERTMAIL= "${mail.subject.email.alertMail}";
-	public static final String TRNFAXID = "trn_fax_id";
+	public static final String TRNFAXID = "TRN_FAX_ID";
+	public static final String TRNRXID = "TRN_RX_ID";
 
 }
