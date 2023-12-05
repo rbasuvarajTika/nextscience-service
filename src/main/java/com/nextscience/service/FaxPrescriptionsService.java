@@ -2,12 +2,9 @@ package com.nextscience.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
-
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
-import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.entity.FaxPrescriptions;
 
 /**
@@ -26,7 +23,7 @@ public interface FaxPrescriptionsService {
 	/** Retrieves a list of fax prescription tracker details. */
 	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsList();
 	
-	public PageResponseDTO getFaxRxTrackerDetailsListNew(PageRequest page);
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsListNew(int page,int pageSize);
 
 	/** Retrieves a list of fax prescription tracker wound details. */
 	List<FaxPrscTrkWoundResponse> getFaxRxTrkWoundDetailsList();

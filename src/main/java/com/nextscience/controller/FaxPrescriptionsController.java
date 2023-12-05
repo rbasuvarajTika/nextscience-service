@@ -82,22 +82,15 @@ public class FaxPrescriptionsController {
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTNEW)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList(
-			@RequestParam(value = CommonConstants.OFFSET, required = false, defaultValue = "0") @Min(0) int offset,
-			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize,
-			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.TRNRXID, required = false) String sortBy,
-			@RequestParam(value = CommonConstants.ORDERBY, defaultValue = CommonConstants.ASC, required = false) String orderType,
-			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNumber)
+			//@RequestParam(value = CommonConstants.COLUMNNAME, required = false, defaultValue = CommonConstants.TRNRXID) String columnName,
+			//@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.ASC, required = false) String sortBy,
+			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNumber,
+			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize)
+			
 	{
-		
-	
-		PageRequest page = null;
-		if (CommonConstants.ASC.equals(orderType)) {
-			page = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
-		} else {
-			page = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
-		}
-		PageResponseDTO response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(page);
-		return ResponseHelper.createResponse(new NSServiceResponse<PageResponseDTO>(), response,
+		List<FaxRxTrackerDetailsResponse> response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(pageNumber,
+				pageSize);
+		return ResponseHelper.createResponse(new NSServiceResponse<List<FaxRxTrackerDetailsResponse>>(), response,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
 

@@ -84,10 +84,12 @@ public interface FaxPrescriptionsRepository extends JpaRepository<FaxPrescriptio
 					+ "left join [DIM_HCP] p on (a.[PROF_ID]=p.[HCP_ID])\r\n"
 					+ "left join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 					+ "left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
-					+ "left join DIM_PAYER i on (a.PAYER_ID=i.PAYER_ID)\r\n")
-	        Page<Object[]> getFaxRxTrackerDetailsListNew(PageRequest page
-	                /*@Param("pageSize") int pageSize,
-	                @Param("orderType") String orderType*/);
+					+ "left join DIM_PAYER i on (a.PAYER_ID=i.PAYER_ID)\r\n"
+					+ "ORDER BY TRN_RX_ID ASC OFFSET :page ROWS \r\n"
+					+ "FETCH NEXT :pageSize ROWS ONLY")
+	        List<Object[]> getFaxRxTrackerDetailsListNew( 
+	        		 @Param(value = "page") int page,
+	                @Param(value = "pageSize") int pageSize);
 	      
 	
 
