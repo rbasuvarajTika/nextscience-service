@@ -82,13 +82,13 @@ public class FaxPrescriptionsController {
 	@GetMapping(FaxPrescriptionsConstant.RXTRACKERDETAILLISTNEW)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList(
-			//@RequestParam(value = CommonConstants.COLUMNNAME, required = false, defaultValue = CommonConstants.TRNRXID) String columnName,
-			//@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.ASC, required = false) String sortBy,
+			@RequestParam(value = CommonConstants.COLUMNNAME, required = false, defaultValue = CommonConstants.TRNRXID) String columnName,
+			@RequestParam(value = CommonConstants.SORTBY, defaultValue = CommonConstants.ASC, required = false) String sortBy,
 			@RequestParam(value = CommonConstants.PAGENO, required = false, defaultValue = "0") @Min(0) int pageNumber,
 			@RequestParam(value = CommonConstants.PAGESIZE, required = false, defaultValue = "10") @Min(1) @Max(50) int pageSize)
 			
 	{
-		List<FaxRxTrackerDetailsResponse> response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(pageNumber,
+		List<FaxRxTrackerDetailsResponse> response = faxPrescriptionsService.getFaxRxTrackerDetailsListNew(columnName, sortBy, pageNumber,
 				pageSize);
 		return ResponseHelper.createResponse(new NSServiceResponse<List<FaxRxTrackerDetailsResponse>>(), response,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);

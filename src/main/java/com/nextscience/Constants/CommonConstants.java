@@ -24,7 +24,7 @@ public class CommonConstants {
 	public static final String MAILSUBJECTCREATEUSERFIRSTNAME= "${mail.subject.createUser.firstName}";
 	public static final String MAILSUBJECTCREATEUSERUSERNAME = "${mail.subject.createUser.userName}";
 	public static final String MAILSUBJECTCREATEUSERUSERCREATED = "${mail.subject.createUser.userCreated}";
-	public static final String COLUMNNAME="offset";
+	public static final String COLUMNNAME="columnName";
 	public static final String LIMIT="limit";
 	public static final String PAGENO = "pageNo";
 	public static final String PAGESIZE = "pageSize";

@@ -23,7 +23,8 @@ public interface FaxPrescriptionsService {
 	/** Retrieves a list of fax prescription tracker details. */
 	List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsList();
 	
-	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsListNew(int page,int pageSize);
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsListNew(String columnName,
+	   		 String sort, int page,int pageSize);
 
 	/** Retrieves a list of fax prescription tracker wound details. */
 	List<FaxPrscTrkWoundResponse> getFaxRxTrkWoundDetailsList();

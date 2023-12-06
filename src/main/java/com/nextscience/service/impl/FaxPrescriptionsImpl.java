@@ -8,12 +8,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nextscience.Constants.FaxPrescriptionsConstant;
 import com.nextscience.dto.response.FaxPrscTrkWoundResponse;
 import com.nextscience.dto.response.FaxRxTrackerDetailsResponse;
 import com.nextscience.dto.response.FaxRxTrackerResponse;
 import com.nextscience.entity.FaxPrescriptions;
 import com.nextscience.repo.FaxPrescriptionsRepository;
 import com.nextscience.service.FaxPrescriptionsService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 /**
  * Service Class for managing {@link FaxPrescriptionsImpl}.request
@@ -26,6 +31,9 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 
 	@Autowired
 	FaxPrescriptionsRepository faxPrescriptionsRepository;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -216,19 +224,86 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 	}
 
 	@Override
-	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsListNew( int page,
+	public List<FaxRxTrackerDetailsResponse> getFaxRxTrackerDetailsListNew(String columnName, String sort, int page,
 			int pageSize) {
-		/*
-		 * int offset = page.getPageNumber(); int pageSize = page.getPageSize(); String
-		 * orderType = page.getSort().stream() .map(order -> order.getProperty() + " " +
-		 * order.getDirection()) .collect(Collectors.joining(", "));
-		 */
-		List<Object[]> listDetails = faxPrescriptionsRepository.getFaxRxTrackerDetailsListNew(page,
-				pageSize);
+		String getColumn = getColumnName(columnName);
+
+		String formattedQuery = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID,b.CASE_ID,b.FAX_DATE,b.FAX_NUMBER,b.FAX_URL\r\n"
+				+ "					,case when cp.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG\r\n"
+				+ "					,concat(p.FIRST_NAME,' ',p.LAST_NAME) HCP_NAME\r\n"
+				+ "					,p.ADDRESS1,p.ADDRESS2 ,p.CITY ,p.[STATE] ,p.ZIP \r\n"
+				+ "					,h.ACCOUNT_NAME,h.ADDRESS1,h.CITY,h.[STATE],h.ZIP\r\n"
+				+ "					,concat(r.PATIENT_FIRST_NAME,' ',r.PATIENT_LAST_NAME) PATIENT_NAME\r\n"
+				+ "					,r.DATE_OF_BIRTH ,r.GENDER ,r.CELL_PHONE ,r.WORK_PHONE\r\n"
+				+ "					,r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP ,r.ZIP4\r\n"
+				+ "					,r.SSN,r.MRN,r.PMS_ID,r.MARITIAL_STATUS,r.EMERGENCY_CONTACT_NAME,r.EMERGENCY_CONTACT_PHONE\r\n"
+				+ "					,a.PROCESS_STATUS,a.RX_STATUS RX_FULFILMENT_STATUS\r\n"
+				+ "					,a.NETSUITE_RX_ID\r\n" + "					,i.PAYER_NAME PRIMARY_PAYER_NAME\r\n"
+				+ "					,i.PAYER_ID PRIMARY_PAYER_ID\r\n"
+				+ "					,r.PATIENT_ID, i.PAYER_TYPE \r\n"
+				+ "					FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"
+				+ "					join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
+				+ "					join [BRDG_FAX_RX_CASES] cp on (a.[TRN_FAX_ID]=cp.[TRN_FAX_ID])\r\n"
+				+ "					left join [DIM_HCP] p on (a.[PROF_ID]=p.[HCP_ID])\r\n"
+				+ "					left join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
+				+ "					left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
+				+ "					left join DIM_PAYER i on (a.PAYER_ID=i.PAYER_ID)";
+		StringBuilder sql = new StringBuilder(formattedQuery).append(" ORDER BY ").append(getColumn).append(" ")
+				.append(sort).append(" ").append(" OFFSET ").append(page).append(" ").append(" ROWS ")
+				.append(" FETCH NEXT ").append(pageSize).append(" ROWS ONLY ");
+
+		Query nativeQuery = entityManager.createNativeQuery(sql.toString());
+
+		List<Object[]> listDetails = nativeQuery.getResultList();
 
 		List<FaxRxTrackerDetailsResponse> faxRxResponses = listDetails.stream().map(this::mapsToObjectsArrays)
 				.collect(Collectors.toList());
 		return faxRxResponses;
+	}
+
+	private String getColumnName(String columnName) {
+		String setColumn;
+		switch (columnName) {
+		case "caseId":
+			setColumn = FaxPrescriptionsConstant.CASEID;
+			break;
+		case "processStatus":
+			setColumn = FaxPrescriptionsConstant.PROCESSSTATUS;
+			break;
+		case "rxFulfilmentStatus":
+			setColumn = FaxPrescriptionsConstant.RXFULFILMENTSTATUS;
+			break;
+		case "netsuiteRxId":
+			setColumn = FaxPrescriptionsConstant.NETSUITERXID;
+			break;
+		case "faxId":
+			setColumn = FaxPrescriptionsConstant.FAXID;
+			break;
+		case "patientName":
+			setColumn = FaxPrescriptionsConstant.PATIENTNAME;
+			break;
+		case "patientId":
+			setColumn = FaxPrescriptionsConstant.PATIENTID;
+			break;
+		case "hcpName":
+			setColumn = FaxPrescriptionsConstant.HCPNAME;
+			break;
+		case "accountName":
+			setColumn = FaxPrescriptionsConstant.ACCOUNTNAME;
+			break;
+		case "primaryPayerName":
+			setColumn = FaxPrescriptionsConstant.PRIMARYPAYERNAME;
+			break;
+		case "payerType":
+			setColumn = FaxPrescriptionsConstant.PAYERTYPE;
+			break;
+		default:
+			setColumn = FaxPrescriptionsConstant.TRNRXID;
+			break;
+		}
+
+		return setColumn;
+
 	}
 
 	private FaxRxTrackerDetailsResponse mapsToObjectsArrays(Object[] row) {
