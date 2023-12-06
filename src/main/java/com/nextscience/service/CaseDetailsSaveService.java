@@ -7,6 +7,7 @@ import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
+import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
@@ -37,5 +38,7 @@ public interface CaseDetailsSaveService {
 	public String DeleteProductInfoProc(List<DeleteProductInfoRequest> requests);
 	/** Delete values Hcp information. */
 	public String DeleteHcpInfoProc(List<DeleteHcpInfoRequest> req);
+	
+	public String addTrnFaxRxDetails(InsertTrnFaxRxRequest request);
 
 }

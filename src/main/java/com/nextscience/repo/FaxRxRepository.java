@@ -80,7 +80,8 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 	List<String>findRxStatus();
 	
 	
-	
+	@Query(nativeQuery = true, value = "SELECT MAX(TRN_FAX_ID) as trnFaxId from TRN_FAX_RX where FAX_ID =:faxId")
+	Integer findTrnFaxRxId(@Param(value = "faxId") String faxId);
 	
 
 

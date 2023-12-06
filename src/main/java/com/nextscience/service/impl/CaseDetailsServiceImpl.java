@@ -13,6 +13,7 @@ import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
+import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
@@ -589,6 +590,44 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService{
 		query.execute();
 		}
 		return "deleted successfully";
+	}
+
+
+	@Override
+	public String addTrnFaxRxDetails(InsertTrnFaxRxRequest request) {
+		 StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_NewFax_Add");
+
+	        // Set the parameters for the stored procedure
+	        query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_ID", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_NUMBER", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_STATUS", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("PROCESS_STATUS", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("RX_STATUS", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_DATE", Date.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_FILENAME", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_PAGES", Integer.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_CALLER_ID", String.class, ParameterMode.IN);
+	        query.registerStoredProcedureParameter("FAX_URL", String.class, ParameterMode.IN);
+	       
+	        // Set parameter values
+	        query.setParameter("USER", request.getCreatedUser());
+	        query.setParameter("FAX_ID", request.getFaxId());
+	        query.setParameter("FAX_NUMBER", request.getFaxNumber());
+	        query.setParameter("FAX_STATUS", request.getFaxStatus());
+	        query.setParameter("PROCESS_STATUS", request.getProcessStatus());
+	        query.setParameter("RX_STATUS", request.getRxStatus());
+	        
+	        query.setParameter("FAX_DATE", request.getFaxDate());
+	        query.setParameter("FAX_FILENAME", request.getFaxFilename());
+	        query.setParameter("FAX_PAGES", request.getFaxPages());
+	        query.setParameter("FAX_CALLER_ID", request.getFaxCallerId());
+	        query.setParameter("FAX_URL", request.getFaxUrl());
+
+
+	        // Execute the stored procedure
+	        query.execute();
+	        return "updated successfully";
 	}
 	
 	

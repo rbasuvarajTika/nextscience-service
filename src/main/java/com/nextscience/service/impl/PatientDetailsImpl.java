@@ -20,6 +20,7 @@ import com.nextscience.entity.AccountDetails;
 import com.nextscience.entity.FaxRxPayer;
 import com.nextscience.entity.PatientDetails;
 import com.nextscience.repo.FaxRxPayerRepository;
+import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.repo.PatientDetailsRepository;
 import com.nextscience.repo.PayerDetailsRepository;
 import com.nextscience.service.PatientDetailsService;
@@ -41,6 +42,9 @@ public class PatientDetailsImpl implements PatientDetailsService {
 
 	@Autowired
 	PatientDetailsRepository patientDetailsRepository;
+	
+	@Autowired
+	FaxRxRepository faxRxRepository ;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -226,7 +230,8 @@ public class PatientDetailsImpl implements PatientDetailsService {
 
 	@Override
 	public String InsertPatientInfoProc(InsertPatientInfoRequest req) {
-		
+		String faxId = req.getFaxId().toString();
+		Integer object= faxRxRepository.findTrnFaxRxId(faxId);
 
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_PatientDetails_Add");
 		Integer woundActiveVal = 0;
@@ -263,7 +268,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		
 
 		query.setParameter("USER", req.getCreatedUser());
-		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+		query.setParameter("TRN_FAX_ID", object);
 		query.setParameter("TRN_RX_ID", req.getTrnRxId());
 		query.setParameter("FAX_ID", req.getFaxId());
 		query.setParameter("PATIENT_FIRST_NAME", req.getPatientFirstName());
