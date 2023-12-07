@@ -355,4 +355,64 @@ public class FaxPrescriptionsImpl implements FaxPrescriptionsService {
 		return response;
 	}
 
+	@Override
+	public List<FaxRxTrackerDetailsResponse> filterFaxRxTrackerDetailsList(String hcpName, String accountName,
+			String patientName) {
+		int i = 0;
+		StringBuilder filter = new StringBuilder();
+		StringBuilder executeSql = new StringBuilder();
+		String formattedQuery = "SELECT a.TRN_RX_ID,a.[TRN_FAX_ID],b.FAX_ID,b.CASE_ID,b.FAX_DATE,b.FAX_NUMBER,b.FAX_URL\r\n"
+				+ "					,case when cp.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG\r\n"
+				+ "					,concat(p.FIRST_NAME,' ',p.LAST_NAME) HCP_NAME\r\n"
+				+ "					,p.ADDRESS1,p.ADDRESS2 ,p.CITY ,p.[STATE] ,p.ZIP \r\n"
+				+ "					,h.ACCOUNT_NAME,h.ADDRESS1,h.CITY,h.[STATE],h.ZIP\r\n"
+				+ "					,concat(r.PATIENT_FIRST_NAME,' ',r.PATIENT_LAST_NAME) PATIENT_NAME\r\n"
+				+ "					,r.DATE_OF_BIRTH ,r.GENDER ,r.CELL_PHONE ,r.WORK_PHONE\r\n"
+				+ "					,r.SHIP_TO_ADDRESS ,r.CITY ,r.[STATE] ,r.ZIP ,r.ZIP4\r\n"
+				+ "					,r.SSN,r.MRN,r.PMS_ID,r.MARITIAL_STATUS,r.EMERGENCY_CONTACT_NAME,r.EMERGENCY_CONTACT_PHONE\r\n"
+				+ "					,a.PROCESS_STATUS,a.RX_STATUS RX_FULFILMENT_STATUS\r\n"
+				+ "					,a.NETSUITE_RX_ID\r\n" + "					,i.PAYER_NAME PRIMARY_PAYER_NAME\r\n"
+				+ "					,i.PAYER_ID PRIMARY_PAYER_ID\r\n"
+				+ "					,r.PATIENT_ID, i.PAYER_TYPE \r\n"
+				+ "					FROM [dbo].[TRN_FAX_RX_PRESCRIPTIONS] a\r\n"
+				+ "					join [TRN_FAX_RX] b on (a.[TRN_FAX_ID]=b.[TRN_FAX_ID])\r\n"
+				+ "					join [BRDG_FAX_RX_CASES] cp on (a.[TRN_FAX_ID]=cp.[TRN_FAX_ID])\r\n"
+				+ "					left join [DIM_HCP] p on (a.[PROF_ID]=p.[HCP_ID])\r\n"
+				+ "					left join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
+				+ "					left join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n"
+				+ "					left join DIM_PAYER i on (a.PAYER_ID=i.PAYER_ID)";
+
+		if (!hcpName.isEmpty()) {
+			filter.append("( FIRST_NAME LIKE '%").append(hcpName).append("%'").append(" OR ")
+					.append(" LAST_NAME LIKE '%").append(hcpName).append("%'").append(")").append(" AND ");
+		}
+		if (!accountName.isEmpty()) {
+			filter.append(" ACCOUNT_NAME LIKE '%").append(accountName).append("%'").append(" AND ");
+		}
+		if (!patientName.isEmpty()) {
+			filter.append("( PATIENT_FIRST_NAME LIKE '%").append(patientName).append("%'").append(" OR ")
+					.append(" PATIENT_LAST_NAME LIKE '%").append(patientName).append("%'").append(")");
+		}
+		StringBuilder sql = new StringBuilder(formattedQuery).append(" WHERE ").append(filter);
+		int length = sql.toString().length();
+		if (sql.toString().endsWith(" AND ")) {
+			String getFilter = sql.toString().substring(0, length - 4);
+			executeSql.append(getFilter);
+		} else if (sql.toString().endsWith(" WHERE ")) {
+			String getSql = sql.toString().substring(0, length - 7);
+			executeSql.append(getSql);
+		} else {
+			executeSql.append(sql);
+		}
+
+		executeSql.append(" ORDER BY ").append(" TRN_FAX_ID ASC");
+		Query nativeQuery = entityManager.createNativeQuery(executeSql.toString());
+
+		List<Object[]> listDetails = nativeQuery.getResultList();
+
+		List<FaxRxTrackerDetailsResponse> faxRxResponses = listDetails.stream().map(this::mapsToObjectsArrays)
+				.collect(Collectors.toList());
+		return faxRxResponses;
+	}
+
 }

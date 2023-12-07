@@ -43,6 +43,8 @@ public interface FaxPrescriptionsService {
 	
 	
 	
-	
+	/** Retrieves a list of fax prescription tracker details by filter. */
+	List<FaxRxTrackerDetailsResponse> filterFaxRxTrackerDetailsList(String hcpName, String accountName,
+			String patientName);
 
 }

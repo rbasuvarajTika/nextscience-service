@@ -42,5 +42,9 @@ public class CommonConstants {
 	public static final String MAILSUBJECTALERTMAIL= "${mail.subject.email.alertMail}";
 	public static final String TRNFAXID = "TRN_FAX_ID";
 	public static final String TRNRXID = "TRN_RX_ID";
+	
+	public static final String HCPNAME="hcpName";
+	public static final String ACCNAME="accName";
+	public static final String PATNAME="patName";
 
 }

@@ -15,6 +15,7 @@ public class FaxPrescriptionsConstant {
 	public static final String RXTRACKERWOUNDCASEID="/rxTrackerWound/{caseId}";
 	public static final String RXTRACKERDETAILLISTTRNRXID="/rxTrackerDetailList/{trnRxId}";
 	public static final String RXTRACKERDETAILCASEID="/rxTrackerDetail/{caseId}";
+	public static final String FILTERRXTRACKERDETAILLISTNEW="/filterRxTrackerDetail";
 	
 	/*
 	 * set cloumn name for getFaxRxTrackerDetailsListNew

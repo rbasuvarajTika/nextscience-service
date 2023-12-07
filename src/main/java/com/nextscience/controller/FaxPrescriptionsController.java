@@ -152,5 +152,21 @@ public class FaxPrescriptionsController {
 		return ResponseHelper.createResponse(new NSServiceResponse<FaxRxTrackerResponse>(), rxTracker,
 				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
 	}
+	
+	/** Retrieves a List From RxTrackerDetaiLList. */
+	@SuppressWarnings("unchecked")
+	@GetMapping(FaxPrescriptionsConstant.FILTERRXTRACKERDETAILLISTNEW)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<FaxRxTrackerDetailsResponse>> getFaxRxTrackerDetailsList(
+			@RequestParam(value = CommonConstants.HCPNAME, required = false, defaultValue = "") String hcpName,
+			@RequestParam(value = CommonConstants.ACCNAME, required = false, defaultValue = "") String accName,
+			@RequestParam(value = CommonConstants.PATNAME, required = false, defaultValue = "") String patName)
+			
+	{
+		List<FaxRxTrackerDetailsResponse> response = faxPrescriptionsService.filterFaxRxTrackerDetailsList(hcpName, accName, patName);
+		return ResponseHelper.createResponse(new NSServiceResponse<List<FaxRxTrackerDetailsResponse>>(), response,
+				CommonConstants.SUCCESSFULLY, CommonConstants.ERRROR);
+	}
+	
 
 }
