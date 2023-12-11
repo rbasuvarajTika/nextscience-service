@@ -231,7 +231,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 	@Override
 	public String InsertPatientInfoProc(InsertPatientInfoRequest req) {
 		String faxId = req.getFaxId().toString();
-		Integer object= faxRxRepository.findTrnFaxRxId(faxId);
+		//Integer trnFaxRxId= faxRxRepository.findTrnFaxRxId(faxId);
 
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_PatientDetails_Add");
 		Integer woundActiveVal = 0;
@@ -268,7 +268,7 @@ public class PatientDetailsImpl implements PatientDetailsService {
 		
 
 		query.setParameter("USER", req.getCreatedUser());
-		query.setParameter("TRN_FAX_ID", object);
+		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 		query.setParameter("TRN_RX_ID", req.getTrnRxId());
 		query.setParameter("FAX_ID", req.getFaxId());
 		query.setParameter("PATIENT_FIRST_NAME", req.getPatientFirstName());

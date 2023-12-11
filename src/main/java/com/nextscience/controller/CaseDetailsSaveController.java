@@ -16,6 +16,7 @@ import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
+import com.nextscience.dto.request.InsertTrnFaxRxPriscrRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
@@ -220,9 +221,21 @@ public class CaseDetailsSaveController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/addTrnFaxRxDetails")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<CaseDetailsSaveRequest> addTrnFaxRxDetails(@RequestBody InsertTrnFaxRxRequest request) {
+	public NSServiceResponse<Integer> addTrnFaxRxDetails(@RequestBody InsertTrnFaxRxRequest request) {
 
-		String response = caseDetailsSaveService.addTrnFaxRxDetails(request);
+		Integer response = caseDetailsSaveService.addTrnFaxRxDetails(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/addTrnFaxRxPriscrDetails")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<CaseDetailsSaveRequest> addTrnFaxRxPriscrDetails(@RequestBody InsertTrnFaxRxPriscrRequest request) {
+
+		String response = caseDetailsSaveService.addTrnFaxRxPriscrDetails(request);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
