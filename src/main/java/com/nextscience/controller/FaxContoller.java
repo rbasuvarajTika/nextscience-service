@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.Constants.FaxRxConstant;
 import com.nextscience.component.EmailBuilder;
@@ -42,6 +46,7 @@ import com.nextscience.dto.response.EmailResponseDto;
 import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.PageResponseDTO;
+import com.nextscience.dto.response.PdfByFaxIdResponse;
 import com.nextscience.entity.FaxRx;
 import com.nextscience.enums.ErrorCodes;
 import com.nextscience.exceptions.NSException;
@@ -196,6 +201,39 @@ public class FaxContoller {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/** Retrieves A FaxPdfByFaxId in FaxRx */
+	@GetMapping(value = FaxRxConstant.GETFAXPDFFAXIDNEW, produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public @ResponseBody PdfByFaxIdResponse getPdfByFaxId(@PathVariable String faxId) {
+		PdfByFaxIdResponse response = new PdfByFaxIdResponse();
+		Map<String, Object> jsonMap = new LinkedHashMap<>();
+		try {
+
+			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
+			InputStream is;
+			String ftpUrl = faxRxResponse.getFaxUrl();
+			is = new URL(ftpUrl).openStream();
+			response.setPdf(is.readAllBytes());
+			//response.setPageRaotation(faxRxResponse.getPdfRotation());
+			ObjectMapper objectMapper = new ObjectMapper();
+			jsonMap = objectMapper.readValue(faxRxResponse.getPdfRotation(), new TypeReference<>() {});
+			response.setPageRaotation(jsonMap);
+			 HttpHeaders headers = new HttpHeaders();
+		        headers.setContentType(MediaType.APPLICATION_JSON);
+
+			//return is.readAllBytes();
+		} catch (FileNotFoundException e) {
+			 
+			
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 	@GetMapping(value = FaxRxConstant.DOWNLOADFAXPDFFAXID, produces = MediaType.APPLICATION_PDF_VALUE)

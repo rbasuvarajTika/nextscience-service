@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.Constants.CommonConstants;
@@ -22,20 +21,15 @@ import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
-import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.service.CaseDetailsSaveService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
-import jakarta.transaction.Transactional;
 
 @Service
 public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
-
-	@Autowired
-	FaxRxRepository faxRxRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -568,8 +562,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 	}
 
 	@Override
-	@Transactional
-	public Integer addTrnFaxRxDetails(InsertTrnFaxRxRequest request) {
+	public String addTrnFaxRxDetails(InsertTrnFaxRxRequest request) {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_NewFax_Add");
 
 		// Set the parameters for the stored procedure
@@ -601,10 +594,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 		// Execute the stored procedure
 		query.execute();
-		
-		Integer trnFaxId = faxRxRepository.findTrnFaxRxId(request.getFaxId());
-		
-		return trnFaxId;
+		return "updated successfully";
 	}
 
 	@Override

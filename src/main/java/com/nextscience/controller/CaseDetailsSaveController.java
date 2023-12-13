@@ -221,9 +221,9 @@ public class CaseDetailsSaveController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/addTrnFaxRxDetails")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<Integer> addTrnFaxRxDetails(@RequestBody InsertTrnFaxRxRequest request) {
+	public NSServiceResponse<String> addTrnFaxRxDetails(@RequestBody InsertTrnFaxRxRequest request) {
 
-		Integer response = caseDetailsSaveService.addTrnFaxRxDetails(request);
+		String response = caseDetailsSaveService.addTrnFaxRxDetails(request);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);

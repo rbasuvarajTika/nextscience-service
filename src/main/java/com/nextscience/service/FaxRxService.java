@@ -1,6 +1,7 @@
 package com.nextscience.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 
@@ -21,10 +22,9 @@ public interface FaxRxService {
 
 	/** Fetches a paginated list of faxRx */
 	public PageResponseDTO fetchList(PageRequest page);
-	
-	public PageResponseDTO fetchListNew(PageRequest page,String search);
-	
-	
+
+	public PageResponseDTO fetchListNew(PageRequest page, String search);
+
 	/** Retrieves faxRx by ID. */
 	public FaxRx fetchListById(String faxId);
 
@@ -39,23 +39,19 @@ public interface FaxRxService {
 
 	/** Keeps a duplicate faxRx. */
 	public String keepDuplicate(String trnFaxId);
-	
-	
+
 	public String faxRxValidateProc(FaxRxDupeRequest req);
-	
+
 	public FaxRx faxRxSendMail(String faxId);
 
 	public void updatePdfInDatabase(String trnFaxId, byte[] rotatedPdfBytes);
-	
-	public List<String>findOcrStatus();
-	
-	public List<String>findFaxStatus();
-	
-	public List<String>findRxStatus();
-	
 
-	
-	
-	
+	public List<String> findOcrStatus();
+
+	public List<String> findFaxStatus();
+
+	public List<String> findRxStatus();
+
+	public String updatePdfRotation(String faxId, Map<String, String> rotatedPages,String oldPageRotation);
 
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.component.EmailBuilder;
 import com.nextscience.dto.request.EmailDto;
@@ -35,6 +38,7 @@ import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.StoredProcedureQuery;
 
 /**
@@ -302,6 +306,27 @@ public class FaxRxImpl implements FaxRxService {
 	public List<String> findRxStatus() {
 		List<String> responses = faxRxRepository.findRxStatus();
 		return responses;
+	}
+
+	@Override
+	@Transactional
+	public String updatePdfRotation(String faxId, Map<String, String> rotatedPages,String oldPageRotation) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String pageRotationJson;
+		try {
+		    pageRotationJson = objectMapper.writeValueAsString(rotatedPages);
+			String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET PDF_ROTATION = :pageRotationJson "
+					+ " WHERE FAX_ID = :faxId";
+			Query nativeQuery = entityManager.createNativeQuery(trnFaxRxUpdateQuery);
+			nativeQuery.setParameter("pageRotationJson", pageRotationJson);
+	        nativeQuery.setParameter("faxId", faxId);
+			nativeQuery.executeUpdate(); 
+		} catch (JsonProcessingException e) {
+		    // Handle exception (e.g., log it or throw a runtime exception)
+		    throw new RuntimeException("Error converting map to JSON", e);
+		}
+
+		return "Successfully updated";
 	}
 	
 	}

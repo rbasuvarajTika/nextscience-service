@@ -126,6 +126,12 @@ public class FaxRx {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CASE_ID")
 	private FaxRxCase faxRxCase;
+	
+	@Column(name = "SOURCE")
+	private String source;
+	
+	@Column(name = "PDF_ROTATION")
+	private String pdfRotation;
 
 	@Column(name = "CREATED_USER", length = 255)
 	private String createdUser;

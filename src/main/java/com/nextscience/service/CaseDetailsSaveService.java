@@ -44,7 +44,7 @@ public interface CaseDetailsSaveService {
 	/** Delete values Hcp information. */
 	public String DeleteHcpInfoProc(List<DeleteHcpInfoRequest> req);
 
-	public Integer addTrnFaxRxDetails(InsertTrnFaxRxRequest request);
+	public String addTrnFaxRxDetails(InsertTrnFaxRxRequest request);
 
 	public String addTrnFaxRxPriscrDetails(InsertTrnFaxRxPriscrRequest request);
 
