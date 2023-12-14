@@ -204,7 +204,7 @@ public class FaxContoller {
 	}
 	
 	/** Retrieves A FaxPdfByFaxId in FaxRx */
-	@GetMapping(value = FaxRxConstant.GETFAXPDFFAXIDNEW, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = FaxRxConstant.GETFAXPDFROTATION, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public @ResponseBody PdfByFaxIdResponse getPdfByFaxId(@PathVariable String faxId) {
 		PdfByFaxIdResponse response = new PdfByFaxIdResponse();
@@ -212,23 +212,24 @@ public class FaxContoller {
 		try {
 
 			FaxRx faxRxResponse = faxRxService.fetchListById(faxId);
-			InputStream is;
-			String ftpUrl = faxRxResponse.getFaxUrl();
-			is = new URL(ftpUrl).openStream();
-			response.setPdf(is.readAllBytes());
+			//InputStream is;
+			//String ftpUrl = faxRxResponse.getFaxUrl();
+			//is = new URL(ftpUrl).openStream();
+			//response.setPdf(is.readAllBytes());
 			//response.setPageRaotation(faxRxResponse.getPdfRotation());
 			ObjectMapper objectMapper = new ObjectMapper();
 			jsonMap = objectMapper.readValue(faxRxResponse.getPdfRotation(), new TypeReference<>() {});
-			response.setPageRaotation(jsonMap);
+			
 			 HttpHeaders headers = new HttpHeaders();
 		        headers.setContentType(MediaType.APPLICATION_JSON);
-
+		        response.setPageRotation(jsonMap);
 			//return is.readAllBytes();
-		} catch (FileNotFoundException e) {
-			 
-			
-			e.printStackTrace();
-		} 
+		} /*
+			 * catch (FileNotFoundException e) {
+			 * 
+			 * 
+			 * e.printStackTrace(); }
+			 */
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

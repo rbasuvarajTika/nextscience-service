@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PdfByFaxIdResponse {
 	
-	private byte[] pdf;
+//	private byte[] pdf;
 	//private String pageRaotation;
-	private Map<String,Object> pageRaotation;
+	private Map<String,Object> pageRotation;
 	
 
 }

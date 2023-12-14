@@ -10,7 +10,7 @@ public class FaxRxConstant {
 	public static final String FAXDUPE = "/faxDupe";
 	public static final String FAXDUPEBYFAXID = "/faxDupeById/{faxId}";
 	public static final String GETFAXPDFFAXID = "/getFaxPdf/{faxId}";
-	public static final String GETFAXPDFFAXIDNEW = "/getFaxPdfNew/{faxId}";
+	public static final String GETFAXPDFROTATION = "/getFaxPdfRotation/{faxId}";
 	public static final String GETFAXDETAILSFAXID = "/getFaxDetails/{faxId}";
 	public static final String UPDATEFAXDUPEMAINFAXID = "/updateFax/{dupeTrnFaxId}/{mainTrnFaxId}";
 	public static final String KEEPDUPLICATETRNFAXID = "/keepDuplicate/{trnFaxId}";

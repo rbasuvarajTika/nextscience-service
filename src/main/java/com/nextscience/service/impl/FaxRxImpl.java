@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nextscience.Constants.CommonConstants;
 import com.nextscience.component.EmailBuilder;
@@ -233,21 +236,21 @@ public class FaxRxImpl implements FaxRxService {
 	public void updatePdfInDatabase(String faxId, byte[] rotatedPdfBytes) {
 		FaxRx faxRx = faxRxRepository.findByFaxId(faxId);
 
-        if (faxRx != null) {
-            try {
-                // Convert rotated PDF content to Base64 for storing in the URL column
-                String base64RotatedPdf = Base64.getEncoder().encodeToString(rotatedPdfBytes);
-                faxRx.setFaxUrl("data:application/pdf;base64," + base64RotatedPdf);
-                faxRxRepository.save(faxRx);
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Handle the exception appropriately (e.g., return an error response)
-            }
-        } else {
-            // Handle the case where the FaxRx entity with the given ID is not found
-            // You might want to throw an exception or log an error message
-        }
-		
+		if (faxRx != null) {
+			try {
+				// Convert rotated PDF content to Base64 for storing in the URL column
+				String base64RotatedPdf = Base64.getEncoder().encodeToString(rotatedPdfBytes);
+				faxRx.setFaxUrl("data:application/pdf;base64," + base64RotatedPdf);
+				faxRxRepository.save(faxRx);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// Handle the exception appropriately (e.g., return an error response)
+			}
+		} else {
+			// Handle the case where the FaxRx entity with the given ID is not found
+			// You might want to throw an exception or log an error message
+		}
+
 	}
 
 	@Override
@@ -259,19 +262,18 @@ public class FaxRxImpl implements FaxRxService {
 
 		Page<FaxRxResponse> pageOfFaxResponses = new PageImpl<>(faxRxResponses, page, listDetails.getTotalElements());
 
-	    PageResponseDTO pageResponse = new PageResponseDTO();
-	    pageResponse.setData(pageOfFaxResponses.getContent());
-	    pageResponse.setFirst(pageOfFaxResponses.isFirst());
-	    pageResponse.setLast(pageOfFaxResponses.isLast());
-	    pageResponse.setPageNumber(pageOfFaxResponses.getNumber());
-	    pageResponse.setRecordCount(pageOfFaxResponses.getNumberOfElements());
-	    pageResponse.setRecordOffset(pageOfFaxResponses.getPageable().getOffset());
-	    pageResponse.setRequestedCount(pageOfFaxResponses.getSize());
-	    pageResponse.setTotalPages(pageOfFaxResponses.getTotalPages());
-	    pageResponse.setTotalRecords(pageOfFaxResponses.getTotalElements());
-	    return pageResponse;
+		PageResponseDTO pageResponse = new PageResponseDTO();
+		pageResponse.setData(pageOfFaxResponses.getContent());
+		pageResponse.setFirst(pageOfFaxResponses.isFirst());
+		pageResponse.setLast(pageOfFaxResponses.isLast());
+		pageResponse.setPageNumber(pageOfFaxResponses.getNumber());
+		pageResponse.setRecordCount(pageOfFaxResponses.getNumberOfElements());
+		pageResponse.setRecordOffset(pageOfFaxResponses.getPageable().getOffset());
+		pageResponse.setRequestedCount(pageOfFaxResponses.getSize());
+		pageResponse.setTotalPages(pageOfFaxResponses.getTotalPages());
+		pageResponse.setTotalRecords(pageOfFaxResponses.getTotalElements());
+		return pageResponse;
 	}
-   
 
 	private FaxRxResponse mapToObjectArrays(Object[] row) {
 		FaxRxResponse response = new FaxRxResponse();
@@ -310,30 +312,48 @@ public class FaxRxImpl implements FaxRxService {
 
 	@Override
 	@Transactional
-	public String updatePdfRotation(String faxId, Map<String, String> rotatedPages,String oldPageRotation) {
+	public String updatePdfRotation(String faxId, Map<String, String> rotatedPages, String oldPageRotation) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String pageRotationJson;
+		Map<String, String> oldJsonMap = new LinkedHashMap<>();
+
 		try {
-		    pageRotationJson = objectMapper.writeValueAsString(rotatedPages);
+			if (oldPageRotation != null) {
+
+				oldJsonMap = objectMapper.readValue(oldPageRotation, new TypeReference<>() {
+				});
+
+				for (Map.Entry<String, String> entry : oldJsonMap.entrySet()) {
+					String key = entry.getKey();
+					String oldValue = entry.getValue();
+
+					if (rotatedPages.containsKey(key)) {
+
+						String newValue = rotatedPages.get(key);
+						if (!newValue.equals(oldValue)) {
+
+							rotatedPages.put(key, newValue);
+						}
+					} else {
+
+						rotatedPages.put(key, oldValue);
+					}
+				}
+			}
+			pageRotationJson = objectMapper.writeValueAsString(rotatedPages);
 			String trnFaxRxUpdateQuery = "UPDATE TRN_FAX_RX  SET PDF_ROTATION = :pageRotationJson "
 					+ " WHERE FAX_ID = :faxId";
 			Query nativeQuery = entityManager.createNativeQuery(trnFaxRxUpdateQuery);
 			nativeQuery.setParameter("pageRotationJson", pageRotationJson);
-	        nativeQuery.setParameter("faxId", faxId);
-			nativeQuery.executeUpdate(); 
-		} catch (JsonProcessingException e) {
-		    // Handle exception (e.g., log it or throw a runtime exception)
-		    throw new RuntimeException("Error converting map to JSON", e);
+			nativeQuery.setParameter("faxId", faxId);
+			nativeQuery.executeUpdate();
+		} catch (
+
+		JsonProcessingException e) {
+			throw new RuntimeException("Error converting map to JSON", e);
 		}
 
 		return "Successfully updated";
 	}
-	
-	}
 
-	
-	
-	
-	
-
-
+}
