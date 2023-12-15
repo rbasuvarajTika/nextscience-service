@@ -96,6 +96,11 @@ public class FaxRxImpl implements FaxRxService {
 		response.setNoOfRxs((Integer) row[10]);
 		response.setVerifiedFlag((String) row[11]);
 		response.setActionRequired((String) row[12]);
+		response.setAccountName((String) row[13]);
+		response.setHcpFirstName((String) row[14]);
+		response.setHcpLastName((String) row[15]);
+		response.setPatientFirstName((String) row[16]);
+		response.setPatientLastName((String) row[17]);
 		return response;
 	}
 

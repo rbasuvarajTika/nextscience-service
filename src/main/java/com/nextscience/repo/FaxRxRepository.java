@@ -24,24 +24,30 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "a.FAX_DATE as faxDate, a.FAX_NUMBER as faxNumber, a.OCR_STATUS as ocrStatus, a.OCR_DATE as ocrDate ,\r\n"
 			+ "[FAX_RECEIVED_DATE] faxDateTime,a.NO_OF_RXS,\r\n"
 			+ "case when b.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG,\r\n"
-			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
-			+ "FROM TRN_FAX_RX a LEFT JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) ORDER BY b.CASE_ID ASC")
+			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED, \r\n"
+			+ "C.ACCOUNT_NAME, D.FIRST_NAME HCP_FIRST_NAME, D.LAST_NAME HCP_LAST_NAME, \r\n"
+			+ "E.PATIENT_FIRST_NAME, E.PATIENT_LAST_NAME \r\n" + "FROM TRN_FAX_RX a \r\n"
+			+ "LEFT JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) \r\n"
+			+ "LEFT JOIN DIM_ACCOUNT C ON A.ACCOUNT_ID=C.ACCOUNT_ID \r\n"
+			+ "LEFT JOIN DIM_HCP D ON A.PROF_ID=D.HCP_ID \r\n"
+			+ "LEFT JOIN DIM_PATIENT E ON A.PATIENT_ID=E.PATIENT_ID \r\n" + "ORDER BY b.CASE_ID ASC")
 	Page<Object[]> fetchFaxList(PageRequest page);
-	
+
 	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, \r\n"
-	        + "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, \r\n"
-	        + "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, \r\n"
-	        + "a.FAX_DATE as faxDate, a.FAX_NUMBER as faxNumber, a.OCR_STATUS as ocrStatus, a.OCR_DATE as ocrDate ,\r\n"
-	        + "[FAX_RECEIVED_DATE] faxDateTime,\r\n"
-	        + "case when b.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG,\r\n"
-	        + "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED\r\n"
-	        + "FROM TRN_FAX_RX a JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) "
-	        + "WHERE (:search is null or a.FAX_ID like %:search%) " 
-	        + "ORDER BY b.CASE_ID ASC")
+			+ "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, \r\n"
+			+ "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, \r\n"
+			+ "a.FAX_DATE as faxDate, a.FAX_NUMBER as faxNumber, a.OCR_STATUS as ocrStatus, a.OCR_DATE as ocrDate ,\r\n"
+			+ "[FAX_RECEIVED_DATE] faxDateTime,a.NO_OF_RXS,\r\n"
+			+ "case when b.VERIFIED_FLAG=1 then 'Yes' else 'No' end VERIFIED_FLAG,\r\n"
+			+ "case when b.ACTION_REQUIRED=1 then 'Yes' else 'No' end ACTION_REQUIRED, \r\n"
+			+ "C.ACCOUNT_NAME, D.FIRST_NAME HCP_FIRST_NAME, D.LAST_NAME HCP_LAST_NAME, \r\n"
+			+ "E.PATIENT_FIRST_NAME, E.PATIENT_LAST_NAME \r\n" + "FROM TRN_FAX_RX a \r\n"
+			+ "LEFT JOIN BRDG_FAX_RX_CASES b ON (a.TRN_FAX_ID = b.TRN_FAX_ID) \r\n"
+			+ "LEFT JOIN DIM_ACCOUNT C ON A.ACCOUNT_ID=C.ACCOUNT_ID \r\n"
+			+ "LEFT JOIN DIM_HCP D ON A.PROF_ID=D.HCP_ID \r\n"
+			+ "LEFT JOIN DIM_PATIENT E ON A.PATIENT_ID=E.PATIENT_ID \r\n" + "ORDER BY b.CASE_ID ASC")
 	Page<Object[]> fetchFaxListNew(PageRequest page, @Param("search") String search);
-	
-	
-		
+
 	@Query(nativeQuery = true, value = "SELECT a.TRN_FAX_ID as trnFaxId, a.FAX_ID as faxId, "
 			+ "b.CASE_ID as caseId, a.FAX_STATUS as faxStatus, "
 			+ "CASE WHEN b.DUPE_FAX_ID IS NULL THEN 'NA' ELSE b.DUPE_FAX_ID END as dupeFaxId, "
@@ -50,8 +56,6 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 	Object[] fetchFaxList(@Param(value = "faxId") int faxId);
 
 	FaxRx findByFaxId(String faxId);
-	
-	
 
 	@Query(nativeQuery = true, value = "SELECT a.[TRN_FAX_ID]\r\n" + ",a.FAX_ID\r\n" + ",b.CASE_ID\r\n"
 			+ ",a.FAX_STATUS\r\n" + ",case when b.DUPE_FAX_ID is null then 'NA' else b.DUPE_FAX_ID end DUPE_FAX_ID\r\n"
@@ -65,25 +69,18 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 			+ "join [DIM_ACCOUNT] h on (a.[ACCOUNT_ID]=h.[ACCOUNT_ID])\r\n"
 			+ "join [DIM_PATIENT] r on (a.[PATIENT_ID]=r.[PATIENT_ID])\r\n" + "where b.CASE_TYPE='Duplicate'")
 	List<Object[]> getDupeResponse();
-	
-	
-	
-	
+
 	@Query(nativeQuery = true, value = "SELECT Distinct OCR_STATUS from TRN_FAX_RX where OCR_STATUS is not null")
-	List<String>findOcrStatus();
-	
+	List<String> findOcrStatus();
 
 	@Query(nativeQuery = true, value = "SELECT Distinct FAX_STATUS from TRN_FAX_RX where FAX_STATUS is not null")
-	List<String>findFaxStatus();
-	
+	List<String> findFaxStatus();
+
 	@Query(nativeQuery = true, value = "SELECT Distinct PROCESS_STATUS from TRN_FAX_RX where PROCESS_STATUS is not null")
-	List<String>findRxStatus();
-	
-	
+	List<String> findRxStatus();
+
 	@Query(nativeQuery = true, value = "SELECT MAX(TRN_FAX_ID) as trnFaxId from TRN_FAX_RX where FAX_ID =:faxId")
 	Integer findTrnFaxRxId(@Param(value = "faxId") String faxId);
-	
-
 
 	/*
 	 * @Query(nativeQuery = true, value = "UPDATE TRN_FAX_RX \r\n" +
@@ -120,6 +117,5 @@ public interface FaxRxRepository extends JpaRepository<FaxRx, Integer> {
 	 * 
 	 * 
 	 */
-	
-	
+
 }
