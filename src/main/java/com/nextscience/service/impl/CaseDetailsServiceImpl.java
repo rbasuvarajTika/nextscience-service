@@ -10,11 +10,14 @@ import com.nextscience.Constants.CommonConstants;
 import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.FaxRxAttachNotesToRaxRequest;
+import com.nextscience.dto.request.FaxRxConfirmRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxPriscrRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
+import com.nextscience.dto.request.NewFaxRxAdd;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
@@ -631,6 +634,59 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 //		query.setParameter("PAYER_ID", request.getFaxCallerId());
 //		query.setParameter("PAYER_TYPE", request.getFaxUrl());
 //		query.setParameter("NETSUITE_RX_ID", request.getFaxUrl());
+
+		// Execute the stored procedure
+		query.execute();
+		return "updated successfully";
+	}
+
+	@Override
+	public String updateFaxRxConfirm(FaxRxConfirmRequest request) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_RX_Confirm");
+
+		// Set the parameters for the stored procedure
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+
+		// Set parameter values
+		query.setParameter("USER", request.getUserName());
+		query.setParameter("TRN_FAX_ID", request.getTrnFaxId());
+
+		// Execute the stored procedure
+		query.execute();
+		return "updated successfully";
+	}
+
+	@Override
+	public String updateFaxRxAttachNotes(FaxRxAttachNotesToRaxRequest request) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_RX_Attach_NotestoRX");
+
+		// Set the parameters for the stored procedure
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_FAX_ID1", Integer.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_FAX_ID2", Integer.class, ParameterMode.IN);
+
+		// Set parameter values
+		query.setParameter("USER", request.getUserName());
+		query.setParameter("TRN_FAX_ID1", request.getTrnFaxIdMain());
+		query.setParameter("TRN_FAX_ID2", request.getTrnFaxIdDuplicate());
+
+		// Execute the stored procedure
+		query.execute();
+		return "updated successfully";
+	}
+
+	@Override
+	public String addNewFaxRx(NewFaxRxAdd request) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_NewFax_Rx_Add");
+
+		// Set the parameters for the stored procedure
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+
+		// Set parameter values
+		query.setParameter("USER", request.getUserName());
+		query.setParameter("TRN_FAX_ID", request.getTrnFaxId());
 
 		// Execute the stored procedure
 		query.execute();

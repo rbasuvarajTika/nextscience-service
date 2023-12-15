@@ -5,11 +5,14 @@ import java.util.List;
 import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.FaxRxAttachNotesToRaxRequest;
+import com.nextscience.dto.request.FaxRxConfirmRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxPriscrRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
+import com.nextscience.dto.request.NewFaxRxAdd;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
@@ -47,5 +50,11 @@ public interface CaseDetailsSaveService {
 	public String addTrnFaxRxDetails(InsertTrnFaxRxRequest request);
 
 	public String addTrnFaxRxPriscrDetails(InsertTrnFaxRxPriscrRequest request);
+
+	public String updateFaxRxConfirm(FaxRxConfirmRequest request);
+
+	public String updateFaxRxAttachNotes(FaxRxAttachNotesToRaxRequest request);
+
+	public String addNewFaxRx(NewFaxRxAdd request);
 
 }

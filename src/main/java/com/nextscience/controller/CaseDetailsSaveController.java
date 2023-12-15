@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,11 +15,14 @@ import com.nextscience.dto.request.CaseDetailsSaveRequest;
 import com.nextscience.dto.request.DeleteHcpInfoRequest;
 import com.nextscience.dto.request.DeleteProductInfoRequest;
 import com.nextscience.dto.request.DeleteWoundInfoRequest;
+import com.nextscience.dto.request.FaxRxAttachNotesToRaxRequest;
+import com.nextscience.dto.request.FaxRxConfirmRequest;
 import com.nextscience.dto.request.InsertHcpInfoRequest;
 import com.nextscience.dto.request.InsertProductInfoRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxPriscrRequest;
 import com.nextscience.dto.request.InsertTrnFaxRxRequest;
 import com.nextscience.dto.request.InsertWoundInfoRequest;
+import com.nextscience.dto.request.NewFaxRxAdd;
 import com.nextscience.dto.request.UpdateChecklistInfoRequest;
 import com.nextscience.dto.request.UpdateHcpInfoRequest;
 import com.nextscience.dto.request.UpdateOfficeInfoRequest;
@@ -229,13 +233,51 @@ public class CaseDetailsSaveController {
 				CommonConstants.ERRROR);
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@PostMapping("/addTrnFaxRxPriscrDetails")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<CaseDetailsSaveRequest> addTrnFaxRxPriscrDetails(@RequestBody InsertTrnFaxRxPriscrRequest request) {
+	public NSServiceResponse<CaseDetailsSaveRequest> addTrnFaxRxPriscrDetails(
+			@RequestBody InsertTrnFaxRxPriscrRequest request) {
 
 		String response = caseDetailsSaveService.addTrnFaxRxPriscrDetails(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@PutMapping("/updateFaxRxConfirm")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<String> updateFaxRxConfirm(@RequestBody FaxRxConfirmRequest request) {
+
+		String response = caseDetailsSaveService.updateFaxRxConfirm(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@PutMapping("/updateFaxRxAttachNotes")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<String> updateFaxRxAttachNotes(
+			@RequestBody FaxRxAttachNotesToRaxRequest request) {
+
+		String response = caseDetailsSaveService.updateFaxRxAttachNotes(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping("/addNewFaxRx")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<String> addNewFaxRx(@RequestBody NewFaxRxAdd request) {
+
+		String response = caseDetailsSaveService.addNewFaxRx(request);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
