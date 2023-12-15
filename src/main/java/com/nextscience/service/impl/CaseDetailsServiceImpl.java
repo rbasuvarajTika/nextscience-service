@@ -1,9 +1,11 @@
 package com.nextscience.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextscience.Constants.CommonConstants;
@@ -24,6 +26,10 @@ import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
+import com.nextscience.dto.response.SearchHcpNameResponse;
+import com.nextscience.dto.response.SearchPatientNameResponse;
+import com.nextscience.repo.HcpDetailsRepository;
+import com.nextscience.repo.PatientDetailsRepository;
 import com.nextscience.service.CaseDetailsSaveService;
 
 import jakarta.persistence.EntityManager;
@@ -36,6 +42,12 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	@Autowired
+	PatientDetailsRepository patientDetailsRepository;
+
+	@Autowired
+	HcpDetailsRepository hcpDetailsRepository;
 
 	@Override
 	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req) {
@@ -278,67 +290,70 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 	@Override
 	public String updateHcpProc(List<UpdateHcpInfoRequest> requests) {
 		StoredProcedureQuery query = null;
+		try {
+			for (UpdateHcpInfoRequest req : requests) {
 
-		for (UpdateHcpInfoRequest req : requests) {
+				if (req.getStatus().equalsIgnoreCase("update")) {
+					query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
 
-			if (req.getStatus().equalsIgnoreCase("update")) {
-				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Edit");
+					query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 
-				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
+					// query.registerStoredProcedureParameter("HCP_ID", Integer.class,
+					// ParameterMode.IN);
+					query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
 
-				query.registerStoredProcedureParameter("PROF_ID", Integer.class, ParameterMode.IN);
-				// query.registerStoredProcedureParameter("HCP_ID", Integer.class,
-				// ParameterMode.IN);
-				query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
+					query.setParameter("USER", req.getUpdatedUser());
+					query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+					query.setParameter("TRN_RX_ID", req.getTrnRxId());
 
-				query.setParameter("USER", req.getUpdatedUser());
-				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-				query.setParameter("TRN_RX_ID", req.getTrnRxId());
+					query.setParameter("PROF_ID", req.getHcpId());
+					// query.setParameter("HCP_ID", req.getHcpId());
+					query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
+					query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
+					query.setParameter("FIRST_NAME", req.getFirstName());
+					query.setParameter("MIDDLE_NAME", req.getMiddleName());
+					query.setParameter("LAST_NAME", req.getLastName());
+					query.setParameter("NPI", req.getNpi());
+					query.execute();
 
-				query.setParameter("PROF_ID", req.getHcpId());
-				// query.setParameter("HCP_ID", req.getHcpId());
-				query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
-				query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
-				query.setParameter("FIRST_NAME", req.getFirstName());
-				query.setParameter("MIDDLE_NAME", req.getMiddleName());
-				query.setParameter("LAST_NAME", req.getLastName());
-				query.setParameter("NPI", req.getNpi());
-				query.execute();
+				} else if (req.getStatus().equalsIgnoreCase("insert")) {
 
-			} else if (req.getStatus().equalsIgnoreCase("insert")) {
+					query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
+					query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("PROVIDER_TYPE", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
 
-				query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
-				query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("PROVIDER_TYPE", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
+					query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 
-				query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
-				query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
+					query.setParameter("USER", "Admin");
+					query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
+					query.setParameter("PROVIDER_TYPE", 2);
+					query.setParameter("NPI", req.getNpi());
+					query.setParameter("FIRST_NAME", req.getFirstName());
+					query.setParameter("MIDDLE_NAME", req.getMiddleName());
+					query.setParameter("LAST_NAME", req.getLastName());
 
-				query.setParameter("USER", "Admin");
-				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
-				query.setParameter("PROVIDER_TYPE", 2);
-				query.setParameter("NPI", req.getNpi());
-				query.setParameter("FIRST_NAME", req.getFirstName());
-				query.setParameter("MIDDLE_NAME", req.getMiddleName());
-				query.setParameter("LAST_NAME", req.getLastName());
+					query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
+					query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
+					query.execute();
 
-				query.setParameter("SIGNATURE_FLAG", req.getSignature_Flag());
-				query.setParameter("SIGNATURE_DATE", req.getSignature_Date());
-				query.execute();
-
+				}
 			}
+		} catch (Exception e) {
+
 		}
 
 		return "updated Successfully";
@@ -691,6 +706,18 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 		// Execute the stored procedure
 		query.execute();
 		return "updated successfully";
+	}
+
+	@Override
+	public List<SearchPatientNameResponse> searchPatientName(String patientName) {
+		List<SearchPatientNameResponse> response = patientDetailsRepository.searchPatientName(patientName);
+		return response;
+	}
+
+	@Override
+	public List<SearchHcpNameResponse> searchHcpName(String hcpName) {
+		List<SearchHcpNameResponse> response = hcpDetailsRepository.searchHcpName(hcpName);
+		return response;
 	}
 
 }

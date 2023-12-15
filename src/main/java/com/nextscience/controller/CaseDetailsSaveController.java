@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
@@ -30,6 +32,8 @@ import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.SearchHcpNameResponse;
+import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.service.CaseDetailsSaveService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -262,8 +266,7 @@ public class CaseDetailsSaveController {
 	@SuppressWarnings("unchecked")
 	@PutMapping("/updateFaxRxAttachNotes")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<String> updateFaxRxAttachNotes(
-			@RequestBody FaxRxAttachNotesToRaxRequest request) {
+	public NSServiceResponse<String> updateFaxRxAttachNotes(@RequestBody FaxRxAttachNotesToRaxRequest request) {
 
 		String response = caseDetailsSaveService.updateFaxRxAttachNotes(request);
 
@@ -278,6 +281,34 @@ public class CaseDetailsSaveController {
 	public NSServiceResponse<String> addNewFaxRx(@RequestBody NewFaxRxAdd request) {
 
 		String response = caseDetailsSaveService.addNewFaxRx(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+
+	@GetMapping("/searchPatientName")
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<SearchPatientNameResponse>> searchPatientName(
+			@RequestParam(name = "searchPatientName") String patientName) {
+
+		List<SearchPatientNameResponse> response = caseDetailsSaveService.searchPatientName(patientName);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@GetMapping("/searchHcpName")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<SearchHcpNameResponse>> searchHcpName(
+			@RequestParam(name = "searchHcpName") String hcpName) {
+
+		List<SearchHcpNameResponse> response = caseDetailsSaveService.searchHcpName(hcpName);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
