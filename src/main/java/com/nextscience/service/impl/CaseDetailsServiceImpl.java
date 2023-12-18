@@ -258,7 +258,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 				query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
 
-				query.setParameter("USER", "Admin");
+				query.setParameter("USER", req.getCreatedUser());
 				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 				query.setParameter("TRN_RX_ID", req.getTrnRxId());
 
