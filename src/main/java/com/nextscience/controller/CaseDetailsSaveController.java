@@ -3,6 +3,7 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -317,7 +318,7 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/showPrevRxHcp")
+	@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@RequestBody FaxRxConfirmRequest request) {
 
