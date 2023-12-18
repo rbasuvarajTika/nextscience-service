@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -318,9 +319,12 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+	//@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/showPrevRxHcp/{userName}/{trnFaxId}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@RequestBody FaxRxConfirmRequest request) {
+	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@PathVariable String userName,@PathVariable Integer trnFaxId)
+	{
+		FaxRxConfirmRequest request = new FaxRxConfirmRequest(userName,trnFaxId);
 
 		List<ShowPrevRxHcpsResponse> response = caseDetailsSaveService.showprevRxHcps(request);
 
