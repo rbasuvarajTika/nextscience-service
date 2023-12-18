@@ -29,5 +29,6 @@ public class UpdateProductInfoRequest {
 	private Integer wnd4;
 	private String updatedUser;
 	private String status;
+	private String createdUser;
 	
 }

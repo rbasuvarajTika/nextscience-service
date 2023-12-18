@@ -279,7 +279,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 				query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 				query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
 
-				query.setParameter("USER", "Admin");
+				query.setParameter("USER", req.getCreatedUser());
 				query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 				query.setParameter("TRN_RX_ID", req.getTrnRxId());
 				query.setParameter("PRODUCT_CODE", req.getProductCode());
@@ -419,23 +419,26 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Override
 	public String insertWoundInfoProc(List<InsertWoundInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Add");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_LOCATION", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_LENGTH", BigDecimal.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_WIDTH", BigDecimal.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_DEPTH", BigDecimal.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_THICKNESS", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_TYPE", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("DRAINEGE", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("DEBRIDED", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("DEBRIDED_DATE", Date.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
-
+		StoredProcedureQuery query = null;
+		
 		for (InsertWoundInfoRequest req : requests) {
+			
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Add");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_LOCATION", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_LENGTH", BigDecimal.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_WIDTH", BigDecimal.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_DEPTH", BigDecimal.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_THICKNESS", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_TYPE", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("DRAINEGE", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("DEBRIDED", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("DEBRIDED_DATE", Date.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("DEBRIDED_TYPE", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("ICD_CODE", String.class, ParameterMode.IN);
+
 			query.setParameter("USER", req.getCreatedUser());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 			query.setParameter("WOUND_NO", req.getWoundNo());
@@ -460,24 +463,26 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 	@Override
 	public String InsertProductInfoProc(List<InsertProductInfoRequest> requests) {
 
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Add");
+		StoredProcedureQuery query = null;
 
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
-
-		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
-		// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
-		// ParameterMode.IN);
-
-		query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
+		
 
 		for (InsertProductInfoRequest req : requests) {
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Add");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+
+			query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+			// query.registerStoredProcedureParameter("PRODUCT_ID", Integer.class,
+			// ParameterMode.IN);
+
+			query.registerStoredProcedureParameter("QUANTITY", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WND1", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WND2", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WND3", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WND4", Integer.class, ParameterMode.IN);
 			query.setParameter("USER", req.getCreatedUser());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 			query.setParameter("TRN_RX_ID", req.getTrnRxId());
@@ -498,19 +503,21 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 	@Override
 	public String InsertHcpInfoProc(List<InsertHcpInfoRequest> requests) {
 
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("PROVIDER_TYPE", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
-
-		query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
+		
 
 		for (InsertHcpInfoRequest req : requests) {
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Add");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("PROVIDER_TYPE", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("NPI", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("FIRST_NAME", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("MIDDLE_NAME", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("LAST_NAME", String.class, ParameterMode.IN);
+
+			query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 			query.setParameter("USER", req.getCreateUser());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 			query.setParameter("PROVIDER_TYPE", req.getProviderType());
@@ -530,13 +537,15 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Override
 	public String DeleteWoundInfoProc(List<DeleteWoundInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Del");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
+		
 
 		for (DeleteWoundInfoRequest req : requests) {
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_WoundInfo_Del");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
 			query.setParameter("USER", req.getUser());
 			query.setParameter("TRN_RX_ID", req.getTrnRxId());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
@@ -549,14 +558,15 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Override
 	public String DeleteProductInfoProc(List<DeleteProductInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Del");
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-
-		query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
 
 		for (DeleteProductInfoRequest req : requests) {
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_ProdDetails_Del");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+
+			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("PRODUCT_CODE", String.class, ParameterMode.IN);
 			query.setParameter("USER", req.getUser());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 			query.setParameter("TRN_RX_ID", req.getTrnRxId());
@@ -569,12 +579,12 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Override
 	public String DeleteHcpInfoProc(List<DeleteHcpInfoRequest> requests) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Del");
-
-		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
+		StoredProcedureQuery query = null;
 
 		for (DeleteHcpInfoRequest req : requests) {
+			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Del");
+			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+			query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
 			query.setParameter("USER", "Admin");
 			query.setParameter("HCP_ID", req.getHcpId());
 			query.execute();
