@@ -318,7 +318,7 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@RequestBody FaxRxConfirmRequest request) {
 
