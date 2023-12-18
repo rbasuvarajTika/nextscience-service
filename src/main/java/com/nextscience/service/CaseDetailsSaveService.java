@@ -21,6 +21,7 @@ import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.SearchHcpNameResponse;
 import com.nextscience.dto.response.SearchPatientNameResponse;
+import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 
 public interface CaseDetailsSaveService {
 
@@ -58,9 +59,11 @@ public interface CaseDetailsSaveService {
 	public String updateFaxRxAttachNotes(FaxRxAttachNotesToRaxRequest request);
 
 	public String addNewFaxRx(NewFaxRxAdd request);
-	
+
 	public List<SearchPatientNameResponse> searchPatientName(String patientName);
-	
+
 	public List<SearchHcpNameResponse> searchHcpName(String hcpName);
+
+	public List<ShowPrevRxHcpsResponse> showprevRxHcps(FaxRxConfirmRequest request);
 
 }

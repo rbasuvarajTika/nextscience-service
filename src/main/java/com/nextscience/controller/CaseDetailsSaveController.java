@@ -3,9 +3,7 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,6 +34,7 @@ import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
 import com.nextscience.dto.response.SearchHcpNameResponse;
 import com.nextscience.dto.response.SearchPatientNameResponse;
+import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.service.CaseDetailsSaveService;
 import com.nextscience.utility.ResponseHelper;
 
@@ -254,7 +253,7 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@PutMapping(value="/updateFaxRxConfirm")
+	@PutMapping(value = "/updateFaxRxConfirm")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public NSServiceResponse<CaseDetailsSaveRequest> updateFaxRxConfirm(@RequestBody FaxRxConfirmRequest request) {
 
@@ -311,6 +310,18 @@ public class CaseDetailsSaveController {
 			@RequestParam(name = "searchHcpName") String hcpName) {
 
 		List<SearchHcpNameResponse> response = caseDetailsSaveService.searchHcpName(hcpName);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@GetMapping("/showPrevRxHcp")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@RequestBody FaxRxConfirmRequest request) {
+
+		List<ShowPrevRxHcpsResponse> response = caseDetailsSaveService.showprevRxHcps(request);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
