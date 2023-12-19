@@ -1,7 +1,6 @@
 package com.nextscience.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +26,6 @@ import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
-import com.nextscience.dto.response.FaxRxResponse;
-import com.nextscience.dto.response.SearchHcpNameResponse;
-import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.repo.HcpDetailsRepository;
 import com.nextscience.repo.PatientDetailsRepository;
@@ -341,7 +337,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 					query.registerStoredProcedureParameter("SIGNATURE_FLAG", Integer.class, ParameterMode.IN);
 					query.registerStoredProcedureParameter("SIGNATURE_DATE", Date.class, ParameterMode.IN);
 
-					query.setParameter("USER", "Admin");
+					query.setParameter("USER", req.getUpdatedUser());
 					query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 					query.setParameter("PROVIDER_TYPE", 2);
 					query.setParameter("NPI", req.getNpi());
@@ -546,7 +542,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 			query.registerStoredProcedureParameter("TRN_FAX_ID", Integer.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
-			query.setParameter("USER", req.getUser());
+			query.setParameter("USER", req.getUserName());
 			query.setParameter("TRN_RX_ID", req.getTrnRxId());
 			query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 			query.setParameter("WOUND_NO", req.getWoundNo());
@@ -585,7 +581,7 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 			query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Physician_Del");
 			query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 			query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
-			query.setParameter("USER", "Admin");
+			query.setParameter("USER", req.getUserName());
 			query.setParameter("HCP_ID", req.getHcpId());
 			query.execute();
 		}
@@ -722,14 +718,22 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 	}
 
 	@Override
-	public List<SearchPatientNameResponse> searchPatientName(String patientName) {
-		List<SearchPatientNameResponse> response = patientDetailsRepository.searchPatientName(patientName);
-		return response;
-	}
+	public List<ShowPrevRxHcpsResponse> showPrevRxNameSearch(String patientName,String hcpName) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Show_PrevRXs_NameSearch");
 
-	@Override
-	public List<SearchHcpNameResponse> searchHcpName(String hcpName) {
-		List<SearchHcpNameResponse> response = hcpDetailsRepository.searchHcpName(hcpName);
+		// Set the parameters for the stored procedure
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("PATIENT_NAME", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("HCP_NAME", String.class, ParameterMode.IN);
+
+		// Set parameter values
+		query.setParameter("USER", "Admin");
+		query.setParameter("PATIENT_NAME", patientName);
+		query.setParameter("HCP_NAME", hcpName);
+
+		// Execute the stored procedure
+		List<Object[]> list = query.getResultList();
+		List<ShowPrevRxHcpsResponse> response = list.stream().map(this::mapToObjectArray).collect(Collectors.toList());
 		return response;
 	}
 

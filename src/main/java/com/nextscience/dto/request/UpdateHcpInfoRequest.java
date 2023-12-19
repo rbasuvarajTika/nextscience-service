@@ -30,6 +30,7 @@ public class UpdateHcpInfoRequest {
 	private String lastName;
 	private String npi;
     private String updatedUser;
+    private String createdUser;
     private String status;
 	 
 	

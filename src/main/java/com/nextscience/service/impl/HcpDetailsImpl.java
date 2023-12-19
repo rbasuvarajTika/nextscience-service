@@ -155,7 +155,7 @@ public class HcpDetailsImpl implements HcpDetailsService {
 		
 		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("HCP_ID", Integer.class, ParameterMode.IN);
-		query.setParameter("USER", req.getUser());
+		query.setParameter("USER", req.getUserName());
 		query.setParameter("HCP_ID", req.getHcpId());
 		query.execute();
 		return "deleted successfully";

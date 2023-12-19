@@ -19,7 +19,7 @@ public class DeleteWoundInfoRequest {
 	private Integer trnFaxId;
 	private Integer trnRxId;	
 	private Integer woundNo;
-	private String user;
+	private String userName;
 	
 
 }

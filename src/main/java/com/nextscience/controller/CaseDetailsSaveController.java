@@ -3,7 +3,6 @@ package com.nextscience.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextscience.Constants.CommonConstants;
@@ -34,8 +32,6 @@ import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
-import com.nextscience.dto.response.SearchHcpNameResponse;
-import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.service.CaseDetailsSaveService;
 import com.nextscience.utility.ResponseHelper;
@@ -291,14 +287,12 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-
-	@GetMapping("/searchPatientName")
-
+	@GetMapping("/showPrevRxNameSearch/{patientName}/{hcpName}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<SearchPatientNameResponse>> searchPatientName(
-			@RequestParam(name = "searchPatientName") String patientName) {
+	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxNameSearch(@PathVariable String patientName,
+			@PathVariable String hcpName) {
 
-		List<SearchPatientNameResponse> response = caseDetailsSaveService.searchPatientName(patientName);
+		List<ShowPrevRxHcpsResponse> response = caseDetailsSaveService.showPrevRxNameSearch(patientName, hcpName);
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);
@@ -306,25 +300,13 @@ public class CaseDetailsSaveController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping("/searchHcpName")
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<SearchHcpNameResponse>> searchHcpName(
-			@RequestParam(name = "searchHcpName") String hcpName) {
-
-		List<SearchHcpNameResponse> response = caseDetailsSaveService.searchHcpName(hcpName);
-
-		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
-				CommonConstants.ERRROR);
-
-	}
-
-	@SuppressWarnings("unchecked")
-	//@GetMapping(value = "/showPrevRxHcp",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @GetMapping(value = "/showPrevRxHcp",produces =
+	// MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(value = "/showPrevRxHcp/{userName}/{trnFaxId}")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@PathVariable String userName,@PathVariable Integer trnFaxId)
-	{
-		FaxRxConfirmRequest request = new FaxRxConfirmRequest(userName,trnFaxId);
+	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxHcp(@PathVariable String userName,
+			@PathVariable Integer trnFaxId) {
+		FaxRxConfirmRequest request = new FaxRxConfirmRequest(userName, trnFaxId);
 
 		List<ShowPrevRxHcpsResponse> response = caseDetailsSaveService.showprevRxHcps(request);
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeleteHcpInfoRequest {
-	private String user;
+	private String userName;
 	private Integer hcpId;
 
 }

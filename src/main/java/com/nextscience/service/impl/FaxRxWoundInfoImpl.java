@@ -168,7 +168,7 @@ public class FaxRxWoundInfoImpl implements FaxRxWoundInfoService {
 		query.registerStoredProcedureParameter("TRN_RX_ID", Integer.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter("WOUND_NO", Integer.class, ParameterMode.IN);
 		
-		 query.setParameter("USER", req.getUser());
+		 query.setParameter("USER", req.getUserName());
 		query.setParameter("TRN_RX_ID", req.getTrnRxId());
 		query.setParameter("TRN_FAX_ID", req.getTrnFaxId());
 		query.setParameter("WOUND_NO", req.getWoundNo());
