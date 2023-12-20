@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nextscience.dto.response.SearchHcpNameResponse;
 import com.nextscience.entity.HcpDetails;
 
 /**
@@ -36,5 +37,9 @@ public interface HcpDetailsRepository extends JpaRepository<HcpDetails, Integer>
 			+ "left join [BRDG_FAX_RX_PROVIDER] c on (a.[TRN_FAX_ID]=c.[TRN_FAX_ID])\r\n"
 			+ "left join [DIM_HCP] p on (c.[HCP_ID]=p.[HCP_ID])\r\n" + "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
 	List<Object[]> getHcpDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
+	
+	@Query(nativeQuery = true, value = "SELECT hCP_ID,CONCAT ([FIRST_NAME],' ' , [LAST_NAME]) as hcpName "
+			+ " FROM [DIM_HCP] ")
+	List<SearchHcpNameResponse> getAllHcpName();
 
 }

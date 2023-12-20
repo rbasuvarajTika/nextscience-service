@@ -19,6 +19,8 @@ import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
+import com.nextscience.dto.response.SearchHcpNameResponse;
+import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.dto.response.ShowPrevRxNameSearch;
 
@@ -62,5 +64,9 @@ public interface CaseDetailsSaveService {
 	public List<ShowPrevRxHcpsResponse> showPrevRxNameSearch(String patientName, String hcpName);
 
 	public List<ShowPrevRxHcpsResponse> showprevRxHcps(FaxRxConfirmRequest request);
+
+	public List<SearchPatientNameResponse> getAllPatientName();
+
+	public List<SearchHcpNameResponse> getAllHcpName();
 
 }

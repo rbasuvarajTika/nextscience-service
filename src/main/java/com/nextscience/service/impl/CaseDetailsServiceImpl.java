@@ -26,6 +26,8 @@ import com.nextscience.dto.request.UpdateOfficeInfoRequest;
 import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
+import com.nextscience.dto.response.SearchHcpNameResponse;
+import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.repo.HcpDetailsRepository;
 import com.nextscience.repo.PatientDetailsRepository;
@@ -797,6 +799,18 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 		response.setProductCode((String) row[36]);
 		response.setProductDisplayName((String) row[37]);
 		response.setWndCode((String) row[38]);
+		return response;
+	}
+	
+	@Override
+	public List<SearchPatientNameResponse> getAllPatientName() {
+		List<SearchPatientNameResponse> response = patientDetailsRepository.getAllPatientName();
+		return response;
+	}
+
+	@Override
+	public List<SearchHcpNameResponse> getAllHcpName() {
+		List<SearchHcpNameResponse> response = hcpDetailsRepository.getAllHcpName();
 		return response;
 	}
 

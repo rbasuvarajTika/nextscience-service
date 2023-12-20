@@ -32,6 +32,8 @@ import com.nextscience.dto.request.UpdatePatientTrnFaxRxRequest;
 import com.nextscience.dto.request.UpdateProductInfoRequest;
 import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.NSServiceResponse;
+import com.nextscience.dto.response.SearchHcpNameResponse;
+import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
 import com.nextscience.service.CaseDetailsSaveService;
 import com.nextscience.utility.ResponseHelper;
@@ -309,6 +311,32 @@ public class CaseDetailsSaveController {
 		FaxRxConfirmRequest request = new FaxRxConfirmRequest(userName, trnFaxId);
 
 		List<ShowPrevRxHcpsResponse> response = caseDetailsSaveService.showprevRxHcps(request);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+
+	@GetMapping("/searchPatientName")
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<SearchPatientNameResponse>> getAllPatientName() {
+
+		List<SearchPatientNameResponse> response = caseDetailsSaveService.getAllPatientName();
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@GetMapping("/searchHcpName")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<SearchHcpNameResponse>> getAllHcpName() {
+
+		List<SearchHcpNameResponse> response = caseDetailsSaveService.getAllHcpName();
 
 		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
 				CommonConstants.ERRROR);

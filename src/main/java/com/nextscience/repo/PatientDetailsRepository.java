@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.entity.PatientDetails;
 
 /**
@@ -46,5 +47,9 @@ public interface PatientDetailsRepository extends JpaRepository<PatientDetails, 
 			+ "left join [DIM_DISTRIBUTOR] d on (b.[DISTRIBUTOR_ID]=d.[DISTRIBUTOR_ID])\r\n"
 			+ "WHERE a.[TRN_RX_ID]=:TRN_RX_ID")
 	List<Object[]> getRxPatientDetByTrnRxId(@Param(value = "TRN_RX_ID") int trnRxId);
+	
+	@Query(nativeQuery = true, value = "SELECT PATIENT_ID,CONCAT ([PATIENT_FIRST_NAME],' ' , [PATIENT_LAST_NAME]) as patientName "
+			+ " FROM [DIM_PATIENT] ")
+	List<SearchPatientNameResponse> getAllPatientName();
 
 }
