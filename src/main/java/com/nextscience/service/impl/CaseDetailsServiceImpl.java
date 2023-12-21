@@ -768,8 +768,8 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 		response.setFaxNumber((String) row[5]);
 		response.setFaxUrl((String) row[6]);
 		response.setVerifiedFlag((String) row[7]);
-		response.setProviderType((String) row[8]);
-		response.setHcpName((String) row[9]);
+		response.setHcpName((String) row[8]);
+		response.setProviderType((String) row[9]);
 		response.setHcpAddress2((String) row[10]);
 		response.setHcpAddress2((String) row[11]);
 		response.setHcpCity((String) row[12]);
