@@ -113,4 +113,24 @@ public class ValidateNotesServiceImpl implements ValidateNotesService {
 		return response;
 	}
 
+	@Override
+	public List<ShowPrevRxHcpsResponse> showNotesPrevRxNameSearch(String patientName, String hcpName) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_Rx_Show_Notes_PrevRXs_NameSearch");
+
+		// Set the parameters for the stored procedure
+		query.registerStoredProcedureParameter("USER", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("PATIENT_NAME", String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter("HCP_NAME", String.class, ParameterMode.IN);
+
+		// Set parameter values
+		query.setParameter("USER", "Admin");
+		query.setParameter("PATIENT_NAME", patientName);
+		query.setParameter("HCP_NAME", hcpName);
+
+		// Execute the stored procedure
+		List<Object[]> list = query.getResultList();
+		List<ShowPrevRxHcpsResponse> response = list.stream().map(this::mapToObjectArray).collect(Collectors.toList());
+		return response;
+	}
+
 }

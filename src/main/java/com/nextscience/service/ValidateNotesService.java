@@ -10,5 +10,6 @@ public interface ValidateNotesService {
 	
 	public String removeRxNotes(RemoveRxNotesRequest request);
 	public List<ShowPrevRxHcpsResponse> showNotesPrevRxHcps(FaxRxConfirmRequest request);
+	public List<ShowPrevRxHcpsResponse> showNotesPrevRxNameSearch(String patientName, String hcpName);
 
 }

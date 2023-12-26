@@ -52,5 +52,18 @@ public class ValidateNotesController {
 				CommonConstants.ERRROR);
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/showNotesPrevRxNameSearch/{patientName}/{hcpName}")
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public NSServiceResponse<List<ShowPrevRxHcpsResponse>> showPrevRxNameSearch(@PathVariable String patientName,
+			@PathVariable String hcpName) {
+
+		List<ShowPrevRxHcpsResponse> response = validateNotesService.showNotesPrevRxNameSearch(patientName, hcpName);
+
+		return ResponseHelper.createResponse(new NSServiceResponse<>(), response, CommonConstants.SUCCESSFULLY,
+				CommonConstants.ERRROR);
+
+	}
 
 }
