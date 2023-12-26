@@ -29,6 +29,7 @@ import com.nextscience.dto.request.UpdateWoundInfoRequest;
 import com.nextscience.dto.response.SearchHcpNameResponse;
 import com.nextscience.dto.response.SearchPatientNameResponse;
 import com.nextscience.dto.response.ShowPrevRxHcpsResponse;
+import com.nextscience.repo.FaxRxRepository;
 import com.nextscience.repo.HcpDetailsRepository;
 import com.nextscience.repo.PatientDetailsRepository;
 import com.nextscience.service.CaseDetailsSaveService;
@@ -49,6 +50,9 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Autowired
 	HcpDetailsRepository hcpDetailsRepository;
+	
+	@Autowired
+	FaxRxRepository faxRxRepository;
 
 	@Override
 	public String updatePatientDetAndFaxRxProc(UpdatePatientTrnFaxRxRequest req) {
@@ -685,6 +689,9 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 	@Override
 	public String updateFaxRxAttachNotes(FaxRxAttachNotesToRaxRequest request) {
+		Integer trnFaxIdMain = faxRxRepository.findTrnFaxRxId(request.getFaxIdMain());
+		Integer trnFaxIdDuplicate = faxRxRepository.findTrnFaxRxId(request.getFaxIdDuplicate());
+		
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("usp_Fax_RX_Attach_NotestoRX");
 
 		// Set the parameters for the stored procedure
@@ -694,8 +701,8 @@ public class CaseDetailsServiceImpl implements CaseDetailsSaveService {
 
 		// Set parameter values
 		query.setParameter("USER", request.getUserName());
-		query.setParameter("TRN_FAX_ID1", request.getTrnFaxIdMain());
-		query.setParameter("TRN_FAX_ID2", request.getTrnFaxIdDuplicate());
+		query.setParameter("TRN_FAX_ID1", trnFaxIdMain);
+		query.setParameter("TRN_FAX_ID2", trnFaxIdDuplicate);
 
 		// Execute the stored procedure
 		query.execute();

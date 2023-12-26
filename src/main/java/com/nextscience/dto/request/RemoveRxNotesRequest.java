@@ -3,8 +3,8 @@ package com.nextscience.dto.request;
 import lombok.Data;
 
 @Data
-public class FaxRxAttachNotesToRaxRequest {
-
+public class RemoveRxNotesRequest {
+	
 	private String userName;
 	private Integer trnFaxIdMain;
 	private Integer trnFaxIdDuplicate;

@@ -1,31 +1,22 @@
 package com.nextscience.service.impl;
 
 import java.lang.reflect.Field;
-import java.security.cert.CollectionCertStoreParameters;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.coyote.http11.Http11InputBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nextscience.component.EmailBuilder;
 import com.nextscience.config.CustomPasswordEncoder;
@@ -33,7 +24,6 @@ import com.nextscience.dto.request.EmailDto;
 import com.nextscience.dto.request.SignUpRequest;
 import com.nextscience.dto.request.UpdatePasswordRequest;
 import com.nextscience.dto.request.UpdateUserRequest;
-import com.nextscience.dto.response.FaxRxResponse;
 import com.nextscience.dto.response.PageResponseDTO;
 import com.nextscience.dto.response.UserDetailsResponse;
 import com.nextscience.dto.response.UserResponse;
@@ -45,7 +35,6 @@ import com.nextscience.service.EmailService;
 import com.nextscience.service.UserService;
 import com.nextscience.utility.CommonUtilService;
 
-import io.jsonwebtoken.lang.Collections;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -235,11 +224,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updatePassword(UpdatePasswordRequest request, int id) {
-		Optional<User> existingUserOptional = userRepository.findByUserId(id);
+	public String updatePassword(UpdatePasswordRequest request) {
+		Optional<User> existingUserOptional = userRepository.findByUserId(request.getUserId());
 		if (existingUserOptional != null) {
 			User existingUser = existingUserOptional.get();
 			existingUser.setPassword(passwordEncoder.encode(request.getNewPassword()));
+			existingUser.setConfirmPassword(passwordEncoder.encode(request.getConfirmPassword()));
 			userRepository.save(existingUser);
 		}
 		return "Password changed successfully";
@@ -399,60 +389,59 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDetailsResponse> getUserByUserId(Integer userId) {
 		List<User> userList = userRepository.findAllCustomByUserId(userId);
-		List<UserDetailsResponse> userDetailsList = userList.stream()
-				.map(user -> {
-					UserDetailsResponse userResponse = new UserDetailsResponse();
-					userResponse.setUserId(user.getUserId());
-					userResponse.setUserName(user.getUsername());
-					userResponse.setFirstName(user.getFirstName());
-					userResponse.setMiddleName(user.getMiddleName());
-					userResponse.setLastName(user.getLastName());
-					userResponse.setFullName(user.getFullName());
-					userResponse.setUserStatusFlag(user.getUserStatusFlag());
-					userResponse.setTitle(user.getTitle());
-					userResponse.setRole(user.getRole());
-					userResponse.setUserMail(user.getUserMail());
-					userResponse.setPhone(user.getPhone());
-					userResponse.setUserMobile(user.getUserMobile());
-					userResponse.setUserEmpID(user.getUserEmpID());
-					userResponse.setAddress1(user.getAddress1());
-					userResponse.setAddress2(user.getAddress2());
-					userResponse.setCity(user.getCity());
-					userResponse.setState(user.getState());
-					userResponse.setZip(user.getZip());
-					userResponse.setPreferredName(user.getPreferredName());
-					userResponse.setActiveInd(user.getActiveInd());
-					userResponse.setUserTerr(user.getUserTerr());
-					userResponse.setEmpId(user.getEmpId());
-					userResponse.setHireDate(user.getHireDate());
-					userResponse.setEndDate(user.getEndDate());
-					userResponse.setStartDate(user.getStartDate());
-					userResponse.setAdmToolsFlag(user.getAdmToolsFlag());
-					userResponse.setAttendeeFlag(user.getAttendeeFlag());
-					userResponse.setBookingUrl(user.getBookingUrl());
-					userResponse.setManagerEmail(user.getManagerEmail());
-					userResponse.setUserTimeZone(user.getUserTimeZone());
-					userResponse.setUserNtId(user.getUserNtId());
-					userResponse.setOutlookClientId(user.getOutlookClientId());
-					userResponse.setOutlookSecretCode(user.getOutlookSecretCode());
-					userResponse.setOutlookEmailId(user.getOutlookEmailId());
-					userResponse.setSalesForce(user.getSalesForce());
+		List<UserDetailsResponse> userDetailsList = userList.stream().map(user -> {
+			UserDetailsResponse userResponse = new UserDetailsResponse();
+			userResponse.setUserId(user.getUserId());
+			userResponse.setUserName(user.getUsername());
+			userResponse.setFirstName(user.getFirstName());
+			userResponse.setMiddleName(user.getMiddleName());
+			userResponse.setLastName(user.getLastName());
+			userResponse.setFullName(user.getFullName());
+			userResponse.setUserStatusFlag(user.getUserStatusFlag());
+			userResponse.setTitle(user.getTitle());
+			userResponse.setRole(user.getRole());
+			userResponse.setUserMail(user.getUserMail());
+			userResponse.setPhone(user.getPhone());
+			userResponse.setUserMobile(user.getUserMobile());
+			userResponse.setUserEmpID(user.getUserEmpID());
+			userResponse.setAddress1(user.getAddress1());
+			userResponse.setAddress2(user.getAddress2());
+			userResponse.setCity(user.getCity());
+			userResponse.setState(user.getState());
+			userResponse.setZip(user.getZip());
+			userResponse.setPreferredName(user.getPreferredName());
+			userResponse.setActiveInd(user.getActiveInd());
+			userResponse.setUserTerr(user.getUserTerr());
+			userResponse.setEmpId(user.getEmpId());
+			userResponse.setHireDate(user.getHireDate());
+			userResponse.setEndDate(user.getEndDate());
+			userResponse.setStartDate(user.getStartDate());
+			userResponse.setAdmToolsFlag(user.getAdmToolsFlag());
+			userResponse.setAttendeeFlag(user.getAttendeeFlag());
+			userResponse.setBookingUrl(user.getBookingUrl());
+			userResponse.setManagerEmail(user.getManagerEmail());
+			userResponse.setUserTimeZone(user.getUserTimeZone());
+			userResponse.setUserNtId(user.getUserNtId());
+			userResponse.setOutlookClientId(user.getOutlookClientId());
+			userResponse.setOutlookSecretCode(user.getOutlookSecretCode());
+			userResponse.setOutlookEmailId(user.getOutlookEmailId());
+			userResponse.setSalesForce(user.getSalesForce());
 
-					userResponse.setUpdatedDate(user.getPasswordUpdatedDate());
-					userResponse.setUserStatusFlag(user.getUserStatusFlag());
-					userResponse.setUserType(user.getUserType());
+			userResponse.setUpdatedDate(user.getPasswordUpdatedDate());
+			userResponse.setUserStatusFlag(user.getUserStatusFlag());
+			userResponse.setUserType(user.getUserType());
 
-					userResponse.setUserImageUrl(user.getUserImageUrl());
-					userResponse.setCreatedUser(user.getCreatedUser());
-					userResponse.setCreatedDate(user.getCreatedDate());
-					userResponse.setUpdatedUser(user.getUpdatedUser());
+			userResponse.setUserImageUrl(user.getUserImageUrl());
+			userResponse.setCreatedUser(user.getCreatedUser());
+			userResponse.setCreatedDate(user.getCreatedDate());
+			userResponse.setUpdatedUser(user.getUpdatedUser());
 
-					userResponse.setUpdatedDate(user.getUpdatedDate());
-					userResponse.setPassword(user.getPassword());
-					userResponse.setConfirmPassword(user.getConfirmPassword());
-					return userResponse;
-				}).collect(Collectors.toList());
-		
+			userResponse.setUpdatedDate(user.getUpdatedDate());
+			userResponse.setPassword(user.getPassword());
+			userResponse.setConfirmPassword(user.getConfirmPassword());
+			return userResponse;
+		}).collect(Collectors.toList());
+
 		if (userDetailsList == null) {
 			throw new NSException(ErrorCodes.OK, "User Id Not Found");
 		}
@@ -462,60 +451,59 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDetailsResponse> getUserByUserName(String userName) {
 		List<User> userList = userRepository.findAllUsersByUserName(userName);
-		List<UserDetailsResponse> userDetailsList = userList.stream()
-				.map(user -> {
-					UserDetailsResponse userResponse = new UserDetailsResponse();
-					userResponse.setUserId(user.getUserId());
-					userResponse.setUserName(user.getUsername());
-					userResponse.setFirstName(user.getFirstName());
-					userResponse.setMiddleName(user.getMiddleName());
-					userResponse.setLastName(user.getLastName());
-					userResponse.setFullName(user.getFullName());
-					userResponse.setUserStatusFlag(user.getUserStatusFlag());
-					userResponse.setTitle(user.getTitle());
-					userResponse.setRole(user.getRole());
-					userResponse.setUserMail(user.getUserMail());
-					userResponse.setPhone(user.getPhone());
-					userResponse.setUserMobile(user.getUserMobile());
-					userResponse.setUserEmpID(user.getUserEmpID());
-					userResponse.setAddress1(user.getAddress1());
-					userResponse.setAddress2(user.getAddress2());
-					userResponse.setCity(user.getCity());
-					userResponse.setState(user.getState());
-					userResponse.setZip(user.getZip());
-					userResponse.setPreferredName(user.getPreferredName());
-					userResponse.setActiveInd(user.getActiveInd());
-					userResponse.setUserTerr(user.getUserTerr());
-					userResponse.setEmpId(user.getEmpId());
-					userResponse.setHireDate(user.getHireDate());
-					userResponse.setEndDate(user.getEndDate());
-					userResponse.setStartDate(user.getStartDate());
-					userResponse.setAdmToolsFlag(user.getAdmToolsFlag());
-					userResponse.setAttendeeFlag(user.getAttendeeFlag());
-					userResponse.setBookingUrl(user.getBookingUrl());
-					userResponse.setManagerEmail(user.getManagerEmail());
-					userResponse.setUserTimeZone(user.getUserTimeZone());
-					userResponse.setUserNtId(user.getUserNtId());
-					userResponse.setOutlookClientId(user.getOutlookClientId());
-					userResponse.setOutlookSecretCode(user.getOutlookSecretCode());
-					userResponse.setOutlookEmailId(user.getOutlookEmailId());
-					userResponse.setSalesForce(user.getSalesForce());
+		List<UserDetailsResponse> userDetailsList = userList.stream().map(user -> {
+			UserDetailsResponse userResponse = new UserDetailsResponse();
+			userResponse.setUserId(user.getUserId());
+			userResponse.setUserName(user.getUsername());
+			userResponse.setFirstName(user.getFirstName());
+			userResponse.setMiddleName(user.getMiddleName());
+			userResponse.setLastName(user.getLastName());
+			userResponse.setFullName(user.getFullName());
+			userResponse.setUserStatusFlag(user.getUserStatusFlag());
+			userResponse.setTitle(user.getTitle());
+			userResponse.setRole(user.getRole());
+			userResponse.setUserMail(user.getUserMail());
+			userResponse.setPhone(user.getPhone());
+			userResponse.setUserMobile(user.getUserMobile());
+			userResponse.setUserEmpID(user.getUserEmpID());
+			userResponse.setAddress1(user.getAddress1());
+			userResponse.setAddress2(user.getAddress2());
+			userResponse.setCity(user.getCity());
+			userResponse.setState(user.getState());
+			userResponse.setZip(user.getZip());
+			userResponse.setPreferredName(user.getPreferredName());
+			userResponse.setActiveInd(user.getActiveInd());
+			userResponse.setUserTerr(user.getUserTerr());
+			userResponse.setEmpId(user.getEmpId());
+			userResponse.setHireDate(user.getHireDate());
+			userResponse.setEndDate(user.getEndDate());
+			userResponse.setStartDate(user.getStartDate());
+			userResponse.setAdmToolsFlag(user.getAdmToolsFlag());
+			userResponse.setAttendeeFlag(user.getAttendeeFlag());
+			userResponse.setBookingUrl(user.getBookingUrl());
+			userResponse.setManagerEmail(user.getManagerEmail());
+			userResponse.setUserTimeZone(user.getUserTimeZone());
+			userResponse.setUserNtId(user.getUserNtId());
+			userResponse.setOutlookClientId(user.getOutlookClientId());
+			userResponse.setOutlookSecretCode(user.getOutlookSecretCode());
+			userResponse.setOutlookEmailId(user.getOutlookEmailId());
+			userResponse.setSalesForce(user.getSalesForce());
 
-					userResponse.setUpdatedDate(user.getPasswordUpdatedDate());
-					userResponse.setUserStatusFlag(user.getUserStatusFlag());
-					userResponse.setUserType(user.getUserType());
+			userResponse.setUpdatedDate(user.getPasswordUpdatedDate());
+			userResponse.setUserStatusFlag(user.getUserStatusFlag());
+			userResponse.setUserType(user.getUserType());
 
-					userResponse.setUserImageUrl(user.getUserImageUrl());
-					userResponse.setCreatedUser(user.getCreatedUser());
-					userResponse.setCreatedDate(user.getCreatedDate());
-					userResponse.setUpdatedUser(user.getUpdatedUser());
+			userResponse.setUserImageUrl(user.getUserImageUrl());
+			userResponse.setCreatedUser(user.getCreatedUser());
+			userResponse.setCreatedDate(user.getCreatedDate());
+			userResponse.setUpdatedUser(user.getUpdatedUser());
 
-					userResponse.setUpdatedDate(user.getUpdatedDate());
-					userResponse.setPassword(user.getPassword());
-					userResponse.setConfirmPassword(user.getConfirmPassword());
-					return userResponse;
-				}).collect(Collectors.toList());
-		
+			userResponse.setUpdatedDate(user.getUpdatedDate());
+			userResponse.setPassword(user.getPassword());
+			userResponse.setConfirmPassword(user.getConfirmPassword());
+			return userResponse;
+		}).collect(Collectors.toList());
+
 		if (userDetailsList == null) {
 			throw new NSException(ErrorCodes.OK, "User Id Not Found");
 		}

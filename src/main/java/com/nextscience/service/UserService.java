@@ -36,7 +36,7 @@ public interface UserService {
 	String updateUser(UpdateUserRequest request, int id);
 
 	/** Updates Password of UsersInfo. */
-	String updatePassword(UpdatePasswordRequest request, int id);
+	String updatePassword(UpdatePasswordRequest request);
 
 	/** Delete a user in UsersInfo. */
 	String deleteUser(int id);

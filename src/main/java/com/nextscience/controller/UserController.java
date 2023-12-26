@@ -66,8 +66,8 @@ public class UserController {
 	/** Update Password in UserDetails List */
 	@PutMapping(UsersConstant.UPDATEUSERPASSWORDID)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request, @PathVariable int id) {
-		return ResponseEntity.ok(userService.updatePassword(request, id));
+	public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request) {
+		return ResponseEntity.ok(userService.updatePassword(request));
 	}
 
 	/** Retrieves A list of UserDetails List */

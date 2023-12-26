@@ -17,5 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdatePasswordRequest {
 
+	private Integer userId;
 	private String newPassword;
+	private String confirmPassword;
 }
