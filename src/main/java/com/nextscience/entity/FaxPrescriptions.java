@@ -60,7 +60,7 @@ public class FaxPrescriptions {
 	private String payerType;
 
 	@Column(name = "NETSUITE_RX_ID")
-	private String netsuiteRxId;
+	private Integer netsuiteRxId;
 
 	@Column(name = "CREATED_USER", length = 255)
 	private String createdUser;
