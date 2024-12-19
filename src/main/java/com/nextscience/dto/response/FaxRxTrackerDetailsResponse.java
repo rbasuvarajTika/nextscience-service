@@ -55,7 +55,7 @@ public class FaxRxTrackerDetailsResponse {
 	private Integer patientId;
 	private String processStatus;
 	private String rxFulfilmentStatus;
-	private Integer netsuiteRxId;
+	private String netsuiteRxId;
 	private String primaryPayerName;
 	private Integer primaryPayerId;
 	private String payerType;
@@ -72,7 +72,7 @@ public class FaxRxTrackerDetailsResponse {
 			String gender, String cellPhone, String workPhone, String shipToAddress, String patientCity,
 			String patientState, String patientZip, String patientZip4, String ssn, String mrn, String pmsId,
 			String maritialStatus, String emergencyContactName, String emergencyContactPhone, Integer patientId,String processStatus,
-			String rxFulfilmentStatus, Integer netsuiteRxId, String primaryPayerName,Integer primaryPayerId, String payerType
+			String rxFulfilmentStatus, String netsuiteRxId, String primaryPayerName,Integer primaryPayerId, String payerType
 			) {
 		super();
 		this.trnRxId = trnRxId;
